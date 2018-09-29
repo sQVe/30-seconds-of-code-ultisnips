@@ -6,25 +6,26 @@ Make sure you ⭐️ the truly awesome original repository [30-seconds-of-code](
 
 ## Install snippets
 
-Move the `30secondsofcode.snippets` file to your _UltiSnips_ directory. Make sure to add `extends 30secondsofcode.snippets` in your `javascript.snippets` and `typescript.snippets` files.
+Move the file [30secondsofcode.snippets](https://raw.githubusercontent.com/sQVe/30-seconds-of-code-ultisnips/master/UltiSnips/30secondsofcode.snippets) to your _UltiSnips_ directory. Make sure to extend it by adding `extends 30secondsofcode.snippets` to your `javascript.snippets` and `typescript.snippets` files.
 
 ## Build
 
-The repository [29-seconds-of-code](https://github.com/Chalarangelo/30-seconds-of-code) is updated quite frequently so the snippets here may be out of date at times. To parse and create a fresh fully up-to-date snippets file you need Node.js to run the following commands:
+The repository [30-seconds-of-code](https://github.com/Chalarangelo/30-seconds-of-code) is updated quite frequently so the snippets here may be out-of-date at times. To parse and create a fresh fully up-to-date snippets file you need Node.js to run the following commands:
 
 ```sh
 npm install
 npm run build
 ```
 
-This writes a new file at `UltiSnips/30secondsofcode.snippets`.
+This writes a new file at `UltiSnips/30secondsofcode.snippets`. **If you find the snippets out-of-date, please do create an PR or issue.**
 
 ## Thanks
 
-Many thanks to the core team and all the contributers at [30-seconds-of-code](https://github.com/Chalarangelo/30-seconds-of-code) and [UltiSnips](https://github.com/SirVer/ultisnips) for creating indispensable resource and plugin.
+Many thanks to the core team and all the contributers at [30-seconds-of-code](https://github.com/Chalarangelo/30-seconds-of-code) and [UltiSnips](https://github.com/SirVer/ultisnips) for creating a indispensable resource and plugin.
 
 ## License
 
+```
 Creative Commons License
-
 CC0 1.0 Universal
+```
