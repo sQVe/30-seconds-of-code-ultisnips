@@ -1,0 +1,36 @@
+{
+  "name": "30-seconds-to-code-ultisnips",
+  "version": "1.0.0",
+  "description": "30 seconds of code snippets in UltiSnips format",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "node src/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sQVe/30-seconds-of-code-ultisnips"
+  },
+  "keywords": [
+    "javascript",
+    "snippets",
+    "ultisnips"
+  ],
+  "author": "Oskar Grunning <oskargrunning@gmail.com>",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/sQVe/30-seconds-of-code-ultisnips/issues"
+  },
+  "devDependencies": {
+    "@types/node": "^10.11.3",
+    "@types/node-fetch": "^2.1.2",
+    "eslint": "^5.6.1",
+    "eslint-config-sqve": "^1.5.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "prettier": "^1.14.3"
+  },
+  "dependencies": {
+    "node-fetch": "^2.2.0"
+  }
+}
