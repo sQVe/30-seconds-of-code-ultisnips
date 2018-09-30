@@ -10,11 +10,16 @@ Move the file [30secondsofcode.snippets](https://raw.githubusercontent.com/sQVe/
 
 ## Build
 
-The repository [30-seconds-of-code](https://github.com/Chalarangelo/30-seconds-of-code) is updated quite frequently so the snippets here may be out-of-date at times. To parse and create a fresh fully up-to-date snippets file you need Node.js to run the following commands:
+The repository [30-seconds-of-code](https://github.com/Chalarangelo/30-seconds-of-code) is updated quite frequently so the snippets here may be out-of-date at times. To parse and create a fresh fully up-to-date snippets file you need to recursively clone this repository by running:
 
 ```sh
-npm install
-npm run build
+git clone --recursive git@github.com:sQVe/30-seconds-of-code-ultisnips.git
+```
+
+And when the repository and its' submodules are cloned we run the following commands with Node.js:
+
+```sh
+npm install && npm run build
 ```
 
 This writes a new file at `UltiSnips/30secondsofcode.snippets`. **If you find the snippets out-of-date, please do create an PR or issue.**
