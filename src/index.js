@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const util = require('util');
 
 const snippets = require('../submodules/30-seconds-of-code/snippet_data/snippets.json');
@@ -28,7 +29,7 @@ function createUltiSnipsSnippet({ id, attributes: { codeBlocks, text } }) {
 
 (async () => {
   await writeFile(
-    `UltiSnips/${FILENAME}`,
+    path.resolve(__dirname, `../UltiSnips/${FILENAME}`),
     HEADER + snippets.data.map(createUltiSnipsSnippet).join(NEWLINE + NEWLINE)
   );
 
