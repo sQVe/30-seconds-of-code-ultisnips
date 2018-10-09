@@ -671,6 +671,13 @@ const getDaysDiffBetweenDates = (dateInitial, dateFinal) =>
   (dateFinal - dateInitial) / (1000 * 3600 * 24);
 endsnippet
 
+snippet getImages "Fetches all images from within an element and puts them into an array  Use `Element.prototype.getElementsByTagName()` to fetch all `<img>` elements inside the provided element, `Array.prototype.map()` to map every `src` attribute of their respective `<img>` element, then create a `Set` to eliminate duplicates and return the array." b
+const getImages = (el, includeDuplicates = false) => {
+  const images = [...el.getElementsByTagName('img')].map(img => img.getAttribute('src'));
+  return includeDuplicates ? images : [...new Set(images)];
+};
+endsnippet
+
 snippet getMeridiemSuffixOfInteger "Converts an integer to a suffixed string, adding `am` or `pm` based on its value.  Use the modulo operator (`%`) and conditional checks to transform an integer to a stringified 12-hour format with meridiem suffix." b
 const getMeridiemSuffixOfInteger = num =>
   num === 0 || num === 24
