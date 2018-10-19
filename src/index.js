@@ -27,11 +27,13 @@ function createUltiSnipsSnippet({ id, attributes: { codeBlocks, text } }) {
   ].join(NEWLINE);
 }
 
-(async () => {
+async function writeSnippetsFile() {
   await writeFile(
     path.resolve(__dirname, `../UltiSnips/${FILENAME}`),
     HEADER + snippets.data.map(createUltiSnipsSnippet).join(NEWLINE + NEWLINE)
   );
 
   return console.log(`Successfully created ${FILENAME} file.`); // eslint-disable-line no-console
-})();
+}
+
+writeSnippetsFile();

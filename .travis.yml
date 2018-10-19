@@ -1,0 +1,14 @@
+os: linux
+dist: trusty
+language: node_js
+node_js:
+- 8
+script:
+- npm run build
+after_success:
+- scripts/update.sh
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+    - npx semantic-release
