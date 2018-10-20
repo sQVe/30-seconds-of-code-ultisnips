@@ -1,5 +1,8 @@
 # --- Node
 
+# Maintainer specific
+scripts/copy.sh
+
 # Logs
 logs
 npm-debug.log*
