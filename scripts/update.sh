@@ -13,7 +13,7 @@ setup_git() {
 }
 
 get_snippets_sha() {
-  sha256sum UltiSnips/30secondsofcode.snippets | awk '{print $1}'
+  sha256sum dist/UltiSnips/30secondsofcode.snippets | awk '{print $1}'
 }
 
 check_submodules_changes() {

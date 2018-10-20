@@ -29,7 +29,7 @@ function createUltiSnipsSnippet({ id, attributes: { codeBlocks, text } }) {
 
 async function writeSnippetsFile() {
   await writeFile(
-    path.resolve(__dirname, `../UltiSnips/${FILENAME}`),
+    path.resolve(__dirname, `../dist/UltiSnips/${FILENAME}`),
     HEADER + snippets.data.map(createUltiSnipsSnippet).join(NEWLINE + NEWLINE)
   );
 

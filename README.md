@@ -8,7 +8,7 @@ Make sure you ⭐️ the truly awesome original repository [30-seconds-of-code](
 
 ## Install snippets
 
-Move the file [30secondsofcode.snippets](https://raw.githubusercontent.com/sQVe/30-seconds-of-code-ultisnips/master/UltiSnips/30secondsofcode.snippets) to your _UltiSnips_ directory. Make sure to extend it by adding `extends 30secondsofcode.snippets` to your `javascript.snippets` and `typescript.snippets` files.
+Move the file [30secondsofcode.snippets](https://raw.githubusercontent.com/sQVe/30-seconds-of-code-ultisnips/master/dist/UltiSnips/30secondsofcode.snippets) to your _UltiSnips_ directory. Make sure to extend it by adding `extends 30secondsofcode.snippets` to your `javascript.snippets` and `typescript.snippets` files.
 
 ## Build
 
@@ -24,7 +24,7 @@ When the repository and its' submodules are cloned we run the following commands
 npm install && npm run build
 ```
 
-This writes a new file at `UltiSnips/30secondsofcode.snippets`. **If you find that the snippets are out-of-date, please do create an PR or issue.**
+This writes a new file at `dist/UltiSnips/30secondsofcode.snippets`. **If you find that the snippets are out-of-date, please do create an PR or issue.**
 
 ## Thanks
 

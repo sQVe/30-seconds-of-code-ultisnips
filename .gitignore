@@ -28,10 +28,8 @@ package.lock
 .env.*
 
 # Build generated
-dist/
 build/
 coverage/
-
 
 # --- SublimeText
 # cache files for sublime text
@@ -44,8 +42,7 @@ coverage/
 
 # project files should be checked into the repository, unless a significant
 # proportion of contributors will probably not be using SublimeText
-# *.sublime-project
-
+*.sublime-project
 
 # --- VisualStudioCode
 .vscode/*
@@ -58,7 +55,6 @@ coverage/
 /.idea
 modules.xml
 *.ipr
-
 
 # --- System Files
 .DS_Store
