@@ -2,7 +2,7 @@
 
 _30 seconds of code is a curated collection of useful JavaScrupt snippets that you can understand in 30 seconds or less. This repository converts them into a format that UltiSnips (Vim plugin) use._
 
-[![License](https://img.shields.io/badge/license-CC0--1.0-blue.svg)](https://github.com/sQVe/30-seconds-of-code-ultisnips/blob/master/LICENSE) [![Build Status](https://travis-ci.org/sQVe/30-seconds-of-code-ultisnips.svg?branch=master)](https://travis-ci.org/sQVe/30-seconds-of-code-ultisnips) [![Greenkeeper badge](https://badges.greenkeeper.io/sQVe/30-seconds-of-code-ultisnips.svg)](https://greenkeeper.io/)
+[![build status](https://travis-ci.org/sQVe/30-seconds-of-code-ultisnips.svg?branch=master)](https://travis-ci.org/sQVe/30-seconds-of-code-ultisnips) [![dependabot status](https://api.dependabot.com/badges/status?host=github&repo=sQVe/30-seconds-of-code-ultisnips)](https://dependabot.com) [![license](https://img.shields.io/badge/license-CC0--1.0-blue.svg)](https://github.com/sQVe/30-seconds-of-code-ultisnips/blob/develop/LICENSE)
 
 Make sure you ⭐️ the truly awesome original repository [30-seconds-of-code](https://github.com/Chalarangelo/30-seconds-of-code)!
 
