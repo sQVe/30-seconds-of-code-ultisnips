@@ -8,7 +8,7 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sQVe/30-seconds-of-code-ultisnips.git"
+    "url": "git+https://github.com/sQVe/30-seconds-of-code-ultisnips.git"
   },
   "bugs": {
     "url": "https://github.com/sQVe/30-seconds-of-code-ultisnips/issues"
