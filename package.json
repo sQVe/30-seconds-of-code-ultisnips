@@ -6,8 +6,7 @@
   "license": "CC0-1.0",
   "homepage": "https://github.com/sQVe/30-seconds-of-code-ultisnips#30-seconds-of-code-ultisnips",
   "main": "src/index.js",
-  "repository": "github:sQVe/30-seconds-of-ultisnips"
-  },
+  "repository": "github:sQVe/30-seconds-of-code-ultisnips",
   "bugs": "https://github.com/sQVe/30-seconds-of-code-ultisnips/issues",
   "keywords": [
     "javascript",
