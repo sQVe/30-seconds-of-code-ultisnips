@@ -31,7 +31,7 @@
     "eslint-config-sqve": "~2.0.2",
     "eslint-plugin-fp": "~2.3.0",
     "eslint-plugin-import": "~2.14.0",
-    "eslint-plugin-node": "~8.0.0",
+    "eslint-plugin-node": "~8.0.1",
     "eslint-plugin-promise": "~4.0.1",
     "eslint-plugin-react": "~7.12.3",
     "eslint-plugin-standard": "~4.0.0",
