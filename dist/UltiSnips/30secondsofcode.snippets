@@ -166,6 +166,10 @@ snippet countOccurrences "Counts the occurrences of a value in an array.  Use `A
 
 endsnippet
 
+snippet createDirIfNotExists "Creates a directory, if it does not exist.  Use `fs.existsSync()` to check if the directory exists, `fs.mkdirSync()` to create it." b
+
+endsnippet
+
 snippet createElement "Creates an element from a string (without appending it to the document).  If the given string contains multiple elements, only the first one will be returned.  Use `document.createElement()` to create a new element. Set its `innerHTML` to the string supplied as the argument.  Use `ParentNode.firstElementChild` to return the element version of the string." b
 
 endsnippet
@@ -1218,7 +1222,7 @@ snippet toKebabCase "Converts a string to kebab case.  Break the string into wor
 
 endsnippet
 
-snippet tomorrow "Results in a string representation of tomorrow's date.  Use `new Date()` to get today's date, adding one day using `Date.getDate()` and `Date.setDate()`, and converting the Date object to a string." b
+snippet tomorrow "Results in a string representation of tomorrow's date.  Use `new Date()` to get the current date, increment by one using `Date.getDate()` and set the value to the result using `Date.setDate()`.  Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
 
 endsnippet
 
