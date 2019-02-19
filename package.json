@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@types/node": "^10.12.24",
-    "eslint": "~5.11.1",
+    "eslint": "~5.14.1",
     "eslint-config-sqve": "~2.0.2",
     "eslint-plugin-fp": "~2.3.0",
     "eslint-plugin-import": "~2.14.0",
