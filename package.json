@@ -23,7 +23,8 @@
     ]
   },
   "scripts": {
-    "build": "node src/index"
+    "build": "node src/index",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@types/node": "^11.9.0",
