@@ -2531,7 +2531,6 @@ const kmphToMph = (kmph) => 0.621371192 * kmph;
 endsnippet
 
 snippet levenshteinDistance "Calculates the [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) between two strings.  Calculates the number of changes (substitutions, deletions or additions) required to convert `string1` to `string2`.  Can also be used to compare two strings as shown in the second example." b
-``` js
 const levenshteinDistance = (string1, string2) => {
   if (string1.length === 0) return string2.length;
   if (string2.length === 0) return string1.length;
@@ -2556,7 +2555,6 @@ const levenshteinDistance = (string1, string2) => {
   }
   return matrix[string2.length][string1.length];
 };
-```
 endsnippet
 
 snippet mphToKmph "Convert miles/hour to kilometers/hour.  Multiply the constant of proportionality with the argument." b
