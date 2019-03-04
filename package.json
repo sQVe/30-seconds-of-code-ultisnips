@@ -27,7 +27,7 @@
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
-    "@types/node": "^11.9.6",
+    "@types/node": "^11.10.4",
     "babel-eslint": "~10.0.0",
     "eslint": "~5.14.0",
     "eslint-config-sqve": "~2.1.2",
