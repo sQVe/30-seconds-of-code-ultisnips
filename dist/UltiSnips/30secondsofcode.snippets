@@ -410,10 +410,10 @@ const difference = (a, b) => {
 };
 endsnippet
 
-snippet differenceBy "Returns the difference between two arrays, after applying the provided function to each array element of both.  Create a `Set` by applying `fn` to each element in `b`, then use `Array.prototype.filter()` in combination with `fn` on `a` to only keep values not contained in the previously created set." b
+snippet differenceBy "Returns the difference between two arrays, after applying the provided function to each array element of both.  Create a `Set` by applying `fn` to each element in `b`, then use `Array.prototype.map()` to apply `fn` to each element in `a`, then `Array.prototype.filter()`" b
 const differenceBy = (a, b, fn) => {
   const s = new Set(b.map(fn));
-  return a.filter(x => !s.has(fn(x)));
+  return a.map(fn).filter(el => !s.has(el));
 };
 endsnippet
 
@@ -545,8 +545,8 @@ snippet factorial "Calculates the factorial of a number.  Use recursion. If `n` 
 const factorial = n =>
   n < 0
     ? (() => {
-      throw new TypeError('Negative numbers are not allowed!');
-    })()
+        throw new TypeError('Negative numbers are not allowed!');
+      })()
     : n <= 1
       ? 1
       : n * factorial(n - 1);
@@ -1732,9 +1732,9 @@ snippet remove "Removes elements from an array for which the given function retu
 const remove = (arr, func) =>
   Array.isArray(arr)
     ? arr.filter(func).reduce((acc, val) => {
-      arr.splice(arr.indexOf(val), 1);
-      return acc.concat(val);
-    }, [])
+        arr.splice(arr.indexOf(val), 1);
+        return acc.concat(val);
+      }, [])
     : [];
 endsnippet
 
