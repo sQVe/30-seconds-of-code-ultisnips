@@ -13,20 +13,13 @@
     "snippets",
     "ultisnips"
   ],
-  "release": {
-    "prepare": [],
-    "verifyConditions": [
-      "@semantic-release/github"
-    ],
-    "publish": [
-      "@semantic-release/github"
-    ]
-  },
   "scripts": {
     "build": "node src/index",
     "prepublishOnly": "npm run build"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "~3.0.2",
+    "@semantic-release/git": "~7.0.8",
     "@types/node": "^11.10.5",
     "babel-eslint": "~10.0.0",
     "eslint": "~5.14.0",
