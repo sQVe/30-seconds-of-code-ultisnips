@@ -12,13 +12,13 @@ Move the file [30secondsofcode.snippets](https://raw.githubusercontent.com/sQVe/
 
 ## Build
 
-This repository is updated daily automatically to grab eventual changes made in [30-seconds-of-code](https://github.com/Chalarangelo/30-seconds-of-code). If you want to parse and create a fresh fully up-to-date snippets file you need to recursively clone this repository by running:
+This repository automatically updates daily to grab changes made in [30-seconds-of-code](https://github.com/Chalarangelo/30-seconds-of-code). If you want to parse and create a fresh fully 100% up-to-date snippets file you need to recursively clone this repository by running:
 
 ```sh
 git clone --recursive git@github.com:sQVe/30-seconds-of-code-ultisnips.git
 ```
 
-When the repository and its' submodules are cloned we run the following commands with Node.js:
+When the cloning of the repository and its submodules finishes, we run the following commands with Node.js:
 
 ```sh
 npm install && npm run build
@@ -28,7 +28,7 @@ This writes a new file at `dist/UltiSnips/30secondsofcode.snippets`. **If you fi
 
 ## Thanks
 
-Many thanks to the core team and all the contributers at [30-seconds-of-code](https://github.com/Chalarangelo/30-seconds-of-code) and [UltiSnips](https://github.com/SirVer/ultisnips) for creating a indispensable resource and plugin.
+A big thank you to the core team and all the contributers at [30-seconds-of-code](https://github.com/Chalarangelo/30-seconds-of-code) and [UltiSnips](https://github.com/SirVer/ultisnips) for creating an indispensable resource and plugin.
 
 ## License
 
