@@ -146,6 +146,10 @@ const chainAsync = fns => {
 };
 endsnippet
 
+snippet checkProp "Given a `predicate` function and a `prop` string, this curried function will then take an `object` to inspect by calling the property and passing it to the predicate.  Summon `prop` on `obj`, pass it to a provided `predicate` function and return a masked boolean." b
+const checkProp = (predicate, prop) => obj => !!predicate(obj[prop]);
+endsnippet
+
 snippet chunk "Chunks an array into smaller arrays of a specified size.  Use `Array.from()` to create a new array, that fits the number of chunks that will be produced. Use `Array.prototype.slice()` to map each element of the new array to a chunk the length of `size`. If the original array can't be split evenly, the final chunk will contain the remaining elements." b
 const chunk = (arr, size) =>
   Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
@@ -1732,9 +1736,9 @@ snippet remove "Removes elements from an array for which the given function retu
 const remove = (arr, func) =>
   Array.isArray(arr)
     ? arr.filter(func).reduce((acc, val) => {
-      arr.splice(arr.indexOf(val), 1);
-      return acc.concat(val);
-    }, [])
+        arr.splice(arr.indexOf(val), 1);
+        return acc.concat(val);
+      }, [])
     : [];
 endsnippet
 
