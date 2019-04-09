@@ -646,6 +646,17 @@ const formatDuration = ms => {
 };
 endsnippet
 
+snippet formToObject "Encode a set of form elements as an `object`.  Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.from()` to convert to an array. Collect the object from the array, using `Array.prototype.reduce()`." b
+const formToObject = form =>
+  Array.from(new FormData(form)).reduce(
+    (acc, [key, value]) => ({
+      ...acc,
+      [key]: value
+    }),
+    {}
+  );
+endsnippet
+
 snippet forOwn "Iterates over all own properties of an object, running a callback for each one.  Use `Object.keys(obj)` to get all the properties of the object, `Array.prototype.forEach()` to run the provided function for each key-value pair. The callback receives three arguments - the value, the key and the object." b
 const forOwn = (obj, fn) => Object.keys(obj).forEach(key => fn(obj[key], key, obj));
 endsnippet
@@ -1738,9 +1749,9 @@ snippet remove "Removes elements from an array for which the given function retu
 const remove = (arr, func) =>
   Array.isArray(arr)
     ? arr.filter(func).reduce((acc, val) => {
-        arr.splice(arr.indexOf(val), 1);
-        return acc.concat(val);
-      }, [])
+      arr.splice(arr.indexOf(val), 1);
+      return acc.concat(val);
+    }, [])
     : [];
 endsnippet
 
@@ -1831,6 +1842,11 @@ endsnippet
 
 snippet serializeCookie "Serialize a cookie name-value pair into a Set-Cookie header string.  Use template literals and `encodeURIComponent()` to create the appropriate string." b
 const serializeCookie = (name, val) => `${encodeURIComponent(name)}=${encodeURIComponent(val)}`;
+endsnippet
+
+snippet serializeForm "Encode a set of form elements as a query string.  Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.from()` to convert to an array, passing a map function as the second argument. Use `Array.prototype.map()` and `window.encodeURIComponent()` to encode each field's value. Use `Array.prototype.join()` with appropriate argumens to produce an appropriate query string." b
+const serializeForm = form =>
+  Array.from(new FormData(form), field => field.map(encodeURIComponent).join('=')).join('&');
 endsnippet
 
 snippet setStyle "Sets the value of a CSS rule for the specified element.  Use `element.style` to set the value of the CSS rule for the specified element to `val`." b
