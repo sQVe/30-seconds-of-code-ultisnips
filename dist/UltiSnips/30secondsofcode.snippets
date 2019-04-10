@@ -204,7 +204,7 @@ snippet compact "Removes falsey values from an array.  Use `Array.prototype.filt
 const compact = arr => arr.filter(Boolean);
 endsnippet
 
-snippet compactWhitespace "Returns a string with whitespaces compacted.  Use `String.prototype.replace()` with a regular expression to replace all occurences of 2 or more whitespace characters with a single space." b
+snippet compactWhitespace "Returns a string with whitespaces compacted.  Use `String.prototype.replace()` with a regular expression to replace all occurrences of 2 or more whitespace characters with a single space." b
 const compactWhitespace = str => str.replace(/\s{2,}/g, ' ');
 endsnippet
 
@@ -2272,7 +2272,7 @@ snippet uniqueElements "Returns all unique values of an array.  Use ES6 `Set` an
 const uniqueElements = arr => [...new Set(arr)];
 endsnippet
 
-snippet uniqueElementsBy "Returns all unique values of an array, based on a provided comparator function.  Use `Array.prototype.reduce()` and `Array.prototype.some()` for an array containing only the first unique occurence of each value, based on the comparator function, `fn`. The comparator function takes two arguments: the values of the two elements being compared." b
+snippet uniqueElementsBy "Returns all unique values of an array, based on a provided comparator function.  Use `Array.prototype.reduce()` and `Array.prototype.some()` for an array containing only the first unique occurrence of each value, based on the comparator function, `fn`. The comparator function takes two arguments: the values of the two elements being compared." b
 const uniqueElementsBy = (arr, fn) =>
   arr.reduce((acc, v) => {
     if (!acc.some(x => fn(v, x))) acc.push(v);
@@ -2280,7 +2280,7 @@ const uniqueElementsBy = (arr, fn) =>
   }, []);
 endsnippet
 
-snippet uniqueElementsByRight "Returns all unique values of an array, based on a provided comparator function.  Use `Array.prototype.reduce()` and `Array.prototype.some()` for an array containing only the last unique occurence of each value, based on the comparator function, `fn`. The comparator function takes two arguments: the values of the two elements being compared." b
+snippet uniqueElementsByRight "Returns all unique values of an array, based on a provided comparator function.  Use `Array.prototype.reduce()` and `Array.prototype.some()` for an array containing only the last unique occurrence of each value, based on the comparator function, `fn`. The comparator function takes two arguments: the values of the two elements being compared." b
 const uniqueElementsByRight = (arr, fn) =>
   arr.reduceRight((acc, v) => {
     if (!acc.some(x => fn(v, x))) acc.push(v);
