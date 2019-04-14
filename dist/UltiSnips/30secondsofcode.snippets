@@ -1021,7 +1021,7 @@ const isDuplexStream = val =>
   typeof val._writableState === 'object';
 endsnippet
 
-snippet isEmpty "Returns true if the a value is an empty object, collection, map or set, has no enumerable properties or is any type that is not considered a collection.  Check if the provided value is `null` or if its `length` is equal to `0`." b
+snippet isEmpty "Returns true if the a value is an empty object, collection, has no enumerable properties or is any type that is not considered a collection.  Check if the provided value is `null` or if its `length` is equal to `0`." b
 const isEmpty = val => val == null || !(Object.keys(val) || val).length;
 endsnippet
 
@@ -1749,9 +1749,9 @@ snippet remove "Removes elements from an array for which the given function retu
 const remove = (arr, func) =>
   Array.isArray(arr)
     ? arr.filter(func).reduce((acc, val) => {
-      arr.splice(arr.indexOf(val), 1);
-      return acc.concat(val);
-    }, [])
+        arr.splice(arr.indexOf(val), 1);
+        return acc.concat(val);
+      }, [])
     : [];
 endsnippet
 
