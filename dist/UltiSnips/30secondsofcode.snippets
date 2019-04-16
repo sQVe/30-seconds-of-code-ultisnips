@@ -445,11 +445,11 @@ snippet distance "Returns the distance between two points.  Use `Math.hypot()` t
 const distance = (x0, y0, x1, y1) => Math.hypot(x1 - x0, y1 - y0);
 endsnippet
 
-snippet drop "Returns a new array with `n` elements removed from the left.  Use `Array.prototype.slice()` to slice the remove the specified number of elements from the left." b
+snippet drop "Returns a new array with `n` elements removed from the left.  Use `Array.prototype.slice()` to remove the specified number of elements from the left." b
 const drop = (arr, n = 1) => arr.slice(n);
 endsnippet
 
-snippet dropRight "Returns a new array with `n` elements removed from the right.  Use `Array.prototype.slice()` to slice the remove the specified number of elements from the right." b
+snippet dropRight "Returns a new array with `n` elements removed from the right.  Use `Array.prototype.slice()` to remove the specified number of elements from the right." b
 const dropRight = (arr, n = 1) => arr.slice(0, -n);
 endsnippet
 
@@ -1749,9 +1749,9 @@ snippet remove "Removes elements from an array for which the given function retu
 const remove = (arr, func) =>
   Array.isArray(arr)
     ? arr.filter(func).reduce((acc, val) => {
-        arr.splice(arr.indexOf(val), 1);
-        return acc.concat(val);
-      }, [])
+      arr.splice(arr.indexOf(val), 1);
+      return acc.concat(val);
+    }, [])
     : [];
 endsnippet
 
