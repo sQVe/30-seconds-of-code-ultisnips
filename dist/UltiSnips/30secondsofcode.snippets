@@ -292,6 +292,7 @@ const createEventHub = () => ({
   off(event, handler) {
     const i = (this.hub[event] || []).findIndex(h => h === handler);
     if (i > -1) this.hub[event].splice(i, 1);
+    if (this.hub[event].length === 0) delete this.hub[event]
   }
 });
 endsnippet
@@ -459,8 +460,9 @@ endsnippet
 
 snippet dropRightWhile "Removes elements from the end of an array until the passed function returns `true`. Returns the remaining elements in the array.  Loop through the array, using `Array.prototype.slice()` to drop the last element of the array until the returned value from the function is `true`. Returns the remaining elements." b
 const dropRightWhile = (arr, func) => {
-  while (arr.length > 0 && !func(arr[arr.length - 1])) arr = arr.slice(0, -1);
-  return arr;
+  let rightIndex = arr.length;
+  while (rightIndex-- && !func(arr[rightIndex]));
+  return arr.slice(0, rightIndex + 1);
 };
 endsnippet
 
