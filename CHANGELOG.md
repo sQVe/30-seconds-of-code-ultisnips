@@ -1,3 +1,10 @@
+## [1.2.14](https://github.com/sQVe/30-seconds-of-code-ultisnips/compare/v1.2.13...v1.2.14) (2019-06-04)
+
+
+### Bug Fixes
+
+* **submodules:** update snippets (cron build: 675) ([3714ce7](https://github.com/sQVe/30-seconds-of-code-ultisnips/commit/3714ce7))
+
 ## [1.2.13](https://github.com/sQVe/30-seconds-of-code-ultisnips/compare/v1.2.12...v1.2.13) (2019-06-01)
 
 
