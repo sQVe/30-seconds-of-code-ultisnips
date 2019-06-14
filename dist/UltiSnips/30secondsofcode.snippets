@@ -1286,8 +1286,8 @@ snippet maxBy "Returns the maximum value of an array, after mapping each element
 const maxBy = (arr, fn) => Math.max(...arr.map(typeof fn === 'function' ? fn : val => val[fn]));
 endsnippet
 
-snippet maxDate "Returns the maximum of the given dates.  Use `Math.max.apply()` to find the maximum date value, `new Date()` to convert it to a `Date` object." b
-const maxDate = (...dates) => new Date(Math.max.apply(null, ...dates));
+snippet maxDate "Returns the maximum of the given dates.  Use the ES6 spread syntax with `Math.max` to find the maximum date value, `new Date()` to convert it to a `Date` object." b
+const maxDate = dates => new Date(Math.max(...dates));
 endsnippet
 
 snippet maxN "Returns the `n` maximum elements from the provided array. If `n` is greater than or equal to the provided array's length, then return the original array (sorted in descending order).  Use `Array.prototype.sort()` combined with the spread operator (`...`) to create a shallow clone of the array and sort it in descending order. Use `Array.prototype.slice()` to get the specified number of elements. Omit the second argument, `n`, to get a one-element array." b
@@ -1333,8 +1333,8 @@ snippet minBy "Returns the minimum value of an array, after mapping each element
 const minBy = (arr, fn) => Math.min(...arr.map(typeof fn === 'function' ? fn : val => val[fn]));
 endsnippet
 
-snippet minDate "Returns the minimum of the given dates.  Use `Math.min.apply()` to find the minimum date value, `new Date()` to convert it to a `Date` object." b
-const minDate = (...dates) => new Date(Math.min.apply(null, ...dates));
+snippet minDate "Returns the minimum of the given dates.  Use the ES6 spread syntax to find the minimum date value, `new Date()` to convert it to a `Date` object." b
+const minDate = dates => new Date(Math.min(...dates));
 endsnippet
 
 snippet minN "Returns the `n` minimum elements from the provided array. If `n` is greater than or equal to the provided array's length, then return the original array (sorted in ascending order).  Use `Array.prototype.sort()` combined with the spread operator (`...`) to create a shallow clone of the array and sort it in ascending order. Use `Array.prototype.slice()` to get the specified number of elements. Omit the second argument, `n`, to get a one-element array." b
