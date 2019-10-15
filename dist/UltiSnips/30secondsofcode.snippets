@@ -357,8 +357,8 @@ const deepClone = obj => {
   return Array.isArray(obj) && obj.length
     ? (clone.length = obj.length) && Array.from(clone)
     : Array.isArray(obj)
-    ? Array.from(obj)
-    : clone;
+      ? Array.from(obj)
+      : clone;
 };
 endsnippet
 
@@ -382,13 +382,13 @@ const deepMapKeys = (obj, f) =>
   Array.isArray(obj)
     ? obj.map(val => deepMapKeys(val, f))
     : typeof obj === 'object'
-    ? Object.keys(obj).reduce((acc, current) => {
+      ? Object.keys(obj).reduce((acc, current) => {
         const val = obj[current];
         acc[f(current)] =
           val !== null && typeof val === 'object' ? deepMapKeys(val, f) : (acc[f(current)] = val);
         return acc;
       }, {})
-    : obj;
+      : obj;
 endsnippet
 
 snippet defaults "Assigns default values for all properties in an object that are `undefined`.  Use `Object.assign()` to create a new empty object and copy the original one to maintain key order, use `Array.prototype.reverse()` and the spread operator `...` to combine the default values from left to right, finally use `obj` again to overwrite properties that originally had a value.  " b
@@ -437,9 +437,9 @@ const dig = (obj, target) =>
   target in obj
     ? obj[target]
     : Object.values(obj).reduce((acc, val) => {
-        if (acc !== undefined) return acc;
-        if (typeof val === 'object') return dig(val, target);
-      }, undefined);
+      if (acc !== undefined) return acc;
+      if (typeof val === 'object') return dig(val, target);
+    }, undefined);
 endsnippet
 
 snippet digitize "Converts a number to an array of digits.  Convert the number to a string, using the spread operator (`...`) to build an array. Use `Array.prototype.map()` and `parseInt()` to transform each value to an integer.  " b
@@ -556,11 +556,11 @@ snippet factorial "Calculates the factorial of a number.  Use recursion. If `n` 
 const factorial = n =>
   n < 0
     ? (() => {
-        throw new TypeError('Negative numbers are not allowed!');
-      })()
+      throw new TypeError('Negative numbers are not allowed!');
+    })()
     : n <= 1
-    ? 1
-    : n * factorial(n - 1);
+      ? 1
+      : n * factorial(n - 1);
 endsnippet
 
 snippet fibonacci "Generates an array, containing the Fibonacci sequence, up until the nth term.  Create an empty array of the specific length, initializing the first two values (`0` and `1`). Use `Array.prototype.reduce()` to add values into the array, using the sum of the last two values, except for the first two.  " b
@@ -739,10 +739,10 @@ const getMeridiemSuffixOfInteger = num =>
   num === 0 || num === 24
     ? 12 + 'am'
     : num === 12
-    ? 12 + 'pm'
-    : num < 12
-    ? (num % 12) + 'am'
-    : (num % 12) + 'pm';
+      ? 12 + 'pm'
+      : num < 12
+        ? (num % 12) + 'am'
+        : (num % 12) + 'pm';
 endsnippet
 
 snippet getScrollPosition "Returns the scroll position of the current page.  Use `pageXOffset` and `pageYOffset` if they are defined, otherwise `scrollLeft` and `scrollTop`. You can omit `el` to use a default value of `window`.  " b
@@ -816,6 +816,17 @@ const hashNode = val =>
       0
     )
   );
+endsnippet
+
+snippet hasKey "Returns `true` if the target value exists in a JSON object, `false` otherwise.  Check if the key contains `.`, use `String.prototype.split('.')[0]` to get the first part and store as `_key`. Use `typeof` to check if the contents of `obj[key]` are an `object` and, if so, call `hasKey` with that object and the remainder of the `key`. Otherwise, use `Object.keys(obj)` in combination with `Array.prototype.includes()` to check if the given `key` exists.  " b
+const hasKey = (obj, key) => {
+  if (key.includes('.')) {
+    let _key = key.split('.')[0];
+    if (typeof obj[_key] === 'object')
+      return hasKey(obj[_key], key.slice(key.indexOf('.') + 1));
+  }
+  return Object.keys(obj).includes(key);
+};
 endsnippet
 
 snippet head "Returns the head of a list.  Use `arr[0]` to return the first element of the passed array.  " b
@@ -1180,8 +1191,8 @@ const join = (arr, separator = ',', end = separator) =>
       i === arr.length - 2
         ? acc + val + end
         : i === arr.length - 1
-        ? acc + val
-        : acc + val + separator,
+          ? acc + val
+          : acc + val + separator,
     ''
   );
 endsnippet
