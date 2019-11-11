@@ -20,7 +20,7 @@
   "devDependencies": {
     "@semantic-release/changelog": "~3.0.5",
     "@semantic-release/git": "~7.0.18",
-    "@types/node": "^12.12.6",
+    "@types/node": "^12.12.7",
     "babel-eslint": "~10.0.3",
     "eslint": "~6.5.0",
     "eslint-config-sqve": "~2.5.3",
