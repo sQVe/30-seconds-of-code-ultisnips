@@ -382,13 +382,13 @@ const deepMapKeys = (obj, f) =>
   Array.isArray(obj)
     ? obj.map(val => deepMapKeys(val, f))
     : typeof obj === 'object'
-    ? Object.keys(obj).reduce((acc, current) => {
+      ? Object.keys(obj).reduce((acc, current) => {
         const val = obj[current];
         acc[f(current)] =
           val !== null && typeof val === 'object' ? deepMapKeys(val, f) : (acc[f(current)] = val);
         return acc;
       }, {})
-    : obj;
+      : obj;
 endsnippet
 
 snippet defaults "Assigns default values for all properties in an object that are `undefined`.  Use `Object.assign()` to create a new empty object and copy the original one to maintain key order, use `Array.prototype.reverse()` and the spread operator `...` to combine the default values from left to right, finally use `obj` again to overwrite properties that originally had a value.  " b
@@ -437,9 +437,9 @@ const dig = (obj, target) =>
   target in obj
     ? obj[target]
     : Object.values(obj).reduce((acc, val) => {
-        if (acc !== undefined) return acc;
-        if (typeof val === 'object') return dig(val, target);
-      }, undefined);
+      if (acc !== undefined) return acc;
+      if (typeof val === 'object') return dig(val, target);
+    }, undefined);
 endsnippet
 
 snippet digitize "Converts a number to an array of digits.  Convert the number to a string, using the spread operator (`...`) to build an array. Use `Array.prototype.map()` and `parseInt()` to transform each value to an integer.  " b
@@ -556,11 +556,11 @@ snippet factorial "Calculates the factorial of a number.  Use recursion. If `n` 
 const factorial = n =>
   n < 0
     ? (() => {
-        throw new TypeError('Negative numbers are not allowed!');
-      })()
+      throw new TypeError('Negative numbers are not allowed!');
+    })()
     : n <= 1
-    ? 1
-    : n * factorial(n - 1);
+      ? 1
+      : n * factorial(n - 1);
 endsnippet
 
 snippet fibonacci "Generates an array, containing the Fibonacci sequence, up until the nth term.  Create an empty array of the specific length, initializing the first two values (`0` and `1`). Use `Array.prototype.reduce()` to add values into the array, using the sum of the last two values, except for the first two.  " b
@@ -831,8 +831,8 @@ const hasKey = (obj, keys) => {
 };
 endsnippet
 
-snippet head "Returns the head of a list.  Use `arr[0]` to return the first element of the passed array.  " b
-const head = arr => arr[0];
+snippet head "Returns the head of a list.  Check if `arr` is truthy and has a `length` property, use `arr[0]` if possible to return the first element, otherwise return `undefined`.  " b
+const head = arr => (arr && arr.length ? arr[0] : undefined);
 endsnippet
 
 snippet hexToRGB "Converts a color code to a `rgb()` or `rgba()` string if alpha value is provided.  Use bitwise right-shift operator and mask bits with `&` (and) operator to convert a hexadecimal color code (with or without prefixed with `#`) to a string with the RGB values. If it's 3-digit color code, first convert to 6-digit version. If an alpha value is provided alongside 6-digit hex, give `rgba()` string in return.  " b
@@ -1226,8 +1226,8 @@ const JSONToFile = (obj, filename) =>
   fs.writeFile(`${filename}.json`, JSON.stringify(obj, null, 2));
 endsnippet
 
-snippet last "Returns the last element in an array.  Use `arr.length - 1` to compute the index of the last element of the given array and returning it.  " b
-const last = arr => arr[arr.length - 1];
+snippet last "Returns the last element in an array.  Check if `arr` is truthy and has a `length` property, use `arr.length - 1` to compute the index of the last element of the given array and return it, otherwise return `undefined`.  " b
+const last = arr => (arr && arr.length ? arr[arr.length - 1] : undefined);
 endsnippet
 
 snippet lcm "Returns the least common multiple of two or more numbers.  Use the greatest common divisor (GCD) formula and the fact that `lcm(x,y) = x * y / gcd(x,y)` to determine the least common multiple. The GCD formula uses recursion.  " b
@@ -1426,10 +1426,10 @@ snippet objectToQueryString "Returns a query string generated from the key-value
 const objectToQueryString = queryParameters => {
   return queryParameters
     ? Object.entries(queryParameters).reduce((queryString, [key, val], index) => {
-        const symbol = index === 0 ? '?' : '&';
-        queryString += typeof val === 'string' ? `${symbol}${key}=${val}` : '';
-        return queryString;
-      }, '')
+      const symbol = index === 0 ? '?' : '&';
+      queryString += typeof val === 'string' ? `${symbol}${key}=${val}` : '';
+      return queryString;
+    }, '')
     : '';
 };
 endsnippet
@@ -1802,9 +1802,9 @@ snippet remove "Removes elements from an array for which the given function retu
 const remove = (arr, func) =>
   Array.isArray(arr)
     ? arr.filter(func).reduce((acc, val) => {
-      arr.splice(arr.indexOf(val), 1);
-      return acc.concat(val);
-    }, [])
+        arr.splice(arr.indexOf(val), 1);
+        return acc.concat(val);
+      }, [])
     : [];
 endsnippet
 
@@ -1942,10 +1942,10 @@ const size = val =>
   Array.isArray(val)
     ? val.length
     : val && typeof val === 'object'
-      ? val.size || val.length || Object.keys(val).length
-      : typeof val === 'string'
-        ? new Blob([val]).size
-        : 0;
+    ? val.size || val.length || Object.keys(val).length
+    : typeof val === 'string'
+    ? new Blob([val]).size
+    : 0;
 endsnippet
 
 snippet sleep "Delays the execution of an asynchronous function.  Delay executing part of an `async` function, by putting it to sleep, returning a `Promise`.  " b
