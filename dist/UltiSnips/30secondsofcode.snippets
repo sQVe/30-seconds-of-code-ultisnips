@@ -1095,6 +1095,10 @@ snippet isPlainObject "Checks if the provided value is an object created by the 
 const isPlainObject = val => !!val && typeof val === 'object' && val.constructor === Object;
 endsnippet
 
+snippet isPowerOfTwo "Returns `true` if the given number is a power of `2`, `false` otherwise.  Use the bitwise binary AND operator (`&`) to determine if `n is a power of `2.  Additionally, check that `n` is not falsy.  " b
+const isPowerOfTwo = n => !!n && (n & (n - 1)) == 0;
+endsnippet
+
 snippet isPrime "Checks if the provided integer is a prime number.  Check numbers from `2` to the square root of the given number. Return `false` if any of them divides the given number, else return `true`, unless the number is less than `2`.  " b
 const isPrime = num => {
   const boundary = Math.floor(Math.sqrt(num));
@@ -1201,8 +1205,8 @@ const join = (arr, separator = ',', end = separator) =>
       i === arr.length - 2
         ? acc + val + end
         : i === arr.length - 1
-          ? acc + val
-          : acc + val + separator,
+        ? acc + val
+        : acc + val + separator,
     ''
   );
 endsnippet
@@ -1426,10 +1430,10 @@ snippet objectToQueryString "Returns a query string generated from the key-value
 const objectToQueryString = queryParameters => {
   return queryParameters
     ? Object.entries(queryParameters).reduce((queryString, [key, val], index) => {
-      const symbol = queryString.length === 0 ? '?' : '&';
-      queryString += typeof val === 'string' ? `${symbol}${key}=${val}` : '';
-      return queryString;
-    }, '')
+        const symbol = queryString.length === 0 ? '?' : '&';
+        queryString += typeof val === 'string' ? `${symbol}${key}=${val}` : '';
+        return queryString;
+      }, '')
     : '';
 };
 endsnippet
@@ -1802,9 +1806,9 @@ snippet remove "Removes elements from an array for which the given function retu
 const remove = (arr, func) =>
   Array.isArray(arr)
     ? arr.filter(func).reduce((acc, val) => {
-        arr.splice(arr.indexOf(val), 1);
-        return acc.concat(val);
-      }, [])
+      arr.splice(arr.indexOf(val), 1);
+      return acc.concat(val);
+    }, [])
     : [];
 endsnippet
 
@@ -1942,10 +1946,10 @@ const size = val =>
   Array.isArray(val)
     ? val.length
     : val && typeof val === 'object'
-      ? val.size || val.length || Object.keys(val).length
-      : typeof val === 'string'
-        ? new Blob([val]).size
-        : 0;
+    ? val.size || val.length || Object.keys(val).length
+    : typeof val === 'string'
+    ? new Blob([val]).size
+    : 0;
 endsnippet
 
 snippet sleep "Delays the execution of an asynchronous function.  Delay executing part of an `async` function, by putting it to sleep, returning a `Promise`.  " b
@@ -2411,6 +2415,17 @@ const vectorDistance = (...coords) => {
     .slice(0, pointLength)
     .reduce((acc, val, i) => acc + Math.pow(val - coords[pointLength + i], 2), 0);
   return Math.sqrt(sum);
+};
+endsnippet
+
+snippet weightedSample "Returns a random element from an array, using the provided `weights` as the probabilities for each element.  Use `Array.prototype.reduce()` to create an array of partial sums for each value in `weights`. Use `Math.random()` to generate a random number and `Array.prototype.findIndex()` to find the correct index based on the array previously produced. Finally, return the element of `arr` with the produced index.   " b
+const weightedSample = (arr, weights) => {
+  let roll = Math.random();
+  return arr[
+    weights
+      .reduce((acc, w, i) => (i === 0 ? [w] : [...acc, acc[acc.length - 1] + w]), [])
+      .findIndex((v, i, s) => roll >= (i === 0 ? 0 : s[i - 1]) && roll < v)
+  ];
 };
 endsnippet
 
