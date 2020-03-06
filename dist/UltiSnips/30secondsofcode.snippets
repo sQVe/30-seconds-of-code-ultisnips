@@ -167,8 +167,8 @@ snippet cloneRegExp "Clones a regular expression.  Use `new RegExp()`, `RegExp.s
 const cloneRegExp = regExp => new RegExp(regExp.source, regExp.flags);
 endsnippet
 
-snippet coalesce "Returns the first non-null/undefined argument.  Use `Array.prototype.find()` to return the first non `null`/`undefined` argument.  " b
-const coalesce = (...args) => args.find(_ => ![undefined, null].includes(_));
+snippet coalesce "Returns the first defined, non-null argument.  Use `Array.prototype.find()` and `Array.prototype.includes()` to find the first value that is not equal to `undefined` or `null`.  " b
+const coalesce = (...args) => args.find(v => ![undefined, null].includes(v));
 endsnippet
 
 snippet coalesceFactory "Returns a customized coalesce function that returns the first argument that returns `true` from the provided argument validation function.  Use `Array.prototype.find()` to return the first argument that returns `true` from the provided argument validation function.  " b
@@ -318,7 +318,7 @@ const CSVToJSON = (data, delimiter = ',') => {
 };
 endsnippet
 
-snippet currentURL "Returns the current URL.  Use `window.location.href` to get current URL.  " b
+snippet currentURL "Returns the current URL.  Use `window.location.href` to get the current URL.  " b
 const currentURL = () => window.location.href;
 endsnippet
 
@@ -357,8 +357,8 @@ const deepClone = obj => {
   return Array.isArray(obj) && obj.length
     ? (clone.length = obj.length) && Array.from(clone)
     : Array.isArray(obj)
-      ? Array.from(obj)
-      : clone;
+    ? Array.from(obj)
+    : clone;
 };
 endsnippet
 
@@ -382,13 +382,13 @@ const deepMapKeys = (obj, f) =>
   Array.isArray(obj)
     ? obj.map(val => deepMapKeys(val, f))
     : typeof obj === 'object'
-      ? Object.keys(obj).reduce((acc, current) => {
+    ? Object.keys(obj).reduce((acc, current) => {
         const val = obj[current];
         acc[f(current)] =
           val !== null && typeof val === 'object' ? deepMapKeys(val, f) : (acc[f(current)] = val);
         return acc;
       }, {})
-      : obj;
+    : obj;
 endsnippet
 
 snippet defaults "Assigns default values for all properties in an object that are `undefined`.  Use `Object.assign()` to create a new empty object and copy the original one to maintain key order, use `Array.prototype.reverse()` and the spread operator `...` to combine the default values from left to right, finally use `obj` again to overwrite properties that originally had a value.  " b
@@ -764,7 +764,7 @@ snippet getStyle "Returns the value of a CSS rule for the specified element.  Us
 const getStyle = (el, ruleName) => getComputedStyle(el)[ruleName];
 endsnippet
 
-snippet getType "Returns the native type of a value.  Returns lowercased constructor name of value, `undefined` or `null` if value is `undefined` or `null`.  " b
+snippet getType "Returns the native type of a value.  Return `undefined` or `null` if the value is `undefined` or `null`. Otherwise, use `Object.prototype.constructor.name` to get the name of the constructor, `String.prototype.toLowerCase()` to return it in lowercase.  " b
 const getType = v =>
   v === undefined ? 'undefined' : v === null ? 'null' : v.constructor.name.toLowerCase();
 endsnippet
@@ -785,7 +785,7 @@ const groupBy = (arr, fn) =>
   }, {});
 endsnippet
 
-snippet hammingDistance "Calculates the Hamming distance between two values.  Use XOR operator (`^`) to find the bit difference between the two numbers, convert to a binary string using `toString(2)`. Count and return the number of `1`s in the string, using `match(/1/g)`.  " b
+snippet hammingDistance "Calculates the Hamming distance between two values.  Use the XOR operator (`^`) to find the bit difference between the two numbers, convert to a binary string using `toString(2)`. Count and return the number of `1`s in the string, using `match(/1/g)`.  " b
 const hammingDistance = (num1, num2) => ((num1 ^ num2).toString(2).match(/1/g) || '').length;
 endsnippet
 
@@ -1093,11 +1093,11 @@ snippet isNegativeZero "Checks if the given value is equal to negative zero (`-0
 const isNegativeZero = val => val === 0 && 1 / val === -Infinity;
 endsnippet
 
-snippet isNil "Returns `true` if the specified value is `null` or `undefined`, `false` otherwise.  Use the strict equality operator to check if the value and of `val` are equal to `null` or `undefined`.  " b
+snippet isNil "Returns `true` if the specified value is `null` or `undefined`, `false` otherwise.  Use the strict equality operator to check if the value of `val` is equal to `null` or `undefined`.  " b
 const isNil = val => val === undefined || val === null;
 endsnippet
 
-snippet isNull "Returns `true` if the specified value is `null`, `false` otherwise.  Use the strict equality operator to check if the value and of `val` are equal to `null`.  " b
+snippet isNull "Returns `true` if the specified value is `null`, `false` otherwise.  Use the strict equality operator to check if the value of `val` is equal to `null`.  " b
 const isNull = val => val === null;
 endsnippet
 
@@ -1184,7 +1184,7 @@ snippet isTravisCI "Checks if the current environment is [Travis CI](https://tra
 const isTravisCI = () => 'TRAVIS' in process.env && 'CI' in process.env;
 endsnippet
 
-snippet isUndefined "Returns `true` if the specified value is `undefined`, `false` otherwise.  Use the strict equality operator to check if the value and of `val` are equal to `undefined`.  " b
+snippet isUndefined "Returns `true` if the specified value is `undefined`, `false` otherwise.  Use the strict equality operator to check if `val` is equal to `undefined`.  " b
 const isUndefined = val => val === undefined;
 endsnippet
 
@@ -1574,7 +1574,7 @@ snippet overArgs "Creates a function that invokes the provided function with its
 const overArgs = (fn, transforms) => (...args) => fn(...args.map((val, i) => transforms[i](val)));
 endsnippet
 
-snippet pad "Pads a string on both sides with the specified character, if it's shorter than the specified length.  Use `String.padStart()` and `String.padEnd()` to pad both sides of the given string. Omit the third argument, `char`, to use the whitespace character as the default padding character.  " b
+snippet pad "Pads a string on both sides with the specified character, if it's shorter than the specified length.  Use `String.prototype.padStart()` and `String.prototype.padEnd()` to pad both sides of the given string. Omit the third argument, `char`, to use the whitespace character as the default padding character.  " b
 const pad = (str, length, char = ' ') =>
   str.padStart((str.length + length) / 2, char).padEnd(length, char);
 endsnippet
@@ -1942,7 +1942,7 @@ const serializeForm = form =>
   Array.from(new FormData(form), field => field.map(encodeURIComponent).join('=')).join('&');
 endsnippet
 
-snippet setStyle "Sets the value of a CSS rule for the specified element.  Use `element.style` to set the value of the CSS rule for the specified element to `val`.  " b
+snippet setStyle "Sets the value of a CSS rule for the specified HTML element.  Use `element.style` to set the value of the CSS rule for the specified element to `val`.  " b
 const setStyle = (el, ruleName, val) => (el.style[ruleName] = val);
 endsnippet
 
@@ -2203,11 +2203,11 @@ const toCurrency = (n, curr, LanguageFormat = undefined) =>
   Intl.NumberFormat(LanguageFormat, { style: 'currency', currency: curr }).format(n);
 endsnippet
 
-snippet toDecimalMark "Use `toLocaleString()` to convert a float-point arithmetic to the [Decimal mark](https://en.wikipedia.org/wiki/Decimal_mark) form. It makes a comma separated string from a number.  " b
+snippet toDecimalMark "Converts a number to a decimal mark formatted string.  Use `Number.prototype.toLocaleString()` to convert the numbre to decimal mark format.  " b
 const toDecimalMark = num => num.toLocaleString('en-US');
 endsnippet
 
-snippet toggleClass "Toggle a class for an element.  Use `element.classList.toggle()` to toggle the specified class for the element.  " b
+snippet toggleClass "Toggles a class for an HTML element.  Use `element.classList.toggle()` to toggle the specified class for the element.  " b
 const toggleClass = (el, className) => el.classList.toggle(className);
 endsnippet
 
