@@ -136,6 +136,10 @@ snippet castArray "Casts the provided value as an array if it's not one.  Use `A
 const castArray = val => (Array.isArray(val) ? val : [val]);
 endsnippet
 
+snippet celsiusToFahrenheit "Converts Celsius to Fahrenheit.  Follows the conversion formula `F =  1.8C + 32`.  " b
+const celsiusToFahrenheit = degrees => 1.8 * degrees + 32;
+endsnippet
+
 snippet chainAsync "Chains asynchronous functions.  Loop through an array of functions containing asynchronous events, calling `next` when each asynchronous event has completed.  " b
 const chainAsync = fns => {
   let curr = 0;
@@ -569,6 +573,10 @@ const factorial = n =>
       : n * factorial(n - 1);
 endsnippet
 
+snippet fahrenheitToCelsius "Converts Fahrenheit to Celsius.  Follows the conversion formula `C = (F - 32) * 5/9`.  " b
+const fahrenheitToCelsius = degrees => ((degrees - 32) * 5) / 9;
+endsnippet
+
 snippet fibonacci "Generates an array, containing the Fibonacci sequence, up until the nth term.  Create an empty array of the specific length, initializing the first two values (`0` and `1`). Use `Array.prototype.reduce()` to add values into the array, using the sum of the last two values, except for the first two.  " b
 const fibonacci = n =>
   Array.from({ length: n }).reduce(
@@ -879,6 +887,16 @@ snippet hide "Hides all the elements specified.  Use `NodeList.prototype.forEach
 const hide = (...el) => [...el].forEach(e => (e.style.display = 'none'));
 endsnippet
 
+snippet httpDelete "Makes a `DELETE` request to the passed URL.  Use `XMLHttpRequest` web api to make a `delete` request to the given `url`. Handle the `onload` event, by running the provided `callback` function. Handle the `onerror` event, by running the provided `err` function. Omit the third argument, `err` to log the request to the console's error stream by default.  " b
+const httpDelete = (url, callback, err = console.error) => {
+  const request = new XMLHttpRequest();
+  request.open('DELETE', url, true);
+  request.onload = () => callback(request);
+  request.onerror = () => err(request);
+  request.send();
+};
+endsnippet
+
 snippet httpGet "Makes a `GET` request to the passed URL.  Use [`XMLHttpRequest`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest) web api to make a `get` request to the given `url`. Handle the `onload` event, by calling the given `callback` the `responseText`. Handle the `onerror` event, by running the provided `err` function. Omit the third argument, `err`, to log errors to the console's `error` stream by default.  " b
 const httpGet = (url, callback, err = console.error) => {
   const request = new XMLHttpRequest();
@@ -895,6 +913,17 @@ const httpPost = (url, data, callback, err = console.error) => {
   request.open('POST', url, true);
   request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
   request.onload = () => callback(request.responseText);
+  request.onerror = () => err(request);
+  request.send(data);
+};
+endsnippet
+
+snippet httpPut "Makes a `PUT` request to the passed URL.  Use `XMLHttpRequest` web api to make a `put` request to the given `url`. Set the value of an `HTTP` request header with `setRequestHeader` method. Handle the `onload` event, by running the provided `callback` function. Handle the `onerror` event, by running the provided `err` function. Omit the last argument, `err` to log the request to the console's error stream by default.  " b
+const httpPut = (url, data, callback, err = console.error) => {
+  const request = new XMLHttpRequest();
+  request.open('PUT', url, true);
+  request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  request.onload = () => callback(request);
   request.onerror = () => err(request);
   request.send(data);
 };
@@ -1085,6 +1114,10 @@ endsnippet
 
 snippet isFunction "Checks if the given argument is a function.  Use `typeof` to check if a value is classified as a function primitive.  " b
 const isFunction = val => typeof val === 'function';
+endsnippet
+
+snippet isLeapYear "Returns `true` if the given `year` is a leap year, `false` otherwise.  Use `new Date()`, setting the date to February 29th of the given `year` and use `Date.prototype.getMonth()` to check if the month is equal to `1`.  " b
+const isLeapYear = year => new Date(year, 1, 29).getMonth() === 1;
 endsnippet
 
 snippet isLowerCase "Checks if a string is lower case.  Convert the given string to lower case, using `String.toLowerCase()` and compare it to the original.  " b
@@ -1308,11 +1341,12 @@ const mapNumRange = (num, inMin, inMax, outMin, outMax) =>
   ((num - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
 endsnippet
 
-snippet mapObject "Maps the values of an array to an object using a function, where the key-value pairs consist of the stringified value as the key and the mapped value.  Use an anonymous inner function scope to declare an undefined memory space, using closures to store a return value. Use a new `Array` to store the array with a map of the function over its data set and a comma operator to return a second step, without needing to move from one context to another (due to closures and order of operations).  " b
+snippet mapObject "Maps the values of an array to an object using a function, where the key-value pairs consist of the original value as the key and the result of the function as the value.  Use `Array.prototype.reduce()` to apply `fn` to each element in `arr` and combine the results into an object. Use `el` as the key for each property and the result of `fn` as the value.  " b
 const mapObject = (arr, fn) =>
-  (a => (
-    (a = [arr, arr.map(fn)]), a[0].reduce((acc, val, ind) => ((acc[val] = a[1][ind]), acc), {})
-  ))();
+  arr.reduce((acc, el, i) => {
+    acc[el] = fn(el, i, arr);
+    return acc;
+  }, {});
 endsnippet
 
 snippet mapString "Creates a new string with the results of calling a provided function on every character in the calling string.  Use `String.prototype.split('')` and `Array.prototype.map()` to call the provided function, `fn`, for each character in `str`. Use `Array.prototype.join('')` to recombine the array of characters into a string. The callback function, `fn`, takes three arguments (the current character, the index of the current character and the string `mapString` was called upon).  " b
@@ -1437,7 +1471,7 @@ snippet nest "Given a flat array of objects linked to one another, it will nest 
 const nest = (items, id = null, link = 'parent_id') =>
   items
     .filter(item => item[link] === id)
-    .map(item => ({ ...item, children: nest(items, item.id) }));
+    .map(item => ({ ...item, children: nest(items, item.id, link) }));
 endsnippet
 
 snippet nodeListToArray "Converts a `NodeList` to an array.  Use spread operator inside new array to convert a `NodeList` to an array.  " b
@@ -1458,6 +1492,10 @@ endsnippet
 
 snippet objectFromPairs "Creates an object from the given key-value pairs.  Use `Array.prototype.reduce()` to create and combine key-value pairs.  " b
 const objectFromPairs = arr => arr.reduce((a, [key, val]) => ((a[key] = val), a), {});
+endsnippet
+
+snippet objectToEntries "Creates an array of key-value pair arrays from an object.  Use `Object.keys()` and `Array.prototype.map()` to iterate over the object's keys and produce an array with key-value pairs.  " b
+const objectToEntries = obj => Object.keys(obj).map(k => [k, obj[k]]);
 endsnippet
 
 snippet objectToPairs "Creates an array of key-value pair arrays from an object.  Use `Object.entries()` to get an array of key-value pair arrays from the given object.  " b
@@ -1844,9 +1882,9 @@ snippet remove "Mutates an array by removing elements for which the given functi
 const remove = (arr, func) =>
   Array.isArray(arr)
     ? arr.filter(func).reduce((acc, val) => {
-        arr.splice(arr.indexOf(val), 1);
-        return acc.concat(val);
-      }, [])
+      arr.splice(arr.indexOf(val), 1);
+      return acc.concat(val);
+    }, [])
     : [];
 endsnippet
 
