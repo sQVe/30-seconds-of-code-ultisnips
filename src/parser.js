@@ -1,20 +1,56 @@
-const { readFileSync, readdirSync } = require('fs')
+const fs = require('fs')
 const path = require('path')
 
-const sourcePath = path.join(
+const commaRe = /,+/g
+const identifierKeyRe = /^(title|tags):\s+/
+const newlineRe = /\n+/g
+const sectionRe = /---|```(?:js)?/g
+const surroundingWhitespaceRe = /^\s+|\s+$/g
+const parsableCharsRe = /(\${|`)/g
+
+const parseSections = (content) =>
+  content
+    .split(sectionRe)
+    .map((x) => x.replace(surroundingWhitespaceRe, ''))
+    .filter(Boolean)
+
+const sanitizeIdentifiers = (identifiers) => {
+  const [id, tags] = identifiers
+    .split(newlineRe)
+    .map((x) => x.replace(identifierKeyRe, ''))
+
+  return [id, tags.split(commaRe)]
+}
+
+const sanitizeCode = (code) => code.replace(parsableCharsRe, '\\$1')
+
+const sourceDirectory = path.join(
   __dirname,
   '../submodules/30-seconds-of-code/snippets'
 )
+const outputPath = path.join(__dirname, '../dist/snippets.json')
 
-const sourceFiles = readdirSync(sourcePath).map((x) => path.join(sourcePath, x))
+const sourceFiles = fs
+  .readdirSync(sourceDirectory)
+  .map((x) => path.join(sourceDirectory, x))
 
-const content = readFileSync(sourceFiles[0], { encoding: 'utf8' })
-const tmp = content.split(/---|```(?:js)?/).filter(Boolean)
+const snippets = sourceFiles.reduce((acc, file) => {
+  const sections = parseSections(fs.readFileSync(file, { encoding: 'utf8' }))
 
-console.log(tmp.map((x) => x.replace(/^\s+|\s+$/g, '')))
+  const [identifiers, description, code, example] = sections
+  const [id, tags] = sanitizeIdentifiers(identifiers)
 
-// const snippets = sourceFiles.reduce((acc, file) => {
-//   const content = readFileSync(file, { encoding: 'utf8' })
+  return [
+    ...acc,
+    {
+      code: sanitizeCode(code),
+      description,
+      example,
+      id,
+      tags,
+    },
+  ]
+}, [])
 
-//   console.log(content)
-// }, {})
+// eslint-disable-next-line fp/no-nil
+fs.writeFileSync(outputPath, JSON.stringify(snippets, null, 2))
