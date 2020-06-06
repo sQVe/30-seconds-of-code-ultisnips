@@ -1012,6 +1012,17 @@
     ]
   },
   {
+    "code": "const expandTabs = (str, count) => str.replace(/\\t/g, ' '.repeat(count));",
+    "description": "Convert tabs to spaces, where each tab corresponds to `count` spaces.\n\nUse `String.prototype.replace()` with a regular expression and `String.prototype.repeat()` to replace each tab character with `count` spaces.",
+    "example": "expandTabs('\\t\\tlorem', 3); // '      lorem'",
+    "id": "expandTabs",
+    "tags": [
+      "string",
+      "regexp",
+      "beginner"
+    ]
+  },
+  {
     "code": "const extendHex = shortHex =>\n  '#' +\n  shortHex\n    .slice(shortHex.startsWith('#') ? 1 : 0)\n    .split('')\n    .map(x => x + x)\n    .join('');",
     "description": "Extends a 3-digit color code to a 6-digit color code.\n\nUse `Array.prototype.map()`, `String.prototype.split()` and `Array.prototype.join()` to join the mapped array for converting a 3-digit RGB notated hexadecimal color-code to the 6-digit form.\n`Array.prototype.slice()` is used to remove `#` from string start since it's added once.",
     "example": "extendHex('#03f'); // '#0033ff'\nextendHex('05a'); // '#0055aa'",
@@ -2229,6 +2240,18 @@
     ]
   },
   {
+    "code": "const listenOnce = (el, evt, fn) => {\n  let fired = false;\n  el.addEventListener(evt, (e) => {\n    if (!fired) fn(e);\n    fired = true;\n  });\n};",
+    "description": "Adds an event listener to an element that will only run the callback the first time the event is triggered.\n\nUse `EventTarget.addEventListener()` to add an event listener to an element, storing the reference in a variable.\nUse  a condition to call `fn` only the first time the listener is triggered.",
+    "example": "listenOnce(\n  document.getElementById('my-id),\n  'click',\n  () => console.log('Hello world')\n); // 'Hello world' will only be logged on the first click",
+    "id": "listenOnce",
+    "tags": [
+      "browser",
+      "event",
+      "closure",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const longestItem = (...vals) => vals.reduce((a, x) => (x.length > a.length ? x : a));",
     "description": "Takes any number of iterable objects or objects with a `length` property and returns the longest one.\nIf multiple objects have the same length, the first one will be returned.\nReturns `undefined` if no arguments are provided.\n\nUse `Array.prototype.reduce()`, comparing the `length` of objects to find the longest one.",
     "example": "longestItem('this', 'is', 'a', 'testcase'); // 'testcase'\nlongestItem(...['a', 'ab', 'abc']); // 'abc'\nlongestItem(...['a', 'ab', 'abc'], 'abcd'); // 'abcd'\nlongestItem([1, 2, 3], [1, 2], [1, 2, 3, 4, 5]); // [1, 2, 3, 4, 5]\nlongestItem([1, 2, 3], 'foobar'); // 'foobar'",
@@ -2662,7 +2685,7 @@
   },
   {
     "code": "const on = (el, evt, fn, opts = {}) => {\n  const delegatorFn = e => e.target.matches(opts.target) && fn.call(e.target, e);\n  el.addEventListener(evt, opts.target ? delegatorFn : fn, opts.options || false);\n  if (opts.target) return delegatorFn;\n};",
-    "description": "Adds an event listener to an element with the ability to use event delegation.\n\nUse `EventTarget.addEventListener()` to add an event listener to an element. If there is a `target` property supplied to the options object, ensure the event target matches the target specified and then invoke the callback by supplying the correct `this` context.\nReturns a reference to the custom delegator function, in order to be possible to use with [`off`](#off).\nOmit `opts` to default to non-delegation behavior and event bubbling.",
+    "description": "Adds an event listener to an element with the ability to use event delegation.\n\nUse `EventTarget.addEventListener()` to add an event listener to an element.\nIf there is a `target` property supplied to the options object, ensure the event target matches the target specified and then invoke the callback by supplying the correct `this` context.\nReturns a reference to the custom delegator function, in order to be possible to use with [`off`](#off).\nOmit `opts` to default to non-delegation behavior and event bubbling.",
     "example": "const fn = () => console.log('!');\non(document.body, 'click', fn); // logs '!' upon clicking the body\non(document.body, 'click', fn, { target: 'p' }); // logs '!' upon clicking a `p` element child of the body\non(document.body, 'click', fn, { options: true }); // use capturing instead of bubbling",
     "id": "on",
     "tags": [

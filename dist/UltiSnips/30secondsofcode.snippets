@@ -643,6 +643,10 @@ snippet everyNth "Returns every nth element in an array.  Use `Array.prototype.f
 const everyNth = (arr, nth) => arr.filter((e, i) => i % nth === nth - 1);
 endsnippet
 
+snippet expandTabs "Convert tabs to spaces, where each tab corresponds to `count` spaces.  Use `String.prototype.replace()` with a regular expression and `String.prototype.repeat()` to replace each tab character with `count` spaces." b
+const expandTabs = (str, count) => str.replace(/\t/g, ' '.repeat(count));
+endsnippet
+
 snippet extendHex "Extends a 3-digit color code to a 6-digit color code.  Use `Array.prototype.map()`, `String.prototype.split()` and `Array.prototype.join()` to join the mapped array for converting a 3-digit RGB notated hexadecimal color-code to the 6-digit form. `Array.prototype.slice()` is used to remove `#` from string start since it's added once." b
 const extendHex = shortHex =>
   '#' +
@@ -1387,6 +1391,16 @@ const lcm = (...arr) => {
   const gcd = (x, y) => (!y ? x : gcd(y, x % y));
   const _lcm = (x, y) => (x * y) / gcd(x, y);
   return [...arr].reduce((a, b) => _lcm(a, b));
+};
+endsnippet
+
+snippet listenOnce "Adds an event listener to an element that will only run the callback the first time the event is triggered.  Use `EventTarget.addEventListener()` to add an event listener to an element, storing the reference in a variable. Use  a condition to call `fn` only the first time the listener is triggered." b
+const listenOnce = (el, evt, fn) => {
+  let fired = false;
+  el.addEventListener(evt, (e) => {
+    if (!fired) fn(e);
+    fired = true;
+  });
 };
 endsnippet
 
