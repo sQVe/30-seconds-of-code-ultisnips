@@ -15,8 +15,7 @@
   ],
   "scripts": {
     "build": "node src/parser.js && node src/index",
-    "prepublishOnly": "npm run build",
-    "release": "semantic-release"
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@semantic-release/changelog": "~5.0.1",
