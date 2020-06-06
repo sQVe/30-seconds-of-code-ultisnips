@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/sQVe/30-seconds-of-code-ultisnips/compare/v1.2.71...v1.3.0) (2020-06-06)
+
+
+### Features
+
+* add snippet parser ([5c1ff0c](https://github.com/sQVe/30-seconds-of-code-ultisnips/commit/5c1ff0c3439998a433fbbed40c37d15dff088b60))
+
 ## [1.2.71](https://github.com/sQVe/30-seconds-of-code-ultisnips/compare/v1.2.70...v1.2.71) (2020-04-16)
 
 
