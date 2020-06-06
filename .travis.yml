@@ -11,4 +11,4 @@ after_success:
 deploy:
   provider: script
   cleanup: true
-  script: npx semantic-release
+  script: npm run release
