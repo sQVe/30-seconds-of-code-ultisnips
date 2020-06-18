@@ -23,10 +23,10 @@ const CSVToJSON = (data, delimiter = ',') => {
 };
 endsnippet
 
-snippet JSONToFile "Writes a JSON object to a file.  Use `fs.writeFile()`, template literals and `JSON.stringify()` to write a `json` object to a `.json` file." b
+snippet JSONToFile "Writes a JSON object to a file.  Use `fs.writeFileSync()`, template literals and `JSON.stringify()` to write a `json` object to a `.json` file." b
 const fs = require('fs');
 const JSONToFile = (obj, filename) =>
-  fs.writeFile(\`\${filename}.json\`, JSON.stringify(obj, null, 2));
+  fs.writeFileSync(\`\${filename}.json\`, JSON.stringify(obj, null, 2));
 endsnippet
 
 snippet JSONtoCSV "Converts an array of objects to a comma-separated values (CSV) string that contains only the `columns` specified.  Use `Array.prototype.join(delimiter)` to combine all the names in `columns` to create the first row. Use `Array.prototype.map()` and `Array.prototype.reduce()` to create a row for each object, substituting non-existent values with empty strings and only mapping values in `columns`. Use `Array.prototype.join('\n')` to combine all rows into a string. Omit the third argument, `delimiter`, to use a default delimiter of `,`." b

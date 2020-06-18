@@ -23,8 +23,8 @@
     ]
   },
   {
-    "code": "const fs = require('fs');\nconst JSONToFile = (obj, filename) =>\n  fs.writeFile(\\`\\${filename}.json\\`, JSON.stringify(obj, null, 2));",
-    "description": "Writes a JSON object to a file.\n\nUse `fs.writeFile()`, template literals and `JSON.stringify()` to write a `json` object to a `.json` file.",
+    "code": "const fs = require('fs');\nconst JSONToFile = (obj, filename) =>\n  fs.writeFileSync(\\`\\${filename}.json\\`, JSON.stringify(obj, null, 2));",
+    "description": "Writes a JSON object to a file.\n\nUse `fs.writeFileSync()`, template literals and `JSON.stringify()` to write a `json` object to a `.json` file.",
     "example": "JSONToFile({ test: 'is passed' }, 'testJsonFile'); // writes the object to 'testJsonFile.json'",
     "id": "JSONToFile",
     "tags": [
