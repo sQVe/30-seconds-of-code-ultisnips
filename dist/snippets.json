@@ -2219,8 +2219,8 @@
     ]
   },
   {
-    "code": "const last = arr => (arr && arr.length ? arr[arr.length - 1] : undefined);",
-    "description": "Returns the last element in an array.\n\nCheck if `arr` is truthy and has a `length` property, use `arr.length - 1` to compute the index of the last element of the given array and return it, otherwise return `undefined`.",
+    "code": "const last = arr => (arr instanceof Array ? arr[arr.length - 1] : undefined);",
+    "description": "Returns the last element in an array.\n\nCheck if `arr` is an instance of an `Array`, use `arr.length - 1` to compute the index of the last element of the given array and return it, otherwise return `undefined`.",
     "example": "last([1, 2, 3]); // 3\nlast([]); // undefined\nlast(null); // undefined\nlast(undefined); // undefined",
     "id": "last",
     "tags": [
