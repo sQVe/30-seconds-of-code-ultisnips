@@ -1383,7 +1383,7 @@ const juxt = (...fns) => (...args) => [...fns].map(fn => [...args].map(fn));
 endsnippet
 
 snippet last "Returns the last element in an array.  Check if `arr` is an instance of an `Array`, use `arr.length - 1` to compute the index of the last element of the given array and return it, otherwise return `undefined`." b
-const last = arr => (arr instanceof Array ? arr[arr.length - 1] : undefined);
+const last = arr => (Array.isArray(arr) ? arr[arr.length - 1] : undefined);
 endsnippet
 
 snippet lcm "Returns the least common multiple of two or more numbers.  Use the greatest common divisor (GCD) formula and the fact that `lcm(x,y) = x * y / gcd(x,y)` to determine the least common multiple. The GCD formula uses recursion." b
