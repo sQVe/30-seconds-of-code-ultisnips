@@ -736,7 +736,7 @@
     ]
   },
   {
-    "code": "const deepFreeze = obj => {\n  Object.keys(obj).forEach(prop => {\n    if (obj[prop] === 'object' && !Object.isFrozen(obj[prop])) deepFreeze(v[prop]);\n  });\n  return Object.freeze(obj);\n};",
+    "code": "const deepFreeze = obj => {\n  Object.keys(obj).forEach(prop => {\n    if (typeof(obj[prop]) === 'object' && !Object.isFrozen(obj[prop])) deepFreeze(obj[prop]);\n  });\n  return Object.freeze(obj);\n};",
     "description": "Deep freezes an object.\n\nUse `Object.keys()` to get all the properties of the passed object, `Array.prototype.forEach()` to iterate over them.\nCall `Object.freeze(obj)` recursively on all properties, checking if each one is frozen using `Object.isFrozen()` and applying `deepFreeze()` as necessary.\nFinally, use `Object.freeze()` to freeze the given object.",
     "example": "'use strict';\n\nconst o = deepFreeze([1, [2, 3]]);\n\no[0] = 3; // not allowed\no[1][0] = 4; // not allowed as well",
     "id": "deepFreeze",
