@@ -601,7 +601,7 @@
   {
     "code": "const countBy = (arr, fn) =>\n  arr.map(typeof fn === 'function' ? fn : val => val[fn]).reduce((acc, val) => {\n    acc[val] = (acc[val] || 0) + 1;\n    return acc;\n  }, {});",
     "description": "Groups the elements of an array based on the given function and returns the count of elements in each group.\n\nUse `Array.prototype.map()` to map the values of an array to a function or property name.\nUse `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results.",
-    "example": "countBy([6.1, 4.2, 6.3], Math.floor); // {4: 1, 6: 2}\ncountBy(['one', 'two', 'three'], 'length'); // {3: 2, 5: 1}",
+    "example": "countBy([6.1, 4.2, 6.3], Math.floor); // {4: 1, 6: 2}\ncountBy(['one', 'two', 'three'], 'length'); // {3: 2, 5: 1}\ncountBy([{ count: 5 }, { count: 10 }, { count: 5 }], x => x.count) // {5: 2, 10: 1}",
     "id": "countBy",
     "tags": [
       "array",
@@ -1214,6 +1214,17 @@
     ]
   },
   {
+    "code": "const formatNumber = num => num.toLocaleString();",
+    "description": "Returns a number using the local number format order.\n\nUse `Number.prototype.toLocaleString()` to convert a number to using the local number format separators.",
+    "example": "formatNumber(123456); // '123,456' in `en-US`\nformatNumber(15675436903); // '15.675.436.903' in `de-DE`",
+    "id": "formatNumber",
+    "tags": [
+      "string",
+      "math",
+      "beginner"
+    ]
+  },
+  {
     "code": "const frequencies = arr =>\n  arr.reduce((a, v) => {\n    a[v] = a[v] ? a[v] + 1 : 1;\n    return a;\n  }, {});",
     "description": "Returns an object with the unique values of an array as keys and their frequencies as the values.\n\nUse `Array.prototype.reduce()` to map unique values to an object's keys, adding to existing keys every time the same value is encountered.",
     "example": "frequencies(['a', 'b', 'a', 'c', 'a', 'a', 'b']); // { a: 4, b: 2, c: 1 }",
@@ -1721,7 +1732,7 @@
   {
     "code": "const intersectionBy = (a, b, fn) => {\n  const s = new Set(b.map(fn));\n  return [...new Set(a)].filter(x => s.has(fn(x)));\n};",
     "description": "Returns a list of elements that exist in both arrays, after applying the provided function to each array element of both.\n\nCreate a `Set` by applying `fn` to all elements in `b`, then use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them.",
-    "example": "intersectionBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [2.1]",
+    "example": "intersectionBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [2.1]\nintersectionBy([{ title: 'Apple' }, { title: 'Orange' }], [{ title: 'Orange' }, { title: 'Melon' }], x => x.title) // [{ title: 'Orange' }]",
     "id": "intersectionBy",
     "tags": [
       "array",
@@ -3586,7 +3597,7 @@
   {
     "code": "const symmetricDifferenceBy = (a, b, fn) => {\n  const sA = new Set(a.map(v => fn(v))),\n    sB = new Set(b.map(v => fn(v)));\n  return [...a.filter(x => !sB.has(fn(x))), ...b.filter(x => !sA.has(fn(x)))];\n};",
     "description": "Returns the symmetric difference between two arrays, after applying the provided function to each array element of both.\n\nCreate a `Set` by applying `fn` to each array's elements, then use `Array.prototype.filter()` on each of them to only keep values not contained in the other.",
-    "example": "symmetricDifferenceBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [ 1.2, 3.4 ]",
+    "example": "symmetricDifferenceBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [ 1.2, 3.4 ]\nsymmetricDifferenceBy([{ id: 1 }, { id: 2 }, { id: 3 }], [{ id: 1 }, { id: 2 }, { id: 4 }], i => i.id) // [{ id: 3 }, { id: 4 }]",
     "id": "symmetricDifferenceBy",
     "tags": [
       "array",
@@ -3923,7 +3934,7 @@
   {
     "code": "const unionBy = (a, b, fn) => {\n  const s = new Set(a.map(fn));\n  return Array.from(new Set([...a, ...b.filter(x => !s.has(fn(x)))]));\n};",
     "description": "Returns every element that exists in any of the two arrays once, after applying the provided function to each array element of both.\n\nCreate a `Set` by applying all `fn` to all values of `a`.\nCreate a `Set` from `a` and all elements in `b` whose value, after applying `fn` does not match a value in the previously created set.\nReturn the last set converted to an array.",
-    "example": "unionBy([2.1], [1.2, 2.3], Math.floor); // [2.1, 1.2]",
+    "example": "unionBy([2.1], [1.2, 2.3], Math.floor); // [2.1, 1.2]\nunionBy([{ id: 1 }, { id: 2 }], [{ id: 2 }, { id: 3 }], x => x.id) // [{ id: 1 }, { id: 2 }, { id: 3 }]",
     "id": "unionBy",
     "tags": [
       "array",
