@@ -1,3 +1,10 @@
+## [1.3.8](https://github.com/sQVe/30-seconds-of-code-ultisnips/compare/v1.3.7...v1.3.8) (2020-08-07)
+
+
+### Bug Fixes
+
+* **submodules:** update snippets (cron build: 1903) ([48f00c0](https://github.com/sQVe/30-seconds-of-code-ultisnips/commit/48f00c0871bb0838278c64047ee26064b4d215fc))
+
 ## [1.3.7](https://github.com/sQVe/30-seconds-of-code-ultisnips/compare/v1.3.6...v1.3.7) (2020-07-31)
 
 
