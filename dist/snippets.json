@@ -946,6 +946,16 @@
     ]
   },
   {
+    "code": "const elementIsFocused = el => (el === document.activeElement);",
+    "description": "Returns `true` if the given element is focused, `false` otherwise.\n\nUse `document.activeElement` to determine if the given element is focused.",
+    "example": "elementIsFocused(el); // true if the element is focused",
+    "id": "elementIsFocused",
+    "tags": [
+      "browser",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const elementIsVisibleInViewport = (el, partiallyVisible = false) => {\n  const { top, left, bottom, right } = el.getBoundingClientRect();\n  const { innerHeight, innerWidth } = window;\n  return partiallyVisible\n    ? ((top > 0 && top < innerHeight) || (bottom > 0 && bottom < innerHeight)) &&\n        ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth))\n    : top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;\n};",
     "description": "Returns `true` if the element specified is visible in the viewport, `false` otherwise.\n\nUse `Element.getBoundingClientRect()` and the `window.inner(Width|Height)` values\nto determine if a given element is visible in the viewport.\nOmit the second argument to determine if the element is entirely visible, or specify `true` to determine if\nit is partially visible.",
     "example": "// e.g. 100x100 viewport and a 10x10px element at position {top: -1, left: 0, bottom: 9, right: 10}\nelementIsVisibleInViewport(el); // false - (not fully visible)\nelementIsVisibleInViewport(el, true); // true - (partially visible)",
@@ -1349,12 +1359,43 @@
     ]
   },
   {
+    "code": "const getMonthsDiffBetweenDates = (dateInitial, dateFinal) =>\n  Math.max(\n    (dateFinal.getFullYear() - dateInitial.getFullYear()) * 12 +\n      dateFinal.getMonth() -\n      dateInitial.getMonth(),\n    0\n  );",
+    "description": "Returns the difference (in months) between two dates.\n\nUse `Date.prototype.getFullYear()` and `Date.prototype.getMonth()` to calculate the difference (in months) between two `Date` objects.",
+    "example": "getMonthsDiffBetweenDates(new Date('2017-12-13'), new Date('2018-04-29')); // 4",
+    "id": "getMonthsDiffBetweenDates",
+    "tags": [
+      "date",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const getScrollPosition = (el = window) => ({\n  x: el.pageXOffset !== undefined ? el.pageXOffset : el.scrollLeft,\n  y: el.pageYOffset !== undefined ? el.pageYOffset : el.scrollTop\n});",
     "description": "Returns the scroll position of the current page.\n\nUse `pageXOffset` and `pageYOffset` if they are defined, otherwise `scrollLeft` and `scrollTop`.\nYou can omit `el` to use a default value of `window`.",
     "example": "getScrollPosition(); // {x: 0, y: 200}",
     "id": "getScrollPosition",
     "tags": [
       "browser",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const getSelectedText = () => window.getSelection().toString();",
+    "description": "Get the currently selected text.\n\nUse `window.getSelection()` and `Selection.prototype.toString()` to get the currently selected text.",
+    "example": "getSelectedText(); // 'Lorem ipsum'",
+    "id": "getSelectedText",
+    "tags": [
+      "browser",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const getSiblings = el =>\n  [...el.parentNode.childNodes].filter(node => node !== el);",
+    "description": "Returns an array containing all the siblings of the given element.\n\nUse `Node.prototype.parentNode` and `Node.prototype.childNodes` to get a `NodeList` of all the elements contained in the element's parent.\nUse the spread operator (`...`) and `Array.prototype.filter()` to convert to an array and remove the given element from it.",
+    "example": "getSiblings(document.querySelector('head')); // ['body']",
+    "id": "getSiblings",
+    "tags": [
+      "browser",
+      "array",
       "intermediate"
     ]
   },
@@ -1819,6 +1860,17 @@
     ]
   },
   {
+    "code": "const isAsyncFunction = val =>\n  Object.prototype.toString.call(val) === '[object AsyncFunction]';",
+    "description": "Checks if the given argument is an `async` function.\n\nUse `Object.prototype.toString()` and `Function.call()` and check if the result is `'[object AsyncFunction]'`.",
+    "example": "isAsyncFunction(function() {}); // false\nisAsyncFunction(async function() {}); // true",
+    "id": "isAsyncFunction",
+    "tags": [
+      "type",
+      "function",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const isBeforeDate = (dateA, dateB) => dateA < dateB;",
     "description": "Check if a date is before another date.\n\nUse the less than operator (`<`) to check if the first date comes before the second one.",
     "example": "isBeforeDate(new Date(2010, 10, 20), new Date(2010, 10, 21)); // true",
@@ -1921,6 +1973,17 @@
       "type",
       "function",
       "beginner"
+    ]
+  },
+  {
+    "code": "const isGeneratorFunction = val =>\n  Object.prototype.toString.call(val) === '[object GeneratorFunction]';",
+    "description": "Checks if the given argument is a generator function.\n\nUse `Object.prototype.toString()` and `Function.call()` and check if the result is `'[object GeneratorFunction]'`.",
+    "example": "isGeneratorFunction(function() {}); // false\nisGeneratorFunction(function*() {}); // true",
+    "id": "isGeneratorFunction",
+    "tags": [
+      "type",
+      "function",
+      "intermediate"
     ]
   },
   {
@@ -3210,6 +3273,16 @@
     "tags": [
       "browser",
       "recursion",
+      "advanced"
+    ]
+  },
+  {
+    "code": "const requireUncached = module => {\n  delete require.cache[require.resolve(module)];\n  return require(module);\n};",
+    "description": "Loads a module after removing it from the cache (if exists).\n\nUse `delete` to remove the module from the cache (if exists).\nUse `require()` to load the module again.",
+    "example": "const fs = requireUncached('fs'); // 'fs' will be loaded fresh every time",
+    "id": "requireUncached",
+    "tags": [
+      "node",
       "advanced"
     ]
   },
