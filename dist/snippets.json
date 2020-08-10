@@ -1149,7 +1149,7 @@
     ]
   },
   {
-    "code": "const flattenObject = (obj, prefix = '') =>\n  Object.keys(obj).reduce((acc, k) => {\n    const pre = prefix.length ? prefix + '.' : '';\n    if (typeof obj[k] === 'object') Object.assign(acc, flattenObject(obj[k], pre + k));\n    else acc[pre + k] = obj[k];\n    return acc;\n  }, {});",
+    "code": "const flattenObject = (obj, prefix = '') =>\n  Object.keys(obj).reduce((acc, k) => {\n    const pre = prefix.length ? \\`\\${prefix}.\\` : '';\n    if (\n      typeof obj[k] === 'object' &&\n      obj[k] !== null &&\n      Object.keys(obj[k]).length > 0\n    )\n      Object.assign(acc, flattenObject(obj[k], pre + k));\n    else acc[pre + k] = obj[k];\n    return acc;\n  }, {});",
     "description": "Flatten an object with the paths for keys.\n\nUse recursion.\nUse `Object.keys(obj)` combined with `Array.prototype.reduce()` to convert every leaf node to a flattened path node.\nIf the value of a key is an object, the function calls itself with the appropriate `prefix` to create the path using `Object.assign()`.\nOtherwise, it adds the appropriate prefixed key-value pair to the accumulator object.\nYou should always omit the second argument, `prefix`, unless you want every key to have a prefix.",
     "example": "flattenObject({ a: { b: { c: 1 } }, d: 1 }); // { 'a.b.c': 1, d: 1 }",
     "id": "flattenObject",
@@ -2314,15 +2314,14 @@
     ]
   },
   {
-    "code": "const listenOnce = (el, evt, fn) => {\n  let fired = false;\n  el.addEventListener(evt, (e) => {\n    if (!fired) fn(e);\n    fired = true;\n  });\n};",
-    "description": "Adds an event listener to an element that will only run the callback the first time the event is triggered.\n\nUse `EventTarget.addEventListener()` to add an event listener to an element, storing the reference in a variable.\nUse  a condition to call `fn` only the first time the listener is triggered.",
-    "example": "listenOnce(\n  document.getElementById('my-id),\n  'click',\n  () => console.log('Hello world')\n); // 'Hello world' will only be logged on the first click",
+    "code": "const listenOnce = (el, evt, fn) => el.addEventListener(evt, fn, { once: true });",
+    "description": "Adds an event listener to an element that will only run the callback the first time the event is triggered.\n\nUse `EventTarget.addEventListener()` to add an event listener to an element, using `{ once: true }` as options to only run the given callback once.",
+    "example": "listenOnce(\n  document.getElementById('my-id'),\n  'click',\n  () => console.log('Hello world')\n); // 'Hello world' will only be logged on the first click",
     "id": "listenOnce",
     "tags": [
       "browser",
       "event",
-      "closure",
-      "intermediate"
+      "beginner"
     ]
   },
   {

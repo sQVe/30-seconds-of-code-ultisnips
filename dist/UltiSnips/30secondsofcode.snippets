@@ -724,8 +724,13 @@ endsnippet
 snippet flattenObject "Flatten an object with the paths for keys.  Use recursion. Use `Object.keys(obj)` combined with `Array.prototype.reduce()` to convert every leaf node to a flattened path node. If the value of a key is an object, the function calls itself with the appropriate `prefix` to create the path using `Object.assign()`. Otherwise, it adds the appropriate prefixed key-value pair to the accumulator object. You should always omit the second argument, `prefix`, unless you want every key to have a prefix." b
 const flattenObject = (obj, prefix = '') =>
   Object.keys(obj).reduce((acc, k) => {
-    const pre = prefix.length ? prefix + '.' : '';
-    if (typeof obj[k] === 'object') Object.assign(acc, flattenObject(obj[k], pre + k));
+    const pre = prefix.length ? \`\${prefix}.\` : '';
+    if (
+      typeof obj[k] === 'object' &&
+      obj[k] !== null &&
+      Object.keys(obj[k]).length > 0
+    )
+      Object.assign(acc, flattenObject(obj[k], pre + k));
     else acc[pre + k] = obj[k];
     return acc;
   }, {});
@@ -1431,14 +1436,8 @@ const lcm = (...arr) => {
 };
 endsnippet
 
-snippet listenOnce "Adds an event listener to an element that will only run the callback the first time the event is triggered.  Use `EventTarget.addEventListener()` to add an event listener to an element, storing the reference in a variable. Use  a condition to call `fn` only the first time the listener is triggered." b
-const listenOnce = (el, evt, fn) => {
-  let fired = false;
-  el.addEventListener(evt, (e) => {
-    if (!fired) fn(e);
-    fired = true;
-  });
-};
+snippet listenOnce "Adds an event listener to an element that will only run the callback the first time the event is triggered.  Use `EventTarget.addEventListener()` to add an event listener to an element, using `{ once: true }` as options to only run the given callback once." b
+const listenOnce = (el, evt, fn) => el.addEventListener(evt, fn, { once: true });
 endsnippet
 
 snippet longestItem "Takes any number of iterable objects or objects with a `length` property and returns the longest one. If multiple objects have the same length, the first one will be returned. Returns `undefined` if no arguments are provided.  Use `Array.prototype.reduce()`, comparing the `length` of objects to find the longest one." b
