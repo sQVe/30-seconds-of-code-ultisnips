@@ -97,7 +97,7 @@ snippet aperture "Returns an array of `n`-tuples of consecutive elements.  Use `
 const aperture = (n, arr) =>
   n > arr.length
     ? []
-    : arr.slice(n - 1).map((v, i) => [...arr.slice(i, i + n - 1), v]);
+    : arr.slice(n - 1).map((v, i) => arr.slice(i, i + n));
 endsnippet
 
 snippet approximatelyEqual "Checks if two numbers are approximately equal to each other.  Use `Math.abs()` to compare the absolute difference of the two values to `epsilon`. Omit the third parameter, `epsilon`, to use a default value of `0.001`." b

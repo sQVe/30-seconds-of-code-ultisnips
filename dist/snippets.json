@@ -145,9 +145,9 @@
     ]
   },
   {
-    "code": "const aperture = (n, arr) =>\n  n > arr.length\n    ? []\n    : arr.slice(n - 1).map((v, i) => [...arr.slice(i, i + n - 1), v]);",
+    "code": "const aperture = (n, arr) =>\n  n > arr.length\n    ? []\n    : arr.slice(n - 1).map((v, i) => arr.slice(i, i + n));",
     "description": "Returns an array of `n`-tuples of consecutive elements.\n\nUse `Array.prototype.slice()` and `Array.prototype.map()` to create an array of appropriate length and populate it with `n`-tuples of consecutive elements from `arr`.\nIf `n` is greater than the length of `arr`, return an empty array.",
-    "example": "R.aperture(2, [1, 2, 3, 4]); // [[1, 2], [2, 3], [3, 4]]\nR.aperture(3, [1, 2, 3, 4]); // [[1, 2, 3], [2, 3, 4]]\nR.aperture(5, [1, 2, 3, 4]); // []",
+    "example": "aperture(2, [1, 2, 3, 4]); // [[1, 2], [2, 3], [3, 4]]\naperture(3, [1, 2, 3, 4]); // [[1, 2, 3], [2, 3, 4]]\naperture(5, [1, 2, 3, 4]); // []",
     "id": "aperture",
     "tags": [
       "array",
@@ -463,7 +463,7 @@
   {
     "code": "const cloneRegExp = regExp => new RegExp(regExp.source, regExp.flags);",
     "description": "Clones a regular expression.\n\nUse `new RegExp()`, `RegExp.source` and `RegExp.flags` to clone the given regular expression.",
-    "example": "const regExp = /lorem ipsum/gi;\nconst regExp2 = cloneRegExp(regExp); // /lorem ipsum/gi",
+    "example": "const regExp = /lorem ipsum/gi;\nconst regExp2 = cloneRegExp(regExp); // regExp !== regExp2",
     "id": "cloneRegExp",
     "tags": [
       "type",
@@ -663,7 +663,7 @@
   {
     "code": "const currentURL = () => window.location.href;",
     "description": "Returns the current URL.\n\nUse `window.location.href` to get the current URL.",
-    "example": "currentURL(); // 'https://google.com'",
+    "example": "currentURL(); // 'https://www.google.com/'",
     "id": "currentURL",
     "tags": [
       "browser",
