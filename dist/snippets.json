@@ -285,7 +285,7 @@
   {
     "code": "const bindAll = (obj, ...fns) =>\n  fns.forEach(\n    fn => (\n      (f = obj[fn]),\n      (obj[fn] = function() {\n        return f.apply(obj);\n      })\n    )\n  );",
     "description": "Binds methods of an object to the object itself, overwriting the existing method.\n\nUse `Array.prototype.forEach()` to return a `function` that uses `Function.prototype.apply()` to apply the given context (`obj`) to `fn` for each function specified.",
-    "example": "var view = {\n  label: 'docs',\n  click: function() {\n    console.log('clicked ' + this.label);\n  }\n};\nbindAll(view, 'click');\njQuery(element).on('click', view.click); // Logs 'clicked docs' when clicked.",
+    "example": "var view = {\n  label: 'docs',\n  click: function() {\n    console.log('clicked ' + this.label);\n  }\n};\nbindAll(view, 'click');\ndocument.body.addEventListener('click', view.click); // Log 'clicked docs' when clicked.",
     "id": "bindAll",
     "tags": [
       "object",
@@ -714,8 +714,8 @@
     ]
   },
   {
-    "code": "const deepClone = obj => {\n  if (obj === null) return null;\n  let clone = Object.assign({}, obj);\n  Object.keys(clone).forEach(\n    key => (clone[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key])\n  );\n  return Array.isArray(obj) && obj.length\n    ? (clone.length = obj.length) && Array.from(clone)\n    : Array.isArray(obj)\n    ? Array.from(obj)\n    : clone;\n};",
-    "description": "Creates a deep clone of an object.\n\nUse recursion.\nCheck if the passed object is `null` and, if so, return `null`.\nUse `Object.assign()` and an empty object (`{}`) to create a shallow clone of the original.\nUse `Object.keys()` and `Array.prototype.forEach()` to determine which key-value pairs need to be deep cloned.",
+    "code": "const deepClone = obj => {\n  if (obj === null) return null;\n  let clone = Object.assign({}, obj);\n  Object.keys(clone).forEach(\n    key => (clone[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key])\n  );\n  if (Array.isArray(obj)) {\n    clone.length = obj.length;\n    return Array.from(clone);\n  }\n  return clone;\n};",
+    "description": "Creates a deep clone of an object. \nClones primitives, arrays and objects, excluding class instances.\n\nUse recursion.\nCheck if the passed object is `null` and, if so, return `null`.\nUse `Object.assign()` and an empty object (`{}`) to create a shallow clone of the original.\nUse `Object.keys()` and `Array.prototype.forEach()` to determine which key-value pairs need to be deep cloned.\nIf the object is an `Array`, set the `clone`'s `length` to that of the original and use `Array.from(clone)` to create a clone.",
     "example": "const a = { foo: 'bar', obj: { a: 1, b: 2 } };\nconst b = deepClone(a); // a !== b, a.obj !== b.obj",
     "id": "deepClone",
     "tags": [
@@ -736,8 +736,8 @@
     ]
   },
   {
-    "code": "const deepFreeze = obj => {\n  Object.keys(obj).forEach(prop => {\n    if (typeof(obj[prop]) === 'object' && !Object.isFrozen(obj[prop])) deepFreeze(obj[prop]);\n  });\n  return Object.freeze(obj);\n};",
-    "description": "Deep freezes an object.\n\nUse `Object.keys()` to get all the properties of the passed object, `Array.prototype.forEach()` to iterate over them.\nCall `Object.freeze(obj)` recursively on all properties, checking if each one is frozen using `Object.isFrozen()` and applying `deepFreeze()` as necessary.\nFinally, use `Object.freeze()` to freeze the given object.",
+    "code": "const deepFreeze = obj => {\n  Object.keys(obj).forEach(prop => {\n    if (typeof obj[prop] === 'object') deepFreeze(obj[prop]);\n  });\n  return Object.freeze(obj);\n};",
+    "description": "Deep freezes an object.\n\nUse `Object.keys()` to get all the properties of the passed object, `Array.prototype.forEach()` to iterate over them.\nCall `Object.freeze(obj)` recursively on all properties, applying `deepFreeze()` as necessary.\nFinally, use `Object.freeze()` to freeze the given object.",
     "example": "'use strict';\n\nconst o = deepFreeze([1, [2, 3]]);\n\no[0] = 3; // not allowed\no[1][0] = 4; // not allowed as well",
     "id": "deepFreeze",
     "tags": [
@@ -747,7 +747,7 @@
     ]
   },
   {
-    "code": "const deepGet = (obj, keys) => keys.reduce((xs, x) => (xs && xs[x] ? xs[x] : null), obj);",
+    "code": "const deepGet = (obj, keys) =>\n  keys.reduce(\n    (xs, x) => (xs && xs[x] !== null && xs[x] !== undefined ? xs[x] : null),\n    obj\n  );",
     "description": "Returns the target value in a nested JSON object, based on the `keys` array.\n\nCompare the keys you want in the nested JSON object as an `Array`.\nUse `Array.prototype.reduce()` to get value from nested JSON object one by one. \nIf the key exists in object, return target value, otherwise, return `null`.",
     "example": "let index = 2;\nconst data = {\n  foo: {\n    foz: [1, 2, 3],\n    bar: {\n      baz: ['a', 'b', 'c']\n    }\n  }\n};\ndeepGet(data, ['foo', 'foz', index]); // get 3\ndeepGet(data, ['foo', 'bar', 'baz', 8, 'foz']); // null",
     "id": "deepGet",
@@ -1917,6 +1917,17 @@
     "id": "isContainedIn",
     "tags": [
       "array",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const isDeepFrozen = obj =>\n  Object.isFrozen(obj) &&\n  Object.keys(obj).every(\n    prop => typeof obj[prop] !== 'object' || isDeepFrozen(obj[prop])\n  );",
+    "description": "Checks if an object is deeply frozen\n\nUse recursion.\nUse `Object.isFrozen()` on the given object.\nUse `Object.keys()`, `Array.prototype.every()` to check that all keys are either deeply frozen objects or non-object values.",
+    "example": "const x = Object.freeze({ a: 1 });\nconst y = Object.freeze({ b: { c: 2 } });\nisDeepFrozen(x); // true\nisDeepFrozen(y); // false",
+    "id": "isDeepFrozen",
+    "tags": [
+      "object",
+      "recursion",
       "intermediate"
     ]
   },
@@ -3742,7 +3753,7 @@
   },
   {
     "code": "const throttle = (fn, wait) => {\n  let inThrottle, lastFn, lastTime;\n  return function() {\n    const context = this,\n      args = arguments;\n    if (!inThrottle) {\n      fn.apply(context, args);\n      lastTime = Date.now();\n      inThrottle = true;\n    } else {\n      clearTimeout(lastFn);\n      lastFn = setTimeout(function() {\n        if (Date.now() - lastTime >= wait) {\n          fn.apply(context, args);\n          lastTime = Date.now();\n        }\n      }, Math.max(wait - (Date.now() - lastTime), 0));\n    }\n  };\n};",
-    "description": "Creates a throttled function that only invokes the provided function at most once per every `wait` milliseconds\n\nUse `setTimeout()` and `clearTimeout()` to throttle the given method, `fn`.\nUse `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary `arguments`.\nUse `Date.now()` to keep track of the last time the throttled function was invoked.\nOmit the second argument, `wait`, to set the timeout at a default of 0 ms.",
+    "description": "Creates a throttled function that only invokes the provided function at most once per every `wait` milliseconds\n\nUse `setTimeout()` and `clearTimeout()` to throttle the given method, `fn`.\nUse `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary `arguments`.\nUse `Date.now()` to keep track of the last time the throttled function was invoked.\nUse a variable, `inThrottle`, to prevent a race condition between the first execution of `fn` and the next loop.\nOmit the second argument, `wait`, to set the timeout at a default of 0 ms.",
     "example": "window.addEventListener(\n  'resize',\n  throttle(function(evt) {\n    console.log(window.innerWidth);\n    console.log(window.innerHeight);\n  }, 250)\n); // Will log the window dimensions at most every 250ms",
     "id": "throttle",
     "tags": [
