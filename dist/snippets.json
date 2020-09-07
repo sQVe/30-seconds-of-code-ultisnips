@@ -1838,6 +1838,17 @@
     ]
   },
   {
+    "code": "const isAlphaNumeric = str => /^[a-z0-9]+$/gi.test(str);",
+    "description": "Checks if a string contains only alphanumeric characters.\n\nUse `RegExp.prototype.test()` to check if input string matches against alphanumeric regex pattern.",
+    "example": "isAlphaNumeric('hello123'); // true\nisAlphaNumeric('123'); // true\nisAlphaNumeric('hello 123'); // false (space character is not alphanumeric)\nisAlphaNumeric('#$hello'); // false",
+    "id": "isAlphaNumeric",
+    "tags": [
+      "string",
+      "regexp",
+      "beginner"
+    ]
+  },
+  {
     "code": "const isAnagram = (str1, str2) => {\n  const normalize = str =>\n    str\n      .toLowerCase()\n      .replace(/[^a-z0-9]/gi, '')\n      .split('')\n      .sort()\n      .join('');\n  return normalize(str1) === normalize(str2);\n};",
     "description": "Checks if a string is an anagram of another string (case-insensitive, ignores spaces, punctuation and special characters).\n\nUse `String.prototype.toLowerCase()`, `String.prototype.replace()` with an appropriate regular expression to remove unnecessary characters, `String.prototype.split('')`, `Array.prototype.sort()` and `Array.prototype.join('')` on both strings to normalize them, then check if their normalized forms are equal.",
     "example": "isAnagram('iceman', 'cinema'); // true",
