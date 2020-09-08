@@ -3193,7 +3193,7 @@
     ]
   },
   {
-    "code": "const recordAnimationFrames = (callback, autoStart = true) => {\n  let running = true,\n    raf;\n  const stop = () => {\n    running = false;\n    cancelAnimationFrame(raf);\n  };\n  const start = () => {\n    running = true;\n    run();\n  };\n  const run = () => {\n    raf = requestAnimationFrame(() => {\n      callback();\n      if (running) run();\n    });\n  };\n  if (autoStart) start();\n  return { start, stop };\n};",
+    "code": "const recordAnimationFrames = (callback, autoStart = true) => {\n  let running = false,\n    raf;\n  const stop = () => {\n    if (!running) return;\n    running = false;\n    cancelAnimationFrame(raf);\n  };\n  const start = () => {\n    if (running) return;\n    running = true;\n    run();\n  };\n  const run = () => {\n    raf = requestAnimationFrame(() => {\n      callback();\n      if (running) run();\n    });\n  };\n  if (autoStart) start();\n  return { start, stop };\n};",
     "description": "Invokes the provided callback on each animation frame.\n\nUse recursion.\nProvided that `running` is `true`, continue invoking `window.requestAnimationFrame()` which invokes the provided callback.\nReturn an object with two methods `start` and `stop` to allow manual control of the recording.\nOmit the second argument, `autoStart`, to implicitly call `start` when the function is invoked.",
     "example": "const cb = () => console.log('Animation frame fired');\nconst recorder = recordAnimationFrames(cb); // logs 'Animation frame fired' on each animation frame\nrecorder.stop(); // stops logging\nrecorder.start(); // starts again\nconst recorder2 = recordAnimationFrames(cb, false); // `start` needs to be explicitly called to begin recording frames",
     "id": "recordAnimationFrames",
