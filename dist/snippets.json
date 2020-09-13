@@ -47,7 +47,7 @@
   },
   {
     "code": "const RGBToHex = (r, g, b) => ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');",
-    "description": "Converts the values of RGB components to a color code.\n\nConvert given RGB parameters to hexadecimal string using bitwise left-shift operator (`<<`) and `toString(16)`, then `String.padStart(6,'0')` to get a 6-digit hexadecimal value.",
+    "description": "Converts the values of RGB components to a hexadecimal color code.\n\nConvert given RGB parameters to hexadecimal string using bitwise left-shift operator (`<<`) and `toString(16)`, then `String.padStart(6,'0')` to get a 6-digit hexadecimal value.",
     "example": "RGBToHex(255, 165, 1); // 'ffa501'",
     "id": "RGBToHex",
     "tags": [
