@@ -176,8 +176,8 @@
     ]
   },
   {
-    "code": "const arrayToHtmlList = (arr, listID) =>\n  (el => (\n    (el = document.querySelector('#' + listID)),\n    (el.innerHTML += arr.map(item => \\`<li>\\${item}</li>\\`).join(''))\n  ))();",
-    "description": "Converts the given array elements into `<li>` tags and appends them to the list of the given id.\n\nUse `Array.prototype.map()`, `document.querySelector()`, and an anonymous inner closure to create a list of html tags.",
+    "code": "const arrayToHtmlList = (arr, listID) => \n  document.querySelector(\\`#\\${listID}\\`).innerHTML += arr\n    .map(item => \\`<li>\\${item}</li>\\`)\n    .join('');",
+    "description": "Converts the given array elements into `<li>` tags and appends them to the list of the given id.\n\nUse `Array.prototype.map()` and `document.querySelector()` to create a list of html tags.",
     "example": "arrayToHtmlList(['item 1', 'item 2'], 'myListID');",
     "id": "arrayToHtmlList",
     "tags": [
