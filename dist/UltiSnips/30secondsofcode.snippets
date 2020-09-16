@@ -2122,6 +2122,11 @@ const requireUncached = module => {
 };
 endsnippet
 
+snippet reverseNumber "Reverses a number.  - Use `Object.prototype.toString()` to convert `n` to a string. - Use `String.prototype.split('')`, `Array.prototype.reverse()` and `String.prototype.join('')` to get the reversed value of `n` as a string. - Use `parseFloat()` to convert the string to a number and `Math.sign()` to preserve its sign." b
+const reverseNumber = n => 
+  parseFloat(\`\${n}\`.split('').reverse().join('')) * Math.sign(n);
+endsnippet
+
 snippet reverseString "Reverses a string.  - Use the spread operator (`...`) and `Array.prototype.reverse()` to reverse the order of the characters in the string. - Combine characters to get a string using `String.prototype.join('')`." b
 const reverseString = str => [...str].reverse().join('');
 endsnippet
