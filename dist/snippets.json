@@ -23,6 +23,16 @@
     ]
   },
   {
+    "code": "const HSBToRGB = (h, s, b) => {\n  s /= 100;\n  b /= 100;\n  const k = (n) => (n + h / 60) % 6;\n  const f = (n) => b * (1 - s * Math.max(0, Math.min(k(n), 4 - k(n), 1)));\n  return [255 * f(5), 255 * f(3), 255 * f(1)];\n};",
+    "description": "Converts a HSB color tuple to RGB format.\n\n- Use the [HSB to RGB conversion formula](https://en.wikipedia.org/wiki/HSL_and_HSV#HSV_to_RGB) to convert to the appropriate format.\n- The range of the input parameters is H: [0, 360], S: [0, 100], B: [0, 100].\n- The range of all output values is [0, 255].",
+    "example": "HSBToRGB(18, 81, 99); // [252.45, 109.31084999999996, 47.965499999999984]",
+    "id": "HSBToRGB",
+    "tags": [
+      "math",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const fs = require('fs');\nconst JSONToFile = (obj, filename) =>\n  fs.writeFileSync(\\`\\${filename}.json\\`, JSON.stringify(obj, null, 2));",
     "description": "Writes a JSON object to a file.\n\n- Use `fs.writeFileSync()`, template literals and `JSON.stringify()` to write a `json` object to a `.json` file.",
     "example": "JSONToFile({ test: 'is passed' }, 'testJsonFile'); // writes the object to 'testJsonFile.json'",
@@ -43,6 +53,16 @@
       "string",
       "object",
       "advanced"
+    ]
+  },
+  {
+    "code": "const RGBToHSB = (r, g, b) => {\n  r /= 255;\n  g /= 255;\n  b /= 255;\n  const v = Math.max(r, g, b),\n    n = v - Math.min(r, g, b);\n  const h =\n    n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;\n  return [60 * (h < 0 ? h + 6 : h), v && (n / v) * 100, v * 100];\n};",
+    "description": "Converts a RGB color tuple to HSB format.\n\n- Use the [RGB to HSB conversion formula](https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB) to convert to the appropriate format.\n- The range of all input parameters is [0, 255].\n- The range of the resulting values is H: [0, 360], S: [0, 100], B: [0, 100].",
+    "example": "RGBToHSB(252, 111, 48); // [18.529411764705856, 80.95238095238095, 98.82352941176471]",
+    "id": "RGBToHSB",
+    "tags": [
+      "math",
+      "intermediate"
     ]
   },
   {
@@ -3313,7 +3333,7 @@
     "example": "reverseNumber(981); // 189\nreverseNumber(-500); // -5\nreverseNumber(73.6); // 6.37\nreverseNumber(-5.23); // -32.5",
     "id": "reverseNumber",
     "tags": [
-      "number",
+      "math",
       "string",
       "beginner"
     ]
