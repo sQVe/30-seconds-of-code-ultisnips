@@ -2883,6 +2883,17 @@
     ]
   },
   {
+    "code": "const padNumber = (n, l) => \\`\\${n}\\`.padStart(l, '0');",
+    "description": "Pads a given number to the specified length.\n\n- Use `String.prototype.padStart()` to pad the number to specified length, after converting it to a string.",
+    "example": "padNumber(1234, 6); // '001234'",
+    "id": "padNumber",
+    "tags": [
+      "string",
+      "math",
+      "beginner"
+    ]
+  },
+  {
     "code": "const palindrome = str => {\n  const s = str.toLowerCase().replace(/[\\W_]/g, '');\n  return s === [...s].reverse().join('');\n};",
     "description": "Returns `true` if the given string is a palindrome, `false` otherwise.\n\n- Convert the string to `String.prototype.toLowerCase()` and use `String.prototype.replace()` to remove non-alphanumeric characters from it.\n- Then, use the spread operator (`...`) to split the string into individual characters, `Array.prototype.reverse()`, `String.prototype.join('')` and compare it to the original, unreversed string, after converting it to `String.prototype.toLowerCase()`.",
     "example": "palindrome('taco cat'); // true",

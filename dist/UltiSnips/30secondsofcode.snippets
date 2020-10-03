@@ -1806,6 +1806,10 @@ const pad = (str, length, char = ' ') =>
   str.padStart((str.length + length) / 2, char).padEnd(length, char);
 endsnippet
 
+snippet padNumber "Pads a given number to the specified length.  - Use `String.prototype.padStart()` to pad the number to specified length, after converting it to a string." b
+const padNumber = (n, l) => \`\${n}\`.padStart(l, '0');
+endsnippet
+
 snippet palindrome "Returns `true` if the given string is a palindrome, `false` otherwise.  - Convert the string to `String.prototype.toLowerCase()` and use `String.prototype.replace()` to remove non-alphanumeric characters from it. - Then, use the spread operator (`...`) to split the string into individual characters, `Array.prototype.reverse()`, `String.prototype.join('')` and compare it to the original, unreversed string, after converting it to `String.prototype.toLowerCase()`." b
 const palindrome = str => {
   const s = str.toLowerCase().replace(/[\W_]/g, '');
