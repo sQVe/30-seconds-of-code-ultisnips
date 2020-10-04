@@ -33,6 +33,16 @@
     ]
   },
   {
+    "code": "const HSLToRGB = (h, s, l) => {\n  s /= 100;\n  l /= 100;\n  const k = n => (n + h / 30) % 12;\n  const a = s * Math.min(l, 1 - l);\n  const f = n =>\n    l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));\n  return [255 * f(0), 255 * f(8), 255 * f(4)];\n};",
+    "description": "Converts a HSL color tuple to RGB format.\n\n- Use the [HSL to RGB conversion formula](https://en.wikipedia.org/wiki/HSL_and_HSV#HSL_to_RGB) to convert to the appropriate format.\n- The range of the input parameters is H: [0, 360], S: [0, 100], L: [0, 100].\n- The range of all output values is [0, 255].",
+    "example": "HSLToRGB(13, 100, 11); // [56.1, 12.155, 0]",
+    "id": "HSLToRGB",
+    "tags": [
+      "math",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const fs = require('fs');\nconst JSONToFile = (obj, filename) =>\n  fs.writeFileSync(\\`\\${filename}.json\\`, JSON.stringify(obj, null, 2));",
     "description": "Writes a JSON object to a file.\n\n- Use `fs.writeFileSync()`, template literals and `JSON.stringify()` to write a `json` object to a `.json` file.",
     "example": "JSONToFile({ test: 'is passed' }, 'testJsonFile'); // writes the object to 'testJsonFile.json'",
@@ -60,6 +70,16 @@
     "description": "Converts a RGB color tuple to HSB format.\n\n- Use the [RGB to HSB conversion formula](https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB) to convert to the appropriate format.\n- The range of all input parameters is [0, 255].\n- The range of the resulting values is H: [0, 360], S: [0, 100], B: [0, 100].",
     "example": "RGBToHSB(252, 111, 48); // [18.529411764705856, 80.95238095238095, 98.82352941176471]",
     "id": "RGBToHSB",
+    "tags": [
+      "math",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const RGBToHSL = (r, g, b) => {\n  r /= 255;\n  g /= 255;\n  b /= 255;\n  const l = Math.max(r, g, b);\n  const s = l - Math.min(r, g, b);\n  const h = s\n    ? l === r\n      ? (g - b) / s\n      : l === g\n      ? 2 + (b - r) / s\n      : 4 + (r - g) / s\n    : 0;\n  return [\n    60 * h < 0 ? 60 * h + 360 : 60 * h,\n    100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),\n    (100 * (2 * l - s)) / 2,\n  ];\n};",
+    "description": "Converts a RGB color tuple to HSL format.\n\n- Use the [RGB to HSL conversion formula](https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/) to convert to the appropriate format.\n- The range of all input parameters is [0, 255].\n- The range of the resulting values is H: [0, 360], S: [0, 100], L: [0, 100].",
+    "example": "RGBToHSL(45, 23, 11); // [21.17647, 60.71428, 10.98039]",
+    "id": "RGBToHSL",
     "tags": [
       "math",
       "intermediate"
@@ -181,6 +201,17 @@
     "id": "approximatelyEqual",
     "tags": [
       "math",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const arithmeticProgression  = (n, lim) => \n  Array.from({ length: Math.ceil(lim / n) }, (v, i) => (i + 1) * n );",
+    "description": "Returns an array of numbers in the arithmetic progression starting with the given positive integer and up to the specified limit.\n\n- Use `Array.from()` to create an array of the desired length, `lim/n`, and a map function to fill it with the desired values in the given range.",
+    "example": "arithmeticProgression(5, 25); // [5, 10, 15, 20, 25]",
+    "id": "arithmeticProgression",
+    "tags": [
+      "math",
+      "array",
       "beginner"
     ]
   },
@@ -535,6 +566,17 @@
     ]
   },
   {
+    "code": "const combine = (a, b, prop) =>\n  Object.values(\n    [...a, ...b].reduce((acc, v) => {\n      if (v[prop])\n        acc[v[prop]] = acc[v[prop]]\n          ? { ...acc[v[prop]], ...v }\n          : { ...v };\n      return acc;\n    }, {})\n  );",
+    "description": "Combines two arrays of objects, using the specified key to match objects.\n\n- Use `Array.protoype.reduce()` with an object accumulator to combine all objects in both arrays based on the given `prop`.\n- Use `Object.values()` to convert the resulting object to an array and return it.",
+    "example": "const x = [\n  { id: 1, name: 'John' },\n  { id: 2, name: 'Maria' }\n];\nconst y = [\n  { id: 1, age: 28 },\n  { id: 3, age: 26 },\n  { age: 3}\n];\ncombine(x, y, 'id');\n// [\n//  { id: 1, name: 'John', age: 28 },\n//  { id: 2, name: 'Maria' },\n//  { id: 3, age: 26 }\n// ]",
+    "id": "combine",
+    "tags": [
+      "array",
+      "object",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const compact = arr => arr.filter(Boolean);",
     "description": "Removes falsy values from an array.\n\n- Use `Array.prototype.filter()` to filter out falsy values (`false`, `null`, `0`, `\"\"`, `undefined`, and `NaN`).",
     "example": "compact([0, 1, false, 2, '', 3, 'a', 'e' * 23, NaN, 's', 34]); // [ 1, 2, 3, 'a', 's', 34 ]",
@@ -700,6 +742,16 @@
       "function",
       "recursion",
       "intermediate"
+    ]
+  },
+  {
+    "code": "const dayName = (date, locale) => date.toLocaleDateString(locale, { weekday: 'long' });",
+    "description": "Gets the name of the weekday from a `Date` object.\n\n- Use `Date.prototype.toLocaleDateString()` with the `{ weekday: 'long' }` option to retrieve the weekday.\n- Use the optional second parameter to get a language-specific name or omit it to use the default locale.",
+    "example": "dayName(new Date()); // 'Saturday'\ndayName(new Date('09/23/2020'), 'de-DE'); // 'Samstag'",
+    "id": "dayName",
+    "tags": [
+      "date",
+      "beginner"
     ]
   },
   {
@@ -986,17 +1038,6 @@
     ]
   },
   {
-    "code": "const elo = ([...ratings], kFactor = 32, selfRating) => {\n  const [a, b] = ratings;\n  const expectedScore = (self, opponent) => 1 / (1 + 10 ** ((opponent - self) / 400));\n  const newRating = (rating, i) =>\n    (selfRating || rating) + kFactor * (i - expectedScore(i ? a : b, i ? b : a));\n  if (ratings.length === 2) return [newRating(a, 1), newRating(b, 0)];\n\n  for (let i = 0, len = ratings.length; i < len; i++) {\n    let j = i;\n    while (j < len - 1) {\n      j++;\n      [ratings[i], ratings[j]] = elo([ratings[i], ratings[j]], kFactor);\n    }\n  }\n  return ratings;\n};",
-    "description": "Computes the new ratings between two or more opponents using the [Elo rating system](https://en.wikipedia.org/wiki/Elo_rating_system). It takes an array\nof pre-ratings and returns an array containing post-ratings.\nThe array should be ordered from best performer to worst performer (winner -> loser).\n\n- Use the exponent `**` operator and math operators to compute the expected score (chance of winning) of each opponent and compute the new rating for each.\n- Loop through the ratings, using each permutation to compute the post-Elo rating for each player in a pairwise fashion.\n- Omit the second argument to use the default `kFactor` of 32.",
-    "example": "// Standard 1v1s\nelo([1200, 1200]); // [1216, 1184]\nelo([1200, 1200], 64); // [1232, 1168]\n// 4 player FFA, all same rank\nelo([1200, 1200, 1200, 1200]).map(Math.round); // [1246, 1215, 1185, 1154]\n/*\nFor teams, each rating can adjusted based on own team's average rating vs.\naverage rating of opposing team, with the score being added to their\nown individual rating by supplying it as the third argument.\n*/",
-    "id": "elo",
-    "tags": [
-      "math",
-      "array",
-      "advanced"
-    ]
-  },
-  {
     "code": "const equals = (a, b) => {\n  if (a === b) return true;\n  if (a instanceof Date && b instanceof Date) return a.getTime() === b.getTime();\n  if (!a || !b || (typeof a !== 'object' && typeof b !== 'object')) return a === b;\n  if (a.prototype !== b.prototype) return false;\n  let keys = Object.keys(a);\n  if (keys.length !== Object.keys(b).length) return false;\n  return keys.every(k => equals(a[k], b[k]));\n};",
     "description": "Performs a deep comparison between two values to determine if they are equivalent.\n\n- Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.getTime()` or if they are both non-object values with an equivalent value (strict comparison).\n- Check if only one value is `null` or `undefined` or if their prototypes differ.\n- If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys, then use `Array.prototype.every()` to check if every key in the first value exists in the second one and if they are equivalent by calling this method recursively.",
     "example": "equals({ a: [2, { e: 3 }], b: [4], c: 'foo' }, { a: [2, { e: 3 }], b: [4], c: 'foo' }); // true\nequals([1, 2, 3], { 0: 1, 1: 2, 2: 3 }); // true",
@@ -1271,6 +1312,16 @@
     "id": "fromCamelCase",
     "tags": [
       "string",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const fullscreen = (mode = true, el = 'body') =>\n  mode\n    ? document.querySelector(el).requestFullscreen()\n    : document.exitFullscreen();",
+    "description": "Opens or closes an element in fullscreen mode.\n\n- Use `document.querySelector()` and `Element.prototype.requestFullscreen()` to open the given element in fullscreen.\n- Use `document.exitFullscreen()` to exit fullscreen mode.\n- Omit the second argument, `el`, to use `body` as the default element.\n- Omit the first element, `mode`, to open the element in fullscreen mode by default.",
+    "example": "fullscreen(); // Opens `body` in fullscreen mode\nfullscreen(false); // Exits fullscreen mode",
+    "id": "fullscreen",
+    "tags": [
+      "browser",
       "intermediate"
     ]
   },
@@ -1984,6 +2035,16 @@
     ]
   },
   {
+    "code": "const hasDuplicates = arr => new Set(arr).size !== arr.length;",
+    "description": "Checks if there are duplicate values in a flat array.\n\n- Use `Set()` to get the unique values in the array.\n- Use `Set.prototype.size` and `Array.prototype.length` to check if the count of the unique values is the same as elements in the original array.",
+    "example": "hasDuplicates([0,1,1,2]); // true\nhasDuplicates([0,1,2,3,]); // false",
+    "id": "hasDuplicates",
+    "tags": [
+      "array",
+      "beginner"
+    ]
+  },
+  {
     "code": "const isEmpty = val => val == null || !(Object.keys(val) || val).length;",
     "description": "Returns true if the a value is an empty object, collection, has no enumerable properties or is any type that is not considered a collection.\n\n- Check if the provided value is `null` or if its `length` is equal to `0`.",
     "example": "isEmpty([]); // true\nisEmpty({}); // true\nisEmpty(''); // true\nisEmpty([1, 2]); // false\nisEmpty({ a: 1, b: 2 }); // false\nisEmpty('text'); // false\nisEmpty(123); // true - type is not considered a collection\nisEmpty(true); // true - type is not considered a collection",
@@ -2335,6 +2396,16 @@
     ]
   },
   {
+    "code": "const kmToMiles = km => km * 0.621371;",
+    "description": "Converts kilometers to miles.\n\n- Follows the conversion formula `mi = km * 0.621371`.",
+    "example": "kmToMiles(8.1) // 5.0331051",
+    "id": "kmToMiles",
+    "tags": [
+      "math",
+      "beginner"
+    ]
+  },
+  {
     "code": "const last = arr => (arr && arr.length ? arr[arr.length - 1] : undefined);",
     "description": "Returns the last element in an array.\n\n- Check if `arr` is truthy and has a `length` property, use `arr.length - 1` to compute the index of the last element of the given array and return it, otherwise return `undefined`.",
     "example": "last([1, 2, 3]); // 3\nlast([]); // undefined\nlast(null); // undefined\nlast(undefined); // undefined",
@@ -2559,6 +2630,16 @@
     "tags": [
       "math",
       "array",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const milesToKm = miles => distance * 1.609344;",
+    "description": "Converts miles to kilometers.\n\n- Follows the conversion formula `km = mi * 1.609344`.",
+    "example": "milesToKm(5); // 8.04672",
+    "id": "milesToKm",
+    "tags": [
+      "math",
       "beginner"
     ]
   },
@@ -2849,6 +2930,17 @@
     "tags": [
       "object",
       "array",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const orderWith = (arr, prop, order) => {\n  const orderValues = order.reduce((acc, v, i) => {\n    acc[v] = i;\n    return acc;\n  }, {});\n  return [...arr].sort((a, b) => {\n    if (orderValues[a[prop]] === undefined) return 1;\n    if (orderValues[b[prop]] === undefined) return -1;\n    return orderValues[a[prop]] - orderValues[b[prop]];\n  });\n};",
+    "description": "Returns a sorted array of objects ordered by a property, based on the array of orders provided.\n\n- Use `Array.prototype.reduce()` to create an object from the `order` array with the values as keys and their original index as the value.\n- Use `Array.prototype.sort()` to sort the given array, skipping elements for which `prop` is empty or not in the `order` array.",
+    "example": "const users = [\n  { name: 'fred', language: 'Javascript' },\n  { name: 'barney', language: 'TypeScript' },\n  { name: 'frannie', language: 'Javascript' },\n  { name: 'anna', language: 'Java' },\n  { name: 'jimmy' },\n  { name: 'nicky', language: 'Python' },\n];\norderWith(users, 'language', ['Javascript', 'TypeScript', 'Java']);\n/* \n[\n  { name: 'fred', language: 'Javascript' },\n  { name: 'frannie', language: 'Javascript' },\n  { name: 'barney', language: 'TypeScript' },\n  { name: 'anna', language: 'Java' },\n  { name: 'jimmy' },\n  { name: 'nicky', language: 'Python' }\n]\n*/",
+    "id": "orderWith",
+    "tags": [
+      "array",
+      "object",
       "intermediate"
     ]
   },
@@ -3297,6 +3389,16 @@
     ]
   },
   {
+    "code": "const removeAccents = str => str.normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\");",
+    "description": "Removes accents from strings.\n\n- Use `String.prototype.normalize()` to convert the string to a normalized Unicode format.\n- Use `String.prototype.replace()` to replace diacritical marks in the given Unicode range by empty strings.",
+    "example": "removeAccents('Antoine de Saint-Exupéry'); // 'Antoine de Saint-Exupery'",
+    "id": "removeAccents",
+    "tags": [
+      "string",
+      "beginner"
+    ]
+  },
+  {
     "code": "const removeNonASCII = str => str.replace(/[^\\x20-\\x7E]/g, '');",
     "description": "Removes non-printable ASCII characters.\n\n- Use a regular expression to remove non-printable ASCII characters.",
     "example": "removeNonASCII('äÄçÇéÉêlorem-ipsumöÖÐþúÚ'); // 'lorem-ipsum'",
@@ -3541,6 +3643,17 @@
     "tags": [
       "function",
       "promise",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const slugify = str =>\n  str\n    .toLowerCase()\n    .trim()\n    .replace(/[^\\w\\s-]/g, '')\n    .replace(/[\\s_-]+/g, '-')\n    .replace(/^-+|-+$/g, '');",
+    "description": "Converts a string to a URL-friendly slug.\n\n- Use `String.prototype.toLowerCase()` and `String.prototype.trim()` to normalize the string.\n- Use `String.prototype.replace()` to replace spaces, dashes and underscores with `-` and remove special characters.",
+    "example": "slugify('Hello World!'); // 'hello-world'",
+    "id": "slugify",
+    "tags": [
+      "string",
+      "regexp",
       "intermediate"
     ]
   },
@@ -4191,6 +4304,17 @@
     "id": "vectorDistance",
     "tags": [
       "math",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const weightedAverage = (nums, weights) => \n  nums.reduce((acc, n, i) => acc + (weights[i] * n), 0) / nums.length;",
+    "description": "Returns the weighted average of two or more numbers.\n\n- Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0` and divide by the `length` of the array.",
+    "example": "weightedAverage([1, 2, 3], [0.6,0.2,0.3]); // 0.6333",
+    "id": "weightedAverage",
+    "tags": [
+      "math",
+      "array",
       "beginner"
     ]
   },
