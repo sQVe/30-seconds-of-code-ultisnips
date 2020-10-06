@@ -765,6 +765,16 @@
     ]
   },
   {
+    "code": "const daysAgo = (n) => {\n  let t = new Date();\n  t.setDate(t.getDate() - Math.abs(n));\n  return t.toISOString().split('T')[0];\n};",
+    "description": "Returns the date of `n` days ago from today as a string representation.\n\n- Use `new Date()` to get the current date, `Math.abs()` and `Date.getDate()` to update the date accordingly and set to the result using `Date.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
+    "example": "daysAgo(20); // 2020-09-16 (if current date is 2020-10-06)",
+    "id": "daysAgo",
+    "tags": [
+      "date",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const debounce = (fn, ms = 0) => {\n  let timeoutId;\n  return function(...args) {\n    clearTimeout(timeoutId);\n    timeoutId = setTimeout(() => fn.apply(this, args), ms);\n  };\n};",
     "description": "Creates a debounced function that delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked.\n\n- Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed.\n- Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments.\n- Omit the second argument, `ms`, to set the timeout at a default of 0 ms.",
     "example": "window.addEventListener(\n  'resize',\n  debounce(() => {\n    console.log(window.innerWidth);\n    console.log(window.innerHeight);\n  }, 250)\n); // Will log the window dimensions at most every 250ms",
@@ -884,6 +894,16 @@
     "description": "Detects whether the website is being opened in a mobile device or a desktop/laptop.\n\n- Use a regular expression to test the `navigator.userAgent` property to figure out if the device is a mobile device or a desktop/laptop.",
     "example": "detectDeviceType(); // \"Mobile\" or \"Desktop\"",
     "id": "detectDeviceType",
+    "tags": [
+      "browser",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const detectLanguage = (defaultLang = 'en-US') => \n  navigator.language ||\n  (Array.isArray(navigator.languages) && navigator.languages[0]) ||\n  defaultLang;",
+    "description": "Detects the preferred language of the current user.\n\n- Use `NavigationLanguage.language` or the first `NavigationLanguage.languages` if available, otherwise return `defaultLang`.\n- Omit the second argument, `defaultLang`, to use `'en-US'` as the default language code.",
+    "example": "detectLanguage(); // 'nl-NL'",
+    "id": "detectLanguage",
     "tags": [
       "browser",
       "intermediate"
@@ -1406,6 +1426,16 @@
     "id": "getDaysDiffBetweenDates",
     "tags": [
       "date",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const getElementsBiggerThanViewport = () => {\n  const docWidth = document.documentElement.offsetWidth;\n  return [...document.querySelectorAll('*')].reduce((acc, el) => {\n    if (el.offsetWidth > docWidth) acc.push(el);\n    return acc;\n  }, []);\n}",
+    "description": "Returns an array of HTML elements whose width is larger than that of the viewport's.\n\n- Use `HTMLElement.prototype.offsetWidth()` to get the width of the `document`.\n- Use `Array.prototype.reduce()` on the result of `document.querySelectorAll()` to check the width of all elements in the document.",
+    "example": "getElementsBiggerThanViewport(); // <div id=\"ultra-wide-item\" />",
+    "id": "getElementsBiggerThanViewport",
+    "tags": [
+      "browser",
       "intermediate"
     ]
   },
@@ -2741,8 +2771,8 @@
   },
   {
     "code": "const normalizeLineEndings = (str, normalized = '\\r\\n') => str.replace(/\\r?\\n/g, normalized);",
-    "description": "Normalizes line endings in a string.\n\n- Use `String.prototype.replace()` and a regular expression to match and replace line endings with the `normalized` version.\n- Omit the seconds argument, `normalized`, to use the default value of `'\\r\\n'`.",
-    "example": "splitLines('This\\r\\nis a\\nmultiline\\nstring.\\r\\n'); // 'This\\r\\nis a\\r\\nmultiline\\r\\nstring.\\r\\n'\nsplitLines('This\\r\\nis a\\nmultiline\\nstring.\\r\\n', '\\n'); // 'This\\nis a\\nmultiline\\nstring.\\n'",
+    "description": "Normalizes line endings in a string.\n\n- Use `String.prototype.replace()` and a regular expression to match and replace line endings with the `normalized` version.\n- Omit the second argument, `normalized`, to use the default value of `'\\r\\n'`.",
+    "example": "normalizeLineEndings('This\\r\\nis a\\nmultiline\\nstring.\\r\\n'); // 'This\\r\\nis a\\r\\nmultiline\\r\\nstring.\\r\\n'\nnormalizeLineEndings('This\\r\\nis a\\nmultiline\\nstring.\\r\\n', '\\n'); // 'This\\nis a\\nmultiline\\nstring.\\n'",
     "id": "normalizeLineEndings",
     "tags": [
       "array",
@@ -3247,6 +3277,17 @@
     "tags": [
       "math",
       "beginner"
+    ]
+  },
+  {
+    "code": "const randomAlphaNumeric = length => {\n  let s = '';\n  Array.from({ length }).some(() => {\n    s += Math.random().toString(36).slice(2);\n    return s.length >= length;\n  });\n  return s.slice(0, length);\n};",
+    "description": "Returns a random string with the specified length.\n\n- Use `Array.from()` to create a new array with the specified `length`.\n- Use `Math.random()` generate a random floating-point number, `Number.prototype.toString(36)` to convert it to an alphanumeric string.\n- Use `String.prototype.slice(2)` to remove the integral part and decimal point from each generated number.\n- Use `Array.prototype.some()` to repeat this process as many times as required, up to `length`, as it produces a variable-length string each time.\n- Finally, use `String.prototype.slice()` to trim down the generated string if it's longer than the given `length`.",
+    "example": "randomAlphaNumeric(5); // '0afad'",
+    "id": "randomAlphaNumeric",
+    "tags": [
+      "string",
+      "random",
+      "advanced"
     ]
   },
   {
@@ -3779,6 +3820,16 @@
     ]
   },
   {
+    "code": "const stringifyCircularJSON = obj => {\n  const seen = new WeakSet();\n  return JSON.stringify(obj, (k, v) => {\n    if (v !== null && typeof v === 'object') {\n      if (seen.has(v)) return;\n      seen.add(v);\n    }\n    return v;\n  });\n};",
+    "description": "Serializes a JSON object containing circular references into a JSON format.\n\n- Create a `WeakSet` to store and check seen values, using `WeakSet.prototype.add()` and `WeakSet.prototype.has()`.\n- Use `JSON.stringify()` with a custom replacer function that omits values already in `seen`, adding new values as necessary.\n- ⚠️ **NOTICE:** This function finds and removes circular references, which causes circular data loss in the serialized JSON.",
+    "example": "const obj = { n: 42 };\nobj.obj = obj;\nstringifyCircularJSON(obj); // '{\"n\": 42}'",
+    "id": "stringifyCircularJSON",
+    "tags": [
+      "object",
+      "advanced"
+    ]
+  },
+  {
     "code": "const stripHTMLTags = str => str.replace(/<[^>]*>/g, '');",
     "description": "Removes HTML/XML tags from string.\n\n- Use a regular expression to remove HTML/XML tags from a string.",
     "example": "stripHTMLTags('<p><em>lorem</em> <strong>ipsum</strong></p>'); // 'lorem ipsum'",
@@ -4022,6 +4073,17 @@
     ]
   },
   {
+    "code": "const toRomanNumeral = num => {\n  const lookup = [\n    ['M', 1000],\n    ['CM', 900],\n    ['D', 500],\n    ['CD', 400],\n    ['C', 100],\n    ['XC', 90],\n    ['L', 50],\n    ['XL', 40],\n    ['X', 10],\n    ['IX', 9],\n    ['V', 5],\n    ['IV', 4],\n    ['I', 1],\n  ];\n  return lookup.reduce((acc, [k, v]) => {\n    acc += k.repeat(Math.floor(num / v));\n    num = num % v;\n    return acc;\n  }, '');\n};",
+    "description": "Converts an integer to its roman numeral representation.\nAccepts value between `1` and `3999` (both inclusive).\n\n- Create a lookup table containing 2-value arrays in the form of (roman value, integer).\n- Use `Array.prototype.reduce()` to loop over the values in `lookup` and repeatedly divide `num` by the value, using `String.prototype.repeat()` to add the roman numeral representation to the accumulator.",
+    "example": "toRomanNumeral(3); // 'III'\ntoRomanNumeral(11); // 'XI'\ntoRomanNumeral(1998); // 'MCMXCVIII'",
+    "id": "toRomanNumeral",
+    "tags": [
+      "math",
+      "string",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const toSafeInteger = num =>\n  Math.round(Math.max(Math.min(num, Number.MAX_SAFE_INTEGER), Number.MIN_SAFE_INTEGER));",
     "description": "Converts a value to a safe integer.\n\n- Use `Math.max()` and `Math.min()` to find the closest safe value.\n- Use `Math.round()` to convert to an integer.",
     "example": "toSafeInteger('3.2'); // 3\ntoSafeInteger(Infinity); // 9007199254740991",
@@ -4049,7 +4111,7 @@
     "id": "toTitleCase",
     "tags": [
       "string",
-      "regepx",
+      "regexp",
       "intermediate"
     ]
   },
@@ -4350,6 +4412,17 @@
     ]
   },
   {
+    "code": "const wordWrap = (str, max, br = '\\n') => str.replace(\n  new RegExp(\\`(?![^\\\\n]{1,\\${max}}$)([^\\\\n]{1,\\${max}})\\\\s\\`, 'g'), '$1' + br\n);",
+    "description": "Wraps a string to a given number of characters using a string break character.\n\n- Use `String.prototype.replace()` and a regular expression to insert a given break character at the nearest whitespace of `max` characters.\n- Omit the third argument, `br`, to use the default value of `'\\n'`.",
+    "example": "wordWrap('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tempus.', 32); // 'Lorem ipsum dolor sit amet,\\nconsectetur adipiscing elit.\\nFusce tempus.'\nwordWrap('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce tempus.', 32, '\\r\\n'); // 'Lorem ipsum dolor sit amet,\\r\\nconsectetur adipiscing elit.\\r\\nFusce tempus.'",
+    "id": "wordWrap",
+    "tags": [
+      "string",
+      "regexp",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const words = (str, pattern = /[^a-zA-Z-]+/) => str.split(pattern).filter(Boolean);",
     "description": "Converts a given string into an array of words.\n\n- Use `String.prototype.split()` with a supplied pattern (defaults to non-alpha as a regexp) to convert to an array of strings.\n- Use `Array.prototype.filter()` to remove any empty strings.\n- Omit the second argument to use the default regexp.",
     "example": "words('I love javaScript!!'); // [\"I\", \"love\", \"javaScript\"]\nwords('python, javaScript & coffee'); // [\"python\", \"javaScript\", \"coffee\"]",
@@ -4369,6 +4442,17 @@
       "array",
       "math",
       "intermediate"
+    ]
+  },
+  {
+    "code": "const xor = (a, b) => (( a || b ) && !( a && b ));",
+    "description": "Returns `true` if only one of the arguments is `true`, `false` otherwise.\n\n- Use the logical or (`||`), and (`&&`) and not (`!`) operators on the two given values to create the logical xor.",
+    "example": "xor(true, true); // false\nxor(true, false); // true\nxor(false, true); // true\nxor(false, false); // false",
+    "id": "xor",
+    "tags": [
+      "math",
+      "logic",
+      "beginner"
     ]
   },
   {
