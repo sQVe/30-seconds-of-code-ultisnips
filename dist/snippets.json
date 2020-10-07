@@ -765,7 +765,7 @@
     ]
   },
   {
-    "code": "const daysAgo = (n) => {\n  let t = new Date();\n  t.setDate(t.getDate() - Math.abs(n));\n  return t.toISOString().split('T')[0];\n};",
+    "code": "const daysAgo = n => {\n  let d = new Date();\n  d.setDate(d.getDate() - Math.abs(n));\n  return d.toISOString().split('T')[0];\n};",
     "description": "Returns the date of `n` days ago from today as a string representation.\n\n- Use `new Date()` to get the current date, `Math.abs()` and `Date.getDate()` to update the date accordingly and set to the result using `Date.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "daysAgo(20); // 2020-09-16 (if current date is 2020-10-06)",
     "id": "daysAgo",
@@ -954,9 +954,9 @@
     ]
   },
   {
-    "code": "const digitize = n => [...\\`\\${n}\\`].map(i => parseInt(i));",
-    "description": "Converts a number to an array of digits.\n\n- Convert the number to a string, using the spread operator (`...`) to build an array.\n- Use `Array.prototype.map()` and `parseInt()` to transform each value to an integer.",
-    "example": "digitize(123); // [1, 2, 3]",
+    "code": "const digitize = n => [...\\`\\${Math.abs(n)}\\`].map(i => parseInt(i));",
+    "description": "Converts a number to an array of digits, removing its sign if necessary.\n\n- Use `Math.abs()` to strip the number's sign.\n- Convert the number to a string, using the spread operator (`...`) to build an array.\n- Use `Array.prototype.map()` and `parseInt()` to transform each value to an integer.",
+    "example": "digitize(123); // [1, 2, 3]\ndigitize(-123); // [1, 2, 3]",
     "id": "digitize",
     "tags": [
       "math",
@@ -1993,6 +1993,16 @@
     ]
   },
   {
+    "code": "const isBetweenDates = (dateStart, dateEnd, date) => date > dateStart && date < dateEnd;",
+    "description": "Check if a date is between two other dates.\n\n- Use the greater than (`>`) and less than (`<`) operators to check if `date` is between `dateStart` and `dateEnd`.",
+    "example": "isBetweenDates(new Date(2010, 11, 20), new Date(2010, 11, 30), new Date(2010, 11, 19)); // false\nisBetweenDates(new Date(2010, 11, 20), new Date(2010, 11, 30), new Date(2010, 11, 25)); // true",
+    "id": "isBetweenDates",
+    "tags": [
+      "date",
+      "beginner"
+    ]
+  },
+  {
     "code": "const isBoolean = val => typeof val === 'boolean';",
     "description": "Checks if the given argument is a native boolean element.\n\n- Use `typeof` to check if a value is classified as a boolean primitive.",
     "example": "isBoolean(null); // false\nisBoolean(false); // true",
@@ -2374,7 +2384,7 @@
     ]
   },
   {
-    "code": "const isWeekday = (t = new Date()) => {\n  return t.getDay() % 6 !== 0;\n};",
+    "code": "const isWeekday = (d = new Date()) => d.getDay() % 6 !== 0;",
     "description": "Results in a boolean representation of a specific date.\n\n- Pass the specific date object firstly.\n- Use `Date.getDay()` to check weekday by using a modulo operator and then returning a boolean.",
     "example": "isWeekday(); // true (if current date is 2019-07-19)",
     "id": "isWeekday",
@@ -2384,7 +2394,7 @@
     ]
   },
   {
-    "code": "const isWeekend = (t = new Date()) => {\n  return t.getDay() % 6 === 0;\n};",
+    "code": "const isWeekend = (d = new Date()) => {\n  return d.getDay() % 6 === 0;\n};",
     "description": "Results in a boolean representation of a specific date.\n\n- Pass the specific date object firstly.\n- Use `Date.getDay()` to check weekend based on the day being returned as 0 - 6 using a modulo operation then return a boolean.",
     "example": "isWeekend(); // 2018-10-19 (if current date is 2018-10-18)",
     "id": "isWeekend",
@@ -2464,6 +2474,16 @@
     "tags": [
       "browser",
       "event",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const logBase = (n, base) => Math.log(n) / Math.log(base);",
+    "description": "Returns the logarithm of the given number in the given base.\n\n- Use `Math.log()` to get the logarithm from the value and the base and divide them.",
+    "example": "logBase(10, 10); // 1\nlogBase(100, 10); // 2",
+    "id": "logBase",
+    "tags": [
+      "math",
       "beginner"
     ]
   },
@@ -4041,6 +4061,17 @@
     ]
   },
   {
+    "code": "const toISOStringWithTimezone = date => {\n  const tzOffset = -date.getTimezoneOffset();\n  const diff = tzOffset >= 0 ? '+' : '-';\n  const pad = n => \\`\\${Math.floor(Math.abs(n))}\\`.padStart(2, '0');\n  return date.getFullYear() +\n    '-' + pad(date.getMonth() + 1) +\n    '-' + pad(date.getDate()) +\n    'T' + pad(date.getHours()) +\n    ':' + pad(date.getMinutes()) +\n    ':' + pad(date.getSeconds()) +\n    diff + pad(tzOffset / 60) +\n    ':' + pad(tzOffset % 60);\n};",
+    "description": "Returns a string in simplified extended ISO format (ISO 8601), including timezone offset.\n\n- Use `Date.prototype.getTimezoneOffset()` to get the timezone offset and reverse it, storing its sign in `diff`.\n- Define a helper function, `pad`, that normalizes any passed number to an integer using `Math.floor()` and `Math.abs()` and pads it to 2 digits, using `String.prototype.padStart()`.\n- Use `pad` and the built-in methods in the `Date` prototype to build the ISO 8601 string with timezone offset.",
+    "example": "toISOStringWithTimezone(new Date()); // \"2020-10-06T20:43:33-04:00\"",
+    "id": "toISOStringWithTimezone",
+    "tags": [
+      "date",
+      "math",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const toKebabCase = str =>\n  str &&\n  str\n    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)\n    .map(x => x.toLowerCase())\n    .join('-');",
     "description": "Converts a string to kebab case.\n\n- Break the string into words and combine them adding `-` as a separator, using a regexp.",
     "example": "toKebabCase('camelCase'); // 'camel-case'\ntoKebabCase('some text'); // 'some-text'\ntoKebabCase('some-mixed_string With spaces_underscores-and-hyphens'); // 'some-mixed-string-with-spaces-underscores-and-hyphens'\ntoKebabCase('AllThe-small Things'); // \"all-the-small-things\"\ntoKebabCase('IAmListeningToFMWhileLoadingDifferentURLOnMyBrowserAndAlsoEditingSomeXMLAndHTML'); // \"i-am-listening-to-fm-while-loading-different-url-on-my-browser-and-also-editing-xml-and-html\"",
@@ -4126,7 +4157,7 @@
     ]
   },
   {
-    "code": "const tomorrow = () => {\n  let t = new Date();\n  t.setDate(t.getDate() + 1);\n  return t.toISOString().split('T')[0];\n};",
+    "code": "const tomorrow = () => {\n  let d = new Date();\n  d.setDate(d.getDate() + 1);\n  return d.toISOString().split('T')[0];\n};",
     "description": "Results in a string representation of tomorrow's date.\n\n- Use `new Date()` to get the current date, increment by one using `Date.getDate()` and set the value to the result using `Date.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "tomorrow(); // 2018-10-19 (if current date is 2018-10-18)",
     "id": "tomorrow",
@@ -4467,7 +4498,7 @@
     ]
   },
   {
-    "code": "const yesterday = () => {\n  let t = new Date();\n  t.setDate(t.getDate() - 1);\n  return t.toISOString().split('T')[0];\n};",
+    "code": "const yesterday = () => {\n  let d = new Date();\n  d.setDate(d.getDate() - 1);\n  return d.toISOString().split('T')[0];\n};",
     "description": "Results in a string representation of yesterday's date.\n\n- Use `new Date()` to get the current date, decrement by one using `Date.getDate()` and set the value to the result using `Date.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "yesterday(); // 2018-10-17 (if current date is 2018-10-18)",
     "id": "yesterday",

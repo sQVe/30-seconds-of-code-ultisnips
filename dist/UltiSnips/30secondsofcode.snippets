@@ -505,10 +505,10 @@ const dayOfYear = date =>
 endsnippet
 
 snippet daysAgo "Returns the date of `n` days ago from today as a string representation.  - Use `new Date()` to get the current date, `Math.abs()` and `Date.getDate()` to update the date accordingly and set to the result using `Date.setDate()`. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
-const daysAgo = (n) => {
-  let t = new Date();
-  t.setDate(t.getDate() - Math.abs(n));
-  return t.toISOString().split('T')[0];
+const daysAgo = n => {
+  let d = new Date();
+  d.setDate(d.getDate() - Math.abs(n));
+  return d.toISOString().split('T')[0];
 };
 endsnippet
 
@@ -636,8 +636,8 @@ const dig = (obj, target) =>
       }, undefined);
 endsnippet
 
-snippet digitize "Converts a number to an array of digits.  - Convert the number to a string, using the spread operator (`...`) to build an array. - Use `Array.prototype.map()` and `parseInt()` to transform each value to an integer." b
-const digitize = n => [...\`\${n}\`].map(i => parseInt(i));
+snippet digitize "Converts a number to an array of digits, removing its sign if necessary.  - Use `Math.abs()` to strip the number's sign. - Convert the number to a string, using the spread operator (`...`) to build an array. - Use `Array.prototype.map()` and `parseInt()` to transform each value to an integer." b
+const digitize = n => [...\`\${Math.abs(n)}\`].map(i => parseInt(i));
 endsnippet
 
 snippet distance "Returns the distance between two points.  - Use `Math.hypot()` to calculate the Euclidean distance between two points." b
@@ -1309,6 +1309,10 @@ snippet isBeforeDate "Check if a date is before another date.  - Use the less th
 const isBeforeDate = (dateA, dateB) => dateA < dateB;
 endsnippet
 
+snippet isBetweenDates "Check if a date is between two other dates.  - Use the greater than (`>`) and less than (`<`) operators to check if `date` is between `dateStart` and `dateEnd`." b
+const isBetweenDates = (dateStart, dateEnd, date) => date > dateStart && date < dateEnd;
+endsnippet
+
 snippet isBoolean "Checks if the given argument is a native boolean element.  - Use `typeof` to check if a value is classified as a boolean primitive." b
 const isBoolean = val => typeof val === 'boolean';
 endsnippet
@@ -1498,14 +1502,12 @@ const isValidJSON = str => {
 endsnippet
 
 snippet isWeekday "Results in a boolean representation of a specific date.  - Pass the specific date object firstly. - Use `Date.getDay()` to check weekday by using a modulo operator and then returning a boolean." b
-const isWeekday = (t = new Date()) => {
-  return t.getDay() % 6 !== 0;
-};
+const isWeekday = (d = new Date()) => d.getDay() % 6 !== 0;
 endsnippet
 
 snippet isWeekend "Results in a boolean representation of a specific date.  - Pass the specific date object firstly. - Use `Date.getDay()` to check weekend based on the day being returned as 0 - 6 using a modulo operation then return a boolean." b
-const isWeekend = (t = new Date()) => {
-  return t.getDay() % 6 === 0;
+const isWeekend = (d = new Date()) => {
+  return d.getDay() % 6 === 0;
 };
 endsnippet
 
@@ -1553,6 +1555,10 @@ endsnippet
 
 snippet listenOnce "Adds an event listener to an element that will only run the callback the first time the event is triggered.  - Use `EventTarget.addEventListener()` to add an event listener to an element, using `{ once: true }` as options to only run the given callback once." b
 const listenOnce = (el, evt, fn) => el.addEventListener(evt, fn, { once: true });
+endsnippet
+
+snippet logBase "Returns the logarithm of the given number in the given base.  - Use `Math.log()` to get the logarithm from the value and the base and divide them." b
+const logBase = (n, base) => Math.log(n) / Math.log(base);
 endsnippet
 
 snippet longestItem "Takes any number of iterable objects or objects with a `length` property and returns the longest one. If multiple objects have the same length, the first one will be returned. Returns `undefined` if no arguments are provided.  - Use `Array.prototype.reduce()`, comparing the `length` of objects to find the longest one." b
@@ -2643,6 +2649,22 @@ const toHash = (object, key) =>
   );
 endsnippet
 
+snippet toISOStringWithTimezone "Returns a string in simplified extended ISO format (ISO 8601), including timezone offset.  - Use `Date.prototype.getTimezoneOffset()` to get the timezone offset and reverse it, storing its sign in `diff`. - Define a helper function, `pad`, that normalizes any passed number to an integer using `Math.floor()` and `Math.abs()` and pads it to 2 digits, using `String.prototype.padStart()`. - Use `pad` and the built-in methods in the `Date` prototype to build the ISO 8601 string with timezone offset." b
+const toISOStringWithTimezone = date => {
+  const tzOffset = -date.getTimezoneOffset();
+  const diff = tzOffset >= 0 ? '+' : '-';
+  const pad = n => \`\${Math.floor(Math.abs(n))}\`.padStart(2, '0');
+  return date.getFullYear() +
+    '-' + pad(date.getMonth() + 1) +
+    '-' + pad(date.getDate()) +
+    'T' + pad(date.getHours()) +
+    ':' + pad(date.getMinutes()) +
+    ':' + pad(date.getSeconds()) +
+    diff + pad(tzOffset / 60) +
+    ':' + pad(tzOffset % 60);
+};
+endsnippet
+
 snippet toKebabCase "Converts a string to kebab case.  - Break the string into words and combine them adding `-` as a separator, using a regexp." b
 const toKebabCase = str =>
   str &&
@@ -2725,9 +2747,9 @@ endsnippet
 
 snippet tomorrow "Results in a string representation of tomorrow's date.  - Use `new Date()` to get the current date, increment by one using `Date.getDate()` and set the value to the result using `Date.setDate()`. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
 const tomorrow = () => {
-  let t = new Date();
-  t.setDate(t.getDate() + 1);
-  return t.toISOString().split('T')[0];
+  let d = new Date();
+  d.setDate(d.getDate() + 1);
+  return d.toISOString().split('T')[0];
 };
 endsnippet
 
@@ -2936,9 +2958,9 @@ endsnippet
 
 snippet yesterday "Results in a string representation of yesterday's date.  - Use `new Date()` to get the current date, decrement by one using `Date.getDate()` and set the value to the result using `Date.setDate()`. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
 const yesterday = () => {
-  let t = new Date();
-  t.setDate(t.getDate() - 1);
-  return t.toISOString().split('T')[0];
+  let d = new Date();
+  d.setDate(d.getDate() - 1);
+  return d.toISOString().split('T')[0];
 };
 endsnippet
 
