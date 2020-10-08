@@ -141,6 +141,17 @@
     ]
   },
   {
+    "code": "const addMultipleListeners = (el, types, listener, options, useCapture) => {\n  types.forEach(type => el.addEventListener(type, listener, options, useCapture));\n}",
+    "description": "Add multiple event listeners with the same handler to an element.\n\n- Use `Array.prototype.forEach()` and `EventTarget.addEventListener()` to add multiple event listeners with an assigned callback function to an element.",
+    "example": "addMultipleListeners(\n  document.querySelector('.my-element'),\n  ['click', 'mousedown'],\n  () => { console.log('hello!') }\n);",
+    "id": "addMultipleListeners",
+    "tags": [
+      "browser",
+      "event",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const all = (arr, fn = Boolean) => arr.every(fn);",
     "description": "Returns `true` if the provided predicate function returns `true` for all elements in a collection, `false` otherwise.\n\n- Use `Array.prototype.every()` to test if all elements in the collection return `true` based on `fn`.\n- Omit the second argument, `fn`, to use `Boolean` as a default.",
     "example": "all([4, 2, 3], x => x > 1); // true\nall([1, 2, 3]); // true",
@@ -227,10 +238,10 @@
     ]
   },
   {
-    "code": "const arrayToHtmlList = (arr, listID) => \n  document.querySelector(\\`#\\${listID}\\`).innerHTML += arr\n    .map(item => \\`<li>\\${item}</li>\\`)\n    .join('');",
+    "code": "const arrayToHTMLList = (arr, listID) => \n  document.querySelector(\\`#\\${listID}\\`).innerHTML += arr\n    .map(item => \\`<li>\\${item}</li>\\`)\n    .join('');",
     "description": "Converts the given array elements into `<li>` tags and appends them to the list of the given id.\n\n- Use `Array.prototype.map()` and `document.querySelector()` to create a list of html tags.",
-    "example": "arrayToHtmlList(['item 1', 'item 2'], 'myListID');",
-    "id": "arrayToHtmlList",
+    "example": "arrayToHTMLList(['item 1', 'item 2'], 'myListID');",
+    "id": "arrayToHTMLList",
     "tags": [
       "browser",
       "array",
@@ -567,7 +578,7 @@
   },
   {
     "code": "const combine = (a, b, prop) =>\n  Object.values(\n    [...a, ...b].reduce((acc, v) => {\n      if (v[prop])\n        acc[v[prop]] = acc[v[prop]]\n          ? { ...acc[v[prop]], ...v }\n          : { ...v };\n      return acc;\n    }, {})\n  );",
-    "description": "Combines two arrays of objects, using the specified key to match objects.\n\n- Use `Array.protoype.reduce()` with an object accumulator to combine all objects in both arrays based on the given `prop`.\n- Use `Object.values()` to convert the resulting object to an array and return it.",
+    "description": "Combines two arrays of objects, using the specified key to match objects.\n\n- Use `Array.prototype.reduce()` with an object accumulator to combine all objects in both arrays based on the given `prop`.\n- Use `Object.values()` to convert the resulting object to an array and return it.",
     "example": "const x = [\n  { id: 1, name: 'John' },\n  { id: 2, name: 'Maria' }\n];\nconst y = [\n  { id: 1, age: 28 },\n  { id: 3, age: 26 },\n  { age: 3}\n];\ncombine(x, y, 'id');\n// [\n//  { id: 1, name: 'John', age: 28 },\n//  { id: 2, name: 'Maria' },\n//  { id: 3, age: 26 }\n// ]",
     "id": "combine",
     "tags": [
@@ -647,6 +658,16 @@
     "tags": [
       "function",
       "intermediate"
+    ]
+  },
+  {
+    "code": "const copySign = (x, y) => Math.sign(x) === Math.sign(y) ? x : -x;",
+    "description": "Returns the absolute value of the first number, but the sign of the second.\n\n- Use `Math.sign()` to check if the two numbers have the same sign.\n- Return `x` if they do, `-x` otherwise.",
+    "example": "copySign(2, 3); // 2\ncopySign(2, -3); // -2\ncopySign(-2, 3); // 2\ncopySign(-2, -3); // -2",
+    "id": "copySign",
+    "tags": [
+      "math",
+      "beginner"
     ]
   },
   {
@@ -969,6 +990,16 @@
     "description": "Returns the distance between two points.\n\n- Use `Math.hypot()` to calculate the Euclidean distance between two points.",
     "example": "distance(1, 1, 2, 3); // 2.23606797749979",
     "id": "distance",
+    "tags": [
+      "math",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const divmod = (x, y) => [Math.floor(x / y), x % y];",
+    "description": "Returns an array consisting of the quotient and remainder of the given numbers.\n\n- Use `Math.floor()` to get the quotient of the division `x / y`.\n- Use the modulo operator (`%`) to get the remainder of the division `x / y`.",
+    "example": "divmod(8, 3); // [2, 2]\ndivmod(3, 8); // [0, 3]\ndivmod(5, 5); // [1, 0]",
+    "id": "divmod",
     "tags": [
       "math",
       "beginner"
@@ -1430,8 +1461,8 @@
     ]
   },
   {
-    "code": "const getElementsBiggerThanViewport = () => {\n  const docWidth = document.documentElement.offsetWidth;\n  return [...document.querySelectorAll('*')].reduce((acc, el) => {\n    if (el.offsetWidth > docWidth) acc.push(el);\n    return acc;\n  }, []);\n}",
-    "description": "Returns an array of HTML elements whose width is larger than that of the viewport's.\n\n- Use `HTMLElement.prototype.offsetWidth()` to get the width of the `document`.\n- Use `Array.prototype.reduce()` on the result of `document.querySelectorAll()` to check the width of all elements in the document.",
+    "code": "const getElementsBiggerThanViewport = () => {\n  const docWidth = document.documentElement.offsetWidth;\n  return [...document.querySelectorAll('*')].filter(el => el.offsetWidth > docWidth);\n}",
+    "description": "Returns an array of HTML elements whose width is larger than that of the viewport's.\n\n- Use `HTMLElement.prototype.offsetWidth()` to get the width of the `document`.\n- Use `Array.prototype.filter()` on the result of `document.querySelectorAll()` to check the width of all elements in the document.",
     "example": "getElementsBiggerThanViewport(); // <div id=\"ultra-wide-item\" />",
     "id": "getElementsBiggerThanViewport",
     "tags": [
@@ -1467,6 +1498,16 @@
     "tags": [
       "date",
       "intermediate"
+    ]
+  },
+  {
+    "code": "const getProtocol = () => window.location.protocol;",
+    "description": "Returns the protocol being used on the current page.\n\n- Use `window.location.protocol` to get the protocol (`http:` or `https:`) of the current page.",
+    "example": "getProtocol(); // 'https:'",
+    "id": "getProtocol",
+    "tags": [
+      "browser",
+      "beginner"
     ]
   },
   {
@@ -1508,6 +1549,16 @@
     "tags": [
       "browser",
       "css",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const getTimestamp = (date = new Date()) =>\n  Math.floor(date.getTime() / 1000);",
+    "description": "Gets the Unix timestamp from a `Date` object.\n\n- Use `Date.prototype.getTime()` to get the timestamp in milliseconds and divide by `1000` to get the timestamp in seconds.\n- Use `Math.floor()` to appropriately round the resulting timestamp to an integer.\n- Omit the argument, `date`, to use the current date.",
+    "example": "getTimestamp(); // 1602162242",
+    "id": "getTimestamp",
+    "tags": [
+      "date",
       "beginner"
     ]
   },
@@ -2039,6 +2090,16 @@
     "id": "isContainedIn",
     "tags": [
       "array",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const isDateValid = (...val) => !isNaN(new Date(...val).valueOf());",
+    "description": "Returns `true` if a valid date object can be created from the given values, `false` otherwise.\n\n- Use the spread operator (`...`) to pass the array of arguments to the `Date` constructor.\n- Use `Date.prototype.valueOf()` and `Number.isNaN()` to check if a valid `Date` object can be created from the given values.",
+    "example": "isDateValid('December 17, 1995 03:24:00'); // true\nisDateValid('1995-12-17T03:24:00'); // true\nisDateValid('1995-12-17 T03:24:00'); // false\nisDateValid('Duck'); // false\nisDateValid(1995, 11, 17); // true\nisDateValid(1995, 11, 17, 'Duck'); // false\nisDateValid({}); // false",
+    "id": "isDateValid",
+    "tags": [
+      "date",
       "intermediate"
     ]
   },
@@ -3884,6 +3945,16 @@
     ]
   },
   {
+    "code": "const sumN = n => (n * (n + 1)) / 2;",
+    "description": "Sums all the numbers between 1 and `n`.\n\n- Use the formula `(n * (n + 1)) / 2` to get the sum of all the numbers between 1 and `n`.",
+    "example": "sumN(100); // 5050",
+    "id": "sumN",
+    "tags": [
+      "math",
+      "beginner"
+    ]
+  },
+  {
     "code": "const sumPower = (end, power = 2, start = 1) =>\n  Array(end + 1 - start)\n    .fill(0)\n    .map((x, i) => (i + start) ** power)\n    .reduce((a, b) => a + b, 0);",
     "description": "Returns the sum of the powers of all the numbers from `start` to `end` (both inclusive).\n\n- Use `Array.prototype.fill()` to create an array of all the numbers in the target range, `Array.prototype.map()` and the exponent operator (`**`) to raise them to `power` and `Array.prototype.reduce()` to add them together.\n- Omit the second argument, `power`, to use a default power of `2`.\n- Omit the third argument, `start`, to use a default starting value of `1`.",
     "example": "sumPower(10); // 385\nsumPower(10, 3); // 3025\nsumPower(10, 3, 5); // 2925",
@@ -4027,6 +4098,16 @@
       "string",
       "regexp",
       "intermediate"
+    ]
+  },
+  {
+    "code": "const toCharArray = s => [...s];",
+    "description": "Converts a string to an array of characters.\n\n- Use the spread operator (`...`) to convert the string into an array of characters.",
+    "example": "toCharArray('hello'); // ['h', 'e', 'l', 'l', 'o']",
+    "id": "toCharArray",
+    "tags": [
+      "string",
+      "beginner"
     ]
   },
   {

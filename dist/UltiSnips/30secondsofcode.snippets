@@ -134,6 +134,12 @@ snippet accumulate "Returns an array of partial sums.  - Use `Array.prototype.re
 const accumulate = (...nums) => nums.reduce((acc, n) => [...acc, n + +acc.slice(-1)],[]);
 endsnippet
 
+snippet addMultipleListeners "Add multiple event listeners with the same handler to an element.  - Use `Array.prototype.forEach()` and `EventTarget.addEventListener()` to add multiple event listeners with an assigned callback function to an element." b
+const addMultipleListeners = (el, types, listener, options, useCapture) => {
+  types.forEach(type => el.addEventListener(type, listener, options, useCapture));
+}
+endsnippet
+
 snippet all "Returns `true` if the provided predicate function returns `true` for all elements in a collection, `false` otherwise.  - Use `Array.prototype.every()` to test if all elements in the collection return `true` based on `fn`. - Omit the second argument, `fn`, to use `Boolean` as a default." b
 const all = (arr, fn = Boolean) => arr.every(fn);
 endsnippet
@@ -173,8 +179,8 @@ const arrayToCSV = (arr, delimiter = ',') =>
     .join('\n');
 endsnippet
 
-snippet arrayToHtmlList "Converts the given array elements into `<li>` tags and appends them to the list of the given id.  - Use `Array.prototype.map()` and `document.querySelector()` to create a list of html tags." b
-const arrayToHtmlList = (arr, listID) => 
+snippet arrayToHTMLList "Converts the given array elements into `<li>` tags and appends them to the list of the given id.  - Use `Array.prototype.map()` and `document.querySelector()` to create a list of html tags." b
+const arrayToHTMLList = (arr, listID) => 
   document.querySelector(\`#\${listID}\`).innerHTML += arr
     .map(item => \`<li>\${item}</li>\`)
     .join('');
@@ -368,7 +374,7 @@ const colorize = (...args) => ({
 });
 endsnippet
 
-snippet combine "Combines two arrays of objects, using the specified key to match objects.  - Use `Array.protoype.reduce()` with an object accumulator to combine all objects in both arrays based on the given `prop`. - Use `Object.values()` to convert the resulting object to an array and return it." b
+snippet combine "Combines two arrays of objects, using the specified key to match objects.  - Use `Array.prototype.reduce()` with an object accumulator to combine all objects in both arrays based on the given `prop`. - Use `Object.values()` to convert the resulting object to an array and return it." b
 const combine = (a, b, prop) =>
   Object.values(
     [...a, ...b].reduce((acc, v) => {
@@ -407,6 +413,10 @@ endsnippet
 
 snippet converge "Accepts a converging function and a list of branching functions and returns a function that applies each branching function to the arguments and the results of the branching functions are passed as arguments to the converging function.  - Use `Array.prototype.map()` and `Function.prototype.apply()` to apply each function to the given arguments. - Use the spread operator (`...`) to call `coverger` with the results of all other functions." b
 const converge = (converger, fns) => (...args) => converger(...fns.map(fn => fn.apply(null, args)));
+endsnippet
+
+snippet copySign "Returns the absolute value of the first number, but the sign of the second.  - Use `Math.sign()` to check if the two numbers have the same sign. - Return `x` if they do, `-x` otherwise." b
+const copySign = (x, y) => Math.sign(x) === Math.sign(y) ? x : -x;
 endsnippet
 
 snippet copyToClipboard "Copy a string to the clipboard. Only works as a result of user action (i.e. inside a `click` event listener).  - Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document. - Use `Selection.getRangeAt()`to store the selected range (if any). - Use `document.execCommand('copy')` to copy to the clipboard. - Remove the `<textarea>` element from the HTML document. - Finally, use `Selection().addRange()` to recover the original selected range (if any). - ⚠️ **NOTICE:** The same functionality can be easily implemented by using the new asynchronous Clipboard API, which is still experimental but should be used in the future instead of this snippet. Find out more about it [here](https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc#writing-to-the-clipboard)." b
@@ -642,6 +652,10 @@ endsnippet
 
 snippet distance "Returns the distance between two points.  - Use `Math.hypot()` to calculate the Euclidean distance between two points." b
 const distance = (x0, y0, x1, y1) => Math.hypot(x1 - x0, y1 - y0);
+endsnippet
+
+snippet divmod "Returns an array consisting of the quotient and remainder of the given numbers.  - Use `Math.floor()` to get the quotient of the division `x / y`. - Use the modulo operator (`%`) to get the remainder of the division `x / y`." b
+const divmod = (x, y) => [Math.floor(x / y), x % y];
 endsnippet
 
 snippet drop "Returns a new array with `n` elements removed from the left.  - Use `Array.prototype.slice()` to remove the specified number of elements from the left." b
@@ -943,13 +957,10 @@ const getDaysDiffBetweenDates = (dateInitial, dateFinal) =>
   (dateFinal - dateInitial) / (1000 * 3600 * 24);
 endsnippet
 
-snippet getElementsBiggerThanViewport "Returns an array of HTML elements whose width is larger than that of the viewport's.  - Use `HTMLElement.prototype.offsetWidth()` to get the width of the `document`. - Use `Array.prototype.reduce()` on the result of `document.querySelectorAll()` to check the width of all elements in the document." b
+snippet getElementsBiggerThanViewport "Returns an array of HTML elements whose width is larger than that of the viewport's.  - Use `HTMLElement.prototype.offsetWidth()` to get the width of the `document`. - Use `Array.prototype.filter()` on the result of `document.querySelectorAll()` to check the width of all elements in the document." b
 const getElementsBiggerThanViewport = () => {
   const docWidth = document.documentElement.offsetWidth;
-  return [...document.querySelectorAll('*')].reduce((acc, el) => {
-    if (el.offsetWidth > docWidth) acc.push(el);
-    return acc;
-  }, []);
+  return [...document.querySelectorAll('*')].filter(el => el.offsetWidth > docWidth);
 }
 endsnippet
 
@@ -981,6 +992,10 @@ const getMonthsDiffBetweenDates = (dateInitial, dateFinal) =>
   );
 endsnippet
 
+snippet getProtocol "Returns the protocol being used on the current page.  - Use `window.location.protocol` to get the protocol (`http:` or `https:`) of the current page." b
+const getProtocol = () => window.location.protocol;
+endsnippet
+
 snippet getScrollPosition "Returns the scroll position of the current page.  - Use `pageXOffset` and `pageYOffset` if they are defined, otherwise `scrollLeft` and `scrollTop`. - You can omit `el` to use a default value of `window`." b
 const getScrollPosition = (el = window) => ({
   x: el.pageXOffset !== undefined ? el.pageXOffset : el.scrollLeft,
@@ -999,6 +1014,11 @@ endsnippet
 
 snippet getStyle "Returns the value of a CSS rule for the specified element.  - Use `Window.getComputedStyle()` to get the value of the CSS rule for the specified element." b
 const getStyle = (el, ruleName) => getComputedStyle(el)[ruleName];
+endsnippet
+
+snippet getTimestamp "Gets the Unix timestamp from a `Date` object.  - Use `Date.prototype.getTime()` to get the timestamp in milliseconds and divide by `1000` to get the timestamp in seconds. - Use `Math.floor()` to appropriately round the resulting timestamp to an integer. - Omit the argument, `date`, to use the current date." b
+const getTimestamp = (date = new Date()) =>
+  Math.floor(date.getTime() / 1000);
 endsnippet
 
 snippet getType "Returns the native type of a value.  - Return `'undefined'` or `'null'` if the value is `undefined` or `null`. - Otherwise, use `Object.prototype.constructor.name` to get the name of the constructor." b
@@ -1333,6 +1353,10 @@ const isContainedIn = (a, b) => {
   }
   return true;
 };
+endsnippet
+
+snippet isDateValid "Returns `true` if a valid date object can be created from the given values, `false` otherwise.  - Use the spread operator (`...`) to pass the array of arguments to the `Date` constructor. - Use `Date.prototype.valueOf()` and `Number.isNaN()` to check if a valid `Date` object can be created from the given values." b
+const isDateValid = (...val) => !isNaN(new Date(...val).valueOf());
 endsnippet
 
 snippet isDeepFrozen "Checks if an object is deeply frozen  - Use recursion. - Use `Object.isFrozen()` on the given object. - Use `Object.keys()`, `Array.prototype.every()` to check that all keys are either deeply frozen objects or non-object values." b
@@ -2519,6 +2543,10 @@ const sumBy = (arr, fn) =>
   arr.map(typeof fn === 'function' ? fn : val => val[fn]).reduce((acc, val) => acc + val, 0);
 endsnippet
 
+snippet sumN "Sums all the numbers between 1 and `n`.  - Use the formula `(n * (n + 1)) / 2` to get the sum of all the numbers between 1 and `n`." b
+const sumN = n => (n * (n + 1)) / 2;
+endsnippet
+
 snippet sumPower "Returns the sum of the powers of all the numbers from `start` to `end` (both inclusive).  - Use `Array.prototype.fill()` to create an array of all the numbers in the target range, `Array.prototype.map()` and the exponent operator (`**`) to raise them to `power` and `Array.prototype.reduce()` to add them together. - Omit the second argument, `power`, to use a default power of `2`. - Omit the third argument, `start`, to use a default starting value of `1`." b
 const sumPower = (end, power = 2, start = 1) =>
   Array(end + 1 - start)
@@ -2629,6 +2657,10 @@ const toCamelCase = str => {
       .join('');
   return s.slice(0, 1).toLowerCase() + s.slice(1);
 };
+endsnippet
+
+snippet toCharArray "Converts a string to an array of characters.  - Use the spread operator (`...`) to convert the string into an array of characters." b
+const toCharArray = s => [...s];
 endsnippet
 
 snippet toCurrency "Take a number and return specified currency formatting.  - Use `Intl.NumberFormat` to enable country / currency sensitive formatting." b
