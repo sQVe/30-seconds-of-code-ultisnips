@@ -522,6 +522,14 @@ const daysAgo = n => {
 };
 endsnippet
 
+snippet daysFromNow "Returns the date of `n` days from today as a string representation.  - Use `new Date()` to get the current date, `Math.abs()` and `Date.getDate()` to update the date accordingly and set to the result using `Date.setDate()`. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
+const daysFromNow = n => {
+  let d = new Date();
+  d.setDate(d.getDate() + Math.abs(n));
+  return d.toISOString().split('T')[0];
+}
+endsnippet
+
 snippet debounce "Creates a debounced function that delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked.  - Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed. - Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments. - Omit the second argument, `ms`, to set the timeout at a default of 0 ms." b
 const debounce = (fn, ms = 0) => {
   let timeoutId;
@@ -923,6 +931,10 @@ const gcd = (...arr) => {
   const _gcd = (x, y) => (!y ? x : gcd(y, x % y));
   return [...arr].reduce((a, b) => _gcd(a, b));
 };
+endsnippet
+
+snippet generateItems "Generates an array with the given amount of items, using the given function.  - Use  `Array.from()`  to create an empty array of the specific length, calling `fn` with the index of each newly created element." b
+const generateItems = (n, fn) => Array.from({ length: n }, (_, i) => fn(i));
 endsnippet
 
 snippet geometricProgression "Initializes an array containing the numbers in the specified range where `start` and `end` are inclusive and the ratio between two terms is `step`. Returns an error if `step` equals `1`.  - Use `Array.from()`, `Math.log()` and `Math.floor()` to create an array of the desired length, `Array.prototype.map()` to fill with the desired values in a range. - Omit the second argument, `start`, to use a default value of `1`. - Omit the third argument, `step`, to use a default value of `2`." b
@@ -1569,6 +1581,13 @@ snippet last "Returns the last element in an array.  - Check if `arr` is truthy 
 const last = arr => (arr && arr.length ? arr[arr.length - 1] : undefined);
 endsnippet
 
+snippet lastDateOfMonth "Returns the string representation of the last date in the given date's month.  - Use `Date.prototype.getFullYear()`, `Date.prototype.getMonth()` to get the current year and month from the given date. - Use the `new Date()` constructor to create a new date with the given year and month incremented by `1`, and the day set to `0` (last day of previous month). - Omit the argument, `date`, to use the current date by default." b
+const lastDateOfMonth = (date = new Date()) => {
+  let d = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+  return d.toISOString().split('T')[0];
+};
+endsnippet
+
 snippet lcm "Returns the least common multiple of two or more numbers.  - Use the greatest common divisor (GCD) formula and the fact that `lcm(x,y) = x * y / gcd(x,y)` to determine the least common multiple. - The GCD formula uses recursion." b
 const lcm = (...arr) => {
   const gcd = (x, y) => (!y ? x : gcd(y, x % y));
@@ -2126,6 +2145,13 @@ const pullBy = (arr, ...args) => {
   arr.length = 0;
   pulled.forEach(v => arr.push(v));
 };
+endsnippet
+
+snippet quarterOfYear "Returns the quarter and year to which the supplied date belongs to.  - Use `Date.prototype.getMonth()` to get the current month in the range (0, 11), add `1` to map it to the range (1, 12). - Use `Math.ceil()` and divide the month by `3` to get the current quarter. - Use `Date.prototype.getFullYear()` to get the year from the given date. - Omit the argument, `date`, to use the current date by default." b
+const quarterOfYear = (date = new Date()) => [
+  Math.ceil((date.getMonth() + 1) / 3),
+  date.getFullYear(),
+];
 endsnippet
 
 snippet radsToDegrees "Converts an angle from radians to degrees.  - Use `Math.PI` and the radian to degree formula to convert the angle from radians to degrees." b
@@ -2941,9 +2967,18 @@ const vectorDistance = (x, y) =>
   Math.sqrt(x.reduce((acc, val, i) => acc + Math.pow(val - y[i], 2), 0));
 endsnippet
 
-snippet weightedAverage "Returns the weighted average of two or more numbers.  - Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0` and divide by the `length` of the array." b
-const weightedAverage = (nums, weights) => 
-  nums.reduce((acc, n, i) => acc + (weights[i] * n), 0) / nums.length;
+snippet weightedAverage "Returns the weighted average of two or more numbers.  - Use `Array.prototype.reduce()` to create the weighted sum of the values and the sum of the weights. - Divide them with each other to get the weighted average." b
+const weightedAverage = (nums, weights) => {
+  const [sum, weightSum] = weights.reduce(
+    (acc, w, i) => {
+      acc[0] = acc[0] + nums[i] * w;
+      acc[1] = acc[1] + w;
+      return acc;
+    },
+    [0, 0]
+  );
+  return sum / weightSum;
+};
 endsnippet
 
 snippet weightedSample "Returns a random element from an array, using the provided `weights` as the probabilities for each element.  - Use `Array.prototype.reduce()` to create an array of partial sums for each value in `weights`. - Use `Math.random()` to generate a random number and `Array.prototype.findIndex()` to find the correct index based on the array previously produced. - Finally, return the element of `arr` with the produced index." b
