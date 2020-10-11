@@ -451,6 +451,17 @@ snippet countOccurrences "Counts the occurrences of a value in an array.  - Use 
 const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
 endsnippet
 
+snippet countWeekDaysBetween "Returns the weekday count between two dates.  - Use `Array.from()` to construct an array with `length` equal to the number of days between `startDate` and `endDate`. - Use `Array.prototype.reduce()` to iterate over the array, checking if each date is a weekday and incrementing `count`. - Update `startDate` with the next day each loop using `Date.getDate()` and `Date.setDate()` to advance it by one day." b
+const countWeekDaysBetween = (startDate, endDate) =>
+  Array
+    .from({ length: (endDate - startDate) / (1000 * 3600 * 24) })
+    .reduce(count => {
+      if (startDate.getDay() % 6 !== 0) count++;
+      startDate = new Date(startDate.setDate(startDate.getDate() + 1));
+      return count;
+    }, 0);
+endsnippet
+
 snippet counter "Creates a counter with the specified range, step and duration for the specified selector.  - Check if `step` has the proper sign and change it accordingly. - Use `setInterval()` in combination with `Math.abs()` and `Math.floor()` to calculate the time between each new text draw. - Use `document.querySelector().innerHTML` to update the value of the selected element. - Omit the fourth parameter, `step`, to use a default step of `1`. - Omit the fifth parameter, `duration`, to use a default duration of `2000`ms." b
 const counter = (selector, start, end, step = 1, duration = 2000) => {
   let current = start,
@@ -503,6 +514,16 @@ endsnippet
 snippet curry "Curries a function.  - Use recursion. - If the number of provided arguments (`args`) is sufficient, call the passed function `fn`. - Otherwise, return a curried function `fn` that expects the rest of the arguments. - If you want to curry a function that accepts a variable number of arguments (a variadic function, e.g. `Math.min()`), you can optionally pass the number of arguments to the second parameter `arity`." b
 const curry = (fn, arity = fn.length, ...args) =>
   arity <= args.length ? fn(...args) : curry.bind(null, fn, arity, ...args);
+endsnippet
+
+snippet cycleGenerator "Creates a generator, looping over the given array indefinitely.  - Use a non-terminating `while` loop, that will `yield` a value every time `Generator.prototype.next()` is called. - Use the module operator (`%`) with `Array.prototype.length` to get the next value's index and increment the counter after each `yield` statement." b
+const cycleGenerator = function* (arr) {
+  let i = 0;
+  while (true) {
+    yield arr[i % arr.length];
+    i++;
+  }
+};
 endsnippet
 
 snippet dayName "Gets the name of the weekday from a `Date` object.  - Use `Date.prototype.toLocaleDateString()` with the `{ weekday: 'long' }` option to retrieve the weekday. - Use the optional second parameter to get a language-specific name or omit it to use the default locale." b
@@ -929,6 +950,16 @@ const fromCamelCase = (str, separator = '_') =>
     .replace(/([a-z\d])([A-Z])/g, '$1' + separator + '$2')
     .replace(/([A-Z]+)([A-Z][a-z\d]+)/g, '$1' + separator + '$2')
     .toLowerCase();
+endsnippet
+
+snippet frozenSet "Creates a frozen `Set` object.  - Use the `new Set()` constructor to create a new `Set` object from `iterable`. - Set the `add`, `delete` and `clear` methods of the newly created object to `undefined`, so that they cannot be used, practically freezing the object." b
+const frozenSet = iterable => {
+  const s = new Set(iterable);
+  s.add = undefined;
+  s.delete = undefined;
+  s.clear = undefined;
+  return s;
+};
 endsnippet
 
 snippet fullscreen "Opens or closes an element in fullscreen mode.  - Use `document.querySelector()` and `Element.prototype.requestFullscreen()` to open the given element in fullscreen. - Use `document.exitFullscreen()` to exit fullscreen mode. - Omit the second argument, `el`, to use `body` as the default element. - Omit the first element, `mode`, to open the element in fullscreen mode by default." b
@@ -1401,6 +1432,13 @@ const isDeepFrozen = obj =>
   Object.keys(obj).every(
     prop => typeof obj[prop] !== 'object' || isDeepFrozen(obj[prop])
   );
+endsnippet
+
+snippet isDisjoint "Checks if the two iterables are disjointed (have no common values).  - Use the `new Set()` constructor to create a new `Set` object from each iterable. - Use `Array.prototype.every()` and `Set.prototype.has()` to check that the two iterables have no common values." b
+const isDisjoint = (a, b) => {
+  const sA = new Set(a), sB = new Set(b);
+  return [...sA].every(v => !sB.has(v));
+};
 endsnippet
 
 snippet isDivisible "Checks if the first numeric argument is divisible by the second one.  - Use the modulo operator (`%`) to check if the remainder is equal to `0`." b
@@ -2213,6 +2251,16 @@ snippet randomNumberInRange "Returns a random number in the specified range.  - 
 const randomNumberInRange = (min, max) => Math.random() * (max - min) + min;
 endsnippet
 
+snippet rangeGenerator "Creates a generator, that generates all values in the given range using the given step.  - Use a `while` loop to iterate from `start` to `end`, using `yield` to return each value and then incrementing by `step`. - Omit the third argument, `step`, to use a default value of `1`." b
+const rangeGenerator = function* (start, end, step = 1) {
+  let i = start;
+  while (i < end) {
+    yield i;
+    i += step;
+  }
+};
+endsnippet
+
 snippet readFileLines "Returns an array of lines from the specified file.  - Use `readFileSync` function in `fs` node package to create a `Buffer` from a file. - Convert buffer to string using `toString(encoding)` function. - Use `split(\n)` to create an array of lines from the contents of the file." b
 const fs = require('fs');
 const readFileLines = filename =>
@@ -2330,6 +2378,16 @@ const renderElement = ({ type, props = {} }, container) => {
 
   container.appendChild(element);
 }
+endsnippet
+
+snippet repeatGenerator "Creates a generator, repeating the given value indefinitely.  - Use a non-terminating `while` loop, that will `yield` a value every time `Generator.prototype.next()` is called. - Use the return value of the `yield` statement to update the returned value if the passed value is not `undefined`." b
+const repeatGenerator = function* (val) {
+  let v = val;
+  while (true) {
+    let newV = yield v;
+    if (newV !== undefined) v = newV;
+  }
+};
 endsnippet
 
 snippet requireUncached "Loads a module after removing it from the cache (if exists).  - Use `delete` to remove the module from the cache (if exists). - Use `require()` to load the module again." b
@@ -2584,6 +2642,13 @@ snippet stripHTMLTags "Removes HTML/XML tags from string.  - Use a regular expre
 const stripHTMLTags = str => str.replace(/<[^>]*>/g, '');
 endsnippet
 
+snippet subSet "Checks if the first iterable is a subset of the second one.  - Use the `new Set()` constructor to create a new `Set` object from each iterable. - Use `Array.prototype.every()` and `Set.prototype.has()` to check that each value in the first iterable is contained in the second one." b
+const subSet = (a, b) => {
+  const sA = new Set(a), sB = new Set(b);
+  return [...sA].every(v => sB.has(v));
+};
+endsnippet
+
 snippet sum "Returns the sum of two or more numbers/arrays.  - Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`." b
 const sum = (...arr) => [...arr].reduce((acc, val) => acc + val, 0);
 endsnippet
@@ -2603,6 +2668,13 @@ const sumPower = (end, power = 2, start = 1) =>
     .fill(0)
     .map((x, i) => (i + start) ** power)
     .reduce((a, b) => a + b, 0);
+endsnippet
+
+snippet superSet "Checks if the first iterable is a superset of the second one.  - Use the `new Set()` constructor to create a new `Set` object from each iterable. - Use `Array.prototype.every()` and `Set.prototype.has()` to check that each value in the second iterable is contained in the first one." b
+const superSet = (a, b) => {
+  const sA = new Set(a), sB = new Set(b);
+  return [...sB].every(v => sA.has(v));
+};
 endsnippet
 
 snippet supportsTouchEvents "Returns `true` if touch events are supported, `false` otherwise.  - Check if `ontouchstart` exists in `window` or `window.DocumentTouch` is true and the current `document` is an instance of it." b
