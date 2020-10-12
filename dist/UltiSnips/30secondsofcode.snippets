@@ -134,10 +134,30 @@ snippet accumulate "Returns an array of partial sums.  - Use `Array.prototype.re
 const accumulate = (...nums) => nums.reduce((acc, n) => [...acc, n + +acc.slice(-1)],[]);
 endsnippet
 
+snippet addDaysToDate "Return the date of `n` days from the given date as a string representation.  - Use `new Date()` to create a date object from the first parameter. - Use `Date.getDate()` and `Date.setDate()` to add `n` days to the given date. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
+const addDaysToDate = (date, n) => {
+  d = new Date(date);
+  d.setDate(d.getDate() + n);
+  return d.toISOString().split('T')[0];
+};
+endsnippet
+
 snippet addMultipleListeners "Add multiple event listeners with the same handler to an element.  - Use `Array.prototype.forEach()` and `EventTarget.addEventListener()` to add multiple event listeners with an assigned callback function to an element." b
 const addMultipleListeners = (el, types, listener, options, useCapture) => {
   types.forEach(type => el.addEventListener(type, listener, options, useCapture));
 }
+endsnippet
+
+snippet addWeekDays "Returns a date after adding given number of business days.  - Use `Array.from()` to construct an array with `length` equal to the `count` of business days to be added. - Use `Array.prototype.reduce()` to iterate over the array, starting from `startDate` and incrementing, using `Date.getDate()` and `Date.setDate()`. - If the current `date` is on a weekend, update it again by adding either one day or two days to make it a weekday." b
+const addWeekDays = (startDate, count) => 
+  Array
+    .from({ length: count })
+    .reduce(date => {
+      date = new Date(date.setDate(date.getDate() + 1));
+      if (date.getDay() % 6 === 0)
+        date = new Date(date.setDate(date.getDate() + ((date.getDay() / 6) + 1)));
+      return date;
+    }, startDate);
 endsnippet
 
 snippet all "Returns `true` if the provided predicate function returns `true` for all elements in a collection, `false` otherwise.  - Use `Array.prototype.every()` to test if all elements in the collection return `true` based on `fn`. - Omit the second argument, `fn`, to use `Boolean` as a default." b
@@ -1491,6 +1511,13 @@ endsnippet
 
 snippet isNil "Returns `true` if the specified value is `null` or `undefined`, `false` otherwise.  - Use the strict equality operator to check if the value of `val` is equal to `null` or `undefined`." b
 const isNil = val => val === undefined || val === null;
+endsnippet
+
+snippet isNode "Determines if the current runtime environment is Node.js.  - Use the `process` global object that provides information about the current Node.js process. - Check if `process` is defined and `process.versions`, `process.versions.node` are not `null`." b
+const isNode = () =>
+  typeof process !== 'undefined' &&
+  process.versions !== null &&
+  process.versions.node !== null;
 endsnippet
 
 snippet isNull "Returns `true` if the specified value is `null`, `false` otherwise.  - Use the strict equality operator to check if the value of `val` is equal to `null`." b
