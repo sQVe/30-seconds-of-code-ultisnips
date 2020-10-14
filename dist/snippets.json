@@ -4363,6 +4363,30 @@
     ]
   },
   {
+    "code": "const toRGBArray = rgbStr => rgbStr.match(/\\d+/g).map(Number);",
+    "description": "Converts an `rgb()` color string to an array of values.\r\n\r\n- Use `String.prototype.match()` to get an array of 3 string with the numeric values.\r\n- Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values.",
+    "example": "toRGBArray('rgb(255,12,0)'); // [255, 12, 0]",
+    "id": "toRGBArray\r",
+    "tags": [
+      "string",
+      "browser",
+      "regexp",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const toRGBObject = rgbStr => {\n  const [r, g, b] = rgbStr.match(/\\d+/g).map(Number);\n  return { r, g, b };\n};",
+    "description": "Converts an `rgb()` color string to an object with the values of each color.\n\n- Use `String.prototype.match()` to get an array of 3 string with the numeric values.\n- Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values.\n- Use array destructuring to store the values into named variables and create an appropriate object from them.",
+    "example": "toRGBObject('rgb(255,12,0)'); // {r: 255, g: 12, b: 0}",
+    "id": "toRGBObject",
+    "tags": [
+      "string",
+      "browser",
+      "regexp",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const toRomanNumeral = num => {\n  const lookup = [\n    ['M', 1000],\n    ['CM', 900],\n    ['D', 500],\n    ['CD', 400],\n    ['C', 100],\n    ['XC', 90],\n    ['L', 50],\n    ['XL', 40],\n    ['X', 10],\n    ['IX', 9],\n    ['V', 5],\n    ['IV', 4],\n    ['I', 1],\n  ];\n  return lookup.reduce((acc, [k, v]) => {\n    acc += k.repeat(Math.floor(num / v));\n    num = num % v;\n    return acc;\n  }, '');\n};",
     "description": "Converts an integer to its roman numeral representation.\nAccepts value between `1` and `3999` (both inclusive).\n\n- Create a lookup table containing 2-value arrays in the form of (roman value, integer).\n- Use `Array.prototype.reduce()` to loop over the values in `lookup` and repeatedly divide `num` by the value, using `String.prototype.repeat()` to add the roman numeral representation to the accumulator.",
     "example": "toRomanNumeral(3); // 'III'\ntoRomanNumeral(11); // 'XI'\ntoRomanNumeral(1998); // 'MCMXCVIII'",

@@ -2879,6 +2879,17 @@ const toPairs = obj =>
     : Object.entries(obj);
 endsnippet
 
+snippet toRGBArray "Converts an `rgb()` color string to an array of values.    - Use `String.prototype.match()` to get an array of 3 string with the numeric values.  - Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values." b
+const toRGBArray = rgbStr => rgbStr.match(/\d+/g).map(Number);
+endsnippet
+
+snippet toRGBObject "Converts an `rgb()` color string to an object with the values of each color.  - Use `String.prototype.match()` to get an array of 3 string with the numeric values. - Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values. - Use array destructuring to store the values into named variables and create an appropriate object from them." b
+const toRGBObject = rgbStr => {
+  const [r, g, b] = rgbStr.match(/\d+/g).map(Number);
+  return { r, g, b };
+};
+endsnippet
+
 snippet toRomanNumeral "Converts an integer to its roman numeral representation. Accepts value between `1` and `3999` (both inclusive).  - Create a lookup table containing 2-value arrays in the form of (roman value, integer). - Use `Array.prototype.reduce()` to loop over the values in `lookup` and repeatedly divide `num` by the value, using `String.prototype.repeat()` to add the roman numeral representation to the accumulator." b
 const toRomanNumeral = num => {
   const lookup = [
