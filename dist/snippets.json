@@ -1413,7 +1413,7 @@
   {
     "code": "const frequencies = arr =>\n  arr.reduce((a, v) => {\n    a[v] = a[v] ? a[v] + 1 : 1;\n    return a;\n  }, {});",
     "description": "Returns an object with the unique values of an array as keys and their frequencies as the values.\n\n- Use `Array.prototype.reduce()` to map unique values to an object's keys, adding to existing keys every time the same value is encountered.",
-    "example": "frequencies(['a', 'b', 'a', 'c', 'a', 'a', 'b']); // { a: 4, b: 2, c: 1 }",
+    "example": "frequencies(['a', 'b', 'a', 'c', 'a', 'a', 'b']); // { a: 4, b: 2, c: 1 }\nfrequencies([...'ball']); // { b: 1, a: 1, l: 2 }",
     "id": "frequencies",
     "tags": [
       "array",
@@ -1428,6 +1428,16 @@
     "tags": [
       "string",
       "intermediate"
+    ]
+  },
+  {
+    "code": "const fromTimestamp = timestamp => new Date(timestamp * 1000);",
+    "description": "Creates a `Date` object from a Unix timestamp.\n\n- Convert the timestamp to milliseconds by multiplying with `1000`.\n- Use `new Date()` to create a new `Date` object.",
+    "example": "fromTimestamp(1602162242); // 2020-10-08T13:04:02.000Z",
+    "id": "fromTimestamp",
+    "tags": [
+      "date",
+      "beginner"
     ]
   },
   {
@@ -1511,6 +1521,16 @@
     "tags": [
       "object",
       "intermediate"
+    ]
+  },
+  {
+    "code": "const getAncestors = el => {\n  let ancestors = [];\n  while (el) {\n    ancestors.unshift(el);\n    el = el.parentNode;\n  }\n  return ancestors;\n};",
+    "description": "Returns all the ancestors of an element from the document root to the given element.\n\n- Use a `Node.parentNode` and a `while` loop to move up the ancestor tree of the element.\n- Use `Array.prototype.unshift()` to add each new ancestor to the start of the array.",
+    "example": "getAncestors(document.querySelector('nav')); // [document, html, body, header, nav]",
+    "id": "getAncestors",
+    "tags": [
+      "browser",
+      "beginner"
     ]
   },
   {
@@ -1963,6 +1983,16 @@
     "tags": [
       "array",
       "recursion",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const injectCSS = css => {\n  let el = document.createElement('style');\n  el.type = 'text/css';\n  el.innerText = css;\n  document.head.appendChild(el);\n  return el;\n}",
+    "description": "Injects the given css code into the current document\n\n- Use `document.createElement()` to create a new `style` element and set its type to `text/css`.\n- Use `Element.innerText` to set the value to the given css string, `document.head` and `Element.appendChild()` to append the new element to the document head.\n- Return the newly created `style` element.",
+    "example": "injectCSS('body { background-color: #000 }'); // '<style type=\"text/css\">body { background-color: #000 }</style>'",
+    "id": "injectCSS",
+    "tags": [
+      "browser",
       "intermediate"
     ]
   },
@@ -3407,6 +3437,17 @@
     "description": "Generates primes up to a given number, using the Sieve of Eratosthenes.\n\n- Generate an array from `2` to the given number.\n- Use `Array.prototype.filter()` to filter out the values divisible by any number from `2` to the square root of the provided number.",
     "example": "primes(10); // [2,3,5,7]",
     "id": "primes",
+    "tags": [
+      "math",
+      "array",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const prod = (...arr) => [...arr].reduce((acc, val) => acc * val, 1);",
+    "description": "Returns the product of two or more numbers/arrays.\n\n- Use `Array.prototype.reduce()` to multiply each value with an accumulator, initialized with a value of `1`.",
+    "example": "prod(1, 2, 3, 4); // 24\nprod(...[1, 2, 3, 4]); // 24",
+    "id": "prod",
     "tags": [
       "math",
       "array",

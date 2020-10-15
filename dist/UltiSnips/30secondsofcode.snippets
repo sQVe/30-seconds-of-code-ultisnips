@@ -972,6 +972,10 @@ const fromCamelCase = (str, separator = '_') =>
     .toLowerCase();
 endsnippet
 
+snippet fromTimestamp "Creates a `Date` object from a Unix timestamp.  - Convert the timestamp to milliseconds by multiplying with `1000`. - Use `new Date()` to create a new `Date` object." b
+const fromTimestamp = timestamp => new Date(timestamp * 1000);
+endsnippet
+
 snippet frozenSet "Creates a frozen `Set` object.  - Use the `new Set()` constructor to create a new `Set` object from `iterable`. - Set the `add`, `delete` and `clear` methods of the newly created object to `undefined`, so that they cannot be used, practically freezing the object." b
 const frozenSet = iterable => {
   const s = new Set(iterable);
@@ -1028,6 +1032,17 @@ const get = (from, ...selectors) =>
       .filter(t => t !== '')
       .reduce((prev, cur) => prev && prev[cur], from)
   );
+endsnippet
+
+snippet getAncestors "Returns all the ancestors of an element from the document root to the given element.  - Use a `Node.parentNode` and a `while` loop to move up the ancestor tree of the element. - Use `Array.prototype.unshift()` to add each new ancestor to the start of the array." b
+const getAncestors = el => {
+  let ancestors = [];
+  while (el) {
+    ancestors.unshift(el);
+    el = el.parentNode;
+  }
+  return ancestors;
+};
 endsnippet
 
 snippet getBaseURL "Returns the current URL without any parameters.  - Use `String.prototype.indexOf()` to check if the given `url` has parameters, `String.prototype.slice()` to remove them if necessary." b
@@ -1329,6 +1344,16 @@ const initializeNDArray = (val, ...args) =>
   args.length === 0
     ? val
     : Array.from({ length: args[0] }).map(() => initializeNDArray(val, ...args.slice(1)));
+endsnippet
+
+snippet injectCSS "Injects the given css code into the current document  - Use `document.createElement()` to create a new `style` element and set its type to `text/css`. - Use `Element.innerText` to set the value to the given css string, `document.head` and `Element.appendChild()` to append the new element to the document head. - Return the newly created `style` element." b
+const injectCSS = css => {
+  let el = document.createElement('style');
+  el.type = 'text/css';
+  el.innerText = css;
+  document.head.appendChild(el);
+  return el;
+}
 endsnippet
 
 snippet insertAfter "Inserts an HTML string after the end of the specified element.  - Use `el.insertAdjacentHTML()` with a position of `'afterend'` to parse `htmlString` and insert it after the end of `el`." b
@@ -2183,6 +2208,10 @@ const primes = num => {
   numsTillSqroot.forEach(x => (arr = arr.filter(y => y % x !== 0 || y === x)));
   return arr;
 };
+endsnippet
+
+snippet prod "Returns the product of two or more numbers/arrays.  - Use `Array.prototype.reduce()` to multiply each value with an accumulator, initialized with a value of `1`." b
+const prod = (...arr) => [...arr].reduce((acc, val) => acc * val, 1);
 endsnippet
 
 snippet promisify "Converts an asynchronous function to return a promise.  - Use currying to return a function returning a `Promise` that calls the original function. - Use the `...rest` operator to pass in all the parameters. - *In Node 8+, you can use [`util.promisify`](https://nodejs.org/api/util.html#util_util_promisify_original)*" b
