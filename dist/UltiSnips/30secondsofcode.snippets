@@ -2854,6 +2854,17 @@ snippet toDecimalMark "Converts a number to a decimal mark formatted string.  - 
 const toDecimalMark = num => num.toLocaleString('en-US');
 endsnippet
 
+snippet toHSLArray "Converts an `hsl()` color string to an array of values.  - Use `String.prototype.match()` to get an array of 3 string with the numeric values. - Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values." b
+const toHSLArray = hslStr => hslStr.match(/\d+/g).map(Number);
+endsnippet
+
+snippet toHSLObject "Converts an `hsl()` color string to an object with the values of each color.  - Use `String.prototype.match()` to get an array of 3 string with the numeric values. - Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values. - Use array destructuring to store the values into named variables and create an appropriate object from them." b
+const toHSLObject = hslStr => {
+  const [hue, saturation, lightness] = hslStr.match(/\d+/g).map(Number);
+  return { hue, saturation, lightness };
+};
+endsnippet
+
 snippet toHash "Reduces a given Array-like into a value hash (keyed data store).  - Given an Iterable or Array-like structure, call `Array.prototype.reduce.call()` on the provided object to step over it and return an Object, keyed by the reference value." b
 const toHash = (object, key) =>
   Array.prototype.reduce.call(
