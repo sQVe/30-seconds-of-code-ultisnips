@@ -17,7 +17,6 @@
     "id": "CSVToJSON",
     "tags": [
       "string",
-      "array",
       "object",
       "advanced"
     ]
@@ -49,7 +48,6 @@
     "id": "JSONToFile",
     "tags": [
       "node",
-      "json",
       "intermediate"
     ]
   },
@@ -131,18 +129,18 @@
   },
   {
     "code": "const accumulate = (...nums) => nums.reduce((acc, n) => [...acc, n + +acc.slice(-1)],[]);",
-    "description": "Returns an array of partial sums.\n\n- Use `Array.prototype.reduce()`, `Array.prototype.slice(-1)` and the unary `+` operator to add each value to the unary array containing the previous sum.",
+    "description": "Creates an array of partial sums.\n\n- Use `Array.prototype.reduce()`, initialized with an empty array accumulator to iterate over `nums`.\n- Use `Array.prototype.slice(-1)`, the spread operator (`...`) and the unary `+` operator to add each value to the accumulator array containing the previous sums.",
     "example": "accumulate(1, 2, 3, 4); // [1, 3, 6, 10]\naccumulate(...[1, 2, 3, 4]); // [1, 3, 6, 10]",
     "id": "accumulate",
     "tags": [
       "math",
       "array",
-      "beginner"
+      "intermediate"
     ]
   },
   {
     "code": "const addDaysToDate = (date, n) => {\n  d = new Date(date);\n  d.setDate(d.getDate() + n);\n  return d.toISOString().split('T')[0];\n};",
-    "description": "Return the date of `n` days from the given date as a string representation.\n\n- Use `new Date()` to create a date object from the first parameter.\n- Use `Date.getDate()` and `Date.setDate()` to add `n` days to the given date.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
+    "description": "Calculates the date of `n` days from the given date, returning its string representation.\n\n- Use `new Date()` to create a date object from the first parameter.\n- Use `Date.getDate()` and `Date.setDate()` to add `n` days to the given date.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "addDaysToDate('2020-10-15', 10); // '2020-10-25'\naddDaysToDate('2020-10-15', -10); // '2020-10-05'",
     "id": "addDaysToDate",
     "tags": [
@@ -152,7 +150,7 @@
   },
   {
     "code": "const addMultipleListeners = (el, types, listener, options, useCapture) => {\n  types.forEach(type => el.addEventListener(type, listener, options, useCapture));\n}",
-    "description": "Add multiple event listeners with the same handler to an element.\n\n- Use `Array.prototype.forEach()` and `EventTarget.addEventListener()` to add multiple event listeners with an assigned callback function to an element.",
+    "description": "Adds multiple event listeners with the same handler to an element.\n\n- Use `Array.prototype.forEach()` and `EventTarget.addEventListener()` to add multiple event listeners with an assigned callback function to an element.",
     "example": "addMultipleListeners(\n  document.querySelector('.my-element'),\n  ['click', 'mousedown'],\n  () => { console.log('hello!') }\n);",
     "id": "addMultipleListeners",
     "tags": [
@@ -163,40 +161,37 @@
   },
   {
     "code": "const addWeekDays = (startDate, count) => \n  Array\n    .from({ length: count })\n    .reduce(date => {\n      date = new Date(date.setDate(date.getDate() + 1));\n      if (date.getDay() % 6 === 0)\n        date = new Date(date.setDate(date.getDate() + ((date.getDay() / 6) + 1)));\n      return date;\n    }, startDate);",
-    "description": "Returns a date after adding given number of business days.\n\n- Use `Array.from()` to construct an array with `length` equal to the `count` of business days to be added.\n- Use `Array.prototype.reduce()` to iterate over the array, starting from `startDate` and incrementing, using `Date.getDate()` and `Date.setDate()`.\n- If the current `date` is on a weekend, update it again by adding either one day or two days to make it a weekday.",
+    "description": "Calculates the date after adding the ginen number of business days.\n\n- Use `Array.from()` to construct an array with `length` equal to the `count` of business days to be added.\n- Use `Array.prototype.reduce()` to iterate over the array, starting from `startDate` and incrementing, using `Date.getDate()` and `Date.setDate()`.\n- If the current `date` is on a weekend, update it again by adding either one day or two days to make it a weekday.\n- **NOTE:** Does not take official holidays into account.",
     "example": "addWeekDays(new Date('Oct 09, 2020'), 5); // 'Oct 16, 2020'\naddWeekDays(new Date('Oct 12, 2020'), 5); // 'Oct 19, 2020'",
     "id": "addWeekDays",
     "tags": [
       "date",
-      "array",
       "intermediate"
     ]
   },
   {
     "code": "const all = (arr, fn = Boolean) => arr.every(fn);",
-    "description": "Returns `true` if the provided predicate function returns `true` for all elements in a collection, `false` otherwise.\n\n- Use `Array.prototype.every()` to test if all elements in the collection return `true` based on `fn`.\n- Omit the second argument, `fn`, to use `Boolean` as a default.",
+    "description": "Checks if the provided predicate function returns `true` for all elements in a collection.\n\n- Use `Array.prototype.every()` to test if all elements in the collection return `true` based on `fn`.\n- Omit the second argument, `fn`, to use `Boolean` as a default.",
     "example": "all([4, 2, 3], x => x > 1); // true\nall([1, 2, 3]); // true",
     "id": "all",
     "tags": [
       "array",
-      "function",
       "beginner"
     ]
   },
   {
     "code": "const allEqual = arr => arr.every(val => val === arr[0]);",
-    "description": "Check if all elements in an array are equal.\n\n- Use `Array.prototype.every()` to check if all the elements of the array are the same as the first one.\n- Elements in the array are compared using the strict comparison operator, which does not account for `NaN` self-inequality.",
+    "description": "Checks if all elements in an array are equal.\n\n- Use `Array.prototype.every()` to check if all the elements of the array are the same as the first one.\n- Elements in the array are compared using the strict comparison operator, which does not account for `NaN` self-inequality.",
     "example": "allEqual([1, 2, 3, 4, 5, 6]); // false\nallEqual([1, 1, 1, 1]); // true",
     "id": "allEqual",
     "tags": [
       "array",
-      "function",
       "beginner"
     ]
   },
   {
     "code": "const and = (a, b) => a && b;",
-    "description": "Returns `true` if both arguments are `true`, `false` otherwise.\n\n- Use the logical and (`&&`) operator on the two given values.",
+    "description": "Checks if both arguments are `true`.\n\n- Use the logical and (`&&`) operator on the two given values.",
     "example": "and(true, true); // true\nand(true, false); // false\nand(false, false); // false",
     "id": "and",
     "tags": [
@@ -207,18 +202,17 @@
   },
   {
     "code": "const any = (arr, fn = Boolean) => arr.some(fn);",
-    "description": "Returns `true` if the provided predicate function returns `true` for at least one element in a collection, `false` otherwise.\n\n- Use `Array.prototype.some()` to test if any elements in the collection return `true` based on `fn`.\n- Omit the second argument, `fn`, to use `Boolean` as a default.",
+    "description": "Checks if the provided predicate function returns `true` for at least one element in a collection.\n\n- Use `Array.prototype.some()` to test if any elements in the collection return `true` based on `fn`.\n- Omit the second argument, `fn`, to use `Boolean` as a default.",
     "example": "any([0, 1, 2, 0], x => x >= 2); // true\nany([0, 0, 1, 0]); // true",
     "id": "any",
     "tags": [
       "array",
-      "function",
       "beginner"
     ]
   },
   {
     "code": "const aperture = (n, arr) =>\n  n > arr.length\n    ? []\n    : arr.slice(n - 1).map((v, i) => arr.slice(i, i + n));",
-    "description": "Returns an array of `n`-tuples of consecutive elements.\n\n- Use `Array.prototype.slice()` and `Array.prototype.map()` to create an array of appropriate length and populate it with `n`-tuples of consecutive elements from `arr`.\n- If `n` is greater than the length of `arr`, return an empty array.",
+    "description": "Creates an array of `n`-tuples of consecutive elements.\n\n- Use `Array.prototype.slice()` and `Array.prototype.map()` to create an array of appropriate length.\n- Populate the array with `n`-tuples of consecutive elements from `arr`.\n- If `n` is greater than the length of `arr`, return an empty array.",
     "example": "aperture(2, [1, 2, 3, 4]); // [[1, 2], [2, 3], [3, 4]]\naperture(3, [1, 2, 3, 4]); // [[1, 2, 3], [2, 3, 4]]\naperture(5, [1, 2, 3, 4]); // []",
     "id": "aperture",
     "tags": [
@@ -237,13 +231,12 @@
     ]
   },
   {
-    "code": "const arithmeticProgression  = (n, lim) => \n  Array.from({ length: Math.ceil(lim / n) }, (v, i) => (i + 1) * n );",
-    "description": "Returns an array of numbers in the arithmetic progression starting with the given positive integer and up to the specified limit.\n\n- Use `Array.from()` to create an array of the desired length, `lim/n`, and a map function to fill it with the desired values in the given range.",
+    "code": "const arithmeticProgression  = (n, lim) => \n  Array.from({ length: Math.ceil(lim / n) }, (_, i) => (i + 1) * n );",
+    "description": "Creates an array of numbers in the arithmetic progression, starting with the given positive integer and up to the specified limit.\n\n- Use `Array.from()` to create an array of the desired length, `lim/n`, and a map function to fill it with the desired values in the given range.",
     "example": "arithmeticProgression(5, 25); // [5, 10, 15, 20, 25]",
     "id": "arithmeticProgression",
     "tags": [
       "math",
-      "array",
       "beginner"
     ]
   },
@@ -276,7 +269,7 @@
     "id": "ary",
     "tags": [
       "function",
-      "intermediate"
+      "advanced"
     ]
   },
   {
@@ -292,7 +285,7 @@
   },
   {
     "code": "const attempt = (fn, ...args) => {\n  try {\n    return fn(...args);\n  } catch (e) {\n    return e instanceof Error ? e : new Error(e);\n  }\n};",
-    "description": "Attempts to invoke a function with the provided arguments, returning either the result or the caught error object.\n\n- Use a `try... catch` block to return either the result of the function or an appropriate error.",
+    "description": "Attempts to invoke a function with the provided arguments, returning either the result or the caught error object.\n\n- Use a `try... catch` block to return either the result of the function or an appropriate error.\n- If the caught object is not an `Error`, use it to create a new `Error`.",
     "example": "var elements = attempt(function(selector) {\n  return document.querySelectorAll(selector);\n}, '>_>');\nif (elements instanceof Error) elements = []; // elements = []",
     "id": "attempt",
     "tags": [
@@ -302,7 +295,7 @@
   },
   {
     "code": "const average = (...nums) => nums.reduce((acc, val) => acc + val, 0) / nums.length;",
-    "description": "Returns the average of two or more numbers.\n\n- Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`, divide by the `length` of the array.",
+    "description": "Calculates the average of two or more numbers.\n\n- Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`, divide by the `length` of the array.",
     "example": "average(...[1, 2, 3]); // 2\naverage(1, 2, 3); // 2",
     "id": "average",
     "tags": [
@@ -313,20 +306,19 @@
   },
   {
     "code": "const averageBy = (arr, fn) =>\n  arr.map(typeof fn === 'function' ? fn : val => val[fn]).reduce((acc, val) => acc + val, 0) /\n  arr.length;",
-    "description": "Returns the average of an array, after mapping each element to a value using the provided function.\n\n- Use `Array.prototype.map()` to map each element to the value returned by `fn`, `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`, divide by the `length` of the array.",
+    "description": "Calculates the average of an array, after mapping each element to a value using the provided function.\n\n- Use `Array.prototype.map()` to map each element to the value returned by `fn`.\n- Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`, divide by the `length` of the array.",
     "example": "averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], o => o.n); // 5\naverageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 5",
     "id": "averageBy",
     "tags": [
       "math",
       "array",
-      "function",
       "intermediate"
     ]
   },
   {
     "code": "const bifurcate = (arr, filter) =>\n  arr.reduce((acc, val, i) => (acc[filter[i] ? 0 : 1].push(val), acc), [[], []]);",
-    "description": "Splits values into two groups. If an element in `filter` is truthy, the corresponding element in the collection belongs to the first group; otherwise, it belongs to the second group.\n\n- Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on `filter`.",
-    "example": "bifurcate(['beep', 'boop', 'foo', 'bar'], [true, true, false, true]); // [ ['beep', 'boop', 'bar'], ['foo'] ]",
+    "description": "Splits values into two groups, based on the result of the given `filter` array. \n\n- Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on `filter`.\n- If `filter` has a truthy value for any element, add it to the first group, otherwise add it to the second group.",
+    "example": "bifurcate(['beep', 'boop', 'foo', 'bar'], [true, true, false, true]); \n// [ ['beep', 'boop', 'bar'], ['foo'] ]",
     "id": "bifurcate",
     "tags": [
       "array",
@@ -335,12 +327,11 @@
   },
   {
     "code": "const bifurcateBy = (arr, fn) =>\n  arr.reduce((acc, val, i) => (acc[fn(val, i) ? 0 : 1].push(val), acc), [[], []]);",
-    "description": "Splits values into two groups according to a predicate function, which specifies which group an element in the input collection belongs to. If the predicate function returns a truthy value, the collection element belongs to the first group; otherwise, it belongs to the second group.\n\n- Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on the value returned by `fn` for each element.",
+    "description": "Splits values into two groups, based on the result of the given filtering function. \n\n- Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on the value returned by `fn` for each element.\n- If `fn` returns a truthy value for any element, add it to the first group, otherwise add it to the second group.",
     "example": "bifurcateBy(['beep', 'boop', 'foo', 'bar'], x => x[0] === 'b'); // [ ['beep', 'boop', 'bar'], ['foo'] ]",
     "id": "bifurcateBy",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -351,23 +342,23 @@
     "id": "binary",
     "tags": [
       "function",
-      "beginner"
+      "intermediate"
     ]
   },
   {
-    "code": "const bind = (fn, context, ...boundArgs) => (...args) => fn.apply(context, [...boundArgs, ...args]);",
-    "description": "Creates a function that invokes `fn` with a given context, optionally adding any additional supplied parameters to the beginning of the arguments.\n\n- Return a `function` that uses `Function.prototype.apply()` to apply the given `context` to `fn`.\n- Use `Array.prototype.concat()` to prepend any additional supplied parameters to the arguments.",
+    "code": "const bind = (fn, context, ...boundArgs) => (...args) =>\n  fn.apply(context, [...boundArgs, ...args]);",
+    "description": "Creates a function that invokes `fn` with a given context, optionally prepending any additional supplied parameters to the arguments.\n\n- Return a `function` that uses `Function.prototype.apply()` to apply the given `context` to `fn`.\n- Use the spread operator (`...`) to prepend any additional supplied parameters to the arguments.",
     "example": "function greet(greeting, punctuation) {\n  return greeting + ' ' + this.user + punctuation;\n}\nconst freddy = { user: 'fred' };\nconst freddyBound = bind(greet, freddy);\nconsole.log(freddyBound('hi', '!')); // 'hi fred!'",
     "id": "bind",
     "tags": [
       "function",
       "object",
-      "intermediate"
+      "advanced"
     ]
   },
   {
     "code": "const bindAll = (obj, ...fns) =>\n  fns.forEach(\n    fn => (\n      (f = obj[fn]),\n      (obj[fn] = function() {\n        return f.apply(obj);\n      })\n    )\n  );",
-    "description": "Binds methods of an object to the object itself, overwriting the existing method.\n\n- Use `Array.prototype.forEach()` to return a `function` that uses `Function.prototype.apply()` to apply the given context (`obj`) to `fn` for each function specified.",
+    "description": "Binds methods of an object to the object itself, overwriting the existing method.\n\n- Use `Array.prototype.forEach()` to iterate over the given `fns`.\n- Return a function for each one, using `Function.prototype.apply()` to apply the given context (`obj`) to `fn`.",
     "example": "var view = {\n  label: 'docs',\n  click: function() {\n    console.log('clicked ' + this.label);\n  }\n};\nbindAll(view, 'click');\ndocument.body.addEventListener('click', view.click); // Log 'clicked docs' when clicked.",
     "id": "bindAll",
     "tags": [
@@ -378,28 +369,28 @@
   },
   {
     "code": "const bindKey = (context, fn, ...boundArgs) => (...args) =>\n  context[fn].apply(context, [...boundArgs, ...args]);",
-    "description": "Creates a function that invokes the method at a given key of an object, optionally adding any additional supplied parameters to the beginning of the arguments.\n\n- Return a `function` that uses `Function.prototype.apply()` to bind `context[fn]` to `context`.\n- Use the spread operator (`...`) to prepend any additional supplied parameters to the arguments.",
+    "description": "Creates a function that invokes the method at a given key of an object, optionally prepending any additional supplied parameters to the arguments.\n\n- Return a `function` that uses `Function.prototype.apply()` to bind `context[fn]` to `context`.\n- Use the spread operator (`...`) to prepend any additional supplied parameters to the arguments.",
     "example": "const freddy = {\n  user: 'fred',\n  greet: function(greeting, punctuation) {\n    return greeting + ' ' + this.user + punctuation;\n  }\n};\nconst freddyBound = bindKey(freddy, 'greet');\nconsole.log(freddyBound('hi', '!')); // 'hi fred!'",
     "id": "bindKey",
     "tags": [
       "function",
       "object",
-      "intermediate"
+      "advanced"
     ]
   },
   {
     "code": "const binomialCoefficient = (n, k) => {\n  if (Number.isNaN(n) || Number.isNaN(k)) return NaN;\n  if (k < 0 || k > n) return 0;\n  if (k === 0 || k === n) return 1;\n  if (k === 1 || k === n - 1) return n;\n  if (n - k < k) k = n - k;\n  let res = n;\n  for (let j = 2; j <= k; j++) res *= (n - j + 1) / j;\n  return Math.round(res);\n};",
-    "description": "Evaluates the binomial coefficient of two integers `n` and `k`.\n\n- Use `Number.isNaN()` to check if any of the two values is `NaN`.\n- Check if `k` is less than `0`, greater than or equal to `n`, equal to `1` or `n - 1` and return the appropriate result.\n- Check if `n - k` is less than `k` and switch their values accordingly.\n- Loop from `2` through `k` and calculate the binomial coefficient.\n- Use `Math.round()` to account for rounding errors in the calculation.",
+    "description": "Calculates the number of ways to choose `k` items from `n` items without repetition and without order.\n\n- Use `Number.isNaN()` to check if any of the two values is `NaN`.\n- Check if `k` is less than `0`, greater than or equal to `n`, equal to `1` or `n - 1` and return the appropriate result.\n- Check if `n - k` is less than `k` and switch their values accordingly.\n- Loop from `2` through `k` and calculate the binomial coefficient.\n- Use `Math.round()` to account for rounding errors in the calculation.",
     "example": "binomialCoefficient(8, 2); // 28",
     "id": "binomialCoefficient",
     "tags": [
       "math",
-      "intermediate"
+      "beginner"
     ]
   },
   {
     "code": "const both = (f, g) => (...args) => f(...args) && g(...args);",
-    "description": "Returns `true` if both functions return `true` for a given set of arguments, `false` otherwise.\n\n- Use the logical and (`&&`) operator on the result of calling the two functions with the supplied `args`.",
+    "description": "Checks if both of the given functions return `true` for a given set of arguments.\n\n- Use the logical and (`&&`) operator on the result of calling the two functions with the supplied `args`.",
     "example": "const isEven = num => num % 2 === 0;\nconst isPositive = num => num > 0;\nconst isPositiveEven = both(isEven, isPositive);\nisPositiveEven(4); // true\nisPositiveEven(-2); // false",
     "id": "both",
     "tags": [
@@ -410,12 +401,12 @@
   },
   {
     "code": "const bottomVisible = () =>\n  document.documentElement.clientHeight + window.scrollY >=\n  (document.documentElement.scrollHeight || document.documentElement.clientHeight);",
-    "description": "Returns `true` if the bottom of the page is visible, `false` otherwise.\n\n- Use `scrollY`, `scrollHeight` and `clientHeight` to determine if the bottom of the page is visible.",
+    "description": "Checks if the bottom of the page is visible.\n\n- Use `scrollY`, `scrollHeight` and `clientHeight` to determine if the bottom of the page is visible.",
     "example": "bottomVisible(); // true",
     "id": "bottomVisible",
     "tags": [
       "browser",
-      "intermediate"
+      "beginner"
     ]
   },
   {
@@ -431,7 +422,7 @@
   },
   {
     "code": "const byteSize = str => new Blob([str]).size;",
-    "description": "Returns the length of a string in bytes.\n\n- Convert a given string to a [`Blob` Object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) and find its `size`.",
+    "description": "Returns the length of a string in bytes.\n\n- Convert a given string to a [`Blob` Object](https://developer.mozilla.org/en-US/docs/Web/API/Blob).\n- Use `Blob.size` to get the length of the string in bytes.",
     "example": "byteSize('😀'); // 4\nbyteSize('Hello World'); // 11",
     "id": "byteSize",
     "tags": [
@@ -441,22 +432,21 @@
   },
   {
     "code": "const call = (key, ...args) => context => context[key](...args);",
-    "description": "Given a key and a set of arguments, call them when given a context. Primarily useful in composition.\r\n\r\n- Use a closure to call a stored key with stored arguments.",
+    "description": "Given a key and a set of arguments, call them when given a context.\r\n\r\n- Use a closure to call `key` with `args` for the given `context`.",
     "example": "Promise.resolve([1, 2, 3])\r\n  .then(call('map', x => 2 * x))\r\n  .then(console.log); // [ 2, 4, 6 ]\r\nconst map = call.bind(null, 'map');\r\nPromise.resolve([1, 2, 3])\r\n  .then(map(x => 2 * x))\r\n  .then(console.log); // [ 2, 4, 6 ]",
     "id": "call\r",
     "tags": [
       "function",
-      "intermediate"
+      "advanced"
     ]
   },
   {
     "code": "const capitalize = ([first, ...rest], lowerRest = false) =>\n  first.toUpperCase() + (lowerRest ? rest.join('').toLowerCase() : rest.join(''));",
-    "description": "Capitalizes the first letter of a string.\n\n- Use array destructuring and `String.prototype.toUpperCase()` to capitalize first letter, `...rest` to get array of characters after first letter and then `Array.prototype.join('')` to make it a string again.\n- Omit the `lowerRest` parameter to keep the rest of the string intact, or set it to `true` to convert to lowercase.",
+    "description": "Capitalizes the first letter of a string.\n\n- Use array destructuring and `String.prototype.toUpperCase()` to capitalize the first letter of the string.\n- Use `Array.prototype.join('')` to combine the capitalized `first` with the `...rest` of the characters.\n- Omit the `lowerRest` parameter to keep the rest of the string intact, or set it to `true` to convert to lowercase.",
     "example": "capitalize('fooBar'); // 'FooBar'\ncapitalize('fooBar', true); // 'Foobar'",
     "id": "capitalize",
     "tags": [
       "string",
-      "array",
       "intermediate"
     ]
   },
@@ -484,7 +474,7 @@
   },
   {
     "code": "const celsiusToFahrenheit = degrees => 1.8 * degrees + 32;",
-    "description": "Converts Celsius to Fahrenheit.\n\n- Follows the conversion formula `F =  1.8C + 32`.",
+    "description": "Converts Celsius to Fahrenheit.\n\n- Follows the conversion formula `F = 1.8 * C + 32`.",
     "example": "celsiusToFahrenheit(33); // 91.4",
     "id": "celsiusToFahrenheit",
     "tags": [
@@ -504,7 +494,7 @@
   },
   {
     "code": "const checkProp = (predicate, prop) => obj => !!predicate(obj[prop]);",
-    "description": "Given a `predicate` function and a `prop` string, this curried function will then take an `object` to inspect by calling the property and passing it to the predicate.\n\n- Summon `prop` on `obj`, pass it to a provided `predicate` function and return a masked boolean.",
+    "description": "Creates a function that will invoke a predicate function for the specified property on a given object.\n\n- Return a curried function, that will invoke `predicate` for the specified `prop` on `obj` and return a boolean.",
     "example": "const lengthIs4 = checkProp(l => l === 4, 'length');\nlengthIs4([]); // false\nlengthIs4([1, 2, 3, 4]); // true\nlengthIs4(new Set([1, 2, 3, 4])); // false (Set uses Size, not length)\n\nconst session = { user: {} };\nconst validUserSession = checkProp(u => u.active && !u.disabled, 'user');\n\nvalidUserSession(session); // false\n\nsession.user.active = true;\nvalidUserSession(session); // true\n\nconst noLength = checkProp(l => l === undefined, 'length');\nnoLength([]); // false\nnoLength({}); // true\nnoLength(new Set()); // true",
     "id": "checkProp",
     "tags": [
@@ -549,8 +539,6 @@
     "example": "const regExp = /lorem ipsum/gi;\nconst regExp2 = cloneRegExp(regExp); // regExp !== regExp2",
     "id": "cloneRegExp",
     "tags": [
-      "type",
-      "string",
       "regexp",
       "intermediate"
     ]
@@ -567,10 +555,11 @@
   },
   {
     "code": "const coalesceFactory = valid => (...args) => args.find(valid);",
-    "description": "Returns a customized coalesce function that returns the first argument that returns `true` from the provided argument validation function.\n\n- Use `Array.prototype.find()` to return the first argument that returns `true` from the provided argument validation function.",
-    "example": "const customCoalesce = coalesceFactory(_ => ![null, undefined, '', NaN].includes(_));\ncustomCoalesce(undefined, null, NaN, '', 'Waldo'); // \"Waldo\"",
+    "description": "Customizes a coalesce function that returns the first argument which is true based on the given validator.\n\n- Use `Array.prototype.find()` to return the first argument that returns `true` from the provided argument validation function, `valid`.",
+    "example": "const customCoalesce = coalesceFactory(v => ![null, undefined, '', NaN].includes(v));\ncustomCoalesce(undefined, null, NaN, '', 'Waldo'); // 'Waldo'",
     "id": "coalesceFactory",
     "tags": [
+      "function",
       "type",
       "intermediate"
     ]
@@ -588,7 +577,7 @@
   },
   {
     "code": "const colorize = (...args) => ({\n  black: \\`\\x1b[30m\\${args.join(' ')}\\`,\n  red: \\`\\x1b[31m\\${args.join(' ')}\\`,\n  green: \\`\\x1b[32m\\${args.join(' ')}\\`,\n  yellow: \\`\\x1b[33m\\${args.join(' ')}\\`,\n  blue: \\`\\x1b[34m\\${args.join(' ')}\\`,\n  magenta: \\`\\x1b[35m\\${args.join(' ')}\\`,\n  cyan: \\`\\x1b[36m\\${args.join(' ')}\\`,\n  white: \\`\\x1b[37m\\${args.join(' ')}\\`,\n  bgBlack: \\`\\x1b[40m\\${args.join(' ')}\\x1b[0m\\`,\n  bgRed: \\`\\x1b[41m\\${args.join(' ')}\\x1b[0m\\`,\n  bgGreen: \\`\\x1b[42m\\${args.join(' ')}\\x1b[0m\\`,\n  bgYellow: \\`\\x1b[43m\\${args.join(' ')}\\x1b[0m\\`,\n  bgBlue: \\`\\x1b[44m\\${args.join(' ')}\\x1b[0m\\`,\n  bgMagenta: \\`\\x1b[45m\\${args.join(' ')}\\x1b[0m\\`,\n  bgCyan: \\`\\x1b[46m\\${args.join(' ')}\\x1b[0m\\`,\n  bgWhite: \\`\\x1b[47m\\${args.join(' ')}\\x1b[0m\\`\n});",
-    "description": "Add special characters to text to print in color in the console (combined with `console.log()`).\n\n- Use template literals and special characters to add the appropriate color code to the string output.\n- For background colors, add a special character that resets the background color at the end of the string.",
+    "description": "Adds special characters to text to print in color in the console (combined with `console.log()`).\n\n- Use template literals and special characters to add the appropriate color code to the string output.\n- For background colors, add a special character that resets the background color at the end of the string.",
     "example": "console.log(colorize('foo').red); // 'foo' (red letters)\nconsole.log(colorize('foo', 'bar').bgBlue); // 'foo bar' (blue background)\nconsole.log(colorize(colorize('foo').yellow, colorize('foo').green).bgWhite); // 'foo bar' (first word in yellow letters, second word in green letters, white background for both)",
     "id": "colorize",
     "tags": [
@@ -620,7 +609,7 @@
   },
   {
     "code": "const compactWhitespace = str => str.replace(/\\s{2,}/g, ' ');",
-    "description": "Returns a string with whitespaces compacted.\n\n- Use `String.prototype.replace()` with a regular expression to replace all occurrences of 2 or more whitespace characters with a single space.",
+    "description": "Compacts whitespaces in a string.\n\n- Use `String.prototype.replace()` with a regular expression to replace all occurrences of 2 or more whitespace characters with a single space.",
     "example": "compactWhitespace('Lorem    Ipsum'); // 'Lorem Ipsum'\ncompactWhitespace('Lorem \\n Ipsum'); // 'Lorem Ipsum'",
     "id": "compactWhitespace",
     "tags": [
@@ -662,7 +651,7 @@
   },
   {
     "code": "const containsWhitespace = str => /\\s/.test(str);",
-    "description": "Returns `true` if the given string contains any whitespace characters, `false` otherwise.\n\n- Use `RegExp.prototype.test()` with an appropriate regular expression to check if the given string contains any whitespace characters.",
+    "description": "Checks if the given string contains any whitespace characters.\n\n- Use `RegExp.prototype.test()` with an appropriate regular expression to check if the given string contains any whitespace characters.",
     "example": "containsWhitespace('lorem'); // false\ncontainsWhitespace('lorem ipsum'); // true",
     "id": "containsWhitespace",
     "tags": [
@@ -672,7 +661,7 @@
     ]
   },
   {
-    "code": "const converge = (converger, fns) => (...args) => converger(...fns.map(fn => fn.apply(null, args)));",
+    "code": "const converge = (converger, fns) => (...args) =>\n  converger(...fns.map(fn => fn.apply(null, args)));",
     "description": "Accepts a converging function and a list of branching functions and returns a function that applies each branching function to the arguments and the results of the branching functions are passed as arguments to the converging function.\n\n- Use `Array.prototype.map()` and `Function.prototype.apply()` to apply each function to the given arguments.\n- Use the spread operator (`...`) to call `coverger` with the results of all other functions.",
     "example": "const average = converge((a, b) => a / b, [\n  arr => arr.reduce((a, v) => a + v, 0),\n  arr => arr.length\n]);\naverage([1, 2, 3, 4, 5, 6, 7]); // 4",
     "id": "converge",
@@ -693,12 +682,13 @@
   },
   {
     "code": "const copyToClipboard = str => {\n  const el = document.createElement('textarea');\n  el.value = str;\n  el.setAttribute('readonly', '');\n  el.style.position = 'absolute';\n  el.style.left = '-9999px';\n  document.body.appendChild(el);\n  const selected =\n    document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;\n  el.select();\n  document.execCommand('copy');\n  document.body.removeChild(el);\n  if (selected) {\n    document.getSelection().removeAllRanges();\n    document.getSelection().addRange(selected);\n  }\n};",
-    "description": "Copy a string to the clipboard.\nOnly works as a result of user action (i.e. inside a `click` event listener).\n\n- Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document.\n- Use `Selection.getRangeAt()`to store the selected range (if any).\n- Use `document.execCommand('copy')` to copy to the clipboard.\n- Remove the `<textarea>` element from the HTML document.\n- Finally, use `Selection().addRange()` to recover the original selected range (if any).\n- ⚠️ **NOTICE:** The same functionality can be easily implemented by using the new asynchronous Clipboard API, which is still experimental but should be used in the future instead of this snippet. Find out more about it [here](https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc#writing-to-the-clipboard).",
+    "description": "Copies a string to the clipboard.\nOnly works as a result of user action (i.e. inside a `click` event listener).\n\n- Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document.\n- Use `Selection.getRangeAt()`to store the selected range (if any).\n- Use `document.execCommand('copy')` to copy to the clipboard.\n- Remove the `<textarea>` element from the HTML document.\n- Finally, use `Selection().addRange()` to recover the original selected range (if any).\n- ⚠️ **NOTICE:** The same functionality can be easily implemented by using the new asynchronous Clipboard API, which is still experimental but should be used in the future instead of this snippet. Find out more about it [here](https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc#writing-to-the-clipboard).",
     "example": "copyToClipboard('Lorem ipsum'); // 'Lorem ipsum' copied to clipboard.",
     "id": "copyToClipboard",
     "tags": [
       "browser",
       "string",
+      "event",
       "advanced"
     ]
   },
@@ -714,8 +704,8 @@
     ]
   },
   {
-    "code": "const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);",
-    "description": "Counts the occurrences of a value in an array.\n\n- Use `Array.prototype.reduce()` to increment a counter each time you encounter the specific value inside the array.",
+    "code": "const countOccurrences = (arr, val) =>\n  arr.reduce((a, v) => (v === val ? a + 1 : a), 0);",
+    "description": "Counts the occurrences of a value in an array.\n\n- Use `Array.prototype.reduce()` to increment a counter each time the specific value is encountered inside the array.",
     "example": "countOccurrences([1, 1, 2, 1, 2, 3], 1); // 3",
     "id": "countOccurrences",
     "tags": [
@@ -725,12 +715,11 @@
   },
   {
     "code": "const countWeekDaysBetween = (startDate, endDate) =>\n  Array\n    .from({ length: (endDate - startDate) / (1000 * 3600 * 24) })\n    .reduce(count => {\n      if (startDate.getDay() % 6 !== 0) count++;\n      startDate = new Date(startDate.setDate(startDate.getDate() + 1));\n      return count;\n    }, 0);",
-    "description": "Returns the weekday count between two dates.\n\n- Use `Array.from()` to construct an array with `length` equal to the number of days between `startDate` and `endDate`.\n- Use `Array.prototype.reduce()` to iterate over the array, checking if each date is a weekday and incrementing `count`.\n- Update `startDate` with the next day each loop using `Date.getDate()` and `Date.setDate()` to advance it by one day.",
+    "description": "Counts the weekdays between two dates.\n\n- Use `Array.from()` to construct an array with `length` equal to the number of days between `startDate` and `endDate`.\n- Use `Array.prototype.reduce()` to iterate over the array, checking if each date is a weekday and incrementing `count`.\n- Update `startDate` with the next day each loop using `Date.getDate()` and `Date.setDate()` to advance it by one day.\n- **NOTE:** Does not take official holidays into account.",
     "example": "countWeekDaysBetween(new Date('Oct 05, 2020'), new Date('Oct 06, 2020')); // 1\ncountWeekDaysBetween(new Date('Oct 05, 2020'), new Date('Oct 14, 2020')); // 7",
     "id": "countWeekDaysBetween",
     "tags": [
       "date",
-      "array",
       "intermediate"
     ]
   },
@@ -782,7 +771,6 @@
     "id": "currentURL",
     "tags": [
       "browser",
-      "url",
       "beginner"
     ]
   },
@@ -876,7 +864,6 @@
     "id": "decapitalize",
     "tags": [
       "string",
-      "array",
       "intermediate"
     ]
   },
@@ -1012,7 +999,6 @@
     "id": "differenceBy",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -1023,7 +1009,6 @@
     "id": "differenceWith",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -1045,7 +1030,6 @@
     "id": "digitize",
     "tags": [
       "math",
-      "array",
       "beginner"
     ]
   },
@@ -1096,7 +1080,6 @@
     "id": "dropRightWhile",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -1107,7 +1090,6 @@
     "id": "dropWhile",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -1246,7 +1228,6 @@
     "id": "fibonacci",
     "tags": [
       "math",
-      "array",
       "beginner"
     ]
   },
@@ -1267,7 +1248,6 @@
     "id": "filterNonUniqueBy",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -1278,7 +1258,6 @@
     "id": "findKey",
     "tags": [
       "object",
-      "function",
       "intermediate"
     ]
   },
@@ -1299,7 +1278,6 @@
     "id": "findLastIndex",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -1310,7 +1288,6 @@
     "id": "findLastKey",
     "tags": [
       "object",
-      "function",
       "intermediate"
     ]
   },
@@ -1352,7 +1329,6 @@
     "id": "forEachRight",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -1541,7 +1517,6 @@
     "tags": [
       "browser",
       "string",
-      "url",
       "beginner"
     ]
   },
@@ -1642,7 +1617,6 @@
     "id": "getSiblings",
     "tags": [
       "browser",
-      "array",
       "intermediate"
     ]
   },
@@ -1685,7 +1659,6 @@
     "tags": [
       "browser",
       "string",
-      "url",
       "intermediate"
     ]
   },
@@ -1777,7 +1750,7 @@
   },
   {
     "code": "const head = arr => (arr && arr.length ? arr[0] : undefined);",
-    "description": "Returns the head of a list.\n\n- Check if `arr` is truthy and has a `length` property, use `arr[0]` if possible to return the first element, otherwise return `undefined`.",
+    "description": "Returns the head of an array.\n\n- Check if `arr` is truthy and has a `length` property, use `arr[0]` if possible to return the first element, otherwise return `undefined`.",
     "example": "head([1, 2, 3]); // 1\nhead([]); // undefined\nhead(null); // undefined\nhead(undefined); // undefined",
     "id": "head",
     "tags": [
@@ -1814,7 +1787,6 @@
     "id": "httpDelete",
     "tags": [
       "browser",
-      "url",
       "intermediate"
     ]
   },
@@ -1825,7 +1797,6 @@
     "id": "httpGet",
     "tags": [
       "browser",
-      "url",
       "intermediate"
     ]
   },
@@ -1836,7 +1807,6 @@
     "id": "httpPost",
     "tags": [
       "browser",
-      "url",
       "intermediate"
     ]
   },
@@ -1847,7 +1817,6 @@
     "id": "httpPut",
     "tags": [
       "browser",
-      "url",
       "intermediate"
     ]
   },
@@ -1858,7 +1827,6 @@
     "id": "httpsRedirect",
     "tags": [
       "browser",
-      "url",
       "intermediate"
     ]
   },
@@ -1993,6 +1961,7 @@
     "id": "injectCSS",
     "tags": [
       "browser",
+      "css",
       "intermediate"
     ]
   },
@@ -2028,7 +1997,7 @@
   },
   {
     "code": "const intersection = (a, b) => {\n  const s = new Set(b);\n  return [...new Set(a)].filter(x => s.has(x));\n};",
-    "description": "Returns a list of elements that exist in both arrays.\n\n- Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`.",
+    "description": "Returns the elements that exist in both arrays.\n\n- Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`.",
     "example": "intersection([1, 2, 3], [4, 3, 2]); // [2, 3]",
     "id": "intersection",
     "tags": [
@@ -2039,23 +2008,21 @@
   },
   {
     "code": "const intersectionBy = (a, b, fn) => {\n  const s = new Set(b.map(fn));\n  return [...new Set(a)].filter(x => s.has(fn(x)));\n};",
-    "description": "Returns a list of elements that exist in both arrays, after applying the provided function to each array element of both.\n\n- Create a `Set` by applying `fn` to all elements in `b`, then use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them.",
+    "description": "Returns the elements that exist in both arrays, after applying the provided function to each array element of both.\n\n- Create a `Set` by applying `fn` to all elements in `b`, then use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them.",
     "example": "intersectionBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [2.1]\nintersectionBy([{ title: 'Apple' }, { title: 'Orange' }], [{ title: 'Orange' }, { title: 'Melon' }], x => x.title) // [{ title: 'Orange' }]",
     "id": "intersectionBy",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
   {
     "code": "const intersectionWith = (a, b, comp) => a.filter(x => b.findIndex(y => comp(x, y)) !== -1);",
-    "description": "Returns a list of elements that exist in both arrays, using a provided comparator function.\n\n- Use `Array.prototype.filter()` and `Array.prototype.findIndex()` in combination with the provided comparator to determine intersecting values.",
+    "description": "Returns the elements that exist in both arrays, using a provided comparator function.\n\n- Use `Array.prototype.filter()` and `Array.prototype.findIndex()` in combination with the provided comparator to determine intersecting values.",
     "example": "intersectionWith([1, 1.2, 1.5, 3, 0], [1.9, 3, 0, 3.9], (a, b) => Math.round(a) === Math.round(b)); // [1.5, 3, 0]",
     "id": "intersectionWith",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -2066,7 +2033,6 @@
     "id": "invertKeyValues",
     "tags": [
       "object",
-      "function",
       "intermediate"
     ]
   },
@@ -2090,7 +2056,6 @@
     "tags": [
       "string",
       "browser",
-      "url",
       "intermediate"
     ]
   },
@@ -2446,8 +2411,7 @@
     "id": "isPrime",
     "tags": [
       "math",
-      "beginner",
-      "intermediate"
+      "beginner"
     ]
   },
   {
@@ -2457,9 +2421,6 @@
     "id": "isPrimitive",
     "tags": [
       "type",
-      "function",
-      "array",
-      "string",
       "intermediate"
     ]
   },
@@ -2575,7 +2536,6 @@
     "id": "isValidJSON",
     "tags": [
       "type",
-      "json",
       "intermediate"
     ]
   },
@@ -2626,7 +2586,6 @@
     "example": "juxt(\n  x => x + 1,\n  x => x - 1,\n  x => x * 10\n)(1, 2, 3); // [[2,3,4],[0,1,2],[10,20,30]]\n\njuxt(\n  s => s.length,\n  s => s.split(\" \").join(\"-\")\n)(\"30 seconds of code\"); // [[18],['30-seconds-of-code']]",
     "id": "juxt",
     "tags": [
-      "array",
       "function",
       "advanced"
     ]
@@ -2700,7 +2659,6 @@
     "id": "longestItem",
     "tags": [
       "array",
-      "string",
       "intermediate"
     ]
   },
@@ -2731,7 +2689,6 @@
     "id": "mapKeys",
     "tags": [
       "object",
-      "function",
       "intermediate"
     ]
   },
@@ -2763,9 +2720,7 @@
     "id": "mapString",
     "tags": [
       "string",
-      "array",
-      "function",
-      "beginner"
+      "intermediate"
     ]
   },
   {
@@ -2775,7 +2730,6 @@
     "id": "mapValues",
     "tags": [
       "object",
-      "function",
       "intermediate"
     ]
   },
@@ -2796,7 +2750,6 @@
     "id": "matches",
     "tags": [
       "object",
-      "type",
       "intermediate"
     ]
   },
@@ -2807,8 +2760,6 @@
     "id": "matchesWith",
     "tags": [
       "object",
-      "type",
-      "function",
       "intermediate"
     ]
   },
@@ -2820,7 +2771,6 @@
     "tags": [
       "math",
       "array",
-      "function",
       "beginner"
     ]
   },
@@ -2885,7 +2835,6 @@
     "id": "midpoint",
     "tags": [
       "math",
-      "array",
       "beginner"
     ]
   },
@@ -2907,7 +2856,6 @@
     "tags": [
       "math",
       "array",
-      "function",
       "beginner"
     ]
   },
@@ -2991,7 +2939,6 @@
     "id": "none",
     "tags": [
       "array",
-      "function",
       "beginner"
     ]
   },
@@ -3001,7 +2948,7 @@
     "example": "normalizeLineEndings('This\\r\\nis a\\nmultiline\\nstring.\\r\\n'); // 'This\\r\\nis a\\r\\nmultiline\\r\\nstring.\\r\\n'\nnormalizeLineEndings('This\\r\\nis a\\nmultiline\\nstring.\\r\\n', '\\n'); // 'This\\nis a\\nmultiline\\nstring.\\n'",
     "id": "normalizeLineEndings",
     "tags": [
-      "array",
+      "string",
       "intermediate"
     ]
   },
@@ -3076,7 +3023,6 @@
     "id": "objectToQueryString",
     "tags": [
       "object",
-      "function",
       "intermediate"
     ]
   },
@@ -3119,7 +3065,6 @@
     "id": "omit",
     "tags": [
       "object",
-      "array",
       "intermediate"
     ]
   },
@@ -3130,8 +3075,6 @@
     "id": "omitBy",
     "tags": [
       "object",
-      "array",
-      "function",
       "intermediate"
     ]
   },
@@ -3290,7 +3233,6 @@
     "tags": [
       "array",
       "object",
-      "function",
       "intermediate"
     ]
   },
@@ -3302,7 +3244,6 @@
     "tags": [
       "array",
       "object",
-      "function",
       "advanced"
     ]
   },
@@ -3334,7 +3275,6 @@
     "id": "pick",
     "tags": [
       "object",
-      "array",
       "intermediate"
     ]
   },
@@ -3345,8 +3285,6 @@
     "id": "pickBy",
     "tags": [
       "object",
-      "array",
-      "function",
       "intermediate"
     ]
   },
@@ -3439,7 +3377,6 @@
     "id": "primes",
     "tags": [
       "math",
-      "array",
       "intermediate"
     ]
   },
@@ -3502,7 +3439,6 @@
     "id": "pullBy",
     "tags": [
       "array",
-      "function",
       "advanced"
     ]
   },
@@ -3599,8 +3535,6 @@
     "id": "readFileLines",
     "tags": [
       "node",
-      "array",
-      "string",
       "beginner"
     ]
   },
@@ -3631,7 +3565,6 @@
     "id": "redirect",
     "tags": [
       "browser",
-      "url",
       "beginner"
     ]
   },
@@ -3642,7 +3575,6 @@
     "id": "reduceSuccessive",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -3653,7 +3585,6 @@
     "id": "reduceWhich",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -3779,7 +3710,6 @@
     "id": "reverseString",
     "tags": [
       "string",
-      "array",
       "beginner"
     ]
   },
@@ -3801,9 +3731,8 @@
     "tags": [
       "browser",
       "function",
-      "advanced",
       "promise",
-      "url"
+      "advanced"
     ]
   },
   {
@@ -4018,7 +3947,6 @@
     "tags": [
       "array",
       "math",
-      "function",
       "intermediate"
     ]
   },
@@ -4041,7 +3969,6 @@
     "tags": [
       "array",
       "math",
-      "function",
       "intermediate"
     ]
   },
@@ -4072,9 +3999,7 @@
     "id": "stableSort",
     "tags": [
       "array",
-      "sort",
-      "advanced",
-      "intermediate"
+      "advanced"
     ]
   },
   {
@@ -4149,7 +4074,6 @@
     "tags": [
       "math",
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -4211,7 +4135,6 @@
     "id": "symmetricDifferenceBy",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -4222,7 +4145,6 @@
     "id": "symmetricDifferenceWith",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -4263,7 +4185,6 @@
     "id": "takeRightWhile",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -4274,7 +4195,6 @@
     "id": "takeWhile",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -4521,7 +4441,6 @@
     "id": "transform",
     "tags": [
       "object",
-      "array",
       "intermediate"
     ]
   },
@@ -4628,7 +4547,6 @@
     "id": "unionBy",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -4639,7 +4557,6 @@
     "id": "unionWith",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -4660,7 +4577,6 @@
     "id": "uniqueElementsBy",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -4671,7 +4587,6 @@
     "id": "uniqueElementsByRight",
     "tags": [
       "array",
-      "function",
       "intermediate"
     ]
   },
@@ -4714,7 +4629,6 @@
     "id": "unzipWith",
     "tags": [
       "array",
-      "function",
       "advanced"
     ]
   },
@@ -4755,7 +4669,6 @@
     "id": "weightedAverage",
     "tags": [
       "math",
-      "array",
       "intermediate"
     ]
   },
@@ -4883,7 +4796,6 @@
     "id": "zipWith",
     "tags": [
       "array",
-      "function",
       "advanced"
     ]
   }

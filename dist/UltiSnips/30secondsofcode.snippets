@@ -130,11 +130,11 @@ const UUIDGeneratorNode = () =>
   );
 endsnippet
 
-snippet accumulate "Returns an array of partial sums.  - Use `Array.prototype.reduce()`, `Array.prototype.slice(-1)` and the unary `+` operator to add each value to the unary array containing the previous sum." b
+snippet accumulate "Creates an array of partial sums.  - Use `Array.prototype.reduce()`, initialized with an empty array accumulator to iterate over `nums`. - Use `Array.prototype.slice(-1)`, the spread operator (`...`) and the unary `+` operator to add each value to the accumulator array containing the previous sums." b
 const accumulate = (...nums) => nums.reduce((acc, n) => [...acc, n + +acc.slice(-1)],[]);
 endsnippet
 
-snippet addDaysToDate "Return the date of `n` days from the given date as a string representation.  - Use `new Date()` to create a date object from the first parameter. - Use `Date.getDate()` and `Date.setDate()` to add `n` days to the given date. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
+snippet addDaysToDate "Calculates the date of `n` days from the given date, returning its string representation.  - Use `new Date()` to create a date object from the first parameter. - Use `Date.getDate()` and `Date.setDate()` to add `n` days to the given date. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
 const addDaysToDate = (date, n) => {
   d = new Date(date);
   d.setDate(d.getDate() + n);
@@ -142,13 +142,13 @@ const addDaysToDate = (date, n) => {
 };
 endsnippet
 
-snippet addMultipleListeners "Add multiple event listeners with the same handler to an element.  - Use `Array.prototype.forEach()` and `EventTarget.addEventListener()` to add multiple event listeners with an assigned callback function to an element." b
+snippet addMultipleListeners "Adds multiple event listeners with the same handler to an element.  - Use `Array.prototype.forEach()` and `EventTarget.addEventListener()` to add multiple event listeners with an assigned callback function to an element." b
 const addMultipleListeners = (el, types, listener, options, useCapture) => {
   types.forEach(type => el.addEventListener(type, listener, options, useCapture));
 }
 endsnippet
 
-snippet addWeekDays "Returns a date after adding given number of business days.  - Use `Array.from()` to construct an array with `length` equal to the `count` of business days to be added. - Use `Array.prototype.reduce()` to iterate over the array, starting from `startDate` and incrementing, using `Date.getDate()` and `Date.setDate()`. - If the current `date` is on a weekend, update it again by adding either one day or two days to make it a weekday." b
+snippet addWeekDays "Calculates the date after adding the ginen number of business days.  - Use `Array.from()` to construct an array with `length` equal to the `count` of business days to be added. - Use `Array.prototype.reduce()` to iterate over the array, starting from `startDate` and incrementing, using `Date.getDate()` and `Date.setDate()`. - If the current `date` is on a weekend, update it again by adding either one day or two days to make it a weekday. - **NOTE:** Does not take official holidays into account." b
 const addWeekDays = (startDate, count) => 
   Array
     .from({ length: count })
@@ -160,23 +160,23 @@ const addWeekDays = (startDate, count) =>
     }, startDate);
 endsnippet
 
-snippet all "Returns `true` if the provided predicate function returns `true` for all elements in a collection, `false` otherwise.  - Use `Array.prototype.every()` to test if all elements in the collection return `true` based on `fn`. - Omit the second argument, `fn`, to use `Boolean` as a default." b
+snippet all "Checks if the provided predicate function returns `true` for all elements in a collection.  - Use `Array.prototype.every()` to test if all elements in the collection return `true` based on `fn`. - Omit the second argument, `fn`, to use `Boolean` as a default." b
 const all = (arr, fn = Boolean) => arr.every(fn);
 endsnippet
 
-snippet allEqual "Check if all elements in an array are equal.  - Use `Array.prototype.every()` to check if all the elements of the array are the same as the first one. - Elements in the array are compared using the strict comparison operator, which does not account for `NaN` self-inequality." b
+snippet allEqual "Checks if all elements in an array are equal.  - Use `Array.prototype.every()` to check if all the elements of the array are the same as the first one. - Elements in the array are compared using the strict comparison operator, which does not account for `NaN` self-inequality." b
 const allEqual = arr => arr.every(val => val === arr[0]);
 endsnippet
 
-snippet and "Returns `true` if both arguments are `true`, `false` otherwise.  - Use the logical and (`&&`) operator on the two given values." b
+snippet and "Checks if both arguments are `true`.  - Use the logical and (`&&`) operator on the two given values." b
 const and = (a, b) => a && b;
 endsnippet
 
-snippet any "Returns `true` if the provided predicate function returns `true` for at least one element in a collection, `false` otherwise.  - Use `Array.prototype.some()` to test if any elements in the collection return `true` based on `fn`. - Omit the second argument, `fn`, to use `Boolean` as a default." b
+snippet any "Checks if the provided predicate function returns `true` for at least one element in a collection.  - Use `Array.prototype.some()` to test if any elements in the collection return `true` based on `fn`. - Omit the second argument, `fn`, to use `Boolean` as a default." b
 const any = (arr, fn = Boolean) => arr.some(fn);
 endsnippet
 
-snippet aperture "Returns an array of `n`-tuples of consecutive elements.  - Use `Array.prototype.slice()` and `Array.prototype.map()` to create an array of appropriate length and populate it with `n`-tuples of consecutive elements from `arr`. - If `n` is greater than the length of `arr`, return an empty array." b
+snippet aperture "Creates an array of `n`-tuples of consecutive elements.  - Use `Array.prototype.slice()` and `Array.prototype.map()` to create an array of appropriate length. - Populate the array with `n`-tuples of consecutive elements from `arr`. - If `n` is greater than the length of `arr`, return an empty array." b
 const aperture = (n, arr) =>
   n > arr.length
     ? []
@@ -187,9 +187,9 @@ snippet approximatelyEqual "Checks if two numbers are approximately equal to eac
 const approximatelyEqual = (v1, v2, epsilon = 0.001) => Math.abs(v1 - v2) < epsilon;
 endsnippet
 
-snippet arithmeticProgression "Returns an array of numbers in the arithmetic progression starting with the given positive integer and up to the specified limit.  - Use `Array.from()` to create an array of the desired length, `lim/n`, and a map function to fill it with the desired values in the given range." b
+snippet arithmeticProgression "Creates an array of numbers in the arithmetic progression, starting with the given positive integer and up to the specified limit.  - Use `Array.from()` to create an array of the desired length, `lim/n`, and a map function to fill it with the desired values in the given range." b
 const arithmeticProgression  = (n, lim) => 
-  Array.from({ length: Math.ceil(lim / n) }, (v, i) => (i + 1) * n );
+  Array.from({ length: Math.ceil(lim / n) }, (_, i) => (i + 1) * n );
 endsnippet
 
 snippet arrayToCSV "Converts a 2D array to a comma-separated values (CSV) string.  - Use `Array.prototype.map()` and `Array.prototype.join(delimiter)` to combine individual 1D arrays (rows) into strings. - Use `Array.prototype.join('\n')` to combine all rows into a CSV string, separating each row with a newline. - Omit the second argument, `delimiter`, to use a default delimiter of `,`." b
@@ -214,7 +214,7 @@ snippet atob "Decodes a string of data which has been encoded using base-64 enco
 const atob = str => Buffer.from(str, 'base64').toString('binary');
 endsnippet
 
-snippet attempt "Attempts to invoke a function with the provided arguments, returning either the result or the caught error object.  - Use a `try... catch` block to return either the result of the function or an appropriate error." b
+snippet attempt "Attempts to invoke a function with the provided arguments, returning either the result or the caught error object.  - Use a `try... catch` block to return either the result of the function or an appropriate error. - If the caught object is not an `Error`, use it to create a new `Error`." b
 const attempt = (fn, ...args) => {
   try {
     return fn(...args);
@@ -224,22 +224,22 @@ const attempt = (fn, ...args) => {
 };
 endsnippet
 
-snippet average "Returns the average of two or more numbers.  - Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`, divide by the `length` of the array." b
+snippet average "Calculates the average of two or more numbers.  - Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`, divide by the `length` of the array." b
 const average = (...nums) => nums.reduce((acc, val) => acc + val, 0) / nums.length;
 endsnippet
 
-snippet averageBy "Returns the average of an array, after mapping each element to a value using the provided function.  - Use `Array.prototype.map()` to map each element to the value returned by `fn`, `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`, divide by the `length` of the array." b
+snippet averageBy "Calculates the average of an array, after mapping each element to a value using the provided function.  - Use `Array.prototype.map()` to map each element to the value returned by `fn`. - Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`, divide by the `length` of the array." b
 const averageBy = (arr, fn) =>
   arr.map(typeof fn === 'function' ? fn : val => val[fn]).reduce((acc, val) => acc + val, 0) /
   arr.length;
 endsnippet
 
-snippet bifurcate "Splits values into two groups. If an element in `filter` is truthy, the corresponding element in the collection belongs to the first group; otherwise, it belongs to the second group.  - Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on `filter`." b
+snippet bifurcate "Splits values into two groups, based on the result of the given `filter` array.   - Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on `filter`. - If `filter` has a truthy value for any element, add it to the first group, otherwise add it to the second group." b
 const bifurcate = (arr, filter) =>
   arr.reduce((acc, val, i) => (acc[filter[i] ? 0 : 1].push(val), acc), [[], []]);
 endsnippet
 
-snippet bifurcateBy "Splits values into two groups according to a predicate function, which specifies which group an element in the input collection belongs to. If the predicate function returns a truthy value, the collection element belongs to the first group; otherwise, it belongs to the second group.  - Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on the value returned by `fn` for each element." b
+snippet bifurcateBy "Splits values into two groups, based on the result of the given filtering function.   - Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on the value returned by `fn` for each element. - If `fn` returns a truthy value for any element, add it to the first group, otherwise add it to the second group." b
 const bifurcateBy = (arr, fn) =>
   arr.reduce((acc, val, i) => (acc[fn(val, i) ? 0 : 1].push(val), acc), [[], []]);
 endsnippet
@@ -248,11 +248,12 @@ snippet binary "Creates a function that accepts up to two arguments, ignoring an
 const binary = fn => (a, b) => fn(a, b);
 endsnippet
 
-snippet bind "Creates a function that invokes `fn` with a given context, optionally adding any additional supplied parameters to the beginning of the arguments.  - Return a `function` that uses `Function.prototype.apply()` to apply the given `context` to `fn`. - Use `Array.prototype.concat()` to prepend any additional supplied parameters to the arguments." b
-const bind = (fn, context, ...boundArgs) => (...args) => fn.apply(context, [...boundArgs, ...args]);
+snippet bind "Creates a function that invokes `fn` with a given context, optionally prepending any additional supplied parameters to the arguments.  - Return a `function` that uses `Function.prototype.apply()` to apply the given `context` to `fn`. - Use the spread operator (`...`) to prepend any additional supplied parameters to the arguments." b
+const bind = (fn, context, ...boundArgs) => (...args) =>
+  fn.apply(context, [...boundArgs, ...args]);
 endsnippet
 
-snippet bindAll "Binds methods of an object to the object itself, overwriting the existing method.  - Use `Array.prototype.forEach()` to return a `function` that uses `Function.prototype.apply()` to apply the given context (`obj`) to `fn` for each function specified." b
+snippet bindAll "Binds methods of an object to the object itself, overwriting the existing method.  - Use `Array.prototype.forEach()` to iterate over the given `fns`. - Return a function for each one, using `Function.prototype.apply()` to apply the given context (`obj`) to `fn`." b
 const bindAll = (obj, ...fns) =>
   fns.forEach(
     fn => (
@@ -264,12 +265,12 @@ const bindAll = (obj, ...fns) =>
   );
 endsnippet
 
-snippet bindKey "Creates a function that invokes the method at a given key of an object, optionally adding any additional supplied parameters to the beginning of the arguments.  - Return a `function` that uses `Function.prototype.apply()` to bind `context[fn]` to `context`. - Use the spread operator (`...`) to prepend any additional supplied parameters to the arguments." b
+snippet bindKey "Creates a function that invokes the method at a given key of an object, optionally prepending any additional supplied parameters to the arguments.  - Return a `function` that uses `Function.prototype.apply()` to bind `context[fn]` to `context`. - Use the spread operator (`...`) to prepend any additional supplied parameters to the arguments." b
 const bindKey = (context, fn, ...boundArgs) => (...args) =>
   context[fn].apply(context, [...boundArgs, ...args]);
 endsnippet
 
-snippet binomialCoefficient "Evaluates the binomial coefficient of two integers `n` and `k`.  - Use `Number.isNaN()` to check if any of the two values is `NaN`. - Check if `k` is less than `0`, greater than or equal to `n`, equal to `1` or `n - 1` and return the appropriate result. - Check if `n - k` is less than `k` and switch their values accordingly. - Loop from `2` through `k` and calculate the binomial coefficient. - Use `Math.round()` to account for rounding errors in the calculation." b
+snippet binomialCoefficient "Calculates the number of ways to choose `k` items from `n` items without repetition and without order.  - Use `Number.isNaN()` to check if any of the two values is `NaN`. - Check if `k` is less than `0`, greater than or equal to `n`, equal to `1` or `n - 1` and return the appropriate result. - Check if `n - k` is less than `k` and switch their values accordingly. - Loop from `2` through `k` and calculate the binomial coefficient. - Use `Math.round()` to account for rounding errors in the calculation." b
 const binomialCoefficient = (n, k) => {
   if (Number.isNaN(n) || Number.isNaN(k)) return NaN;
   if (k < 0 || k > n) return 0;
@@ -282,11 +283,11 @@ const binomialCoefficient = (n, k) => {
 };
 endsnippet
 
-snippet both "Returns `true` if both functions return `true` for a given set of arguments, `false` otherwise.  - Use the logical and (`&&`) operator on the result of calling the two functions with the supplied `args`." b
+snippet both "Checks if both of the given functions return `true` for a given set of arguments.  - Use the logical and (`&&`) operator on the result of calling the two functions with the supplied `args`." b
 const both = (f, g) => (...args) => f(...args) && g(...args);
 endsnippet
 
-snippet bottomVisible "Returns `true` if the bottom of the page is visible, `false` otherwise.  - Use `scrollY`, `scrollHeight` and `clientHeight` to determine if the bottom of the page is visible." b
+snippet bottomVisible "Checks if the bottom of the page is visible.  - Use `scrollY`, `scrollHeight` and `clientHeight` to determine if the bottom of the page is visible." b
 const bottomVisible = () =>
   document.documentElement.clientHeight + window.scrollY >=
   (document.documentElement.scrollHeight || document.documentElement.clientHeight);
@@ -296,15 +297,15 @@ snippet btoa "Creates a base-64 encoded ASCII string from a String object in whi
 const btoa = str => Buffer.from(str, 'binary').toString('base64');
 endsnippet
 
-snippet byteSize "Returns the length of a string in bytes.  - Convert a given string to a [`Blob` Object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) and find its `size`." b
+snippet byteSize "Returns the length of a string in bytes.  - Convert a given string to a [`Blob` Object](https://developer.mozilla.org/en-US/docs/Web/API/Blob). - Use `Blob.size` to get the length of the string in bytes." b
 const byteSize = str => new Blob([str]).size;
 endsnippet
 
-snippet call "Given a key and a set of arguments, call them when given a context. Primarily useful in composition.    - Use a closure to call a stored key with stored arguments." b
+snippet call "Given a key and a set of arguments, call them when given a context.    - Use a closure to call `key` with `args` for the given `context`." b
 const call = (key, ...args) => context => context[key](...args);
 endsnippet
 
-snippet capitalize "Capitalizes the first letter of a string.  - Use array destructuring and `String.prototype.toUpperCase()` to capitalize first letter, `...rest` to get array of characters after first letter and then `Array.prototype.join('')` to make it a string again. - Omit the `lowerRest` parameter to keep the rest of the string intact, or set it to `true` to convert to lowercase." b
+snippet capitalize "Capitalizes the first letter of a string.  - Use array destructuring and `String.prototype.toUpperCase()` to capitalize the first letter of the string. - Use `Array.prototype.join('')` to combine the capitalized `first` with the `...rest` of the characters. - Omit the `lowerRest` parameter to keep the rest of the string intact, or set it to `true` to convert to lowercase." b
 const capitalize = ([first, ...rest], lowerRest = false) =>
   first.toUpperCase() + (lowerRest ? rest.join('').toLowerCase() : rest.join(''));
 endsnippet
@@ -317,7 +318,7 @@ snippet castArray "Casts the provided value as an array if it's not one.  - Use 
 const castArray = val => (Array.isArray(val) ? val : [val]);
 endsnippet
 
-snippet celsiusToFahrenheit "Converts Celsius to Fahrenheit.  - Follows the conversion formula `F =  1.8C + 32`." b
+snippet celsiusToFahrenheit "Converts Celsius to Fahrenheit.  - Follows the conversion formula `F = 1.8 * C + 32`." b
 const celsiusToFahrenheit = degrees => 1.8 * degrees + 32;
 endsnippet
 
@@ -333,7 +334,7 @@ const chainAsync = fns => {
 };
 endsnippet
 
-snippet checkProp "Given a `predicate` function and a `prop` string, this curried function will then take an `object` to inspect by calling the property and passing it to the predicate.  - Summon `prop` on `obj`, pass it to a provided `predicate` function and return a masked boolean." b
+snippet checkProp "Creates a function that will invoke a predicate function for the specified property on a given object.  - Return a curried function, that will invoke `predicate` for the specified `prop` on `obj` and return a boolean." b
 const checkProp = (predicate, prop) => obj => !!predicate(obj[prop]);
 endsnippet
 
@@ -365,7 +366,7 @@ snippet coalesce "Returns the first defined, non-null argument.  - Use `Array.pr
 const coalesce = (...args) => args.find(v => ![undefined, null].includes(v));
 endsnippet
 
-snippet coalesceFactory "Returns a customized coalesce function that returns the first argument that returns `true` from the provided argument validation function.  - Use `Array.prototype.find()` to return the first argument that returns `true` from the provided argument validation function." b
+snippet coalesceFactory "Customizes a coalesce function that returns the first argument which is true based on the given validator.  - Use `Array.prototype.find()` to return the first argument that returns `true` from the provided argument validation function, `valid`." b
 const coalesceFactory = valid => (...args) => args.find(valid);
 endsnippet
 
@@ -373,7 +374,7 @@ snippet collectInto "Changes a function that accepts an array into a variadic f
 const collectInto = fn => (...args) => fn(args);
 endsnippet
 
-snippet colorize "Add special characters to text to print in color in the console (combined with `console.log()`).  - Use template literals and special characters to add the appropriate color code to the string output. - For background colors, add a special character that resets the background color at the end of the string." b
+snippet colorize "Adds special characters to text to print in color in the console (combined with `console.log()`).  - Use template literals and special characters to add the appropriate color code to the string output. - For background colors, add a special character that resets the background color at the end of the string." b
 const colorize = (...args) => ({
   black: \`\x1b[30m\${args.join(' ')}\`,
   red: \`\x1b[31m\${args.join(' ')}\`,
@@ -411,7 +412,7 @@ snippet compact "Removes falsy values from an array.  - Use `Array.prototype.fil
 const compact = arr => arr.filter(Boolean);
 endsnippet
 
-snippet compactWhitespace "Returns a string with whitespaces compacted.  - Use `String.prototype.replace()` with a regular expression to replace all occurrences of 2 or more whitespace characters with a single space." b
+snippet compactWhitespace "Compacts whitespaces in a string.  - Use `String.prototype.replace()` with a regular expression to replace all occurrences of 2 or more whitespace characters with a single space." b
 const compactWhitespace = str => str.replace(/\s{2,}/g, ' ');
 endsnippet
 
@@ -427,19 +428,20 @@ snippet composeRight "Performs left-to-right function composition.  - Use `Array
 const composeRight = (...fns) => fns.reduce((f, g) => (...args) => g(f(...args)));
 endsnippet
 
-snippet containsWhitespace "Returns `true` if the given string contains any whitespace characters, `false` otherwise.  - Use `RegExp.prototype.test()` with an appropriate regular expression to check if the given string contains any whitespace characters." b
+snippet containsWhitespace "Checks if the given string contains any whitespace characters.  - Use `RegExp.prototype.test()` with an appropriate regular expression to check if the given string contains any whitespace characters." b
 const containsWhitespace = str => /\s/.test(str);
 endsnippet
 
 snippet converge "Accepts a converging function and a list of branching functions and returns a function that applies each branching function to the arguments and the results of the branching functions are passed as arguments to the converging function.  - Use `Array.prototype.map()` and `Function.prototype.apply()` to apply each function to the given arguments. - Use the spread operator (`...`) to call `coverger` with the results of all other functions." b
-const converge = (converger, fns) => (...args) => converger(...fns.map(fn => fn.apply(null, args)));
+const converge = (converger, fns) => (...args) =>
+  converger(...fns.map(fn => fn.apply(null, args)));
 endsnippet
 
 snippet copySign "Returns the absolute value of the first number, but the sign of the second.  - Use `Math.sign()` to check if the two numbers have the same sign. - Return `x` if they do, `-x` otherwise." b
 const copySign = (x, y) => Math.sign(x) === Math.sign(y) ? x : -x;
 endsnippet
 
-snippet copyToClipboard "Copy a string to the clipboard. Only works as a result of user action (i.e. inside a `click` event listener).  - Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document. - Use `Selection.getRangeAt()`to store the selected range (if any). - Use `document.execCommand('copy')` to copy to the clipboard. - Remove the `<textarea>` element from the HTML document. - Finally, use `Selection().addRange()` to recover the original selected range (if any). - ⚠️ **NOTICE:** The same functionality can be easily implemented by using the new asynchronous Clipboard API, which is still experimental but should be used in the future instead of this snippet. Find out more about it [here](https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc#writing-to-the-clipboard)." b
+snippet copyToClipboard "Copies a string to the clipboard. Only works as a result of user action (i.e. inside a `click` event listener).  - Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document. - Use `Selection.getRangeAt()`to store the selected range (if any). - Use `document.execCommand('copy')` to copy to the clipboard. - Remove the `<textarea>` element from the HTML document. - Finally, use `Selection().addRange()` to recover the original selected range (if any). - ⚠️ **NOTICE:** The same functionality can be easily implemented by using the new asynchronous Clipboard API, which is still experimental but should be used in the future instead of this snippet. Find out more about it [here](https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc#writing-to-the-clipboard)." b
 const copyToClipboard = str => {
   const el = document.createElement('textarea');
   el.value = str;
@@ -467,11 +469,12 @@ const countBy = (arr, fn) =>
   }, {});
 endsnippet
 
-snippet countOccurrences "Counts the occurrences of a value in an array.  - Use `Array.prototype.reduce()` to increment a counter each time you encounter the specific value inside the array." b
-const countOccurrences = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
+snippet countOccurrences "Counts the occurrences of a value in an array.  - Use `Array.prototype.reduce()` to increment a counter each time the specific value is encountered inside the array." b
+const countOccurrences = (arr, val) =>
+  arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
 endsnippet
 
-snippet countWeekDaysBetween "Returns the weekday count between two dates.  - Use `Array.from()` to construct an array with `length` equal to the number of days between `startDate` and `endDate`. - Use `Array.prototype.reduce()` to iterate over the array, checking if each date is a weekday and incrementing `count`. - Update `startDate` with the next day each loop using `Date.getDate()` and `Date.setDate()` to advance it by one day." b
+snippet countWeekDaysBetween "Counts the weekdays between two dates.  - Use `Array.from()` to construct an array with `length` equal to the number of days between `startDate` and `endDate`. - Use `Array.prototype.reduce()` to iterate over the array, checking if each date is a weekday and incrementing `count`. - Update `startDate` with the next day each loop using `Date.getDate()` and `Date.setDate()` to advance it by one day. - **NOTE:** Does not take official holidays into account." b
 const countWeekDaysBetween = (startDate, endDate) =>
   Array
     .from({ length: (endDate - startDate) / (1000 * 3600 * 24) })
@@ -1205,7 +1208,7 @@ const haveSameContents = (a, b) => {
 };
 endsnippet
 
-snippet head "Returns the head of a list.  - Check if `arr` is truthy and has a `length` property, use `arr[0]` if possible to return the first element, otherwise return `undefined`." b
+snippet head "Returns the head of an array.  - Check if `arr` is truthy and has a `length` property, use `arr[0]` if possible to return the first element, otherwise return `undefined`." b
 const head = arr => (arr && arr.length ? arr[0] : undefined);
 endsnippet
 
@@ -1371,21 +1374,21 @@ snippet insertBefore "Inserts an HTML string before the start of the specified e
 const insertBefore = (el, htmlString) => el.insertAdjacentHTML('beforebegin', htmlString);
 endsnippet
 
-snippet intersection "Returns a list of elements that exist in both arrays.  - Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`." b
+snippet intersection "Returns the elements that exist in both arrays.  - Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`." b
 const intersection = (a, b) => {
   const s = new Set(b);
   return [...new Set(a)].filter(x => s.has(x));
 };
 endsnippet
 
-snippet intersectionBy "Returns a list of elements that exist in both arrays, after applying the provided function to each array element of both.  - Create a `Set` by applying `fn` to all elements in `b`, then use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them." b
+snippet intersectionBy "Returns the elements that exist in both arrays, after applying the provided function to each array element of both.  - Create a `Set` by applying `fn` to all elements in `b`, then use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them." b
 const intersectionBy = (a, b, fn) => {
   const s = new Set(b.map(fn));
   return [...new Set(a)].filter(x => s.has(fn(x)));
 };
 endsnippet
 
-snippet intersectionWith "Returns a list of elements that exist in both arrays, using a provided comparator function.  - Use `Array.prototype.filter()` and `Array.prototype.findIndex()` in combination with the provided comparator to determine intersecting values." b
+snippet intersectionWith "Returns the elements that exist in both arrays, using a provided comparator function.  - Use `Array.prototype.filter()` and `Array.prototype.findIndex()` in combination with the provided comparator to determine intersecting values." b
 const intersectionWith = (a, b, comp) => a.filter(x => b.findIndex(y => comp(x, y)) !== -1);
 endsnippet
 
