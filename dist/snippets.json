@@ -42,7 +42,7 @@
     ]
   },
   {
-    "code": "const fs = require('fs');\nconst JSONToFile = (obj, filename) =>\n  fs.writeFileSync(\\`\\${filename}.json\\`, JSON.stringify(obj, null, 2));",
+    "code": "const fs = require('fs');\n\nconst JSONToFile = (obj, filename) =>\n  fs.writeFileSync(\\`\\${filename}.json\\`, JSON.stringify(obj, null, 2));",
     "description": "Writes a JSON object to a file.\n\n- Use `fs.writeFileSync()`, template literals and `JSON.stringify()` to write a `json` object to a `.json` file.",
     "example": "JSONToFile({ test: 'is passed' }, 'testJsonFile'); // writes the object to 'testJsonFile.json'",
     "id": "JSONToFile",
@@ -117,7 +117,7 @@
     ]
   },
   {
-    "code": "const crypto = require('crypto');\nconst UUIDGeneratorNode = () =>\n  ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>\n    (c ^ (crypto.randomBytes(1)[0] & (15 >> (c / 4)))).toString(16)\n  );",
+    "code": "const crypto = require('crypto');\n\nconst UUIDGeneratorNode = () =>\n  ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>\n    (c ^ (crypto.randomBytes(1)[0] & (15 >> (c / 4)))).toString(16)\n  );",
     "description": "Generates a UUID in Node.JS.\n\n- Use `crypto` API to generate a UUID, compliant with [RFC4122](https://www.ietf.org/rfc/rfc4122.txt) version 4.",
     "example": "UUIDGeneratorNode(); // '79c7c136-60ee-40a2-beb2-856f1feabefc'",
     "id": "UUIDGeneratorNode",
@@ -187,6 +187,36 @@
     "tags": [
       "array",
       "beginner"
+    ]
+  },
+  {
+    "code": "const allEqualBy = (arr, fn) => {\n  const eql = fn(arr[0]);\n  return arr.every(val => fn(val) === eql);\n};",
+    "description": "Checks if all elements in an array are equal, based on the provided mapping function.\n\n- Apply `fn` to the first element of `arr`.\n- Use `Array.prototype.every()` to check if `fn` returns the same value for all elements in the array as it did for the first one.\n- Elements in the array are compared using the strict comparison operator, which does not account for `NaN` self-inequality.",
+    "example": "allEqualBy([1.1, 1.2, 1.3], Math.round); // true\nallEqualBy([1.1, 1.3, 1.6], Math.round); // false",
+    "id": "allEqualBy",
+    "tags": [
+      "array",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const allUnique = arr => arr.length === new Set(arr).size;",
+    "description": "Checks if all elements in an array are unique.\n\n- Create a new `Set` from the mapped values to keep only unique occurences.\n- Use `Array.prototype.length` and `Set.prototype.size` to compare the length of the unique values to the original array.",
+    "example": "allUnique([1, 2, 3, 4]); // true\nallUnique([1, 1, 2, 3]); // false",
+    "id": "allUnique",
+    "tags": [
+      "array",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const allUniqueBy = (arr, fn) => arr.length === new Set(arr.map(fn)).size;",
+    "description": "Checks if all elements in an array are unique, based on the provided mapping function.\n\n- Use `Array.prototype.map()` to apply `fn` to all elements in `arr`.\n- Create a new `Set` from the mapped values to keep only unique occurences.\n- Use `Array.prototype.length` and `Set.prototype.size` to compare the length of the unique mapped values to the original array.",
+    "example": "allUniqueBy([1.2, 2.4, 2.9], Math.round); // true\nallUniqueBy([1.2, 2.3, 2.4], Math.round); // false",
+    "id": "allUniqueBy",
+    "tags": [
+      "array",
+      "intermediate"
     ]
   },
   {
@@ -734,7 +764,7 @@
     ]
   },
   {
-    "code": "const fs = require('fs');\nconst createDirIfNotExists = dir => (!fs.existsSync(dir) ? fs.mkdirSync(dir) : undefined);",
+    "code": "const fs = require('fs');\n\nconst createDirIfNotExists = dir => (!fs.existsSync(dir) ? fs.mkdirSync(dir) : undefined);",
     "description": "Creates a directory, if it does not exist.\n\n- Use `fs.existsSync()` to check if the directory exists, `fs.mkdirSync()` to create it.",
     "example": "createDirIfNotExists('test'); // creates the directory 'test', if it doesn't exist",
     "id": "createDirIfNotExists",
@@ -745,7 +775,7 @@
   },
   {
     "code": "const createElement = str => {\n  const el = document.createElement('div');\n  el.innerHTML = str;\n  return el.firstElementChild;\n};",
-    "description": "Creates an element from a string (without appending it to the document).\nIf the given string contains multiple elements, only the first one will be returned.\n\n- Use `document.createElement()` to create a new element.\n- Set its `innerHTML` to the string supplied as the argument.\n- Use `ParentNode.firstElementChild` to return the element version of the string.",
+    "description": "Creates an element from a string (without appending it to the document).\nIf the given string contains multiple elements, only the first one will be returned.\n\n- Use `Document.createElement()` to create a new element.\n- Use `Element.innerHTML` to set its inner HTML to the string supplied as the argument.\n- Use `ParentNode.firstElementChild` to return the element version of the string.",
     "example": "const el = createElement(\n  `<div class=\"container\">\n    <p>Hello!</p>\n  </div>`\n);\nconsole.log(el.className); // 'container'",
     "id": "createElement",
     "tags": [
@@ -776,7 +806,7 @@
   },
   {
     "code": "const curry = (fn, arity = fn.length, ...args) =>\n  arity <= args.length ? fn(...args) : curry.bind(null, fn, arity, ...args);",
-    "description": "Curries a function.\n\n- Use recursion.\n- If the number of provided arguments (`args`) is sufficient, call the passed function `fn`.\n- Otherwise, return a curried function `fn` that expects the rest of the arguments.\n- If you want to curry a function that accepts a variable number of arguments (a variadic function, e.g. `Math.min()`), you can optionally pass the number of arguments to the second parameter `arity`.",
+    "description": "Curries a function.\n\n- Use recursion.\n- If the number of provided arguments (`args`) is sufficient, call the passed function `fn`.\n- Otherwise, use `Function.prototype.bind()` to return a curried function `fn` that expects the rest of the arguments.\n- If you want to curry a function that accepts a variable number of arguments (a variadic function, e.g. `Math.min()`), you can optionally pass the number of arguments to the second parameter `arity`.",
     "example": "curry(Math.pow)(2)(10); // 1024\ncurry(Math.min, 3)(10)(50)(2); // 2",
     "id": "curry",
     "tags": [
@@ -808,7 +838,7 @@
   },
   {
     "code": "const dayOfYear = date =>\n  Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);",
-    "description": "Gets the day of the year from a `Date` object.\n\n- Use `new Date()` and `Date.prototype.getFullYear()` to get the first day of the year as a `Date` object, subtract it from the provided `date` and divide with the milliseconds in each day to get the result.\n- Use `Math.floor()` to appropriately round the resulting day count to an integer.",
+    "description": "Gets the day of the year (number in the range 1-366) from a `Date` object.\n\n- Use `new Date()` and `Date.prototype.getFullYear()` to get the first day of the year as a `Date` object.\n- Subtract the first day of the year from `date` and divide with the milliseconds in each day to get the result.\n- Use `Math.floor()` to appropriately round the resulting day count to an integer.",
     "example": "dayOfYear(new Date()); // 272",
     "id": "dayOfYear",
     "tags": [
@@ -818,17 +848,17 @@
   },
   {
     "code": "const daysAgo = n => {\n  let d = new Date();\n  d.setDate(d.getDate() - Math.abs(n));\n  return d.toISOString().split('T')[0];\n};",
-    "description": "Returns the date of `n` days ago from today as a string representation.\n\n- Use `new Date()` to get the current date, `Math.abs()` and `Date.getDate()` to update the date accordingly and set to the result using `Date.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
+    "description": "Calculates the date of `n` days ago from today as a string representation.\n\n- Use `new Date()` to get the current date, `Math.abs()` and `Date.getDate()` to update the date accordingly and set to the result using `Date.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "daysAgo(20); // 2020-09-16 (if current date is 2020-10-06)",
     "id": "daysAgo",
     "tags": [
       "date",
-      "intermediate"
+      "beginner"
     ]
   },
   {
-    "code": "const daysFromNow = n => {\n  let d = new Date();\n  d.setDate(d.getDate() + Math.abs(n));\n  return d.toISOString().split('T')[0];\n}",
-    "description": "Returns the date of `n` days from today as a string representation.\n\n- Use `new Date()` to get the current date, `Math.abs()` and `Date.getDate()` to update the date accordingly and set to the result using `Date.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
+    "code": "const daysFromNow = n => {\n  let d = new Date();\n  d.setDate(d.getDate() + Math.abs(n));\n  return d.toISOString().split('T')[0];\n};",
+    "description": "Calculates the date of `n` days from today as a string representation.\n\n- Use `new Date()` to get the current date, `Math.abs()` and `Date.getDate()` to update the date accordingly and set to the result using `Date.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "daysFromNow(5); // 2020-10-13 (if current date is 2020-10-08)",
     "id": "daysFromNow",
     "tags": [
@@ -838,7 +868,7 @@
   },
   {
     "code": "const debounce = (fn, ms = 0) => {\n  let timeoutId;\n  return function(...args) {\n    clearTimeout(timeoutId);\n    timeoutId = setTimeout(() => fn.apply(this, args), ms);\n  };\n};",
-    "description": "Creates a debounced function that delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked.\n\n- Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed.\n- Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments.\n- Omit the second argument, `ms`, to set the timeout at a default of 0 ms.",
+    "description": "Creates a debounced function that delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked.\n\n- Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed.\n- Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments.\n- Omit the second argument, `ms`, to set the timeout at a default of `0` ms.",
     "example": "window.addEventListener(\n  'resize',\n  debounce(() => {\n    console.log(window.innerWidth);\n    console.log(window.innerHeight);\n  }, 250)\n); // Will log the window dimensions at most every 250ms",
     "id": "debounce",
     "tags": [
@@ -848,7 +878,7 @@
   },
   {
     "code": "const debouncePromise = (fn, ms = 0) => {\n  let timeoutId;\n  const pending = [];\n  return (...args) =>\n    new Promise((res, rej) => {\n      clearTimeout(timeoutId);\n      timeoutId = setTimeout(() => {\n        const currentPending = [...pending];\n        pending.length = 0;\n        Promise.resolve(fn.apply(this, args)).then(\n          data => {\n            currentPending.forEach(({ resolve }) => resolve(data));\n          },\n          error => {\n            currentPending.forEach(({ reject }) => reject(error));\n          }\n        );\n      }, ms);\n      pending.push({ resolve: res, reject: rej });\n    });\n};",
-    "description": "Creates a debounced function that returns a promise, but delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked. \nAll promises returned during this time will return the same data.\n\n- Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed.\n- Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments.\n- Create a new `Promise` and add its `resolve` and `reject` callbacks to the `pending` promises stack.\n- When `setTimeout` is called, copy the current stack (as it can change between the provided function call and its resolution), clear it and call the provided function.\n- When the provided function resolves/rejects, resolve/reject all promises in the stack (copied when the function was called) with the returned data.\n- Omit the second argument, `ms`, to set the timeout at a default of 0 ms.",
+    "description": "Creates a debounced function that returns a promise, but delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked. \nAll promises returned during this time will return the same data.\n\n- Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed.\n- Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments.\n- Create a new `Promise` and add its `resolve` and `reject` callbacks to the `pending` promises stack.\n- When `setTimeout` is called, copy the current stack (as it can change between the provided function call and its resolution), clear it and call the provided function.\n- When the provided function resolves/rejects, resolve/reject all promises in the stack (copied when the function was called) with the returned data.\n- Omit the second argument, `ms`, to set the timeout at a default of `0` ms.",
     "example": "const fn = arg => new Promise(resolve => {\n  setTimeout(resolve, 1000, ['resolved', arg]);\n});\nconst debounced = debouncePromise(fn, 200);\ndebounced('foo').then(console.log);\ndebounced('bar').then(console.log);\n// Will log ['resolved', 'bar'] both times",
     "id": "debouncePromise",
     "tags": [
@@ -892,7 +922,7 @@
   {
     "code": "const deepFreeze = obj => {\n  Object.keys(obj).forEach(prop => {\n    if (typeof obj[prop] === 'object') deepFreeze(obj[prop]);\n  });\n  return Object.freeze(obj);\n};",
     "description": "Deep freezes an object.\n\n- Use `Object.keys()` to get all the properties of the passed object, `Array.prototype.forEach()` to iterate over them.\n- Call `Object.freeze(obj)` recursively on all properties, applying `deepFreeze()` as necessary.\n- Finally, use `Object.freeze()` to freeze the given object.",
-    "example": "'use strict';\n\nconst o = deepFreeze([1, [2, 3]]);\n\no[0] = 3; // not allowed\no[1][0] = 4; // not allowed as well",
+    "example": "'use strict';\n\nconst val = deepFreeze([1, [2, 3]]);\n\nval[0] = 3; // not allowed\nval[1][0] = 4; // not allowed as well",
     "id": "deepFreeze",
     "tags": [
       "object",
@@ -902,7 +932,7 @@
   },
   {
     "code": "const deepGet = (obj, keys) =>\n  keys.reduce(\n    (xs, x) => (xs && xs[x] !== null && xs[x] !== undefined ? xs[x] : null),\n    obj\n  );",
-    "description": "Returns the target value in a nested JSON object, based on the `keys` array.\n\n- Compare the keys you want in the nested JSON object as an `Array`.\n- Use `Array.prototype.reduce()` to get value from nested JSON object one by one.\n- If the key exists in object, return target value, otherwise, return `null`.",
+    "description": "Gets the target value in a nested JSON object, based on the `keys` array.\n\n- Compare the keys you want in the nested JSON object as an `Array`.\n- Use `Array.prototype.reduce()` to get the values in the nested JSON object one by one.\n- If the key exists in the object, return the target value, otherwise return `null`.",
     "example": "let index = 2;\nconst data = {\n  foo: {\n    foz: [1, 2, 3],\n    bar: {\n      baz: ['a', 'b', 'c']\n    }\n  }\n};\ndeepGet(data, ['foo', 'foz', index]); // get 3\ndeepGet(data, ['foo', 'bar', 'baz', 8, 'foz']); // null",
     "id": "deepGet",
     "tags": [
@@ -923,7 +953,7 @@
   },
   {
     "code": "const defaults = (obj, ...defs) => Object.assign({}, obj, ...defs.reverse(), obj);",
-    "description": "Assigns default values for all properties in an object that are `undefined`.\n\n- Use `Object.assign()` to create a new empty object and copy the original one to maintain key order, use `Array.prototype.reverse()` and the spread operator `...` to combine the default values from left to right, finally use `obj` again to overwrite properties that originally had a value.",
+    "description": "Assigns default values for all properties in an object that are `undefined`.\n\n- Use `Object.assign()` to create a new empty object and copy the original one to maintain key order.\n- Use `Array.prototype.reverse()` and the spread operator (`...`) to combine the default values from left to right.\n- Finally, use `obj` again to overwrite properties that originally had a value.",
     "example": "defaults({ a: 1 }, { b: 2 }, { b: 6 }, { a: 3 }); // { a: 1, b: 2 }",
     "id": "defaults",
     "tags": [
@@ -933,7 +963,7 @@
   },
   {
     "code": "const defer = (fn, ...args) => setTimeout(fn, 1, ...args);",
-    "description": "Defers invoking a function until the current call stack has cleared.\n\n- Use `setTimeout()` with a timeout of 1ms to add a new event to the browser event queue and allow the rendering engine to complete its work.\n- Use the spread (`...`) operator to supply the function with an arbitrary number of arguments.",
+    "description": "Defers invoking a function until the current call stack has cleared.\n\n- Use `setTimeout()` with a timeout of `1` ms to add a new event to the event queue and allow the rendering engine to complete its work.\n- Use the spread (`...`) operator to supply the function with an arbitrary number of arguments.",
     "example": "// Example A:\ndefer(console.log, 'a'), console.log('b'); // logs 'b' then 'a'\n\n// Example B:\ndocument.querySelector('#someElement').innerHTML = 'Hello';\nlongRunningFunction(); // Browser will not update the HTML until this has finished\ndefer(longRunningFunction); // Browser will update the HTML then run the function",
     "id": "defer",
     "tags": [
@@ -952,8 +982,8 @@
     ]
   },
   {
-    "code": "const delay = (fn, wait, ...args) => setTimeout(fn, wait, ...args);",
-    "description": "Invokes the provided function after `wait` milliseconds.\n\n- Use `setTimeout()` to delay execution of `fn`.\n- Use the spread (`...`) operator to supply the function with an arbitrary number of arguments.",
+    "code": "const delay = (fn, ms, ...args) => setTimeout(fn, ms, ...args);",
+    "description": "Invokes the provided function after `ms` milliseconds.\n\n- Use `setTimeout()` to delay execution of `fn`.\n- Use the spread (`...`) operator to supply the function with an arbitrary number of arguments.",
     "example": "delay(\n  function(text) {\n    console.log(text);\n  },\n  1000,\n  'later'\n); // Logs 'later' after one second.",
     "id": "delay",
     "tags": [
@@ -963,11 +993,12 @@
   },
   {
     "code": "const detectDeviceType = () =>\n  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)\n    ? 'Mobile'\n    : 'Desktop';",
-    "description": "Detects whether the website is being opened in a mobile device or a desktop/laptop.\n\n- Use a regular expression to test the `navigator.userAgent` property to figure out if the device is a mobile device or a desktop/laptop.",
+    "description": "Detects whether the page is being viewed on a mobile device or a desktop.\n\n- Use a regular expression to test the `navigator.userAgent` property to figure out if the device is a mobile device or a desktop.",
     "example": "detectDeviceType(); // \"Mobile\" or \"Desktop\"",
     "id": "detectDeviceType",
     "tags": [
       "browser",
+      "regexp",
       "intermediate"
     ]
   },
@@ -983,18 +1014,17 @@
   },
   {
     "code": "const difference = (a, b) => {\n  const s = new Set(b);\n  return a.filter(x => !s.has(x));\n};",
-    "description": "Returns the difference between two arrays.\n\n- Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values not contained in `b`.",
-    "example": "difference([1, 2, 3], [1, 2, 4]); // [3]",
+    "description": "Calculates the difference between two arrays, without filtering duplicate values.\n\n- Create a `Set` from `b` to get the unique values in `b`.\n- Use `Array.prototype.filter()` on `a` to only keep values not contained in `b`, using `Set.prototype.has()`.",
+    "example": "difference([1, 2, 3, 3], [1, 2, 4]); // [3, 3]",
     "id": "difference",
     "tags": [
       "array",
-      "math",
       "beginner"
     ]
   },
   {
     "code": "const differenceBy = (a, b, fn) => {\n  const s = new Set(b.map(fn));\n  return a.map(fn).filter(el => !s.has(el));\n};",
-    "description": "Returns the difference between two arrays, after applying the provided function to each array element of both.\n\n- Create a `Set` by applying `fn` to each element in `b`, then use `Array.prototype.map()` to apply `fn` to each element in `a`, then `Array.prototype.filter()`",
+    "description": "Returns the difference between two arrays, after applying the provided function to each array element of both.\n\n- Create a `Set` by applying `fn` to each element in `b`.\n- Use `Array.prototype.map()` to apply `fn` to each element in `a`.\n- Use `Array.prototype.filter()` in combination with `fn` on `a` to only keep values not contained in `b`, using `Set.prototype.has()`.",
     "example": "differenceBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [1]\ndifferenceBy([{ x: 2 }, { x: 1 }], [{ x: 1 }], v => v.x); // [2]",
     "id": "differenceBy",
     "tags": [
@@ -1003,9 +1033,9 @@
     ]
   },
   {
-    "code": "const differenceWith = (arr, val, comp) => arr.filter(a => val.findIndex(b => comp(a, b)) === -1);",
-    "description": "Filters out all values from an array for which the comparator function does not return `true`.\n\n- Use `Array.prototype.filter()` and `Array.prototype.findIndex()` to find the appropriate values.",
-    "example": "differenceWith([1, 1.2, 1.5, 3, 0], [1.9, 3, 0], (a, b) => Math.round(a) === Math.round(b)); // [1, 1.2]",
+    "code": "const differenceWith = (arr, val, comp = (a, b) => a === b) =>\n  arr.filter(a => val.findIndex(b => comp(a, b)) === -1);",
+    "description": "Filters out all values from an array for which the comparator function does not return `true`.\n\n- Use `Array.prototype.filter()` and `Array.prototype.findIndex()` to find the appropriate values.\n- Omit the last argument, `comp`, to use a default strict equality comparator.",
+    "example": "differenceWith([1, 1.2, 1.5, 3, 0], [1.9, 3, 0], (a, b) => Math.round(a) === Math.round(b)); // [1, 1.2]\ndifferenceWith([1, 1.2, 1.3], [1, 1.3, 1.5]); // [1.2]",
     "id": "differenceWith",
     "tags": [
       "array",
@@ -1014,7 +1044,7 @@
   },
   {
     "code": "const dig = (obj, target) =>\n  target in obj\n    ? obj[target]\n    : Object.values(obj).reduce((acc, val) => {\n        if (acc !== undefined) return acc;\n        if (typeof val === 'object') return dig(val, target);\n      }, undefined);",
-    "description": "Returns the target value in a nested JSON object, based on the given key.\n\n- Use the `in` operator to check if `target` exists in `obj`.\n- If found, return the value of `obj[target]`, otherwise use `Object.values(obj)` and `Array.prototype.reduce()` to recursively call `dig` on each nested object until the first matching key/value pair is found.",
+    "description": "Gets the target value in a nested JSON object, based on the given key.\n\n- Use the `in` operator to check if `target` exists in `obj`.\n- If found, return the value of `obj[target]`.\n- Otherwise use `Object.values(obj)` and `Array.prototype.reduce()` to recursively call `dig` on each nested object until the first matching key/value pair is found.",
     "example": "const data = {\n  level1: {\n    level2: {\n      level3: 'some data'\n    }\n  }\n};\ndig(data, 'level3'); // 'some data'\ndig(data, 'level4'); // undefined",
     "id": "dig",
     "tags": [
@@ -1035,8 +1065,8 @@
   },
   {
     "code": "const distance = (x0, y0, x1, y1) => Math.hypot(x1 - x0, y1 - y0);",
-    "description": "Returns the distance between two points.\n\n- Use `Math.hypot()` to calculate the Euclidean distance between two points.",
-    "example": "distance(1, 1, 2, 3); // 2.23606797749979",
+    "description": "Calculates the distance between two points.\n\n- Use `Math.hypot()` to calculate the Euclidean distance between two points.",
+    "example": "distance(1, 1, 2, 3); // ~2.2361",
     "id": "distance",
     "tags": [
       "math",
@@ -1075,7 +1105,7 @@
   },
   {
     "code": "const dropRightWhile = (arr, func) => {\n  let rightIndex = arr.length;\n  while (rightIndex-- && !func(arr[rightIndex]));\n  return arr.slice(0, rightIndex + 1);\n};",
-    "description": "Removes elements from the end of an array until the passed function returns `true`. Returns the remaining elements in the array.\n\n- Loop through the array, using `Array.prototype.slice()` to drop the last element of the array until the returned value from the function is `true`.\n- Returns the remaining elements.",
+    "description": "Removes elements from the end of an array until the passed function returns `true`.\nReturns the remaining elements in the array.\n\n- Loop through the array, using `Array.prototype.slice()` to drop the last element of the array until the value returned from `func` is `true`.\n- Return the remaining elements.",
     "example": "dropRightWhile([1, 2, 3, 4], n => n < 3); // [1, 2]",
     "id": "dropRightWhile",
     "tags": [
@@ -1085,7 +1115,7 @@
   },
   {
     "code": "const dropWhile = (arr, func) => {\n  while (arr.length > 0 && !func(arr[0])) arr = arr.slice(1);\n  return arr;\n};",
-    "description": "Removes elements in an array until the passed function returns `true`. Returns the remaining elements in the array.\n\n- Loop through the array, using `Array.prototype.slice()` to drop the first element of the array until the returned value from the function is `true`.\n- Returns the remaining elements.",
+    "description": "Removes elements in an array until the passed function returns `true`.\nReturns the remaining elements in the array.\n\n- Loop through the array, using `Array.prototype.slice()` to drop the first element of the array until the value returned from `func` is `true`.\n- Return the remaining elements.",
     "example": "dropWhile([1, 2, 3, 4], n => n >= 3); // [3, 4]",
     "id": "dropWhile",
     "tags": [
@@ -1095,7 +1125,7 @@
   },
   {
     "code": "const either = (f, g) => (...args) => f(...args) || g(...args);",
-    "description": "Returns `true` if at least one function returns `true` for a given set of arguments, `false` otherwise.\n\n- Use the logical or (`||`) operator on the result of calling the two functions with the supplied `args`.",
+    "description": "Checks if at least one function returns `true` for a given set of arguments.\n\n- Use the logical or (`||`) operator on the result of calling the two functions with the supplied `args`.",
     "example": "const isEven = num => num % 2 === 0;\nconst isPositive = num => num > 0;\nconst isPositiveOrEven = either(isPositive, isEven);\nisPositiveOrEven(4); // true\nisPositiveOrEven(3); // true",
     "id": "either",
     "tags": [
@@ -1106,7 +1136,7 @@
   },
   {
     "code": "const elementContains = (parent, child) => parent !== child && parent.contains(child);",
-    "description": "Returns `true` if the `parent` element contains the `child` element, `false` otherwise.\n\n- Check that `parent` is not the same element as `child`, use `parent.contains(child)` to check if the `parent` element contains the `child` element.",
+    "description": "Checks if the `parent` element contains the `child` element.\n\n- Check that `parent` is not the same element as `child`.\n- Use `Node.contains()` to check if the `parent` element contains the `child` element.",
     "example": "elementContains(document.querySelector('head'), document.querySelector('title')); // true\nelementContains(document.querySelector('body'), document.querySelector('body')); // false",
     "id": "elementContains",
     "tags": [
@@ -1116,27 +1146,27 @@
   },
   {
     "code": "const elementIsFocused = el => (el === document.activeElement);",
-    "description": "Returns `true` if the given element is focused, `false` otherwise.\n\n- Use `document.activeElement` to determine if the given element is focused.",
+    "description": "Checks if the given element is focused.\n\n- Use `Document.activeElement` to determine if the given element is focused.",
     "example": "elementIsFocused(el); // true if the element is focused",
     "id": "elementIsFocused",
+    "tags": [
+      "browser",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const elementIsVisibleInViewport = (el, partiallyVisible = false) => {\n  const { top, left, bottom, right } = el.getBoundingClientRect();\n  const { innerHeight, innerWidth } = window;\n  return partiallyVisible\n    ? ((top > 0 && top < innerHeight) || (bottom > 0 && bottom < innerHeight)) &&\n        ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth))\n    : top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;\n};",
+    "description": "Checks if the element specified is visible in the viewport.\n\n- Use `Element.getBoundingClientRect()` and the `window.inner(Width|Height)` values to determine if a given element is visible in the viewport.\n- Omit the second argument to determine if the element is entirely visible, or specify `true` to determine if it is partially visible.",
+    "example": "// e.g. 100x100 viewport and a 10x10px element at position {top: -1, left: 0, bottom: 9, right: 10}\nelementIsVisibleInViewport(el); // false - (not fully visible)\nelementIsVisibleInViewport(el, true); // true - (partially visible)",
+    "id": "elementIsVisibleInViewport",
     "tags": [
       "browser",
       "intermediate"
     ]
   },
   {
-    "code": "const elementIsVisibleInViewport = (el, partiallyVisible = false) => {\n  const { top, left, bottom, right } = el.getBoundingClientRect();\n  const { innerHeight, innerWidth } = window;\n  return partiallyVisible\n    ? ((top > 0 && top < innerHeight) || (bottom > 0 && bottom < innerHeight)) &&\n        ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth))\n    : top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;\n};",
-    "description": "Returns `true` if the element specified is visible in the viewport, `false` otherwise.\n\n- Use `Element.getBoundingClientRect()` and the `window.inner(Width|Height)` values\n- to determine if a given element is visible in the viewport.\n- Omit the second argument to determine if the element is entirely visible, or specify `true` to determine if it is partially visible.",
-    "example": "// e.g. 100x100 viewport and a 10x10px element at position {top: -1, left: 0, bottom: 9, right: 10}\nelementIsVisibleInViewport(el); // false - (not fully visible)\nelementIsVisibleInViewport(el, true); // true - (partially visible)",
-    "id": "elementIsVisibleInViewport",
-    "tags": [
-      "browser",
-      "advanced"
-    ]
-  },
-  {
     "code": "const equals = (a, b) => {\n  if (a === b) return true;\n  if (a instanceof Date && b instanceof Date) return a.getTime() === b.getTime();\n  if (!a || !b || (typeof a !== 'object' && typeof b !== 'object')) return a === b;\n  if (a.prototype !== b.prototype) return false;\n  let keys = Object.keys(a);\n  if (keys.length !== Object.keys(b).length) return false;\n  return keys.every(k => equals(a[k], b[k]));\n};",
-    "description": "Performs a deep comparison between two values to determine if they are equivalent.\n\n- Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.getTime()` or if they are both non-object values with an equivalent value (strict comparison).\n- Check if only one value is `null` or `undefined` or if their prototypes differ.\n- If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys, then use `Array.prototype.every()` to check if every key in the first value exists in the second one and if they are equivalent by calling this method recursively.",
+    "description": "Performs a deep comparison between two values to determine if they are equivalent.\n\n- Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.getTime()` or if they are both non-object values with an equivalent value (strict comparison).\n- Check if only one value is `null` or `undefined` or if their prototypes differ.\n- If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys.\n- Use `Array.prototype.every()` to check if every key in `a` exists in `b` and if they are equivalent by calling `equals()` recursively.",
     "example": "equals({ a: [2, { e: 3 }], b: [4], c: 'foo' }, { a: [2, { e: 3 }], b: [4], c: 'foo' }); // true\nequals([1, 2, 3], { 0: 1, 1: 2, 2: 3 }); // true",
     "id": "equals",
     "tags": [
@@ -1148,8 +1178,8 @@
   },
   {
     "code": "const escapeHTML = str =>\n  str.replace(\n    /[&<>'\"]/g,\n    tag =>\n      ({\n        '&': '&amp;',\n        '<': '&lt;',\n        '>': '&gt;',\n        \"'\": '&#39;',\n        '\"': '&quot;'\n      }[tag] || tag)\n  );",
-    "description": "Escapes a string for use in HTML.\n\n- Use `String.prototype.replace()` with a regexp that matches the characters that need to be escaped, using a callback function to replace each character instance with its associated escaped character using a dictionary (object).",
-    "example": "escapeHTML('<a href=\"#\">Me & you</a>'); // '&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;'",
+    "description": "Escapes a string for use in HTML.\n\n- Use `String.prototype.replace()` with a regexp that matches the characters that need to be escaped.\n- Use the callback function to replace each character instance with its associated escaped character using a dictionary (object).",
+    "example": "escapeHTML('<a href=\"#\">Me & you</a>'); \n// '&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;'",
     "id": "escapeHTML",
     "tags": [
       "string",
@@ -1171,7 +1201,7 @@
   },
   {
     "code": "const everyNth = (arr, nth) => arr.filter((e, i) => i % nth === nth - 1);",
-    "description": "Returns every nth element in an array.\n\n- Use `Array.prototype.filter()` to create a new array that contains every nth element of a given array.",
+    "description": "Returns every `nth` element in an array.\n\n- Use `Array.prototype.filter()` to create a new array that contains every `nth` element of a given array.",
     "example": "everyNth([1, 2, 3, 4, 5, 6], 2); // [ 2, 4, 6 ]",
     "id": "everyNth",
     "tags": [
@@ -1202,7 +1232,7 @@
   },
   {
     "code": "const factorial = n =>\n  n < 0\n    ? (() => {\n        throw new TypeError('Negative numbers are not allowed!');\n      })()\n    : n <= 1\n    ? 1\n    : n * factorial(n - 1);",
-    "description": "Calculates the factorial of a number.\n\n- Use recursion.\n- If `n` is less than or equal to `1`, return `1`.\n- Otherwise, return the product of `n` and the factorial of `n - 1`.\n- Throws an exception if `n` is a negative number.",
+    "description": "Calculates the factorial of a number.\n\n- Use recursion.\n- If `n` is less than or equal to `1`, return `1`.\n- Otherwise, return the product of `n` and the factorial of `n - 1`.\n- Throw a `TypeError` if `n` is a negative number.",
     "example": "factorial(6); // 720",
     "id": "factorial",
     "tags": [
@@ -1212,7 +1242,7 @@
     ]
   },
   {
-    "code": "const fahrenheitToCelsius = degrees => ((degrees - 32) * 5) / 9;",
+    "code": "const fahrenheitToCelsius = degrees => (degrees - 32) * 5 / 9;",
     "description": "Converts Fahrenheit to Celsius.\n\n- Follows the conversion formula `C = (F - 32) * 5/9`.",
     "example": "fahrenheitToCelsius(32); // 0",
     "id": "fahrenheitToCelsius",
@@ -1223,17 +1253,17 @@
   },
   {
     "code": "const fibonacci = n =>\n  Array.from({ length: n }).reduce(\n    (acc, val, i) => acc.concat(i > 1 ? acc[i - 1] + acc[i - 2] : i),\n    []\n  );",
-    "description": "Generates an array, containing the Fibonacci sequence, up until the nth term.\n\n- Create an empty array of the specific length, initializing the first two values (`0` and `1`).\n- Use `Array.prototype.reduce()` to add values into the array, using the sum of the last two values, except for the first two.",
+    "description": "Generates an array, containing the Fibonacci sequence, up until the nth term.\n\n- Use `Array.from()` to create an empty array of the specific length, initializing the first two values (`0` and `1`).\n- Use `Array.prototype.reduce()` and `Array.prototype.concat()` to add values into the array, using the sum of the last two values, except for the first two.",
     "example": "fibonacci(6); // [0, 1, 1, 2, 3, 5]",
     "id": "fibonacci",
     "tags": [
       "math",
-      "beginner"
+      "intermediate"
     ]
   },
   {
     "code": "const filterNonUnique = arr => arr.filter(i => arr.indexOf(i) === arr.lastIndexOf(i));",
-    "description": "Filters out the non-unique values in an array.\n\n- Use `Array.prototype.filter()` for an array containing only the unique values.",
+    "description": "Returns an array with the non-unique values filtered out.\n\n- Use `Array.prototype.filter()` to create an array containing only the unique values.",
     "example": "filterNonUnique([1, 2, 2, 3, 4, 4, 5]); // [1, 3, 5]",
     "id": "filterNonUnique",
     "tags": [
@@ -1243,7 +1273,7 @@
   },
   {
     "code": "const filterNonUniqueBy = (arr, fn) =>\n  arr.filter((v, i) => arr.every((x, j) => (i === j) === fn(v, x, i, j)));",
-    "description": "Filters out the non-unique values in an array, based on a provided comparator function.\n\n- Use `Array.prototype.filter()` and `Array.prototype.every()` for an array containing only the unique values, based on the comparator function, `fn`.\n- The comparator function takes four arguments: the values of the two elements being compared and their indexes.",
+    "description": "Returns an array with the non-unique values filtered out, based on a provided comparator function.\n\n- Use `Array.prototype.filter()` and `Array.prototype.every()` to create an array containing only the unique values, based on the comparator function, `fn`.\n- The comparator function takes four arguments: the values of the two elements being compared and their indexes.",
     "example": "filterNonUniqueBy(\n  [\n    { id: 0, value: 'a' },\n    { id: 1, value: 'b' },\n    { id: 2, value: 'c' },\n    { id: 1, value: 'd' },\n    { id: 0, value: 'e' }\n  ],\n  (a, b) => a.id == b.id\n); // [ { id: 2, value: 'c' } ]",
     "id": "filterNonUniqueBy",
     "tags": [
@@ -1253,8 +1283,8 @@
   },
   {
     "code": "const findKey = (obj, fn) => Object.keys(obj).find(key => fn(obj[key], key, obj));",
-    "description": "Returns the first key that satisfies the provided testing function. Otherwise `undefined` is returned.\n\n- Use `Object.keys(obj)` to get all the properties of the object, `Array.prototype.find()` to test the provided function for each key-value pair.\n- The callback receives three arguments - the value, the key and the object.",
-    "example": "findKey(\n  {\n    barney: { age: 36, active: true },\n    fred: { age: 40, active: false },\n    pebbles: { age: 1, active: true }\n  },\n  o => o['active']\n); // 'barney'",
+    "description": "Returns the first key that satisfies the provided testing function.\nOtherwise `undefined` is returned.\n\n- Use `Object.keys(obj)` to get all the properties of the object, `Array.prototype.find()` to test each key-value pair using `fn`.\n- The callback receives three arguments - the value, the key and the object.",
+    "example": "findKey(\n  {\n    barney: { age: 36, active: true },\n    fred: { age: 40, active: false },\n    pebbles: { age: 1, active: true }\n  },\n  x => x['active']\n); // 'barney'",
     "id": "findKey",
     "tags": [
       "object",
@@ -1263,7 +1293,7 @@
   },
   {
     "code": "const findLast = (arr, fn) => arr.filter(fn).pop();",
-    "description": "Returns the last element for which the provided function returns a truthy value.\n\n- Use `Array.prototype.filter()` to remove elements for which `fn` returns falsy values, `Array.prototype.pop()` to get the last one.",
+    "description": "Returns the last element for which the provided function returns a truthy value.\n\n- Use `Array.prototype.filter()` to remove elements for which `fn` returns falsy values.\n- Use `Array.prototype.pop()` to get the last element in the filtered array.",
     "example": "findLast([1, 2, 3, 4], n => n % 2 === 1); // 3",
     "id": "findLast",
     "tags": [
@@ -1273,7 +1303,7 @@
   },
   {
     "code": "const findLastIndex = (arr, fn) =>\n  (arr\n    .map((val, i) => [i, val])\n    .filter(([i, val]) => fn(val, i, arr))\n    .pop() || [-1])[0];",
-    "description": "Returns the index of the last element for which the provided function returns a truthy value.\n\n- Use `Array.prototype.map()` to map each element to an array with its index and value.\n- Use `Array.prototype.filter()` to remove elements for which `fn` returns falsy values, `Array.prototype.pop()` to get the last one.\n- `-1` is the default value when not found.",
+    "description": "Returns the index of the last element for which the provided function returns a truthy value.\n\n- Use `Array.prototype.map()` to map each element to an array with its index and value.\n- Use `Array.prototype.filter()` to remove elements for which `fn` returns falsy values\n- Use `Array.prototype.pop()` to get the last element in the filtered array.\n- Return `-1` if there are no matching elements.",
     "example": "findLastIndex([1, 2, 3, 4], n => n % 2 === 1); // 2 (index of the value 3)\nfindLastIndex([1, 2, 3, 4], n => n === 5); // -1 (default value when not found)",
     "id": "findLastIndex",
     "tags": [
@@ -1283,8 +1313,8 @@
   },
   {
     "code": "const findLastKey = (obj, fn) =>\n  Object.keys(obj)\n    .reverse()\n    .find(key => fn(obj[key], key, obj));",
-    "description": "Returns the last key that satisfies the provided testing function.\nOtherwise `undefined` is returned.\n\n- Use `Object.keys(obj)` to get all the properties of the object, `Array.prototype.reverse()` to reverse their order and `Array.prototype.find()` to test the provided function for each key-value pair.\n- The callback receives three arguments - the value, the key and the object.",
-    "example": "findLastKey(\n  {\n    barney: { age: 36, active: true },\n    fred: { age: 40, active: false },\n    pebbles: { age: 1, active: true }\n  },\n  o => o['active']\n); // 'pebbles'",
+    "description": "Returns the last key that satisfies the provided testing function.\nOtherwise `undefined` is returned.\n\n- Use `Object.keys(obj)` to get all the properties of the object.\n- Use `Array.prototype.reverse()` to reverse the order and `Array.prototype.find()` to test the provided function for each key-value pair.\n- The callback receives three arguments - the value, the key and the object.",
+    "example": "findLastKey(\n  {\n    barney: { age: 36, active: true },\n    fred: { age: 40, active: false },\n    pebbles: { age: 1, active: true }\n  },\n  x => x['active']\n); // 'pebbles'",
     "id": "findLastKey",
     "tags": [
       "object",
@@ -1293,28 +1323,29 @@
   },
   {
     "code": "const flatten = (arr, depth = 1) =>\n  arr.reduce((a, v) => a.concat(depth > 1 && Array.isArray(v) ? flatten(v, depth - 1) : v), []);",
-    "description": "Flattens an array up to the specified depth.\n\n- Use recursion, decrementing `depth` by 1 for each level of depth.\n- Use `Array.prototype.reduce()` and `Array.prototype.concat()` to merge elements or arrays.\n- Base case, for `depth` equal to `1` stops recursion.\n- Omit the second argument, `depth` to flatten only to a depth of `1` (single flatten).",
+    "description": "Flattens an array up to the specified depth.\n\n- Use recursion, decrementing `depth` by `1` for each level of depth.\n- Use `Array.prototype.reduce()` and `Array.prototype.concat()` to merge elements or arrays.\n- Base case, for `depth` equal to `1` stops recursion.\n- Omit the second argument, `depth`, to flatten only to a depth of `1` (single flatten).",
     "example": "flatten([1, [2], 3, 4]); // [1, 2, 3, 4]\nflatten([1, [2, [3, [4, 5], 6], 7], 8], 2); // [1, 2, 3, [4, 5], 6, 7, 8]",
     "id": "flatten",
     "tags": [
       "array",
-      "intermediate"
-    ]
-  },
-  {
-    "code": "const flattenObject = (obj, prefix = '') =>\n  Object.keys(obj).reduce((acc, k) => {\n    const pre = prefix.length ? \\`\\${prefix}.\\` : '';\n    if (\n      typeof obj[k] === 'object' &&\n      obj[k] !== null &&\n      Object.keys(obj[k]).length > 0\n    )\n      Object.assign(acc, flattenObject(obj[k], pre + k));\n    else acc[pre + k] = obj[k];\n    return acc;\n  }, {});",
-    "description": "Flatten an object with the paths for keys.\n\n- Use recursion.\n- Use `Object.keys(obj)` combined with `Array.prototype.reduce()` to convert every leaf node to a flattened path node.\n- If the value of a key is an object, the function calls itself with the appropriate `prefix` to create the path using `Object.assign()`.\n- Otherwise, it adds the appropriate prefixed key-value pair to the accumulator object.\n- You should always omit the second argument, `prefix`, unless you want every key to have a prefix.",
-    "example": "flattenObject({ a: { b: { c: 1 } }, d: 1 }); // { 'a.b.c': 1, d: 1 }",
-    "id": "flattenObject",
-    "tags": [
-      "object",
       "recursion",
       "intermediate"
     ]
   },
   {
+    "code": "const flattenObject = (obj, prefix = '') =>\n  Object.keys(obj).reduce((acc, k) => {\n    const pre = prefix.length ? \\`\\${prefix}.\\` : '';\n    if (\n      typeof obj[k] === 'object' &&\n      obj[k] !== null &&\n      Object.keys(obj[k]).length > 0\n    )\n      Object.assign(acc, flattenObject(obj[k], pre + k));\n    else acc[pre + k] = obj[k];\n    return acc;\n  }, {});",
+    "description": "Flattens an object with the paths for keys.\n\n- Use recursion.\n- Use `Object.keys(obj)` combined with `Array.prototype.reduce()` to convert every leaf node to a flattened path node.\n- If the value of a key is an object, the function calls itself with the appropriate `prefix` to create the path using `Object.assign()`.\n- Otherwise, it adds the appropriate prefixed key-value pair to the accumulator object.\n- You should always omit the second argument, `prefix`, unless you want every key to have a prefix.",
+    "example": "flattenObject({ a: { b: { c: 1 } }, d: 1 }); // { 'a.b.c': 1, d: 1 }",
+    "id": "flattenObject",
+    "tags": [
+      "object",
+      "recursion",
+      "advanced"
+    ]
+  },
+  {
     "code": "const flip = fn => (first, ...rest) => fn(...rest, first);",
-    "description": "Flip takes a function as an argument, then makes the first argument the last.\r\n\r\n- Return a closure that takes variadic inputs, and splices the last argument to make it the first argument before applying the rest.",
+    "description": "Takes a function as an argument, then makes the first argument the last.\r\n\r\n- Use argument destructuring and a closure with variadic arguments.\r\n- Splice the first argument, using the spread operator (`...`), to make it the last before applying the rest.",
     "example": "let a = { name: 'John Smith' };\r\nlet b = {};\r\nconst mergeFrom = flip(Object.assign);\r\nlet mergePerson = mergeFrom.bind(null, a);\r\nmergePerson(b); // == b\r\nb = {};\r\nObject.assign(b, a); // == b",
     "id": "flip\r",
     "tags": [
@@ -1324,7 +1355,7 @@
   },
   {
     "code": "const forEachRight = (arr, callback) =>\n  arr\n    .slice()\n    .reverse()\n    .forEach(callback);",
-    "description": "Executes a provided function once for each array element, starting from the array's last element.\n\n- Use `Array.prototype.slice()` to clone the given array, `Array.prototype.reverse()` to reverse it and `Array.prototype.forEach()` to iterate over the reversed array.",
+    "description": "Executes a provided function once for each array element, starting from the array's last element.\n\n- Use `Array.prototype.slice()` to clone the given array and `Array.prototype.reverse()` to reverse it.\n- Use `Array.prototype.forEach()` to iterate over the reversed array.",
     "example": "forEachRight([1, 2, 3, 4], val => console.log(val)); // '4', '3', '2', '1'",
     "id": "forEachRight",
     "tags": [
@@ -1334,7 +1365,7 @@
   },
   {
     "code": "const forOwn = (obj, fn) => Object.keys(obj).forEach(key => fn(obj[key], key, obj));",
-    "description": "Iterates over all own properties of an object, running a callback for each one.\n\n- Use `Object.keys(obj)` to get all the properties of the object, `Array.prototype.forEach()` to run the provided function for each key-value pair.\n- The callback receives three arguments - the value, the key and the object.",
+    "description": "Iterates over all own properties of an object, running a callback for each one.\n\n- Use `Object.keys(obj)` to get all the properties of the object.\n- Use `Array.prototype.forEach()` to run the provided function for each key-value pair.\n- The callback receives three arguments - the value, the key and the object.",
     "example": "forOwn({ foo: 'bar', a: 1 }, v => console.log(v)); // 'bar', 1",
     "id": "forOwn",
     "tags": [
@@ -1344,7 +1375,7 @@
   },
   {
     "code": "const forOwnRight = (obj, fn) =>\n  Object.keys(obj)\n    .reverse()\n    .forEach(key => fn(obj[key], key, obj));",
-    "description": "Iterates over all own properties of an object in reverse, running a callback for each one.\n\n- Use `Object.keys(obj)` to get all the properties of the object, `Array.prototype.reverse()` to reverse their order and `Array.prototype.forEach()` to run the provided function for each key-value pair.\n- The callback receives three arguments - the value, the key and the object.",
+    "description": "Iterates over all own properties of an object in reverse, running a callback for each one.\n\n- Use `Object.keys(obj)` to get all the properties of the object, `Array.prototype.reverse()` to reverse their order.\n- Use `Array.prototype.forEach()` to run the provided function for each key-value pair.\n- The callback receives three arguments - the value, the key and the object.",
     "example": "forOwnRight({ foo: 'bar', a: 1 }, v => console.log(v)); // 1, 'bar'",
     "id": "forOwnRight",
     "tags": [
@@ -1354,8 +1385,8 @@
   },
   {
     "code": "const formToObject = form =>\n  Array.from(new FormData(form)).reduce(\n    (acc, [key, value]) => ({\n      ...acc,\n      [key]: value\n    }),\n    {}\n  );",
-    "description": "Encode a set of form elements as an `object`.\n\n- Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.from()` to convert to an array.\n- Collect the object from the array, using `Array.prototype.reduce()`.",
-    "example": "formToObject(document.querySelector('#form')); // { email: 'test@email.com', name: 'Test Name' }",
+    "description": "Encodes a set of form elements as an `object`.\n\n- Use the `FormData` constructor to convert the HTML `form` to `FormData` and `Array.from()` to convert to an array.\n- Collect the object from the array using `Array.prototype.reduce()`.",
+    "example": "formToObject(document.querySelector('#form'));\n// { email: 'test@email.com', name: 'Test Name' }",
     "id": "formToObject",
     "tags": [
       "browser",
@@ -1365,7 +1396,7 @@
   },
   {
     "code": "const formatDuration = ms => {\n  if (ms < 0) ms = -ms;\n  const time = {\n    day: Math.floor(ms / 86400000),\n    hour: Math.floor(ms / 3600000) % 24,\n    minute: Math.floor(ms / 60000) % 60,\n    second: Math.floor(ms / 1000) % 60,\n    millisecond: Math.floor(ms) % 1000\n  };\n  return Object.entries(time)\n    .filter(val => val[1] !== 0)\n    .map(([key, val]) => \\`\\${val} \\${key}\\${val !== 1 ? 's' : ''}\\`)\n    .join(', ');\n};",
-    "description": "Returns the human readable format of the given number of milliseconds.\n\n- Divide `ms` with the appropriate values to obtain the appropriate values for `day`, `hour`, `minute`, `second` and `millisecond`.\n- Use `Object.entries()` with `Array.prototype.filter()` to keep only non-zero values.\n- Use `Array.prototype.map()` to create the string for each value, pluralizing appropriately.\n- Use `String.prototype.join(', ')` to combine the values into a string.",
+    "description": "Returns the human-readable format of the given number of milliseconds.\n\n- Divide `ms` with the appropriate values to obtain the appropriate values for `day`, `hour`, `minute`, `second` and `millisecond`.\n- Use `Object.entries()` with `Array.prototype.filter()` to keep only non-zero values.\n- Use `Array.prototype.map()` to create the string for each value, pluralizing appropriately.\n- Use `String.prototype.join(', ')` to combine the values into a string.",
     "example": "formatDuration(1001); // '1 second, 1 millisecond'\nformatDuration(34325055574); // '397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds'",
     "id": "formatDuration",
     "tags": [
@@ -1388,18 +1419,19 @@
   },
   {
     "code": "const frequencies = arr =>\n  arr.reduce((a, v) => {\n    a[v] = a[v] ? a[v] + 1 : 1;\n    return a;\n  }, {});",
-    "description": "Returns an object with the unique values of an array as keys and their frequencies as the values.\n\n- Use `Array.prototype.reduce()` to map unique values to an object's keys, adding to existing keys every time the same value is encountered.",
+    "description": "Creates an object with the unique values of an array as keys and their frequencies as the values.\n\n- Use `Array.prototype.reduce()` to map unique values to an object's keys, adding to existing keys every time the same value is encountered.",
     "example": "frequencies(['a', 'b', 'a', 'c', 'a', 'a', 'b']); // { a: 4, b: 2, c: 1 }\nfrequencies([...'ball']); // { b: 1, a: 1, l: 2 }",
     "id": "frequencies",
     "tags": [
       "array",
+      "object",
       "intermediate"
     ]
   },
   {
     "code": "const fromCamelCase = (str, separator = '_') =>\n  str\n    .replace(/([a-z\\d])([A-Z])/g, '$1' + separator + '$2')\n    .replace(/([A-Z]+)([A-Z][a-z\\d]+)/g, '$1' + separator + '$2')\n    .toLowerCase();",
-    "description": "Converts a string from camelcase.\n\n- Use `String.prototype.replace()` to remove underscores, hyphens, and spaces and convert words to camelcase.\n- Omit the second argument to use a default `separator` of `_`.",
-    "example": "fromCamelCase('someDatabaseFieldName', ' '); // 'some database field name'\nfromCamelCase('someLabelThatNeedsToBeCamelized', '-'); // 'some-label-that-needs-to-be-camelized'\nfromCamelCase('someJavascriptProperty', '_'); // 'some_javascript_property'",
+    "description": "Converts a string from camelcase.\n\n- Use `String.prototype.replace()` to break the string into words and add a `separator` between them.\n- Omit the second argument to use a default `separator` of `_`.",
+    "example": "fromCamelCase('someDatabaseFieldName', ' '); // 'some database field name'\nfromCamelCase('someLabelThatNeedsToBeDecamelized', '-'); // 'some-label-that-needs-to-be-decamelized'\nfromCamelCase('someJavascriptProperty', '_'); // 'some_javascript_property'",
     "id": "fromCamelCase",
     "tags": [
       "string",
@@ -1428,7 +1460,7 @@
   },
   {
     "code": "const fullscreen = (mode = true, el = 'body') =>\n  mode\n    ? document.querySelector(el).requestFullscreen()\n    : document.exitFullscreen();",
-    "description": "Opens or closes an element in fullscreen mode.\n\n- Use `document.querySelector()` and `Element.prototype.requestFullscreen()` to open the given element in fullscreen.\n- Use `document.exitFullscreen()` to exit fullscreen mode.\n- Omit the second argument, `el`, to use `body` as the default element.\n- Omit the first element, `mode`, to open the element in fullscreen mode by default.",
+    "description": "Opens or closes an element in fullscreen mode.\n\n- Use `Document.querySelector()` and `Element.requestFullscreen()` to open the given element in fullscreen.\n- Use `Document.exitFullscreen()` to exit fullscreen mode.\n- Omit the second argument, `el`, to use `body` as the default element.\n- Omit the first element, `mode`, to open the element in fullscreen mode by default.",
     "example": "fullscreen(); // Opens `body` in fullscreen mode\nfullscreen(false); // Exits fullscreen mode",
     "id": "fullscreen",
     "tags": [
@@ -1438,8 +1470,8 @@
   },
   {
     "code": "const functionName = fn => (console.debug(fn.name), fn);",
-    "description": "Logs the name of a function.\n\n- Use `console.debug()` and the `name` property of the passed method to log the method's name to the `debug` channel of the console.",
-    "example": "functionName(Math.max); // max (logged in debug channel of console)",
+    "description": "Logs the name of a function.\n\n- Use `console.debug()` and the `name` property of the passed function to log the function's name to the `debug` channel of the console.\n- Return the given function `fn`.",
+    "example": "let m = functionName(Math.max)(5, 6);\n// max (logged in debug channel of console)\n// m = 6",
     "id": "functionName",
     "tags": [
       "function",
@@ -1448,13 +1480,13 @@
   },
   {
     "code": "const functions = (obj, inherited = false) =>\n  (inherited\n    ? [...Object.keys(obj), ...Object.keys(Object.getPrototypeOf(obj))]\n    : Object.keys(obj)\n  ).filter(key => typeof obj[key] === 'function');",
-    "description": "Returns an array of function property names from own (and optionally inherited) enumerable properties of an object.\n\n- Use `Object.keys(obj)` to iterate over the object's own properties.\n- If `inherited` is `true`, use `Object.get.PrototypeOf(obj)` to also get the object's inherited properties.\n- Use `Array.prototype.filter()` to keep only those properties that are functions.\n- Omit the second argument, `inherited`, to not include inherited properties by default.",
+    "description": "Gets an array of function property names from own (and optionally inherited) enumerable properties of an object.\n\n- Use `Object.keys(obj)` to iterate over the object's own properties.\n- If `inherited` is `true`, use `Object.get.PrototypeOf(obj)` to also get the object's inherited properties.\n- Use `Array.prototype.filter()` to keep only those properties that are functions.\n- Omit the second argument, `inherited`, to not include inherited properties by default.",
     "example": "function Foo() {\n  this.a = () => 1;\n  this.b = () => 2;\n}\nFoo.prototype.c = () => 3;\nfunctions(new Foo()); // ['a', 'b']\nfunctions(new Foo(), true); // ['a', 'b', 'c']",
     "id": "functions",
     "tags": [
       "object",
       "function",
-      "intermediate"
+      "advanced"
     ]
   },
   {
@@ -1470,7 +1502,7 @@
   },
   {
     "code": "const generateItems = (n, fn) => Array.from({ length: n }, (_, i) => fn(i));",
-    "description": "Generates an array with the given amount of items, using the given function.\n\n- Use  `Array.from()`  to create an empty array of the specific length, calling `fn` with the index of each newly created element.",
+    "description": "Generates an array with the given amount of items, using the given function.\n\n- Use  `Array.from()`  to create an empty array of the specific length, calling `fn` with the index of each newly created element.\n- The callback takes one argument - the index of each element.",
     "example": "generateItems(10, Math.random); // [0.21, 0.08, 0.40, 0.96, 0.96, 0.24, 0.19, 0.96, 0.42, 0.70]",
     "id": "generateItems",
     "tags": [
@@ -1480,7 +1512,7 @@
     ]
   },
   {
-    "code": "const geometricProgression = (end, start = 1, step = 2) =>\n  Array.from({ length: Math.floor(Math.log(end / start) / Math.log(step)) + 1 }).map(\n    (v, i) => start * step ** i\n  );",
+    "code": "const geometricProgression = (end, start = 1, step = 2) =>\n  Array.from({ length: Math.floor(Math.log(end / start) / Math.log(step)) + 1 }).map(\n    (_, i) => start * step ** i\n  );",
     "description": "Initializes an array containing the numbers in the specified range where `start` and `end` are inclusive and the ratio between two terms is `step`.\nReturns an error if `step` equals `1`.\n\n- Use `Array.from()`, `Math.log()` and `Math.floor()` to create an array of the desired length, `Array.prototype.map()` to fill with the desired values in a range.\n- Omit the second argument, `start`, to use a default value of `1`.\n- Omit the third argument, `step`, to use a default value of `2`.",
     "example": "geometricProgression(256); // [1, 2, 4, 8, 16, 32, 64, 128, 256]\ngeometricProgression(256, 3); // [3, 6, 12, 24, 48, 96, 192]\ngeometricProgression(256, 1, 4); // [1, 4, 16, 64, 256]",
     "id": "geometricProgression",
@@ -1491,18 +1523,19 @@
   },
   {
     "code": "const get = (from, ...selectors) =>\n  [...selectors].map(s =>\n    s\n      .replace(/\\[([^\\[\\]]*)\\]/g, '.$1.')\n      .split('.')\n      .filter(t => t !== '')\n      .reduce((prev, cur) => prev && prev[cur], from)\n  );",
-    "description": "Retrieve a set of properties indicated by the given selectors from an object.\n\n- Use `Array.prototype.map()` for each selector, `String.prototype.replace()` to replace square brackets with dots.\n- Use `String.prototype.split('.')` to split each selector, `Array.prototype.filter()` to remove empty values and `Array.prototype.reduce()` to get the value indicated by it.",
-    "example": "const obj = { selector: { to: { val: 'val to select' } }, target: [1, 2, { a: 'test' }] };\nget(obj, 'selector.to.val', 'target[0]', 'target[2].a'); // ['val to select', 1, 'test']",
+    "description": "Retrieves a set of properties indicated by the given selectors from an object.\n\n- Use `Array.prototype.map()` for each selector, `String.prototype.replace()` to replace square brackets with dots.\n- Use `String.prototype.split('.')` to split each selector.\n- Use `Array.prototype.filter()` to remove empty values and `Array.prototype.reduce()` to get the value indicated by each selector.",
+    "example": "const obj = {\n  selector: { to: { val: 'val to select' } },\n  target: [1, 2, { a: 'test' }],\n};\nget(obj, 'selector.to.val', 'target[0]', 'target[2].a');\n// ['val to select', 1, 'test']",
     "id": "get",
     "tags": [
       "object",
+      "regexp",
       "intermediate"
     ]
   },
   {
     "code": "const getAncestors = el => {\n  let ancestors = [];\n  while (el) {\n    ancestors.unshift(el);\n    el = el.parentNode;\n  }\n  return ancestors;\n};",
     "description": "Returns all the ancestors of an element from the document root to the given element.\n\n- Use a `Node.parentNode` and a `while` loop to move up the ancestor tree of the element.\n- Use `Array.prototype.unshift()` to add each new ancestor to the start of the array.",
-    "example": "getAncestors(document.querySelector('nav')); // [document, html, body, header, nav]",
+    "example": "getAncestors(document.querySelector('nav')); \n// [document, html, body, header, nav]",
     "id": "getAncestors",
     "tags": [
       "browser",
@@ -1511,28 +1544,29 @@
   },
   {
     "code": "const getBaseURL = url =>\n  url.indexOf('?') > 0 ? url.slice(0, url.indexOf('?')) : url;",
-    "description": "Returns the current URL without any parameters.\n\n- Use `String.prototype.indexOf()` to check if the given `url` has parameters, `String.prototype.slice()` to remove them if necessary.",
+    "description": "Gets the current URL without any parameters.\n\n- Use `String.prototype.indexOf()` to check if the given `url` has parameters, `String.prototype.slice()` to remove them if necessary.",
     "example": "getBaseURL('http://url.com/page?name=Adam&surname=Smith'); // 'http://url.com/page'",
     "id": "getBaseURL",
     "tags": [
-      "browser",
       "string",
+      "browser",
       "beginner"
     ]
   },
   {
     "code": "const getColonTimeFromDate = date => date.toTimeString().slice(0, 8);",
     "description": "Returns a string of the form `HH:MM:SS` from a `Date` object.\n\n- Use `Date.prototype.toTimeString()` and `String.prototype.slice()` to get the `HH:MM:SS` part of a given `Date` object.",
-    "example": "getColonTimeFromDate(new Date()); // \"08:38:00\"",
+    "example": "getColonTimeFromDate(new Date()); // '08:38:00'",
     "id": "getColonTimeFromDate",
     "tags": [
       "date",
-      "intermediate"
+      "string",
+      "beginner"
     ]
   },
   {
     "code": "const getDaysDiffBetweenDates = (dateInitial, dateFinal) =>\n  (dateFinal - dateInitial) / (1000 * 3600 * 24);",
-    "description": "Returns the difference (in days) between two dates.\n\n- Calculate the difference (in days) between two `Date` objects.",
+    "description": "Calculates the difference (in days) between two dates.\n\n- Subtract the two `Date` object and divide by the number of milliseconds in a day to get the difference (in days) between them.",
     "example": "getDaysDiffBetweenDates(new Date('2017-12-13'), new Date('2017-12-22')); // 9",
     "id": "getDaysDiffBetweenDates",
     "tags": [
@@ -1541,8 +1575,8 @@
     ]
   },
   {
-    "code": "const getElementsBiggerThanViewport = () => {\n  const docWidth = document.documentElement.offsetWidth;\n  return [...document.querySelectorAll('*')].filter(el => el.offsetWidth > docWidth);\n}",
-    "description": "Returns an array of HTML elements whose width is larger than that of the viewport's.\n\n- Use `HTMLElement.prototype.offsetWidth()` to get the width of the `document`.\n- Use `Array.prototype.filter()` on the result of `document.querySelectorAll()` to check the width of all elements in the document.",
+    "code": "const getElementsBiggerThanViewport = () => {\n  const docWidth = document.documentElement.offsetWidth;\n  return [...document.querySelectorAll('*')].filter(el => el.offsetWidth > docWidth);\n};",
+    "description": "Returns an array of HTML elements whose width is larger than that of the viewport's.\n\n- Use `HTMLElement.offsetWidth` to get the width of the `document`.\n- Use `Array.prototype.filter()` on the result of `Document.querySelectorAll()` to check the width of all elements in the document.",
     "example": "getElementsBiggerThanViewport(); // <div id=\"ultra-wide-item\" />",
     "id": "getElementsBiggerThanViewport",
     "tags": [
@@ -1552,18 +1586,18 @@
   },
   {
     "code": "const getImages = (el, includeDuplicates = false) => {\n  const images = [...el.getElementsByTagName('img')].map(img => img.getAttribute('src'));\n  return includeDuplicates ? images : [...new Set(images)];\n};",
-    "description": "Fetches all images from within an element and puts them into an array\n\n- Use `Element.prototype.getElementsByTagName()` to fetch all `<img>` elements inside the provided element, `Array.prototype.map()` to map every `src` attribute of their respective `<img>` element, then create a `Set` to eliminate duplicates and return the array.",
+    "description": "Fetches all images from within an element and puts them into an array.\n\n- Use `Element.getElementsByTagName()` to get all `<img>` elements inside the provided element.\n- Use `Array.prototype.map()` to map every `src` attribute of each `<img>` element.\n- If `includeDuplicates` is `false`, create a new `Set` to eliminate duplicates and return it after spreading into an array.\n- Omit the second argument, `includeDuplicates`, to discard duplicates by default.",
     "example": "getImages(document, true); // ['image1.jpg', 'image2.png', 'image1.png', '...']\ngetImages(document, false); // ['image1.jpg', 'image2.png', '...']",
     "id": "getImages",
     "tags": [
       "browser",
-      "beginner"
+      "intermediate"
     ]
   },
   {
     "code": "const getMeridiemSuffixOfInteger = num =>\n  num === 0 || num === 24\n    ? 12 + 'am'\n    : num === 12\n    ? 12 + 'pm'\n    : num < 12\n    ? (num % 12) + 'am'\n    : (num % 12) + 'pm';",
     "description": "Converts an integer to a suffixed string, adding `am` or `pm` based on its value.\n\n- Use the modulo operator (`%`) and conditional checks to transform an integer to a stringified 12-hour format with meridiem suffix.",
-    "example": "getMeridiemSuffixOfInteger(0); // \"12am\"\ngetMeridiemSuffixOfInteger(11); // \"11am\"\ngetMeridiemSuffixOfInteger(13); // \"1pm\"\ngetMeridiemSuffixOfInteger(25); // \"1pm\"",
+    "example": "getMeridiemSuffixOfInteger(0); // '12am'\ngetMeridiemSuffixOfInteger(11); // '11am'\ngetMeridiemSuffixOfInteger(13); // '1pm'\ngetMeridiemSuffixOfInteger(25); // '1pm'",
     "id": "getMeridiemSuffixOfInteger",
     "tags": [
       "date",
@@ -1572,7 +1606,7 @@
   },
   {
     "code": "const getMonthsDiffBetweenDates = (dateInitial, dateFinal) =>\n  Math.max(\n    (dateFinal.getFullYear() - dateInitial.getFullYear()) * 12 +\n      dateFinal.getMonth() -\n      dateInitial.getMonth(),\n    0\n  );",
-    "description": "Returns the difference (in months) between two dates.\n\n- Use `Date.prototype.getFullYear()` and `Date.prototype.getMonth()` to calculate the difference (in months) between two `Date` objects.",
+    "description": "Calculates the difference (in months) between two dates.\n\n- Use `Date.prototype.getFullYear()` and `Date.prototype.getMonth()` to calculate the difference (in months) between two `Date` objects.",
     "example": "getMonthsDiffBetweenDates(new Date('2017-12-13'), new Date('2018-04-29')); // 4",
     "id": "getMonthsDiffBetweenDates",
     "tags": [
@@ -1582,7 +1616,7 @@
   },
   {
     "code": "const getProtocol = () => window.location.protocol;",
-    "description": "Returns the protocol being used on the current page.\n\n- Use `window.location.protocol` to get the protocol (`http:` or `https:`) of the current page.",
+    "description": "Gets the protocol being used on the current page.\n\n- Use `window.location.protocol` to get the protocol (`http:` or `https:`) of the current page.",
     "example": "getProtocol(); // 'https:'",
     "id": "getProtocol",
     "tags": [
@@ -1592,7 +1626,7 @@
   },
   {
     "code": "const getScrollPosition = (el = window) => ({\n  x: el.pageXOffset !== undefined ? el.pageXOffset : el.scrollLeft,\n  y: el.pageYOffset !== undefined ? el.pageYOffset : el.scrollTop\n});",
-    "description": "Returns the scroll position of the current page.\n\n- Use `pageXOffset` and `pageYOffset` if they are defined, otherwise `scrollLeft` and `scrollTop`.\n- You can omit `el` to use a default value of `window`.",
+    "description": "Returns the scroll position of the current page.\n\n- Use `Window.pageXOffset` and `Window.pageYOffset` if they are defined, otherwise `Element.scrollLeft` and `Element.scrollTop`.\n- Omit the single argument, `el`, to use a default value of `window`.",
     "example": "getScrollPosition(); // {x: 0, y: 200}",
     "id": "getScrollPosition",
     "tags": [
@@ -1602,7 +1636,7 @@
   },
   {
     "code": "const getSelectedText = () => window.getSelection().toString();",
-    "description": "Get the currently selected text.\n\n- Use `window.getSelection()` and `Selection.prototype.toString()` to get the currently selected text.",
+    "description": "Gets the currently selected text.\n\n- Use `Window.getSelection()` and `Selection.toString()` to get the currently selected text.",
     "example": "getSelectedText(); // 'Lorem ipsum'",
     "id": "getSelectedText",
     "tags": [
@@ -1612,7 +1646,7 @@
   },
   {
     "code": "const getSiblings = el =>\n  [...el.parentNode.childNodes].filter(node => node !== el);",
-    "description": "Returns an array containing all the siblings of the given element.\n\n- Use `Node.prototype.parentNode` and `Node.prototype.childNodes` to get a `NodeList` of all the elements contained in the element's parent.\n- Use the spread operator (`...`) and `Array.prototype.filter()` to convert to an array and remove the given element from it.",
+    "description": "Returns an array containing all the siblings of the given element.\n\n- Use `Node.parentNode` and `Node.childNodes` to get a `NodeList` of all the elements contained in the element's parent.\n- Use the spread operator (`...`) and `Array.prototype.filter()` to convert to an array and remove the given element from it.",
     "example": "getSiblings(document.querySelector('head')); // ['body']",
     "id": "getSiblings",
     "tags": [
@@ -1622,7 +1656,7 @@
   },
   {
     "code": "const getStyle = (el, ruleName) => getComputedStyle(el)[ruleName];",
-    "description": "Returns the value of a CSS rule for the specified element.\n\n- Use `Window.getComputedStyle()` to get the value of the CSS rule for the specified element.",
+    "description": "Retrieves the value of a CSS rule for the specified element.\n\n- Use `Window.getComputedStyle()` to get the value of the CSS rule for the specified element.",
     "example": "getStyle(document.querySelector('p'), 'font-size'); // '16px'",
     "id": "getStyle",
     "tags": [
@@ -1632,7 +1666,7 @@
     ]
   },
   {
-    "code": "const getTimestamp = (date = new Date()) =>\n  Math.floor(date.getTime() / 1000);",
+    "code": "const getTimestamp = (date = new Date()) => Math.floor(date.getTime() / 1000);",
     "description": "Gets the Unix timestamp from a `Date` object.\n\n- Use `Date.prototype.getTime()` to get the timestamp in milliseconds and divide by `1000` to get the timestamp in seconds.\n- Use `Math.floor()` to appropriately round the resulting timestamp to an integer.\n- Omit the argument, `date`, to use the current date.",
     "example": "getTimestamp(); // 1602162242",
     "id": "getTimestamp",
@@ -1642,7 +1676,7 @@
     ]
   },
   {
-    "code": "const getType = v => (v === undefined ? 'undefined' : v === null ? 'null' : v.constructor.name);",
+    "code": "const getType = v =>\n  (v === undefined ? 'undefined' : v === null ? 'null' : v.constructor.name);",
     "description": "Returns the native type of a value.\n\n- Return `'undefined'` or `'null'` if the value is `undefined` or `null`.\n- Otherwise, use `Object.prototype.constructor.name` to get the name of the constructor.",
     "example": "getType(new Set([1, 2, 3])); // 'Set'",
     "id": "getType",
@@ -1653,18 +1687,19 @@
   },
   {
     "code": "const getURLParameters = url =>\n  (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce(\n    (a, v) => ((a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1)), a),\n    {}\n  );",
-    "description": "Returns an object containing the parameters of the current URL.\n\n- Use `String.prototype.match()` with an appropriate regular expression to get all key-value pairs, `Array.prototype.reduce()` to map and combine them into a single object.\n- Pass `location.search` as the argument to apply to the current `url`.",
-    "example": "getURLParameters('http://url.com/page?name=Adam&surname=Smith'); // {name: 'Adam', surname: 'Smith'}\ngetURLParameters('google.com'); // {}",
+    "description": "Returns an object containing the parameters of the current URL.\n\n- Use `String.prototype.match()` with an appropriate regular expression to get all key-value pairs.\n- Use `Array.prototype.reduce()` to map and combine them into a single object.\n- Pass `location.search` as the argument to apply to the current `url`.",
+    "example": "getURLParameters('google.com'); // {}\ngetURLParameters('http://url.com/page?name=Adam&surname=Smith');\n// {name: 'Adam', surname: 'Smith'}",
     "id": "getURLParameters",
     "tags": [
       "browser",
       "string",
+      "regexp",
       "intermediate"
     ]
   },
   {
     "code": "const groupBy = (arr, fn) =>\n  arr.map(typeof fn === 'function' ? fn : val => val[fn]).reduce((acc, val, i) => {\n    acc[val] = (acc[val] || []).concat(arr[i]);\n    return acc;\n  }, {});",
-    "description": "Groups the elements of an array based on the given function.\n\n- Use `Array.prototype.map()` to map the values of an array to a function or property name.\n- Use `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results.",
+    "description": "Groups the elements of an array based on the given function.\n\n- Use `Array.prototype.map()` to map the values of the array to a function or property name.\n- Use `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results.",
     "example": "groupBy([6.1, 4.2, 6.3], Math.floor); // {4: [4.2], 6: [6.1, 6.3]}\ngroupBy(['one', 'two', 'three'], 'length'); // {3: ['one', 'two'], 5: ['three']}",
     "id": "groupBy",
     "tags": [
@@ -1674,19 +1709,18 @@
     ]
   },
   {
-    "code": "const hammingDistance = (num1, num2) => ((num1 ^ num2).toString(2).match(/1/g) || '').length;",
-    "description": "Calculates the Hamming distance between two values.\n\n- Use the XOR operator (`^`) to find the bit difference between the two numbers, convert to a binary string using `toString(2)`.\n- Count and return the number of `1`s in the string, using `match(/1/g)`.",
+    "code": "const hammingDistance = (num1, num2) =>\n  ((num1 ^ num2).toString(2).match(/1/g) || '').length;",
+    "description": "Calculates the Hamming distance between two values.\n\n- Use the XOR operator (`^`) to find the bit difference between the two numbers.\n- Convert to a binary string using `Number.prototype.toString(2)`.\n- Count and return the number of `1`s in the string, using `String.prototype.match(/1/g)`.",
     "example": "hammingDistance(2, 3); // 1",
     "id": "hammingDistance",
     "tags": [
       "math",
-      "regexp",
       "intermediate"
     ]
   },
   {
     "code": "const hasClass = (el, className) => el.classList.contains(className);",
-    "description": "Returns `true` if the element has the specified class, `false` otherwise.\n\n- Use `element.classList.contains()` to check if the element has the specified class.",
+    "description": "Checks if the given element has the specified class.\n\n- Use `Element.classList` and `DOMTokenList.contains()` to check if the element has the specified class.",
     "example": "hasClass(document.querySelector('p.special'), 'special'); // true",
     "id": "hasClass",
     "tags": [
@@ -1697,7 +1731,7 @@
   },
   {
     "code": "const hasFlags = (...flags) =>\n  flags.every(flag => process.argv.includes(/^-{1,2}/.test(flag) ? flag : '--' + flag));",
-    "description": "Check if the current process's arguments contain the specified flags.\n\n- Use `Array.prototype.every()` and `Array.prototype.includes()` to check if `process.argv` contains all the specified flags.\n- Use a regular expression to test if the specified flags are prefixed with `-` or `--` and prefix them accordingly.",
+    "description": "Checks if the current process's arguments contain the specified flags.\n\n- Use `Array.prototype.every()` and `Array.prototype.includes()` to check if `process.argv` contains all the specified flags.\n- Use a regular expression to test if the specified flags are prefixed with `-` or `--` and prefix them accordingly.",
     "example": "// node myScript.js -s --test --cool=true\nhasFlags('-s'); // true\nhasFlags('--test', 'cool=true', '-s'); // true\nhasFlags('special'); // false",
     "id": "hasFlags",
     "tags": [
@@ -1707,7 +1741,7 @@
   },
   {
     "code": "const hasKey = (obj, keys) => {\n  return (\n    keys.length > 0 &&\n    keys.every(key => {\n      if (typeof obj !== 'object' || !obj.hasOwnProperty(key)) return false;\n      obj = obj[key];\n      return true;\n    })\n  );\n};",
-    "description": "Returns `true` if the target value exists in a JSON object, `false` otherwise.\n\n- Check if `keys` is non-empty and use `Array.prototype.every()` to sequentially check its keys to internal depth of the object, `obj`.\n- Use `Object.prototype.hasOwnProperty()` to check if `obj` does not have the current key or is not an object, stop propagation and return `false`.\n- Otherwise assign the key's value to `obj` to use on the next iteration.\n- Return `false` beforehand if given key list is empty.",
+    "description": "Checks if the target value exists in a JSON object.\n\n- Check if `keys` is non-empty and use `Array.prototype.every()` to sequentially check its keys to internal depth of the object, `obj`.\n- Use `Object.prototype.hasOwnProperty()` to check if `obj` does not have the current key or is not an object, stop propagation and return `false`.\n- Otherwise assign the key's value to `obj` to use on the next iteration.\n- Return `false` beforehand if given key list is empty.",
     "example": "let obj = {\n  a: 1,\n  b: { c: 4 },\n  'b.d': 5\n};\nhasKey(obj, ['a']); // true\nhasKey(obj, ['b']); // true\nhasKey(obj, ['b', 'c']); // true\nhasKey(obj, ['b.d']); // true\nhasKey(obj, ['d']); // false\nhasKey(obj, ['c']); // false\nhasKey(obj, ['b', 'f']); // false",
     "id": "hasKey",
     "tags": [
@@ -1717,30 +1751,29 @@
   },
   {
     "code": "const hashBrowser = val =>\n  crypto.subtle.digest('SHA-256', new TextEncoder('utf-8').encode(val)).then(h => {\n    let hexes = [],\n      view = new DataView(h);\n    for (let i = 0; i < view.byteLength; i += 4)\n      hexes.push(('00000000' + view.getUint32(i).toString(16)).slice(-8));\n    return hexes.join('');\n  });",
-    "description": "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm. Returns a promise.\n\n- Use the [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) API to create a hash for the given value.",
-    "example": "hashBrowser(JSON.stringify({ a: 'a', b: [1, 2, 3, 4], foo: { c: 'bar' } })).then(console.log); // '04aa106279f5977f59f9067fa9712afc4aedc6f5862a8defc34552d8c7206393'",
+    "description": "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm.\nReturns a promise.\n\n- Use the [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) API to create a hash for the given value.\n- Create a new `TextEncoder` and use it to encode `val`, passing its value to `SubtleCrypto.digest()` to generate a digest of the given data.\n- Use `DataView.prototype.getUint32()` to read data from the resolved `ArrayBuffer`.\n- Add the data to an array using `Array.prototype.push()` after converting it to its hexadecimal representation using `Number.toString(16)`.\n- Finally, use `Array.prototype.join()` to combine values in the array of `hexes` into a string.",
+    "example": "hashBrowser(\n  JSON.stringify({ a: 'a', b: [1, 2, 3, 4], foo: { c: 'bar' } })\n).then(console.log);\n// '04aa106279f5977f59f9067fa9712afc4aedc6f5862a8defc34552d8c7206393'",
     "id": "hashBrowser",
     "tags": [
       "browser",
-      "advanced",
       "promise",
       "advanced"
     ]
   },
   {
-    "code": "const crypto = require('crypto');\nconst hashNode = val =>\n  new Promise(resolve =>\n    setTimeout(\n      () =>\n        resolve(\n          crypto\n            .createHash('sha256')\n            .update(val)\n            .digest('hex')\n        ),\n      0\n    )\n  );",
-    "description": "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm. Returns a promise.\n\n- Use `crypto` API to create a hash for the given value, `setTimeout` to prevent blocking on a long operation, and a `Promise` to give it a familiar interface.",
-    "example": "hashNode(JSON.stringify({ a: 'a', b: [1, 2, 3, 4], foo: { c: 'bar' } })).then(console.log); // '04aa106279f5977f59f9067fa9712afc4aedc6f5862a8defc34552d8c7206393'",
+    "code": "const crypto = require('crypto');\n\nconst hashNode = val =>\n  new Promise(resolve =>\n    setTimeout(\n      () => resolve(crypto.createHash('sha256').update(val).digest('hex')),\n      0\n    )\n  );",
+    "description": "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm.\nReturns a promise.\n\n- Use `crypto.createHash()` to create a `Hash` object with the appropriate algorithm.\n- Use `hash.update()` to add the data from `val` to the `Hash`, `hash.digest()` to calculate the digest of the data.\n- Use `setTimeout()` to prevent blocking on a long operation, and return a `Promise` to give it a familiar interface.",
+    "example": "hashNode(JSON.stringify({ a: 'a', b: [1, 2, 3, 4], foo: { c: 'bar' } })).then(\n  console.log\n);\n// '04aa106279f5977f59f9067fa9712afc4aedc6f5862a8defc34552d8c7206393'",
     "id": "hashNode",
     "tags": [
       "node",
       "promise",
-      "intermediate"
+      "advanced"
     ]
   },
   {
-    "code": "const haveSameContents = (a, b) => {\n  for (const v of new Set([...a, ...b]))\n    if (a.filter(e => e === v).length !== b.filter(e => e === v).length) return false;\n  return true;\n};",
-    "description": "Returns `true` if two arrays contain the same elements regardless of order, `false` otherwise.\n\n- Use a `for...of` loop over a `Set` created from the values of both arrays.\n- Use `Array.prototype.filter()` to compare the amount of occurrences of each distinct value in both arrays.\n- Return `false` if the counts do not match for any element, `true` otherwise.",
+    "code": "const haveSameContents = (a, b) => {\n  for (const v of new Set([...a, ...b]))\n    if (a.filter(e => e === v).length !== b.filter(e => e === v).length)\n      return false;\n  return true;\n};",
+    "description": "Checks if two arrays contain the same elements regardless of order.\n\n- Use a `for...of` loop over a `Set` created from the values of both arrays.\n- Use `Array.prototype.filter()` to compare the amount of occurrences of each distinct value in both arrays.\n- Return `false` if the counts do not match for any element, `true` otherwise.",
     "example": "haveSameContents([1, 2, 4], [2, 4, 1]); // true",
     "id": "haveSameContents",
     "tags": [
@@ -1750,7 +1783,7 @@
   },
   {
     "code": "const head = arr => (arr && arr.length ? arr[0] : undefined);",
-    "description": "Returns the head of an array.\n\n- Check if `arr` is truthy and has a `length` property, use `arr[0]` if possible to return the first element, otherwise return `undefined`.",
+    "description": "Returns the head of an array.\n\n- Check if `arr` is truthy and has a `length` property.\n- Use `arr[0]` if possible to return the first element, otherwise return `undefined`.",
     "example": "head([1, 2, 3]); // 1\nhead([]); // undefined\nhead(null); // undefined\nhead(undefined); // undefined",
     "id": "head",
     "tags": [
@@ -1760,7 +1793,7 @@
   },
   {
     "code": "const hexToRGB = hex => {\n  let alpha = false,\n    h = hex.slice(hex.startsWith('#') ? 1 : 0);\n  if (h.length === 3) h = [...h].map(x => x + x).join('');\n  else if (h.length === 8) alpha = true;\n  h = parseInt(h, 16);\n  return (\n    'rgb' +\n    (alpha ? 'a' : '') +\n    '(' +\n    (h >>> (alpha ? 24 : 16)) +\n    ', ' +\n    ((h & (alpha ? 0x00ff0000 : 0x00ff00)) >>> (alpha ? 16 : 8)) +\n    ', ' +\n    ((h & (alpha ? 0x0000ff00 : 0x0000ff)) >>> (alpha ? 8 : 0)) +\n    (alpha ? \\`, \\${h & 0x000000ff}\\` : '') +\n    ')'\n  );\n};",
-    "description": "Converts a color code to a `rgb()` or `rgba()` string if alpha value is provided.\n\n- Use bitwise right-shift operator and mask bits with `&` (and) operator to convert a hexadecimal color code (with or without prefixed with `#`) to a string with the RGB values.\n- If it's 3-digit color code, first convert to 6-digit version.\n- If an alpha value is provided alongside 6-digit hex, give `rgba()` string in return.",
+    "description": "Converts a color code to an `rgb()` or `rgba()` string if alpha value is provided.\n\n- Use bitwise right-shift operator and mask bits with `&` (and) operator to convert a hexadecimal color code (with or without prefixed with `#`) to a string with the RGB values.\n- If it's 3-digit color code, first convert to 6-digit version.\n- If an alpha value is provided alongside 6-digit hex, give `rgba()` string in return.",
     "example": "hexToRGB('#27ae60ff'); // 'rgba(39, 174, 96, 255)'\nhexToRGB('27ae60'); // 'rgb(39, 174, 96)'\nhexToRGB('#fff'); // 'rgb(255, 255, 255)'",
     "id": "hexToRGB",
     "tags": [
@@ -1782,8 +1815,8 @@
   },
   {
     "code": "const httpDelete = (url, callback, err = console.error) => {\n  const request = new XMLHttpRequest();\n  request.open('DELETE', url, true);\n  request.onload = () => callback(request);\n  request.onerror = () => err(request);\n  request.send();\n};",
-    "description": "Makes a `DELETE` request to the passed URL.\n\n- Use `XMLHttpRequest` web api to make a `delete` request to the given `url`.\n- Handle the `onload` event, by running the provided `callback` function.\n- Handle the `onerror` event, by running the provided `err` function.\n- Omit the third argument, `err` to log the request to the console's error stream by default.",
-    "example": "httpDelete('https://jsonplaceholder.typicode.com/posts/1', request => {\n  console.log(request.responseText);\n}); /*\nLogs: {}\n*/",
+    "description": "Makes a `DELETE` request to the passed URL.\n\n- Use the `XMLHttpRequest` web API to make a `DELETE` request to the given `url`.\n- Handle the `onload` event, by running the provided `callback` function.\n- Handle the `onerror` event, by running the provided `err` function.\n- Omit the third argument, `err` to log the request to the console's error stream by default.",
+    "example": "httpDelete('https://jsonplaceholder.typicode.com/posts/1', request => {\n  console.log(request.responseText);\n}); // Logs: {}",
     "id": "httpDelete",
     "tags": [
       "browser",
@@ -1792,7 +1825,7 @@
   },
   {
     "code": "const httpGet = (url, callback, err = console.error) => {\n  const request = new XMLHttpRequest();\n  request.open('GET', url, true);\n  request.onload = () => callback(request.responseText);\n  request.onerror = () => err(request);\n  request.send();\n};",
-    "description": "Makes a `GET` request to the passed URL.\n\n- Use [`XMLHttpRequest`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest) web api to make a `get` request to the given `url`.\n- Handle the `onload` event, by calling the given `callback` the `responseText`.\n- Handle the `onerror` event, by running the provided `err` function.\n- Omit the third argument, `err`, to log errors to the console's `error` stream by default.",
+    "description": "Makes a `GET` request to the passed URL.\n\n- Use the `XMLHttpRequest` web API to make a `GET` request to the given `url`.\n- Handle the `onload` event, by calling the given `callback` the `responseText`.\n- Handle the `onerror` event, by running the provided `err` function.\n- Omit the third argument, `err`, to log errors to the console's `error` stream by default.",
     "example": "httpGet(\n  'https://jsonplaceholder.typicode.com/posts/1',\n  console.log\n); /*\nLogs: {\n  \"userId\": 1,\n  \"id\": 1,\n  \"title\": \"sunt aut facere repellat provident occaecati excepturi optio reprehenderit\",\n  \"body\": \"quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto\"\n}\n*/",
     "id": "httpGet",
     "tags": [
@@ -1802,7 +1835,7 @@
   },
   {
     "code": "const httpPost = (url, data, callback, err = console.error) => {\n  const request = new XMLHttpRequest();\n  request.open('POST', url, true);\n  request.setRequestHeader('Content-type', 'application/json; charset=utf-8');\n  request.onload = () => callback(request.responseText);\n  request.onerror = () => err(request);\n  request.send(data);\n};",
-    "description": "Makes a `POST` request to the passed URL.\n\n- Use [`XMLHttpRequest`](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/Using_XMLHttpRequest) web api to make a `post` request to the given `url`.\n- Set the value of an `HTTP` request header with `setRequestHeader` method.\n- Handle the `onload` event, by calling the given `callback` the `responseText`.\n- Handle the `onerror` event, by running the provided `err` function.\n- Omit the third argument, `data`, to send no data to the provided `url`.\n- Omit the fourth argument, `err`, to log errors to the console's `error` stream by default.",
+    "description": "Makes a `POST` request to the passed URL.\n\n- Use the `XMLHttpRequest` web API to make a `POST` request to the given `url`.\n- Set the value of an `HTTP` request header with `setRequestHeader` method.\n- Handle the `onload` event, by calling the given `callback` the `responseText`.\n- Handle the `onerror` event, by running the provided `err` function.\n- Omit the fourth argument, `err`, to log errors to the console's `error` stream by default.",
     "example": "const newPost = {\n  userId: 1,\n  id: 1337,\n  title: 'Foo',\n  body: 'bar bar bar'\n};\nconst data = JSON.stringify(newPost);\nhttpPost(\n  'https://jsonplaceholder.typicode.com/posts',\n  data,\n  console.log\n); /*\nLogs: {\n  \"userId\": 1,\n  \"id\": 1337,\n  \"title\": \"Foo\",\n  \"body\": \"bar bar bar\"\n}\n*/\nhttpPost(\n  'https://jsonplaceholder.typicode.com/posts',\n  null, // does not send a body\n  console.log\n); /*\nLogs: {\n  \"id\": 101\n}\n*/",
     "id": "httpPost",
     "tags": [
@@ -1812,7 +1845,7 @@
   },
   {
     "code": "const httpPut = (url, data, callback, err = console.error) => {\n  const request = new XMLHttpRequest();\n  request.open('PUT', url, true);\n  request.setRequestHeader('Content-type', 'application/json; charset=utf-8');\n  request.onload = () => callback(request);\n  request.onerror = () => err(request);\n  request.send(data);\n};",
-    "description": "Makes a `PUT` request to the passed URL.\n\n- Use `XMLHttpRequest` web api to make a `put` request to the given `url`.\n- Set the value of an `HTTP` request header with `setRequestHeader` method.\n- Handle the `onload` event, by running the provided `callback` function.\n- Handle the `onerror` event, by running the provided `err` function.\n- Omit the last argument, `err` to log the request to the console's error stream by default.",
+    "description": "Makes a `PUT` request to the passed URL.\n\n- Use `XMLHttpRequest` web api to make a `PUT` request to the given `url`.\n- Set the value of an `HTTP` request header with `setRequestHeader` method.\n- Handle the `onload` event, by running the provided `callback` function.\n- Handle the `onerror` event, by running the provided `err` function.\n- Omit the last argument, `err` to log the request to the console's error stream by default.",
     "example": "const password = 'fooBaz';\nconst data = JSON.stringify({\n  id: 1,\n  title: 'foo',\n  body: 'bar',\n  userId: 1\n});\nhttpPut('https://jsonplaceholder.typicode.com/posts/1', data, request => {\n  console.log(request.responseText);\n}); /*\nLogs: {\n  id: 1,\n  title: 'foo',\n  body: 'bar',\n  userId: 1\n}\n*/",
     "id": "httpPut",
     "tags": [
@@ -1822,8 +1855,8 @@
   },
   {
     "code": "const httpsRedirect = () => {\n  if (location.protocol !== 'https:') location.replace('https://' + location.href.split('//')[1]);\n};",
-    "description": "Redirects the page to HTTPS if its currently in HTTP. Also, pressing the back button doesn't take it back to the HTTP page as its replaced in the history.\n\n- Use `location.protocol` to get the protocol currently being used.\n- If it's not HTTPS, use `location.replace()` to replace the existing page with the HTTPS version of the page.\n- Use `location.href` to get the full address, split it with `String.prototype.split()` and remove the protocol part of the URL.",
-    "example": "httpsRedirect(); // If you are on http://mydomain.com, you are redirected to https://mydomain.com",
+    "description": "Redirects the page to HTTPS if it's currently in HTTP.\n\n- Use `location.protocol` to get the protocol currently being used.\n- If it's not HTTPS, use `location.replace()` to replace the existing page with the HTTPS version of the page.\n- Use `location.href` to get the full address, split it with `String.prototype.split()` and remove the protocol part of the URL.\n- Note that pressing the back button doesn't take it back to the HTTP page as its replaced in the history.",
+    "example": "httpsRedirect(); \n// If you are on http://mydomain.com, you are redirected to https://mydomain.com",
     "id": "httpsRedirect",
     "tags": [
       "browser",
@@ -1832,8 +1865,8 @@
   },
   {
     "code": "const hz = (fn, iterations = 100) => {\n  const before = performance.now();\n  for (let i = 0; i < iterations; i++) fn();\n  return (1000 * iterations) / (performance.now() - before);\n};",
-    "description": "Returns the number of times a function executed per second.\n`hz` is the unit for `hertz`, the unit of frequency defined as one cycle per second.\n\n- Use `performance.now()` to get the difference in milliseconds before and after the iteration loop to calculate the time elapsed executing the function `iterations` times.\n- Return the number of cycles per second by converting milliseconds to seconds and dividing it by the time elapsed.\n- Omit the second argument, `iterations`, to use the default of 100 iterations.",
-    "example": "// 10,000 element array\nconst numbers = Array(10000)\n  .fill()\n  .map((_, i) => i);\n\n// Test functions with the same goal: sum up the elements in the array\nconst sumReduce = () => numbers.reduce((acc, n) => acc + n, 0);\nconst sumForLoop = () => {\n  let sum = 0;\n  for (let i = 0; i < numbers.length; i++) sum += numbers[i];\n  return sum;\n};\n\n// `sumForLoop` is nearly 10 times faster\nMath.round(hz(sumReduce)); // 572\nMath.round(hz(sumForLoop)); // 4784",
+    "description": "Measures the number of times a function is executed per second (`hz`/`hertz`).\n\n- Use `performance.now()` to get the difference in milliseconds before and after the iteration loop to calculate the time elapsed executing the function `iterations` times.\n- Return the number of cycles per second by converting milliseconds to seconds and dividing it by the time elapsed.\n- Omit the second argument, `iterations`, to use the default of 100 iterations.",
+    "example": "const numbers = Array(10000).fill().map((_, i) => i);\n\nconst sumReduce = () => numbers.reduce((acc, n) => acc + n, 0);\nconst sumForLoop = () => {\n  let sum = 0;\n  for (let i = 0; i < numbers.length; i++) sum += numbers[i];\n  return sum;\n};\n\nMath.round(hz(sumReduce)); // 572\nMath.round(hz(sumForLoop)); // 4784",
     "id": "hz",
     "tags": [
       "function",
@@ -2217,7 +2250,7 @@
   {
     "code": "const isDuplexStream = val =>\n  val !== null &&\n  typeof val === 'object' &&\n  typeof val.pipe === 'function' &&\n  typeof val._read === 'function' &&\n  typeof val._readableState === 'object' &&\n  typeof val._write === 'function' &&\n  typeof val._writableState === 'object';",
     "description": "Checks if the given argument is a duplex (readable and writable) stream.\n\n- Check if the value is different from `null`, use `typeof` to check if a value is of type `object` and the `pipe` property is of type `function`.\n- Additionally check if the `typeof` the `_read`, `_write` and `_readableState`, `_writableState` properties are `function` and `object` respectively.",
-    "example": "const Stream = require('stream');\nisDuplexStream(new Stream.Duplex()); // true",
+    "example": "const Stream = require('stream');\n\nisDuplexStream(new Stream.Duplex()); // true",
     "id": "isDuplexStream",
     "tags": [
       "node",
@@ -2439,7 +2472,7 @@
   {
     "code": "const isReadableStream = val =>\n  val !== null &&\n  typeof val === 'object' &&\n  typeof val.pipe === 'function' &&\n  typeof val._read === 'function' &&\n  typeof val._readableState === 'object';",
     "description": "Checks if the given argument is a readable stream.\n\n- Check if the value is different from `null`, use `typeof` to check if the value is of type `object` and the `pipe` property is of type `function`.\n- Additionally check if the `typeof` the `_read` and `_readableState` properties are `function` and `object` respectively.",
-    "example": "const fs = require('fs');\nisReadableStream(fs.createReadStream('test.txt')); // true",
+    "example": "const fs = require('fs');\n\nisReadableStream(fs.createReadStream('test.txt')); // true",
     "id": "isReadableStream",
     "tags": [
       "node",
@@ -2470,7 +2503,7 @@
   {
     "code": "const isStream = val => val !== null && typeof val === 'object' && typeof val.pipe === 'function';",
     "description": "Checks if the given argument is a stream.\n\n- Check if the value is different from `null`, use `typeof` to check if the value is of type `object` and the `pipe` property is of type `function`.",
-    "example": "const fs = require('fs');\nisStream(fs.createReadStream('test.txt')); // true",
+    "example": "const fs = require('fs');\n\nisStream(fs.createReadStream('test.txt')); // true",
     "id": "isStream",
     "tags": [
       "node",
@@ -2562,7 +2595,7 @@
   {
     "code": "const isWritableStream = val =>\n  val !== null &&\n  typeof val === 'object' &&\n  typeof val.pipe === 'function' &&\n  typeof val._write === 'function' &&\n  typeof val._writableState === 'object';",
     "description": "Checks if the given argument is a writable stream.\n\n- Check if the value is different from `null`, use `typeof` to check if the value is of type `object` and the `pipe` property is of type `function`.\n- Additionally check if the `typeof` the `_write` and `_writableState` properties are `function` and `object` respectively.",
-    "example": "const fs = require('fs');\nisWritableStream(fs.createWriteStream('test.txt')); // true",
+    "example": "const fs = require('fs');\n\nisWritableStream(fs.createWriteStream('test.txt')); // true",
     "id": "isWritableStream",
     "tags": [
       "node",
@@ -3529,7 +3562,7 @@
     ]
   },
   {
-    "code": "const fs = require('fs');\nconst readFileLines = filename =>\n  fs\n    .readFileSync(filename)\n    .toString('UTF8')\n    .split('\\n');",
+    "code": "const fs = require('fs');\n\nconst readFileLines = filename =>\n  fs\n    .readFileSync(filename)\n    .toString('UTF8')\n    .split('\\n');",
     "description": "Returns an array of lines from the specified file.\n\n- Use `readFileSync` function in `fs` node package to create a `Buffer` from a file.\n- Convert buffer to string using `toString(encoding)` function.\n- Use `split(\\n)` to create an array of lines from the contents of the file.",
     "example": "/*\ncontents of test.txt :\n  line1\n  line2\n  line3\n  ___________________________\n*/\nlet arr = readFileLines('test.txt');\nconsole.log(arr); // ['line1', 'line2', 'line3']",
     "id": "readFileLines",
@@ -4463,6 +4496,16 @@
     "tags": [
       "string",
       "beginner"
+    ]
+  },
+  {
+    "code": "const truncateStringAtWhitespace = (str, lim, ending = '...') => {\n  if (str.length <= lim) return str;\n  const lastSpace = str.slice(0, lim - ending.length + 1).lastIndexOf(' ');\n  return str.slice(0, lastSpace > 0 ? lastSpace : lim - ending.length) + ending;\n};",
+    "description": "Truncates a string up to specified length, respecting whitespace when possible.\n\n- Determine if the string's `length` is greater or equal to `lim`. If not, return it as-is.\n- Use `String.prototype.slice()` and `String.prototype.lastIndexOf()` to find the index of the last space below the desired `lim`.\n- Use `String.prototype.slice()` to appropriately truncate `str` based on `lastSpace`, respecting whitespace if possible and appending `ending` at the end.\n- Omit the third argument, `ending`, to use the default ending of `'...'`.",
+    "example": "truncateStringAtWhitespace('short', 10); // 'short'\ntruncateStringAtWhitespace('not so short', 10); // 'not so...'\ntruncateStringAtWhitespace('trying a thing', 10); // 'trying...'\ntruncateStringAtWhitespace('javascripting', 10); // 'javascr...'",
+    "id": "truncateStringAtWhitespace",
+    "tags": [
+      "string",
+      "intermediate"
     ]
   },
   {
