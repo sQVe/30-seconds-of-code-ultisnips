@@ -136,7 +136,7 @@ snippet accumulate "Creates an array of partial sums.  - Use `Array.prototype.re
 const accumulate = (...nums) => nums.reduce((acc, n) => [...acc, n + +acc.slice(-1)],[]);
 endsnippet
 
-snippet addDaysToDate "Calculates the date of `n` days from the given date, returning its string representation.  - Use `new Date()` to create a date object from the first parameter. - Use `Date.getDate()` and `Date.setDate()` to add `n` days to the given date. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
+snippet addDaysToDate "Calculates the date of `n` days from the given date, returning its string representation.  - Use `new Date()` to create a date object from the first parameter. - Use `Date.prototype.getDate()` and `Date.prototype.setDate()` to add `n` days to the given date. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
 const addDaysToDate = (date, n) => {
   d = new Date(date);
   d.setDate(d.getDate() + n);
@@ -150,7 +150,7 @@ const addMultipleListeners = (el, types, listener, options, useCapture) => {
 }
 endsnippet
 
-snippet addWeekDays "Calculates the date after adding the ginen number of business days.  - Use `Array.from()` to construct an array with `length` equal to the `count` of business days to be added. - Use `Array.prototype.reduce()` to iterate over the array, starting from `startDate` and incrementing, using `Date.getDate()` and `Date.setDate()`. - If the current `date` is on a weekend, update it again by adding either one day or two days to make it a weekday. - **NOTE:** Does not take official holidays into account." b
+snippet addWeekDays "Calculates the date after adding the ginen number of business days.  - Use `Array.from()` to construct an array with `length` equal to the `count` of business days to be added. - Use `Array.prototype.reduce()` to iterate over the array, starting from `startDate` and incrementing, using `Date.prototype.getDate()` and `Date.prototype.setDate()`. - If the current `date` is on a weekend, update it again by adding either one day or two days to make it a weekday. - **NOTE:** Does not take official holidays into account." b
 const addWeekDays = (startDate, count) => 
   Array
     .from({ length: count })
@@ -216,7 +216,7 @@ const arrayToCSV = (arr, delimiter = ',') =>
     .join('\n');
 endsnippet
 
-snippet arrayToHTMLList "Converts the given array elements into `<li>` tags and appends them to the list of the given id.  - Use `Array.prototype.map()` and `document.querySelector()` to create a list of html tags." b
+snippet arrayToHTMLList "Converts the given array elements into `<li>` tags and appends them to the list of the given id.  - Use `Array.prototype.map()` and `Document.querySelector()` to create a list of html tags." b
 const arrayToHTMLList = (arr, listID) => 
   document.querySelector(\`#\${listID}\`).innerHTML += arr
     .map(item => \`<li>\${item}</li>\`)
@@ -375,7 +375,7 @@ snippet clampNumber "Clamps `num` within the inclusive range specified by the bo
 const clampNumber = (num, a, b) => Math.max(Math.min(num, Math.max(a, b)), Math.min(a, b));
 endsnippet
 
-snippet cloneRegExp "Clones a regular expression.  - Use `new RegExp()`, `RegExp.source` and `RegExp.flags` to clone the given regular expression." b
+snippet cloneRegExp "Clones a regular expression.  - Use `new RegExp()`, `RegExp.prototype.source` and `RegExp.prototype.flags` to clone the given regular expression." b
 const cloneRegExp = regExp => new RegExp(regExp.source, regExp.flags);
 endsnippet
 
@@ -458,7 +458,7 @@ snippet copySign "Returns the absolute value of the first number, but the sign o
 const copySign = (x, y) => Math.sign(x) === Math.sign(y) ? x : -x;
 endsnippet
 
-snippet copyToClipboard "Copies a string to the clipboard. Only works as a result of user action (i.e. inside a `click` event listener).  - Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document. - Use `Selection.getRangeAt()`to store the selected range (if any). - Use `document.execCommand('copy')` to copy to the clipboard. - Remove the `<textarea>` element from the HTML document. - Finally, use `Selection().addRange()` to recover the original selected range (if any). - ⚠️ **NOTICE:** The same functionality can be easily implemented by using the new asynchronous Clipboard API, which is still experimental but should be used in the future instead of this snippet. Find out more about it [here](https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc#writing-to-the-clipboard)." b
+snippet copyToClipboard "Copies a string to the clipboard. Only works as a result of user action (i.e. inside a `click` event listener).  - Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document. - Use `Selection.getRangeAt()`to store the selected range (if any). - Use `Document.execCommand('copy')` to copy to the clipboard. - Remove the `<textarea>` element from the HTML document. - Finally, use `Selection().addRange()` to recover the original selected range (if any). - ⚠️ **NOTICE:** The same functionality can be easily implemented by using the new asynchronous Clipboard API, which is still experimental but should be used in the future instead of this snippet. Find out more about it [here](https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc#writing-to-the-clipboard)." b
 const copyToClipboard = str => {
   const el = document.createElement('textarea');
   el.value = str;
@@ -491,7 +491,7 @@ const countOccurrences = (arr, val) =>
   arr.reduce((a, v) => (v === val ? a + 1 : a), 0);
 endsnippet
 
-snippet countWeekDaysBetween "Counts the weekdays between two dates.  - Use `Array.from()` to construct an array with `length` equal to the number of days between `startDate` and `endDate`. - Use `Array.prototype.reduce()` to iterate over the array, checking if each date is a weekday and incrementing `count`. - Update `startDate` with the next day each loop using `Date.getDate()` and `Date.setDate()` to advance it by one day. - **NOTE:** Does not take official holidays into account." b
+snippet countWeekDaysBetween "Counts the weekdays between two dates.  - Use `Array.from()` to construct an array with `length` equal to the number of days between `startDate` and `endDate`. - Use `Array.prototype.reduce()` to iterate over the array, checking if each date is a weekday and incrementing `count`. - Update `startDate` with the next day each loop using `Date.prototype.getDate()` and `Date.prototype.setDate()` to advance it by one day. - **NOTE:** Does not take official holidays into account." b
 const countWeekDaysBetween = (startDate, endDate) =>
   Array
     .from({ length: (endDate - startDate) / (1000 * 3600 * 24) })
@@ -502,7 +502,7 @@ const countWeekDaysBetween = (startDate, endDate) =>
     }, 0);
 endsnippet
 
-snippet counter "Creates a counter with the specified range, step and duration for the specified selector.  - Check if `step` has the proper sign and change it accordingly. - Use `setInterval()` in combination with `Math.abs()` and `Math.floor()` to calculate the time between each new text draw. - Use `document.querySelector().innerHTML` to update the value of the selected element. - Omit the fourth parameter, `step`, to use a default step of `1`. - Omit the fifth parameter, `duration`, to use a default duration of `2000`ms." b
+snippet counter "Creates a counter with the specified range, step and duration for the specified selector.  - Check if `step` has the proper sign and change it accordingly. - Use `setInterval()` in combination with `Math.abs()` and `Math.floor()` to calculate the time between each new text draw. - Use `Document.querySelector()`, `Element.innerHTML` to update the value of the selected element. - Omit the fourth parameter, `step`, to use a default step of `1`. - Omit the fifth parameter, `duration`, to use a default duration of `2000`ms." b
 const counter = (selector, start, end, step = 1, duration = 2000) => {
   let current = start,
     _step = (end - start) * step < 0 ? -step : step,
@@ -548,7 +548,7 @@ const createEventHub = () => ({
 });
 endsnippet
 
-snippet currentURL "Returns the current URL.  - Use `window.location.href` to get the current URL." b
+snippet currentURL "Returns the current URL.  - Use `Window.location.href` to get the current URL." b
 const currentURL = () => window.location.href;
 endsnippet
 
@@ -576,7 +576,7 @@ const dayOfYear = date =>
   Math.floor((date - new Date(date.getFullYear(), 0, 0)) / 1000 / 60 / 60 / 24);
 endsnippet
 
-snippet daysAgo "Calculates the date of `n` days ago from today as a string representation.  - Use `new Date()` to get the current date, `Math.abs()` and `Date.getDate()` to update the date accordingly and set to the result using `Date.setDate()`. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
+snippet daysAgo "Calculates the date of `n` days ago from today as a string representation.  - Use `new Date()` to get the current date, `Math.abs()` and `Date.prototype.getDate()` to update the date accordingly and set to the result using `Date.prototype.setDate()`. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
 const daysAgo = n => {
   let d = new Date();
   d.setDate(d.getDate() - Math.abs(n));
@@ -584,7 +584,7 @@ const daysAgo = n => {
 };
 endsnippet
 
-snippet daysFromNow "Calculates the date of `n` days from today as a string representation.  - Use `new Date()` to get the current date, `Math.abs()` and `Date.getDate()` to update the date accordingly and set to the result using `Date.setDate()`. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
+snippet daysFromNow "Calculates the date of `n` days from today as a string representation.  - Use `new Date()` to get the current date, `Math.abs()` and `Date.prototype.getDate()` to update the date accordingly and set to the result using `Date.prototype.setDate()`. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
 const daysFromNow = n => {
   let d = new Date();
   d.setDate(d.getDate() + Math.abs(n));
@@ -626,7 +626,7 @@ const debouncePromise = (fn, ms = 0) => {
 };
 endsnippet
 
-snippet decapitalize "Decapitalizes the first letter of a string.  - Use array destructuring and `String.toLowerCase()` to decapitalize first letter, `...rest` to get array of characters after first letter and then `Array.prototype.join('')` to make it a string again. - Omit the `upperRest` parameter to keep the rest of the string intact, or set it to `true` to convert to uppercase." b
+snippet decapitalize "Decapitalizes the first letter of a string.  - Use array destructuring and `String.prototype.toLowerCase()` to decapitalize first letter, `...rest` to get array of characters after first letter and then `Array.prototype.join('')` to make it a string again. - Omit the `upperRest` parameter to keep the rest of the string intact, or set it to `true` to convert to uppercase." b
 const decapitalize = ([first, ...rest], upperRest = false) =>
   first.toLowerCase() + (upperRest ? rest.join('').toUpperCase() : rest.join(''));
 endsnippet
@@ -788,7 +788,7 @@ snippet elementIsFocused "Checks if the given element is focused.  - Use `Docume
 const elementIsFocused = el => (el === document.activeElement);
 endsnippet
 
-snippet elementIsVisibleInViewport "Checks if the element specified is visible in the viewport.  - Use `Element.getBoundingClientRect()` and the `window.inner(Width|Height)` values to determine if a given element is visible in the viewport. - Omit the second argument to determine if the element is entirely visible, or specify `true` to determine if it is partially visible." b
+snippet elementIsVisibleInViewport "Checks if the element specified is visible in the viewport.  - Use `Element.getBoundingClientRect()` and the `Window.inner(Width|Height)` values to determine if a given element is visible in the viewport. - Omit the second argument to determine if the element is entirely visible, or specify `true` to determine if it is partially visible." b
 const elementIsVisibleInViewport = (el, partiallyVisible = false) => {
   const { top, left, bottom, right } = el.getBoundingClientRect();
   const { innerHeight, innerWidth } = window;
@@ -799,7 +799,7 @@ const elementIsVisibleInViewport = (el, partiallyVisible = false) => {
 };
 endsnippet
 
-snippet equals "Performs a deep comparison between two values to determine if they are equivalent.  - Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.getTime()` or if they are both non-object values with an equivalent value (strict comparison). - Check if only one value is `null` or `undefined` or if their prototypes differ. - If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys. - Use `Array.prototype.every()` to check if every key in `a` exists in `b` and if they are equivalent by calling `equals()` recursively." b
+snippet equals "Performs a deep comparison between two values to determine if they are equivalent.  - Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.prototype.getTime()` or if they are both non-object values with an equivalent value (strict comparison). - Check if only one value is `null` or `undefined` or if their prototypes differ. - If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys. - Use `Array.prototype.every()` to check if every key in `a` exists in `b` and if they are equivalent by calling `equals()` recursively." b
 const equals = (a, b) => {
   if (a === b) return true;
   if (a instanceof Date && b instanceof Date) return a.getTime() === b.getTime();
@@ -1019,7 +1019,7 @@ snippet functionName "Logs the name of a function.  - Use `console.debug()` and 
 const functionName = fn => (console.debug(fn.name), fn);
 endsnippet
 
-snippet functions "Gets an array of function property names from own (and optionally inherited) enumerable properties of an object.  - Use `Object.keys(obj)` to iterate over the object's own properties. - If `inherited` is `true`, use `Object.get.PrototypeOf(obj)` to also get the object's inherited properties. - Use `Array.prototype.filter()` to keep only those properties that are functions. - Omit the second argument, `inherited`, to not include inherited properties by default." b
+snippet functions "Gets an array of function property names from own (and optionally inherited) enumerable properties of an object.  - Use `Object.keys(obj)` to iterate over the object's own properties. - If `inherited` is `true`, use `Object.getPrototypeOf(obj)` to also get the object's inherited properties. - Use `Array.prototype.filter()` to keep only those properties that are functions. - Omit the second argument, `inherited`, to not include inherited properties by default." b
 const functions = (obj, inherited = false) =>
   (inherited
     ? [...Object.keys(obj), ...Object.keys(Object.getPrototypeOf(obj))]
@@ -1116,7 +1116,7 @@ const getMonthsDiffBetweenDates = (dateInitial, dateFinal) =>
   );
 endsnippet
 
-snippet getProtocol "Gets the protocol being used on the current page.  - Use `window.location.protocol` to get the protocol (`http:` or `https:`) of the current page." b
+snippet getProtocol "Gets the protocol being used on the current page.  - Use `Window.location.protocol` to get the protocol (`http:` or `https:`) of the current page." b
 const getProtocol = () => window.location.protocol;
 endsnippet
 
@@ -1192,7 +1192,7 @@ const hasKey = (obj, keys) => {
 };
 endsnippet
 
-snippet hashBrowser "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm. Returns a promise.  - Use the [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) API to create a hash for the given value. - Create a new `TextEncoder` and use it to encode `val`, passing its value to `SubtleCrypto.digest()` to generate a digest of the given data. - Use `DataView.prototype.getUint32()` to read data from the resolved `ArrayBuffer`. - Add the data to an array using `Array.prototype.push()` after converting it to its hexadecimal representation using `Number.toString(16)`. - Finally, use `Array.prototype.join()` to combine values in the array of `hexes` into a string." b
+snippet hashBrowser "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm. Returns a promise.  - Use the [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) API to create a hash for the given value. - Create a new `TextEncoder` and use it to encode `val`, passing its value to `SubtleCrypto.digest()` to generate a digest of the given data. - Use `DataView.prototype.getUint32()` to read data from the resolved `ArrayBuffer`. - Add the data to an array using `Array.prototype.push()` after converting it to its hexadecimal representation using `Number.prototype.toString(16)`. - Finally, use `Array.prototype.join()` to combine values in the array of `hexes` into a string." b
 const hashBrowser = val =>
   crypto.subtle.digest('SHA-256', new TextEncoder('utf-8').encode(val)).then(h => {
     let hexes = [],
@@ -1317,55 +1317,58 @@ const inRange = (n, start, end = null) => {
 };
 endsnippet
 
-snippet includesAll "Returns `true` if all the elements in `values` are included in `arr`, `false` otherwise.  - Use `Array.prototype.every()` and `Array.prototype.includes()` to check if all elements of `values` are included in `arr`." b
+snippet includesAll "Checks if all the elements in `values` are included in `arr`.  - Use `Array.prototype.every()` and `Array.prototype.includes()` to check if all elements of `values` are included in `arr`." b
 const includesAll = (arr, values) => values.every(v => arr.includes(v));
 endsnippet
 
-snippet includesAny "Returns `true` if at least one element of values is included in arr , `false` otherwise.  - Use `Array.prototype.some()` and `Array.prototype.includes()` to check if at least one element of `values` is included in `arr`." b
+snippet includesAny "Checks if at least one element of `values` is included in `arr`.  - Use `Array.prototype.some()` and `Array.prototype.includes()` to check if at least one element of `values` is included in `arr`." b
 const includesAny = (arr, values) => values.some(v => arr.includes(v));
 endsnippet
 
-snippet indentString "Indents each line in the provided string.  - Use `String.replace` and a regular expression to add the character specified by `indent` `count` times at the start of each line. - Omit the third parameter, `indent`, to use a default indentation character of `' '`." b
-const indentString = (str, count, indent = ' ') => str.replace(/^/gm, indent.repeat(count));
+snippet indentString "Indents each line in the provided string.  - Use `String.prototype.replace()` and a regular expression to add the character specified by `indent` `count` times at the start of each line. - Omit the third parameter, `indent`, to use a default indentation character of `' '`." b
+const indentString = (str, count, indent = ' ') =>
+  str.replace(/^/gm, indent.repeat(count));
 endsnippet
 
-snippet indexOfAll "Returns all indices of `val` in an array. If `val` never occurs, returns `[]`.  - Use `Array.prototype.reduce()` to loop over elements and store indices for matching elements. - Return the array of indices." b
-const indexOfAll = (arr, val) => arr.reduce((acc, el, i) => (el === val ? [...acc, i] : acc), []);
+snippet indexOfAll "Returns all indexes of `val` in an array. If `val` never occurs, returns an empty array.  - Use `Array.prototype.reduce()` to loop over elements and store indexes for matching elements." b
+const indexOfAll = (arr, val) =>
+  arr.reduce((acc, el, i) => (el === val ? [...acc, i] : acc), []);
 endsnippet
 
-snippet initial "Returns all the elements of an array except the last one.  - Use `arr.slice(0,-1)` to return all but the last element of the array." b
+snippet initial "Returns all the elements of an array except the last one.  - Use `Array.prototype.slice(0,-1)` to return all but the last element of the array." b
 const initial = arr => arr.slice(0, -1);
 endsnippet
 
-snippet initialize2DArray "Initializes a 2D array of given width and height and value.  - Use `Array.prototype.map()` to generate h rows where each is a new array of size w initialize with value. - If the value is not provided, default to `null`." b
+snippet initialize2DArray "Initializes a 2D array of given width and height and value.  - Use `Array.from()` and `Array.prototype.map()` to generate `h` rows where each is a new array of size `w`. - Use `Array.prototype.fill()` to initialize all items with value `val`. - Omit the last argument, `val`, to use a default value of `null`." b
 const initialize2DArray = (w, h, val = null) =>
   Array.from({ length: h }).map(() => Array.from({ length: w }).fill(val));
 endsnippet
 
-snippet initializeArrayWithRange "Initializes an array containing the numbers in the specified range where `start` and `end` are inclusive with their common difference `step`.  - Use `Array.from()` to create an array of the desired length, `(end - start + 1)/step`, and a map function to fill it with the desired values in the given range. - You can omit `start` to use a default value of `0`. - You can omit `step` to use a default value of `1`." b
+snippet initializeArrayWithRange "Initializes an array containing the numbers in the specified range where `start` and `end` are inclusive with their common difference `step`.  - Use `Array.from()` to create an array of the desired length. - Use `(end - start + 1)/step` and a map function to fill the array with the desired values in the given range. - Omit the second argument, `start`, to use a default value of `0`. - Omit the last argument, `step`, to use a default value of `1`." b
 const initializeArrayWithRange = (end, start = 0, step = 1) =>
   Array.from({ length: Math.ceil((end - start + 1) / step) }, (v, i) => i * step + start);
 endsnippet
 
-snippet initializeArrayWithRangeRight "Initializes an array containing the numbers in the specified range (in reverse) where `start` and `end` are inclusive with their common difference `step`.  - Use `Array.from(Math.ceil((end+1-start)/step))` to create an array of the desired length(the amounts of elements is equal to `(end-start)/step` or `(end+1-start)/step` for inclusive end), `Array.prototype.map()` to fill with the desired values in a range. - You can omit `start` to use a default value of `0`. - You can omit `step` to use a default value of `1`." b
+snippet initializeArrayWithRangeRight "Initializes an array containing the numbers in the specified range (in reverse) where `start` and `end` are inclusive with their common difference `step`.  - Use `Array.from(Math.ceil((end+1-start)/step))` to create an array of the desired length(the amounts of elements is equal to `(end-start)/step` or `(end+1-start)/step` for inclusive end), `Array.prototype.map()` to fill with the desired values in a range. - Omit the second argument, `start`, to use a default value of `0`. - Omit the last argument, `step`, to use a default value of `1`." b
 const initializeArrayWithRangeRight = (end, start = 0, step = 1) =>
   Array.from({ length: Math.ceil((end + 1 - start) / step) }).map(
     (v, i, arr) => (arr.length - i - 1) * step + start
   );
 endsnippet
 
-snippet initializeArrayWithValues "Initializes and fills an array with the specified values.  - Use `Array(n)` to create an array of the desired length, `fill(v)` to fill it with the desired values. - You can omit `val` to use a default value of `0`." b
-const initializeArrayWithValues = (n, val = 0) => Array(n).fill(val);
+snippet initializeArrayWithValues "Initializes and fills an array with the specified values.  - Use `Array.from()` to create an array of the desired length, `Array.prototype.fill()` to fill it with the desired values. - Omit the last argument, `val`, to use a default value of `0`." b
+const initializeArrayWithValues = (n, val = 0) =>
+  Array.from({ length: n }).fill(val);
 endsnippet
 
-snippet initializeNDArray "Create a n-dimensional array with given value.  - Use recursion. - Use `Array.prototype.map()` to generate rows where each is a new array initialized using `initializeNDArray`." b
+snippet initializeNDArray "Create a n-dimensional array with given value.  - Use recursion. - Use `Array.from()`, `Array.prototype.map()` to generate rows where each is a new array initialized using `initializeNDArray()`." b
 const initializeNDArray = (val, ...args) =>
   args.length === 0
     ? val
     : Array.from({ length: args[0] }).map(() => initializeNDArray(val, ...args.slice(1)));
 endsnippet
 
-snippet injectCSS "Injects the given css code into the current document  - Use `document.createElement()` to create a new `style` element and set its type to `text/css`. - Use `Element.innerText` to set the value to the given css string, `document.head` and `Element.appendChild()` to append the new element to the document head. - Return the newly created `style` element." b
+snippet injectCSS "Injects the given CSS code into the current document  - Use `Document.createElement()` to create a new `style` element and set its type to `text/css`. - Use `Element.innerText` to set the value to the given CSS string. - Use `Document.head` and `Element.appendChild()` to append the new element to the document head. - Return the newly created `style` element." b
 const injectCSS = css => {
   let el = document.createElement('style');
   el.type = 'text/css';
@@ -1375,29 +1378,31 @@ const injectCSS = css => {
 }
 endsnippet
 
-snippet insertAfter "Inserts an HTML string after the end of the specified element.  - Use `el.insertAdjacentHTML()` with a position of `'afterend'` to parse `htmlString` and insert it after the end of `el`." b
-const insertAfter = (el, htmlString) => el.insertAdjacentHTML('afterend', htmlString);
+snippet insertAfter "Inserts an HTML string after the end of the specified element.  - Use `Element.insertAdjacentHTML()` with a position of `'afterend'` to parse `htmlString` and insert it after the end of `el`." b
+const insertAfter = (el, htmlString) =>
+  el.insertAdjacentHTML('afterend', htmlString);
 endsnippet
 
-snippet insertAt "Mutates the original array to insert the given values at the specified index.  - Use `Array.prototype.splice()` with an appropriate index and a delete count of `0`, spreading the given values to be inserted." b
+snippet insertAt "Mutates the original array to insert the given values after the specified index.  - Use `Array.prototype.splice()` with an appropriate index and a delete count of `0`, spreading the given values to be inserted." b
 const insertAt = (arr, i, ...v) => {
   arr.splice(i + 1, 0, ...v);
   return arr;
 };
 endsnippet
 
-snippet insertBefore "Inserts an HTML string before the start of the specified element.  - Use `el.insertAdjacentHTML()` with a position of `'beforebegin'` to parse `htmlString` and insert it before the start of `el`." b
-const insertBefore = (el, htmlString) => el.insertAdjacentHTML('beforebegin', htmlString);
+snippet insertBefore "Inserts an HTML string before the start of the specified element.  - Use `Element.insertAdjacentHTML()` with a position of `'beforebegin'` to parse `htmlString` and insert it before the start of `el`." b
+const insertBefore = (el, htmlString) =>
+  el.insertAdjacentHTML('beforebegin', htmlString);
 endsnippet
 
-snippet intersection "Returns the elements that exist in both arrays.  - Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`." b
+snippet intersection "Returns the elements that exist in both arrays, filtering duplicate values.  - Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`." b
 const intersection = (a, b) => {
   const s = new Set(b);
   return [...new Set(a)].filter(x => s.has(x));
 };
 endsnippet
 
-snippet intersectionBy "Returns the elements that exist in both arrays, after applying the provided function to each array element of both.  - Create a `Set` by applying `fn` to all elements in `b`, then use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them." b
+snippet intersectionBy "Returns the elements that exist in both arrays, after applying the provided function to each array element of both.  - Create a `Set` by applying `fn` to all elements in `b`. - Use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them." b
 const intersectionBy = (a, b, fn) => {
   const s = new Set(b.map(fn));
   return [...new Set(a)].filter(x => s.has(fn(x)));
@@ -1405,10 +1410,11 @@ const intersectionBy = (a, b, fn) => {
 endsnippet
 
 snippet intersectionWith "Returns the elements that exist in both arrays, using a provided comparator function.  - Use `Array.prototype.filter()` and `Array.prototype.findIndex()` in combination with the provided comparator to determine intersecting values." b
-const intersectionWith = (a, b, comp) => a.filter(x => b.findIndex(y => comp(x, y)) !== -1);
+const intersectionWith = (a, b, comp) =>
+  a.filter(x => b.findIndex(y => comp(x, y)) !== -1);
 endsnippet
 
-snippet invertKeyValues "Inverts the key-value pairs of an object, without mutating it. The corresponding inverted value of each inverted key is an array of keys responsible for generating the inverted value. If a function is supplied, it is applied to each inverted key.  - Use `Object.keys()` and `Array.prototype.reduce()` to invert the key-value pairs of an object and apply the function provided (if any). - Omit the second argument, `fn`, to get the inverted keys without applying a function to them." b
+snippet invertKeyValues "Inverts the key-value pairs of an object, without mutating it.   - Use `Object.keys()` and `Array.prototype.reduce()` to invert the key-value pairs of an object and apply the function provided (if any). - Omit the second argument, `fn`, to get the inverted keys without applying a function to them. - The corresponding inverted value of each inverted key is an array of keys responsible for generating the inverted value. If a function is supplied, it is applied to each inverted key." b
 const invertKeyValues = (obj, fn) =>
   Object.keys(obj).reduce((acc, key) => {
     const val = fn ? fn(obj[key]) : obj[key];
@@ -1418,23 +1424,23 @@ const invertKeyValues = (obj, fn) =>
   }, {});
 endsnippet
 
-snippet is "Checks if the provided value is of the specified type.  - Ensure the value is not `undefined` or `null` using `Array.prototype.includes()`, and compare the `constructor` property on the value with `type` to check if the provided value is of the specified `type`." b
+snippet is "Checks if the provided value is of the specified type.  - Ensure the value is not `undefined` or `null` using `Array.prototype.includes()`. - Compare the `constructor` property on the value with `type` to check if the provided value is of the specified `type`." b
 const is = (type, val) => ![, null].includes(val) && val.constructor === type;
 endsnippet
 
-snippet isAbsoluteURL "Returns `true` if the given string is an absolute URL, `false` otherwise.  - Use a regular expression to test if the string is an absolute URL." b
+snippet isAbsoluteURL "Checks if the given string is an absolute URL.  - Use `RegExp.prototype.test()` to test if the string is an absolute URL." b
 const isAbsoluteURL = str => /^[a-z][a-z0-9+.-]*:/.test(str);
 endsnippet
 
-snippet isAfterDate "Check if a date is after another date.  - Use the greater than operator (`>`) to check if the first date comes after the second one." b
+snippet isAfterDate "Checks if a date is after another date.  - Use the greater than operator (`>`) to check if the first date comes after the second one." b
 const isAfterDate = (dateA, dateB) => dateA > dateB;
 endsnippet
 
-snippet isAlphaNumeric "Checks if a string contains only alphanumeric characters.  - Use `RegExp.prototype.test()` to check if input string matches against alphanumeric regex pattern." b
+snippet isAlphaNumeric "Checks if a string contains only alphanumeric characters.  - Use `RegExp.prototype.test()` to check if the input string matches against the alphanumeric regexp pattern." b
 const isAlphaNumeric = str => /^[a-z0-9]+$/gi.test(str);
 endsnippet
 
-snippet isAnagram "Checks if a string is an anagram of another string (case-insensitive, ignores spaces, punctuation and special characters).  - Use `String.prototype.toLowerCase()`, `String.prototype.replace()` with an appropriate regular expression to remove unnecessary characters, `String.prototype.split('')`, `Array.prototype.sort()` and `Array.prototype.join('')` on both strings to normalize them, then check if their normalized forms are equal." b
+snippet isAnagram "Checks if a string is an anagram of another string (case-insensitive, ignores spaces, punctuation and special characters).  - Use `String.prototype.toLowerCase()` and `String.prototype.replace()` with an appropriate regular expression to remove unnecessary characters. - Use `String.prototype.split('')`, `Array.prototype.sort()` and `Array.prototype.join('')` on both strings to normalize them, then check if their normalized forms are equal." b
 const isAnagram = (str1, str2) => {
   const normalize = str =>
     str
@@ -1448,20 +1454,22 @@ const isAnagram = (str1, str2) => {
 endsnippet
 
 snippet isArrayLike "Checks if the provided argument is array-like (i.e. is iterable).  - Check if the provided argument is not `null` and that its `Symbol.iterator` property is a function." b
-const isArrayLike = obj => obj != null && typeof obj[Symbol.iterator] === 'function';
+const isArrayLike = obj =>
+  obj != null && typeof obj[Symbol.iterator] === 'function';
 endsnippet
 
-snippet isAsyncFunction "Checks if the given argument is an `async` function.  - Use `Object.prototype.toString()` and `Function.call()` and check if the result is `'[object AsyncFunction]'`." b
+snippet isAsyncFunction "Checks if the given argument is an `async` function.  - Use `Object.prototype.toString()` and `Function.prototype.call()` and check if the result is `'[object AsyncFunction]'`." b
 const isAsyncFunction = val =>
   Object.prototype.toString.call(val) === '[object AsyncFunction]';
 endsnippet
 
-snippet isBeforeDate "Check if a date is before another date.  - Use the less than operator (`<`) to check if the first date comes before the second one." b
+snippet isBeforeDate "Checks if a date is before another date.  - Use the less than operator (`<`) to check if the first date comes before the second one." b
 const isBeforeDate = (dateA, dateB) => dateA < dateB;
 endsnippet
 
-snippet isBetweenDates "Check if a date is between two other dates.  - Use the greater than (`>`) and less than (`<`) operators to check if `date` is between `dateStart` and `dateEnd`." b
-const isBetweenDates = (dateStart, dateEnd, date) => date > dateStart && date < dateEnd;
+snippet isBetweenDates "Checks if a date is between two other dates.  - Use the greater than (`>`) and less than (`<`) operators to check if `date` is between `dateStart` and `dateEnd`." b
+const isBetweenDates = (dateStart, dateEnd, date) =>
+  date > dateStart && date < dateEnd;
 endsnippet
 
 snippet isBoolean "Checks if the given argument is a native boolean element.  - Use `typeof` to check if a value is classified as a boolean primitive." b
@@ -1472,11 +1480,11 @@ snippet isBrowser "Determines if the current runtime environment is a browser so
 const isBrowser = () => ![typeof window, typeof document].includes('undefined');
 endsnippet
 
-snippet isBrowserTabFocused "Returns `true` if the browser tab of the page is focused, `false` otherwise.  - Use the `Document.hidden` property, introduced by the Page Visibility API to check if the browser tab of the page is visible or hidden." b
+snippet isBrowserTabFocused "Checks if the browser tab of the page is focused.  - Use the `Document.hidden` property, introduced by the [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API) to check if the browser tab of the page is visible or hidden." b
 const isBrowserTabFocused = () => !document.hidden;
 endsnippet
 
-snippet isContainedIn "Returns `true` if the elements of the first array are contained in the second one regardless of order, `false` otherwise.  - Use a `for...of` loop over a `Set` created from the first array. - Use `Array.prototype.some()` to check if all distinct values are contained in the second array, use `Array.prototype.filter()` to compare the number of occurrences of each distinct value in both arrays. - Return `false` if the count of any element is greater in the first array than the second one, `true` otherwise." b
+snippet isContainedIn "Checks if the elements of the first array are contained in the second one regardless of order.  - Use a `for...of` loop over a `Set` created from the first array. - Use `Array.prototype.some()` to check if all distinct values are contained in the second array. - Use `Array.prototype.filter()` to compare the number of occurrences of each distinct value in both arrays. - Return `false` if the count of any element is greater in the first array than the second one, `true` otherwise." b
 const isContainedIn = (a, b) => {
   for (const v of new Set(a)) {
     if (!b.some(e => e === v) || a.filter(e => e === v).length > b.filter(e => e === v).length)
@@ -1486,11 +1494,11 @@ const isContainedIn = (a, b) => {
 };
 endsnippet
 
-snippet isDateValid "Returns `true` if a valid date object can be created from the given values, `false` otherwise.  - Use the spread operator (`...`) to pass the array of arguments to the `Date` constructor. - Use `Date.prototype.valueOf()` and `Number.isNaN()` to check if a valid `Date` object can be created from the given values." b
-const isDateValid = (...val) => !isNaN(new Date(...val).valueOf());
+snippet isDateValid "Checks if a valid date object can be created from the given values.  - Use the spread operator (`...`) to pass the array of arguments to the `Date` constructor. - Use `Date.prototype.valueOf()` and `Number.isNaN()` to check if a valid `Date` object can be created from the given values." b
+const isDateValid = (...val) => !Number.isNaN(new Date(...val).valueOf());
 endsnippet
 
-snippet isDeepFrozen "Checks if an object is deeply frozen  - Use recursion. - Use `Object.isFrozen()` on the given object. - Use `Object.keys()`, `Array.prototype.every()` to check that all keys are either deeply frozen objects or non-object values." b
+snippet isDeepFrozen "Checks if an object is deeply frozen.  - Use recursion. - Use `Object.isFrozen()` on the given object. - Use `Object.keys()`, `Array.prototype.every()` to check that all keys are either deeply frozen objects or non-object values." b
 const isDeepFrozen = obj =>
   Object.isFrozen(obj) &&
   Object.keys(obj).every(
@@ -1509,7 +1517,7 @@ snippet isDivisible "Checks if the first numeric argument is divisible by the se
 const isDivisible = (dividend, divisor) => dividend % divisor === 0;
 endsnippet
 
-snippet isDuplexStream "Checks if the given argument is a duplex (readable and writable) stream.  - Check if the value is different from `null`, use `typeof` to check if a value is of type `object` and the `pipe` property is of type `function`. - Additionally check if the `typeof` the `_read`, `_write` and `_readableState`, `_writableState` properties are `function` and `object` respectively." b
+snippet isDuplexStream "Checks if the given argument is a duplex (readable and writable) stream.  - Check if the value is different from `null`. - Use `typeof` to check if a value is of type `object` and the `pipe` property is of type `function`. - Additionally check if the `typeof` the `_read`, `_write` and `_readableState`, `_writableState` properties are `function` and `object` respectively." b
 const isDuplexStream = val =>
   val !== null &&
   typeof val === 'object' &&
@@ -1524,11 +1532,11 @@ snippet hasDuplicates "Checks if there are duplicate values in a flat array.  - 
 const hasDuplicates = arr => new Set(arr).size !== arr.length;
 endsnippet
 
-snippet isEmpty "Returns true if the a value is an empty object, collection, has no enumerable properties or is any type that is not considered a collection.  - Check if the provided value is `null` or if its `length` is equal to `0`." b
+snippet isEmpty "Checks if the a value is an empty object/collection, has no enumerable properties or is any type that is not considered a collection.  - Check if the provided value is `null` or if its `length` is equal to `0`." b
 const isEmpty = val => val == null || !(Object.keys(val) || val).length;
 endsnippet
 
-snippet isEven "Returns `true` if the given number is even, `false` otherwise.  - Checks whether a number is odd or even using the modulo (`%`) operator. - Returns `true` if the number is even, `false` if the number is odd." b
+snippet isEven "Checks if the given number is even.  - Checks whether a number is odd or even using the modulo (`%`) operator. - Returns `true` if the number is even, `false` if the number is odd." b
 const isEven = num => num % 2 === 0;
 endsnippet
 
@@ -1536,24 +1544,24 @@ snippet isFunction "Checks if the given argument is a function.  - Use `typeof` 
 const isFunction = val => typeof val === 'function';
 endsnippet
 
-snippet isGeneratorFunction "Checks if the given argument is a generator function.  - Use `Object.prototype.toString()` and `Function.call()` and check if the result is `'[object GeneratorFunction]'`." b
+snippet isGeneratorFunction "Checks if the given argument is a generator function.  - Use `Object.prototype.toString()` and `Function.prototype.call()` and check if the result is `'[object GeneratorFunction]'`." b
 const isGeneratorFunction = val =>
   Object.prototype.toString.call(val) === '[object GeneratorFunction]';
 endsnippet
 
-snippet isLeapYear "Returns `true` if the given `year` is a leap year, `false` otherwise.  - Use `new Date()`, setting the date to February 29th of the given `year` and use `Date.prototype.getMonth()` to check if the month is equal to `1`." b
+snippet isLeapYear "Checks if the given `year` is a leap year.  - Use `new Date()`, setting the date to February 29th of the given `year`. - Use `Date.prototype.getMonth()` to check if the month is equal to `1`." b
 const isLeapYear = year => new Date(year, 1, 29).getMonth() === 1;
 endsnippet
 
-snippet isLowerCase "Checks if a string is lower case.  - Convert the given string to lower case, using `String.toLowerCase()` and compare it to the original." b
+snippet isLowerCase "Checks if a string is lower case.  - Convert the given string to lower case, using `String.prototype.toLowerCase()` and compare it to the original." b
 const isLowerCase = str => str === str.toLowerCase();
 endsnippet
 
-snippet isNegativeZero "Checks if the given value is equal to negative zero (`-0`).  - Checks whether a passed value is equal to `0` and if `1` divided by the value equals `-Infinity`." b
+snippet isNegativeZero "Checks if the given value is equal to negative zero (`-0`).  - Check whether a passed value is equal to `0` and if `1` divided by the value equals `-Infinity`." b
 const isNegativeZero = val => val === 0 && 1 / val === -Infinity;
 endsnippet
 
-snippet isNil "Returns `true` if the specified value is `null` or `undefined`, `false` otherwise.  - Use the strict equality operator to check if the value of `val` is equal to `null` or `undefined`." b
+snippet isNil "Checks if the specified value is `null` or `undefined`.  - Use the strict equality operator to check if the value of `val` is equal to `null` or `undefined`." b
 const isNil = val => val === undefined || val === null;
 endsnippet
 
@@ -1564,7 +1572,7 @@ const isNode = () =>
   process.versions.node !== null;
 endsnippet
 
-snippet isNull "Returns `true` if the specified value is `null`, `false` otherwise.  - Use the strict equality operator to check if the value of `val` is equal to `null`." b
+snippet isNull "Checks if the specified value is `null`.  - Use the strict equality operator to check if the value of `val` is equal to `null`." b
 const isNull = val => val === null;
 endsnippet
 
@@ -1572,7 +1580,7 @@ snippet isNumber "Checks if the given argument is a number.  - Use `typeof` to c
 const isNumber = val => typeof val === 'number' && val === val;
 endsnippet
 
-snippet isObject "Returns a boolean determining if the passed value is an object or not.  - Uses the  `Object` constructor to create an object wrapper for the given value. - If the value is `null` or `undefined`, create and return an empty object. - Οtherwise, return an object of a type that corresponds to the given value." b
+snippet isObject "Returns a boolean determining if the passed value is an object or not.  - Uses the `Object` constructor to create an object wrapper for the given value. - If the value is `null` or `undefined`, create and return an empty object. - Οtherwise, return an object of a type that corresponds to the given value." b
 const isObject = obj => obj === Object(obj);
 endsnippet
 
@@ -1580,15 +1588,16 @@ snippet isObjectLike "Checks if a value is object-like.  - Check if the provided
 const isObjectLike = val => val !== null && typeof val === 'object';
 endsnippet
 
-snippet isOdd "Returns `true` if the given number is odd, `false` otherwise.  - Checks whether a number is odd or even using the modulo (`%`) operator. - Returns `true` if the number is odd, `false` if the number is even." b
+snippet isOdd "Checks if the given number is odd.  - Check whether a number is odd or even using the modulo (`%`) operator. - Return `true` if the number is odd, `false` if the number is even." b
 const isOdd = num => num % 2 === 1;
 endsnippet
 
-snippet isPlainObject "Checks if the provided value is an object created by the Object constructor.  - Check if the provided value is truthy, use `typeof` to check if it is an object and `Object.constructor` to make sure the constructor is equal to `Object`." b
-const isPlainObject = val => !!val && typeof val === 'object' && val.constructor === Object;
+snippet isPlainObject "Checks if the provided value is an object created by the Object constructor.  - Check if the provided value is truthy. - Use `typeof` to check if it is an object and `Object.prototype.constructor` to make sure the constructor is equal to `Object`." b
+const isPlainObject = val =>
+  !!val && typeof val === 'object' && val.constructor === Object;
 endsnippet
 
-snippet isPowerOfTwo "Returns `true` if the given number is a power of `2`, `false` otherwise.  - Use the bitwise binary AND operator (`&`) to determine if `n` is a power of `2`. - Additionally, check that `n` is not falsy." b
+snippet isPowerOfTwo "Checks if the given number is a power of `2`.  - Use the bitwise binary AND operator (`&`) to determine if `n` is a power of `2`. - Additionally, check that `n` is not falsy." b
 const isPowerOfTwo = n => !!n && (n & (n - 1)) == 0;
 endsnippet
 
@@ -1604,14 +1613,14 @@ snippet isPrimitive "Returns a boolean determining if the passed value is primit
 const isPrimitive = val => Object(val) !== val;
 endsnippet
 
-snippet isPromiseLike "Returns `true` if an object looks like a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), `false` otherwise.  - Check if the object is not `null`, its `typeof` matches either `object` or `function` and if it has a `.then` property, which is also a `function`." b
+snippet isPromiseLike "Checks if an object looks like a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).  - Check if the object is not `null`, its `typeof` matches either `object` or `function` and if it has a `.then` property, which is also a `function`." b
 const isPromiseLike = obj =>
   obj !== null &&
   (typeof obj === 'object' || typeof obj === 'function') &&
   typeof obj.then === 'function';
 endsnippet
 
-snippet isReadableStream "Checks if the given argument is a readable stream.  - Check if the value is different from `null`, use `typeof` to check if the value is of type `object` and the `pipe` property is of type `function`. - Additionally check if the `typeof` the `_read` and `_readableState` properties are `function` and `object` respectively." b
+snippet isReadableStream "Checks if the given argument is a readable stream.  - Check if the value is different from `null`. - Use `typeof` to check if the value is of type `object` and the `pipe` property is of type `function`. - Additionally check if the `typeof` the `_read` and `_readableState` properties are `function` and `object` respectively." b
 const isReadableStream = val =>
   val !== null &&
   typeof val === 'object' &&
@@ -1620,11 +1629,11 @@ const isReadableStream = val =>
   typeof val._readableState === 'object';
 endsnippet
 
-snippet isSameDate "Check if a date is the same as another date.  - Use `Date.prototype.toISOString()` and strict equality checking (`===`) to check if the first date is the same as the second one." b
+snippet isSameDate "Checks if a date is the same as another date.  - Use `Date.prototype.toISOString()` and strict equality checking (`===`) to check if the first date is the same as the second one." b
 const isSameDate = (dateA, dateB) => dateA.toISOString() === dateB.toISOString();
 endsnippet
 
-snippet isSorted "Returns `1` if a numeric array is sorted in ascending order, `-1` if it is sorted in descending order or `0` if it is not sorted.  - Calculate the ordering `direction` for the first pair of adjacent array elements. - Return `0` if the given array is empty, only has one element or the `direction` changes for any pair of adjacent array elements. - Use `Math.sign()` to covert the final value of `direction` to `-1` or `1`." b
+snippet isSorted "Checks if a numeric array is sorted.  - Calculate the ordering `direction` for the first pair of adjacent array elements. - Return `0` if the given array is empty, only has one element or the `direction` changes for any pair of adjacent array elements. - Use `Math.sign()` to covert the final value of `direction` to `-1` (descending order) or `1` (ascending order)." b
 const isSorted = arr => {
   if (arr.length <= 1) return 0;
   const direction = arr[1] - arr[0];
@@ -1635,8 +1644,9 @@ const isSorted = arr => {
 };
 endsnippet
 
-snippet isStream "Checks if the given argument is a stream.  - Check if the value is different from `null`, use `typeof` to check if the value is of type `object` and the `pipe` property is of type `function`." b
-const isStream = val => val !== null && typeof val === 'object' && typeof val.pipe === 'function';
+snippet isStream "Checks if the given argument is a stream.  - Check if the value is different from `null`. - Use `typeof` to check if the value is of type `object` and the `pipe` property is of type `function`." b
+const isStream = val =>
+  val !== null && typeof val === 'object' && typeof val.pipe === 'function';
 endsnippet
 
 snippet isString "Checks if the given argument is a string. Only works for string primitives.  - Use `typeof` to check if a value is classified as a string primitive." b
@@ -1647,11 +1657,11 @@ snippet isSymbol "Checks if the given argument is a symbol.  - Use `typeof` to c
 const isSymbol = val => typeof val === 'symbol';
 endsnippet
 
-snippet isTravisCI "Checks if the current environment is [Travis CI](https://travis-ci.org/).  - Checks if the current environment has the `TRAVIS` and `CI` environment variables ([reference](https://docs.travis-ci.com/user/environment-variables/#Default-Environment-Variables))." b
+snippet isTravisCI "Checks if the current environment is [Travis CI](https://travis-ci.org/).  - Check if the current environment has the `TRAVIS` and `CI` environment variables ([reference](https://docs.travis-ci.com/user/environment-variables/#Default-Environment-Variables))." b
 const isTravisCI = () => 'TRAVIS' in process.env && 'CI' in process.env;
 endsnippet
 
-snippet isUndefined "Returns `true` if the specified value is `undefined`, `false` otherwise.  - Use the strict equality operator to check if `val` is equal to `undefined`." b
+snippet isUndefined "Checks if the specified value is `undefined`.  - Use the strict equality operator to check if `val` is equal to `undefined`." b
 const isUndefined = val => val === undefined;
 endsnippet
 
@@ -1670,17 +1680,15 @@ const isValidJSON = str => {
 };
 endsnippet
 
-snippet isWeekday "Results in a boolean representation of a specific date.  - Pass the specific date object firstly. - Use `Date.getDay()` to check weekday by using a modulo operator and then returning a boolean." b
+snippet isWeekday "Checks if the given date is a weekday.  - Use `Date.prototype.getDay()` to check weekday by using a modulo operator (`%`). - Omit the argument, `d`, to use the current date as default." b
 const isWeekday = (d = new Date()) => d.getDay() % 6 !== 0;
 endsnippet
 
-snippet isWeekend "Results in a boolean representation of a specific date.  - Pass the specific date object firstly. - Use `Date.getDay()` to check weekend based on the day being returned as 0 - 6 using a modulo operation then return a boolean." b
-const isWeekend = (d = new Date()) => {
-  return d.getDay() % 6 === 0;
-};
+snippet isWeekend "Checks if the given date is a weekend.  - Use `Date.prototype.getDay()` to check weekend by using a modulo operator (`%`). - Omit the argument, `d`, to use the current date as default." b
+const isWeekend = (d = new Date()) => d.getDay() % 6 === 0;
 endsnippet
 
-snippet isWritableStream "Checks if the given argument is a writable stream.  - Check if the value is different from `null`, use `typeof` to check if the value is of type `object` and the `pipe` property is of type `function`. - Additionally check if the `typeof` the `_write` and `_writableState` properties are `function` and `object` respectively." b
+snippet isWritableStream "Checks if the given argument is a writable stream.  - Check if the value is different from `null`. - Use `typeof` to check if the value is of type `object` and the `pipe` property is of type `function`. - Additionally check if the `typeof` the `_write` and `_writableState` properties are `function` and `object` respectively." b
 const isWritableStream = val =>
   val !== null &&
   typeof val === 'object' &&
@@ -1710,7 +1718,7 @@ snippet kmToMiles "Converts kilometers to miles.  - Follows the conversion formu
 const kmToMiles = km => km * 0.621371;
 endsnippet
 
-snippet last "Returns the last element in an array.  - Check if `arr` is truthy and has a `length` property, use `arr.length - 1` to compute the index of the last element of the given array and return it, otherwise return `undefined`." b
+snippet last "Returns the last element in an array.  - Check if `arr` is truthy and has a `length` property. - Use `Array.prototype.length - 1` to compute the index of the last element of the given array and return it, otherwise return `undefined`." b
 const last = arr => (arr && arr.length ? arr[arr.length - 1] : undefined);
 endsnippet
 
@@ -1729,7 +1737,7 @@ const lcm = (...arr) => {
 };
 endsnippet
 
-snippet listenOnce "Adds an event listener to an element that will only run the callback the first time the event is triggered.  - Use `EventTarget.addEventListener()` to add an event listener to an element, using `{ once: true }` as options to only run the given callback once." b
+snippet listenOnce "Adds an event listener to an element that will only run the callback the first time the event is triggered.  - Use `EventTarget.addEventListener()` to add an event listener to an element. - Use `{ once: true }` as options to only run the given callback once." b
 const listenOnce = (el, evt, fn) => el.addEventListener(evt, fn, { once: true });
 endsnippet
 
@@ -1737,11 +1745,11 @@ snippet logBase "Returns the logarithm of the given number in the given base.  -
 const logBase = (n, base) => Math.log(n) / Math.log(base);
 endsnippet
 
-snippet longestItem "Takes any number of iterable objects or objects with a `length` property and returns the longest one. If multiple objects have the same length, the first one will be returned. Returns `undefined` if no arguments are provided.  - Use `Array.prototype.reduce()`, comparing the `length` of objects to find the longest one." b
+snippet longestItem "Takes any number of iterable objects or objects with a `length` property and returns the longest one.  - Use `Array.prototype.reduce()`, comparing the `length` of objects to find the longest one. - If multiple objects have the same length, the first one will be returned. - Returns `undefined` if no arguments are provided." b
 const longestItem = (...vals) => vals.reduce((a, x) => (x.length > a.length ? x : a));
 endsnippet
 
-snippet lowercaseKeys "Creates a new object from the specified object, where all the keys are in lowercase.  - Use `Object.keys()` and `Array.prototype.reduce()` to create a new object from the specified object. - Convert each key in the original object to lowercase, using `String.toLowerCase()`." b
+snippet lowercaseKeys "Creates a new object from the specified object, where all the keys are in lowercase.  - Use `Object.keys()` and `Array.prototype.reduce()` to create a new object from the specified object. - Convert each key in the original object to lowercase, using `String.prototype.toLowerCase()`." b
 const lowercaseKeys = obj =>
   Object.keys(obj).reduce((acc, key) => {
     acc[key.toLowerCase()] = obj[key];
@@ -1803,12 +1811,12 @@ snippet mask "Replaces all but the last `num` of characters with the specified m
 const mask = (cc, num = 4, mask = '*') => \`\${cc}\`.slice(-num).padStart(\`\${cc}\`.length, mask);
 endsnippet
 
-snippet matches "Compares two objects to determine if the first one contains equivalent property values to the second one.  - Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.hasOwnProperty()` and strict comparison to determine if all keys exist in the first object and have the same values." b
+snippet matches "Compares two objects to determine if the first one contains equivalent property values to the second one.  - Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.prototype.hasOwnProperty()` and strict comparison to determine if all keys exist in the first object and have the same values." b
 const matches = (obj, source) =>
   Object.keys(source).every(key => obj.hasOwnProperty(key) && obj[key] === source[key]);
 endsnippet
 
-snippet matchesWith "Compares two objects to determine if the first one contains equivalent property values to the second one, based on a provided function.  - Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.hasOwnProperty()` and the provided function to determine if all keys exist in the first object and have equivalent values. - If no function is provided, the values will be compared using the equality operator." b
+snippet matchesWith "Compares two objects to determine if the first one contains equivalent property values to the second one, based on a provided function.  - Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.prototype.hasOwnProperty()` and the provided function to determine if all keys exist in the first object and have equivalent values. - If no function is provided, the values will be compared using the equality operator." b
 const matchesWith = (obj, source, fn) =>
   Object.keys(source).every(key =>
     obj.hasOwnProperty(key) && fn
@@ -2188,17 +2196,17 @@ snippet powerset "Returns the powerset of a given array of numbers.  - Use `Arra
 const powerset = arr => arr.reduce((a, v) => a.concat(a.map(r => [v].concat(r))), [[]]);
 endsnippet
 
-snippet prefersDarkColorScheme "Returns `true` if the user color scheme preference is `dark`, `false` otherwise.  - Use `window.matchMedia()` with the appropriate media query to check the user color scheme preference." b
+snippet prefersDarkColorScheme "Returns `true` if the user color scheme preference is `dark`, `false` otherwise.  - Use `Window.matchMedia()` with the appropriate media query to check the user color scheme preference." b
 const prefersDarkColorScheme = () =>
   window && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 endsnippet
 
-snippet prefersLightColorScheme "Returns `true` if the user color scheme preference is `light`, `false` otherwise.  - Use `window.matchMedia()` with the appropriate media query to check the user color scheme preference." b
+snippet prefersLightColorScheme "Returns `true` if the user color scheme preference is `light`, `false` otherwise.  - Use `Window.matchMedia()` with the appropriate media query to check the user color scheme preference." b
 const prefersLightColorScheme = () =>
   window && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
 endsnippet
 
-snippet prefix "Returns the prefixed version (if necessary) of a CSS property that the browser supports.  - Use `Array.prototype.findIndex()` on an array of vendor prefix strings to test if `document.body` has one of them defined in its `CSSStyleDeclaration` object, otherwise return `null`. - Use `String.prototype.charAt()` and `String.prototype.toUpperCase()` to capitalize the property, which will be appended to the vendor prefix string." b
+snippet prefix "Returns the prefixed version (if necessary) of a CSS property that the browser supports.  - Use `Array.prototype.findIndex()` on an array of vendor prefix strings to test if `Document.body` has one of them defined in its `CSSStyleDeclaration` object, otherwise return `null`. - Use `String.prototype.charAt()` and `String.prototype.toUpperCase()` to capitalize the property, which will be appended to the vendor prefix string." b
 const prefix = prop => {
   const capitalizedProp = prop.charAt(0).toUpperCase() + prop.slice(1);
   const prefixes = ['', 'webkit', 'moz', 'ms', 'o'];
@@ -2209,7 +2217,7 @@ const prefix = prop => {
 };
 endsnippet
 
-snippet prettyBytes "Converts a number in bytes to a human-readable string.  - Use an array dictionary of units to be accessed based on the exponent. - Use `Number.toPrecision()` to truncate the number to a certain number of digits. - Return the prettified string by building it up, taking into account the supplied options and whether it is negative or not. - Omit the second argument, `precision`, to use a default precision of `3` digits. - Omit the third argument, `addSpace`, to add space between the number and unit by default." b
+snippet prettyBytes "Converts a number in bytes to a human-readable string.  - Use an array dictionary of units to be accessed based on the exponent. - Use `Number.prototype.toPrecision()` to truncate the number to a certain number of digits. - Return the prettified string by building it up, taking into account the supplied options and whether it is negative or not. - Omit the second argument, `precision`, to use a default precision of `3` digits. - Omit the third argument, `addSpace`, to add space between the number and unit by default." b
 const prettyBytes = (num, precision = 3, addSpace = true) => {
   const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
   if (Math.abs(num) < 1) return num + (addSpace ? ' ' : '') + UNITS[0];
@@ -2350,7 +2358,7 @@ snippet rearg "Creates a function that invokes the provided function with its ar
 const rearg = (fn, indexes) => (...args) => fn(...indexes.map(i => args[i]));
 endsnippet
 
-snippet recordAnimationFrames "Invokes the provided callback on each animation frame.  - Use recursion. - Provided that `running` is `true`, continue invoking `window.requestAnimationFrame()` which invokes the provided callback. - Return an object with two methods `start` and `stop` to allow manual control of the recording. - Omit the second argument, `autoStart`, to implicitly call `start` when the function is invoked." b
+snippet recordAnimationFrames "Invokes the provided callback on each animation frame.  - Use recursion. - Provided that `running` is `true`, continue invoking `Window.requestAnimationFrame()` which invokes the provided callback. - Return an object with two methods `start` and `stop` to allow manual control of the recording. - Omit the second argument, `autoStart`, to implicitly call `start` when the function is invoked." b
 const recordAnimationFrames = (callback, autoStart = true) => {
   let running = false,
     raf;
@@ -2375,7 +2383,7 @@ const recordAnimationFrames = (callback, autoStart = true) => {
 };
 endsnippet
 
-snippet redirect "Redirects to a specified URL.  - Use `window.location.href` or `window.location.replace()` to redirect to `url`. - Pass a second argument to simulate a link click (`true` - default) or an HTTP redirect (`false`)." b
+snippet redirect "Redirects to a specified URL.  - Use `Window.location.href` or `Window.location.replace()` to redirect to `url`. - Pass a second argument to simulate a link click (`true` - default) or an HTTP redirect (`false`)." b
 const redirect = (url, asLink = true) =>
   asLink ? (window.location.href = url) : window.location.replace(url);
 endsnippet
@@ -2415,7 +2423,7 @@ const remove = (arr, func) =>
 endsnippet
 
 snippet removeAccents "Removes accents from strings.  - Use `String.prototype.normalize()` to convert the string to a normalized Unicode format. - Use `String.prototype.replace()` to replace diacritical marks in the given Unicode range by empty strings." b
-const removeAccents = str => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+const removeAccents = str => str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 endsnippet
 
 snippet removeNonASCII "Removes non-printable ASCII characters.  - Use a regular expression to remove non-printable ASCII characters." b
@@ -2528,7 +2536,7 @@ const sampleSize = ([...arr], n = 1) => {
 };
 endsnippet
 
-snippet scrollToTop "Smooth-scrolls to the top of the page.  - Get distance from top using `document.documentElement.scrollTop` or `document.body.scrollTop`. - Scroll by a fraction of the distance from the top. - Use `window.requestAnimationFrame()` to animate the scrolling." b
+snippet scrollToTop "Smooth-scrolls to the top of the page.  - Get distance from top using `Document.documentElement` or `Document.body` and `Element.scrollTop`. - Scroll by a fraction of the distance from the top. - Use `Window.requestAnimationFrame()` to animate the scrolling." b
 const scrollToTop = () => {
   const c = document.documentElement.scrollTop || document.body.scrollTop;
   if (c > 0) {
@@ -2553,7 +2561,7 @@ snippet serializeCookie "Serialize a cookie name-value pair into a Set-Cookie he
 const serializeCookie = (name, val) => \`\${encodeURIComponent(name)}=\${encodeURIComponent(val)}\`;
 endsnippet
 
-snippet serializeForm "Encode a set of form elements as a query string.  - Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.from()` to convert to an array, passing a map function as the second argument. - Use `Array.prototype.map()` and `window.encodeURIComponent()` to encode each field's value. - Use `Array.prototype.join()` with appropriate argumens to produce an appropriate query string." b
+snippet serializeForm "Encode a set of form elements as a query string.  - Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.from()` to convert to an array, passing a map function as the second argument. - Use `Array.prototype.map()` and `encodeURIComponent()` to encode each field's value. - Use `Array.prototype.join()` with appropriate argumens to produce an appropriate query string." b
 const serializeForm = form =>
   Array.from(new FormData(form), field => field.map(encodeURIComponent).join('=')).join('&');
 endsnippet
@@ -2625,7 +2633,7 @@ const smoothScroll = element =>
   });
 endsnippet
 
-snippet sortCharactersInString "Alphabetically sorts the characters in a string.  - Use the spread operator (`...`), `Array.prototype.sort()` and  `String.localeCompare()` to sort the characters in `str`, recombine using `String.prototype.join('')`." b
+snippet sortCharactersInString "Alphabetically sorts the characters in a string.  - Use the spread operator (`...`), `Array.prototype.sort()` and  `String.prototype.localeCompare()` to sort the characters in `str`, recombine using `String.prototype.join('')`." b
 const sortCharactersInString = str => [...str].sort((a, b) => a.localeCompare(b)).join('');
 endsnippet
 
@@ -2757,10 +2765,9 @@ const superSet = (a, b) => {
 };
 endsnippet
 
-snippet supportsTouchEvents "Returns `true` if touch events are supported, `false` otherwise.  - Check if `ontouchstart` exists in `window` or `window.DocumentTouch` is true and the current `document` is an instance of it." b
+snippet supportsTouchEvents "Checks if touch events are supported.  - Check if `ontouchstart` exists in `window`." b
 const supportsTouchEvents = () =>
-  window &&
-  ('ontouchstart' in window || window.DocumentTouch && document instanceof window.DocumentTouch);
+  window && 'ontouchstart' in window;
 endsnippet
 
 snippet symmetricDifference "Returns the symmetric difference between two arrays, without filtering out duplicate values.  - Create a `Set` from each array, then use `Array.prototype.filter()` on each of them to only keep values not contained in the other." b
@@ -2842,7 +2849,7 @@ const timeTaken = callback => {
 };
 endsnippet
 
-snippet times "Iterates over a callback `n` times  - Use `Function.call()` to call `fn` `n` times or until it returns `false`. - Omit the last argument, `context`, to use an `undefined` object (or the global object in non-strict mode)." b
+snippet times "Iterates over a callback `n` times  - Use `Function.prototype.call()` to call `fn` `n` times or until it returns `false`. - Omit the last argument, `context`, to use an `undefined` object (or the global object in non-strict mode)." b
 const times = (n, fn, context = undefined) => {
   let i = 0;
   while (fn.call(context, i) !== false && ++i < n) {}
@@ -3001,7 +3008,7 @@ snippet toggleClass "Toggles a class for an HTML element.  - Use `element.classL
 const toggleClass = (el, className) => el.classList.toggle(className);
 endsnippet
 
-snippet tomorrow "Results in a string representation of tomorrow's date.  - Use `new Date()` to get the current date, increment by one using `Date.getDate()` and set the value to the result using `Date.setDate()`. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
+snippet tomorrow "Results in a string representation of tomorrow's date.  - Use `new Date()` to get the current date, increment by one using `Date.prototype.getDate()` and set the value to the result using `Date.prototype.setDate()`. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
 const tomorrow = () => {
   let d = new Date();
   d.setDate(d.getDate() + 1);
@@ -3224,12 +3231,12 @@ snippet xor "Returns `true` if only one of the arguments is `true`, `false` othe
 const xor = (a, b) => (( a || b ) && !( a && b ));
 endsnippet
 
-snippet yesNo "Returns `true` if the string is `y`/`yes` or `false` if the string is `n`/`no`.  - Use `RegExp.test()` to check if the string evaluates to `y/yes` or `n/no`. - Omit the second argument, `def` to set the default answer as `no`." b
+snippet yesNo "Returns `true` if the string is `y`/`yes` or `false` if the string is `n`/`no`.  - Use `RegExp.prototype.test()` to check if the string evaluates to `y/yes` or `n/no`. - Omit the second argument, `def` to set the default answer as `no`." b
 const yesNo = (val, def = false) =>
   /^(y|yes)$/i.test(val) ? true : /^(n|no)$/i.test(val) ? false : def;
 endsnippet
 
-snippet yesterday "Results in a string representation of yesterday's date.  - Use `new Date()` to get the current date, decrement by one using `Date.getDate()` and set the value to the result using `Date.setDate()`. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
+snippet yesterday "Results in a string representation of yesterday's date.  - Use `new Date()` to get the current date, decrement by one using `Date.prototype.getDate()` and set the value to the result using `Date.prototype.setDate()`. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
 const yesterday = () => {
   let d = new Date();
   d.setDate(d.getDate() - 1);

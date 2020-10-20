@@ -44,7 +44,7 @@
   {
     "code": "const fs = require('fs');\n\nconst JSONToFile = (obj, filename) =>\n  fs.writeFileSync(\\`\\${filename}.json\\`, JSON.stringify(obj, null, 2));",
     "description": "Writes a JSON object to a file.\n\n- Use `fs.writeFileSync()`, template literals and `JSON.stringify()` to write a `json` object to a `.json` file.",
-    "example": "JSONToFile({ test: 'is passed' }, 'testJsonFile'); // writes the object to 'testJsonFile.json'",
+    "example": "JSONToFile({ test: 'is passed' }, 'testJsonFile');\n// writes the object to 'testJsonFile.json'",
     "id": "JSONToFile",
     "tags": [
       "node",
@@ -54,7 +54,7 @@
   {
     "code": "const JSONtoCSV = (arr, columns, delimiter = ',') =>\n  [\n    columns.join(delimiter),\n    ...arr.map(obj =>\n      columns.reduce(\n        (acc, key) => \\`\\${acc}\\${!acc.length ? '' : delimiter}\"\\${!obj[key] ? '' : obj[key]}\"\\`,\n        ''\n      )\n    )\n  ].join('\\n');",
     "description": "Converts an array of objects to a comma-separated values (CSV) string that contains only the `columns` specified.\n\n- Use `Array.prototype.join(delimiter)` to combine all the names in `columns` to create the first row.\n- Use `Array.prototype.map()` and `Array.prototype.reduce()` to create a row for each object, substituting non-existent values with empty strings and only mapping values in `columns`.\n- Use `Array.prototype.join('\\n')` to combine all rows into a string.\n- Omit the third argument, `delimiter`, to use a default delimiter of `,`.",
-    "example": "JSONtoCSV([{ a: 1, b: 2 }, { a: 3, b: 4, c: 5 }, { a: 6 }, { b: 7 }], ['a', 'b']); // 'a,b\\n\"1\",\"2\"\\n\"3\",\"4\"\\n\"6\",\"\"\\n\"\",\"7\"'\nJSONtoCSV([{ a: 1, b: 2 }, { a: 3, b: 4, c: 5 }, { a: 6 }, { b: 7 }], ['a', 'b'], ';'); // 'a;b\\n\"1\";\"2\"\\n\"3\";\"4\"\\n\"6\";\"\"\\n\"\";\"7\"'",
+    "example": "JSONtoCSV(\n  [{ a: 1, b: 2 }, { a: 3, b: 4, c: 5 }, { a: 6 }, { b: 7 }],\n  ['a', 'b']\n); // 'a,b\\n\"1\",\"2\"\\n\"3\",\"4\"\\n\"6\",\"\"\\n\"\",\"7\"'\nJSONtoCSV(\n  [{ a: 1, b: 2 }, { a: 3, b: 4, c: 5 }, { a: 6 }, { b: 7 }],\n  ['a', 'b'],\n  ';'\n); // 'a;b\\n\"1\";\"2\"\\n\"3\";\"4\"\\n\"6\";\"\"\\n\"\";\"7\"'",
     "id": "JSONtoCSV",
     "tags": [
       "array",
@@ -140,7 +140,7 @@
   },
   {
     "code": "const addDaysToDate = (date, n) => {\n  d = new Date(date);\n  d.setDate(d.getDate() + n);\n  return d.toISOString().split('T')[0];\n};",
-    "description": "Calculates the date of `n` days from the given date, returning its string representation.\n\n- Use `new Date()` to create a date object from the first parameter.\n- Use `Date.getDate()` and `Date.setDate()` to add `n` days to the given date.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
+    "description": "Calculates the date of `n` days from the given date, returning its string representation.\n\n- Use `new Date()` to create a date object from the first parameter.\n- Use `Date.prototype.getDate()` and `Date.prototype.setDate()` to add `n` days to the given date.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "addDaysToDate('2020-10-15', 10); // '2020-10-25'\naddDaysToDate('2020-10-15', -10); // '2020-10-05'",
     "id": "addDaysToDate",
     "tags": [
@@ -161,7 +161,7 @@
   },
   {
     "code": "const addWeekDays = (startDate, count) => \n  Array\n    .from({ length: count })\n    .reduce(date => {\n      date = new Date(date.setDate(date.getDate() + 1));\n      if (date.getDay() % 6 === 0)\n        date = new Date(date.setDate(date.getDate() + ((date.getDay() / 6) + 1)));\n      return date;\n    }, startDate);",
-    "description": "Calculates the date after adding the ginen number of business days.\n\n- Use `Array.from()` to construct an array with `length` equal to the `count` of business days to be added.\n- Use `Array.prototype.reduce()` to iterate over the array, starting from `startDate` and incrementing, using `Date.getDate()` and `Date.setDate()`.\n- If the current `date` is on a weekend, update it again by adding either one day or two days to make it a weekday.\n- **NOTE:** Does not take official holidays into account.",
+    "description": "Calculates the date after adding the ginen number of business days.\n\n- Use `Array.from()` to construct an array with `length` equal to the `count` of business days to be added.\n- Use `Array.prototype.reduce()` to iterate over the array, starting from `startDate` and incrementing, using `Date.prototype.getDate()` and `Date.prototype.setDate()`.\n- If the current `date` is on a weekend, update it again by adding either one day or two days to make it a weekday.\n- **NOTE:** Does not take official holidays into account.",
     "example": "addWeekDays(new Date('Oct 09, 2020'), 5); // 'Oct 16, 2020'\naddWeekDays(new Date('Oct 12, 2020'), 5); // 'Oct 19, 2020'",
     "id": "addWeekDays",
     "tags": [
@@ -283,7 +283,7 @@
   },
   {
     "code": "const arrayToHTMLList = (arr, listID) => \n  document.querySelector(\\`#\\${listID}\\`).innerHTML += arr\n    .map(item => \\`<li>\\${item}</li>\\`)\n    .join('');",
-    "description": "Converts the given array elements into `<li>` tags and appends them to the list of the given id.\n\n- Use `Array.prototype.map()` and `document.querySelector()` to create a list of html tags.",
+    "description": "Converts the given array elements into `<li>` tags and appends them to the list of the given id.\n\n- Use `Array.prototype.map()` and `Document.querySelector()` to create a list of html tags.",
     "example": "arrayToHTMLList(['item 1', 'item 2'], 'myListID');",
     "id": "arrayToHTMLList",
     "tags": [
@@ -565,7 +565,7 @@
   },
   {
     "code": "const cloneRegExp = regExp => new RegExp(regExp.source, regExp.flags);",
-    "description": "Clones a regular expression.\n\n- Use `new RegExp()`, `RegExp.source` and `RegExp.flags` to clone the given regular expression.",
+    "description": "Clones a regular expression.\n\n- Use `new RegExp()`, `RegExp.prototype.source` and `RegExp.prototype.flags` to clone the given regular expression.",
     "example": "const regExp = /lorem ipsum/gi;\nconst regExp2 = cloneRegExp(regExp); // regExp !== regExp2",
     "id": "cloneRegExp",
     "tags": [
@@ -712,7 +712,7 @@
   },
   {
     "code": "const copyToClipboard = str => {\n  const el = document.createElement('textarea');\n  el.value = str;\n  el.setAttribute('readonly', '');\n  el.style.position = 'absolute';\n  el.style.left = '-9999px';\n  document.body.appendChild(el);\n  const selected =\n    document.getSelection().rangeCount > 0 ? document.getSelection().getRangeAt(0) : false;\n  el.select();\n  document.execCommand('copy');\n  document.body.removeChild(el);\n  if (selected) {\n    document.getSelection().removeAllRanges();\n    document.getSelection().addRange(selected);\n  }\n};",
-    "description": "Copies a string to the clipboard.\nOnly works as a result of user action (i.e. inside a `click` event listener).\n\n- Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document.\n- Use `Selection.getRangeAt()`to store the selected range (if any).\n- Use `document.execCommand('copy')` to copy to the clipboard.\n- Remove the `<textarea>` element from the HTML document.\n- Finally, use `Selection().addRange()` to recover the original selected range (if any).\n- ⚠️ **NOTICE:** The same functionality can be easily implemented by using the new asynchronous Clipboard API, which is still experimental but should be used in the future instead of this snippet. Find out more about it [here](https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc#writing-to-the-clipboard).",
+    "description": "Copies a string to the clipboard.\nOnly works as a result of user action (i.e. inside a `click` event listener).\n\n- Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document.\n- Use `Selection.getRangeAt()`to store the selected range (if any).\n- Use `Document.execCommand('copy')` to copy to the clipboard.\n- Remove the `<textarea>` element from the HTML document.\n- Finally, use `Selection().addRange()` to recover the original selected range (if any).\n- ⚠️ **NOTICE:** The same functionality can be easily implemented by using the new asynchronous Clipboard API, which is still experimental but should be used in the future instead of this snippet. Find out more about it [here](https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc#writing-to-the-clipboard).",
     "example": "copyToClipboard('Lorem ipsum'); // 'Lorem ipsum' copied to clipboard.",
     "id": "copyToClipboard",
     "tags": [
@@ -745,7 +745,7 @@
   },
   {
     "code": "const countWeekDaysBetween = (startDate, endDate) =>\n  Array\n    .from({ length: (endDate - startDate) / (1000 * 3600 * 24) })\n    .reduce(count => {\n      if (startDate.getDay() % 6 !== 0) count++;\n      startDate = new Date(startDate.setDate(startDate.getDate() + 1));\n      return count;\n    }, 0);",
-    "description": "Counts the weekdays between two dates.\n\n- Use `Array.from()` to construct an array with `length` equal to the number of days between `startDate` and `endDate`.\n- Use `Array.prototype.reduce()` to iterate over the array, checking if each date is a weekday and incrementing `count`.\n- Update `startDate` with the next day each loop using `Date.getDate()` and `Date.setDate()` to advance it by one day.\n- **NOTE:** Does not take official holidays into account.",
+    "description": "Counts the weekdays between two dates.\n\n- Use `Array.from()` to construct an array with `length` equal to the number of days between `startDate` and `endDate`.\n- Use `Array.prototype.reduce()` to iterate over the array, checking if each date is a weekday and incrementing `count`.\n- Update `startDate` with the next day each loop using `Date.prototype.getDate()` and `Date.prototype.setDate()` to advance it by one day.\n- **NOTE:** Does not take official holidays into account.",
     "example": "countWeekDaysBetween(new Date('Oct 05, 2020'), new Date('Oct 06, 2020')); // 1\ncountWeekDaysBetween(new Date('Oct 05, 2020'), new Date('Oct 14, 2020')); // 7",
     "id": "countWeekDaysBetween",
     "tags": [
@@ -755,7 +755,7 @@
   },
   {
     "code": "const counter = (selector, start, end, step = 1, duration = 2000) => {\n  let current = start,\n    _step = (end - start) * step < 0 ? -step : step,\n    timer = setInterval(() => {\n      current += _step;\n      document.querySelector(selector).innerHTML = current;\n      if (current >= end) document.querySelector(selector).innerHTML = end;\n      if (current >= end) clearInterval(timer);\n    }, Math.abs(Math.floor(duration / (end - start))));\n  return timer;\n};",
-    "description": "Creates a counter with the specified range, step and duration for the specified selector.\n\n- Check if `step` has the proper sign and change it accordingly.\n- Use `setInterval()` in combination with `Math.abs()` and `Math.floor()` to calculate the time between each new text draw.\n- Use `document.querySelector().innerHTML` to update the value of the selected element.\n- Omit the fourth parameter, `step`, to use a default step of `1`.\n- Omit the fifth parameter, `duration`, to use a default duration of `2000`ms.",
+    "description": "Creates a counter with the specified range, step and duration for the specified selector.\n\n- Check if `step` has the proper sign and change it accordingly.\n- Use `setInterval()` in combination with `Math.abs()` and `Math.floor()` to calculate the time between each new text draw.\n- Use `Document.querySelector()`, `Element.innerHTML` to update the value of the selected element.\n- Omit the fourth parameter, `step`, to use a default step of `1`.\n- Omit the fifth parameter, `duration`, to use a default duration of `2000`ms.",
     "example": "counter('#my-id', 1, 1000, 5, 2000); // Creates a 2-second timer for the element with id=\"my-id\"",
     "id": "counter",
     "tags": [
@@ -796,7 +796,7 @@
   },
   {
     "code": "const currentURL = () => window.location.href;",
-    "description": "Returns the current URL.\n\n- Use `window.location.href` to get the current URL.",
+    "description": "Returns the current URL.\n\n- Use `Window.location.href` to get the current URL.",
     "example": "currentURL(); // 'https://www.google.com/'",
     "id": "currentURL",
     "tags": [
@@ -848,7 +848,7 @@
   },
   {
     "code": "const daysAgo = n => {\n  let d = new Date();\n  d.setDate(d.getDate() - Math.abs(n));\n  return d.toISOString().split('T')[0];\n};",
-    "description": "Calculates the date of `n` days ago from today as a string representation.\n\n- Use `new Date()` to get the current date, `Math.abs()` and `Date.getDate()` to update the date accordingly and set to the result using `Date.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
+    "description": "Calculates the date of `n` days ago from today as a string representation.\n\n- Use `new Date()` to get the current date, `Math.abs()` and `Date.prototype.getDate()` to update the date accordingly and set to the result using `Date.prototype.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "daysAgo(20); // 2020-09-16 (if current date is 2020-10-06)",
     "id": "daysAgo",
     "tags": [
@@ -858,7 +858,7 @@
   },
   {
     "code": "const daysFromNow = n => {\n  let d = new Date();\n  d.setDate(d.getDate() + Math.abs(n));\n  return d.toISOString().split('T')[0];\n};",
-    "description": "Calculates the date of `n` days from today as a string representation.\n\n- Use `new Date()` to get the current date, `Math.abs()` and `Date.getDate()` to update the date accordingly and set to the result using `Date.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
+    "description": "Calculates the date of `n` days from today as a string representation.\n\n- Use `new Date()` to get the current date, `Math.abs()` and `Date.prototype.getDate()` to update the date accordingly and set to the result using `Date.prototype.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "daysFromNow(5); // 2020-10-13 (if current date is 2020-10-08)",
     "id": "daysFromNow",
     "tags": [
@@ -889,7 +889,7 @@
   },
   {
     "code": "const decapitalize = ([first, ...rest], upperRest = false) =>\n  first.toLowerCase() + (upperRest ? rest.join('').toUpperCase() : rest.join(''));",
-    "description": "Decapitalizes the first letter of a string.\n\n- Use array destructuring and `String.toLowerCase()` to decapitalize first letter, `...rest` to get array of characters after first letter and then `Array.prototype.join('')` to make it a string again.\n- Omit the `upperRest` parameter to keep the rest of the string intact, or set it to `true` to convert to uppercase.",
+    "description": "Decapitalizes the first letter of a string.\n\n- Use array destructuring and `String.prototype.toLowerCase()` to decapitalize first letter, `...rest` to get array of characters after first letter and then `Array.prototype.join('')` to make it a string again.\n- Omit the `upperRest` parameter to keep the rest of the string intact, or set it to `true` to convert to uppercase.",
     "example": "decapitalize('FooBar'); // 'fooBar'\ndecapitalize('FooBar', true); // 'fOOBAR'",
     "id": "decapitalize",
     "tags": [
@@ -994,7 +994,7 @@
   {
     "code": "const detectDeviceType = () =>\n  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)\n    ? 'Mobile'\n    : 'Desktop';",
     "description": "Detects whether the page is being viewed on a mobile device or a desktop.\n\n- Use a regular expression to test the `navigator.userAgent` property to figure out if the device is a mobile device or a desktop.",
-    "example": "detectDeviceType(); // \"Mobile\" or \"Desktop\"",
+    "example": "detectDeviceType(); // 'Mobile' or 'Desktop'",
     "id": "detectDeviceType",
     "tags": [
       "browser",
@@ -1156,7 +1156,7 @@
   },
   {
     "code": "const elementIsVisibleInViewport = (el, partiallyVisible = false) => {\n  const { top, left, bottom, right } = el.getBoundingClientRect();\n  const { innerHeight, innerWidth } = window;\n  return partiallyVisible\n    ? ((top > 0 && top < innerHeight) || (bottom > 0 && bottom < innerHeight)) &&\n        ((left > 0 && left < innerWidth) || (right > 0 && right < innerWidth))\n    : top >= 0 && left >= 0 && bottom <= innerHeight && right <= innerWidth;\n};",
-    "description": "Checks if the element specified is visible in the viewport.\n\n- Use `Element.getBoundingClientRect()` and the `window.inner(Width|Height)` values to determine if a given element is visible in the viewport.\n- Omit the second argument to determine if the element is entirely visible, or specify `true` to determine if it is partially visible.",
+    "description": "Checks if the element specified is visible in the viewport.\n\n- Use `Element.getBoundingClientRect()` and the `Window.inner(Width|Height)` values to determine if a given element is visible in the viewport.\n- Omit the second argument to determine if the element is entirely visible, or specify `true` to determine if it is partially visible.",
     "example": "// e.g. 100x100 viewport and a 10x10px element at position {top: -1, left: 0, bottom: 9, right: 10}\nelementIsVisibleInViewport(el); // false - (not fully visible)\nelementIsVisibleInViewport(el, true); // true - (partially visible)",
     "id": "elementIsVisibleInViewport",
     "tags": [
@@ -1166,7 +1166,7 @@
   },
   {
     "code": "const equals = (a, b) => {\n  if (a === b) return true;\n  if (a instanceof Date && b instanceof Date) return a.getTime() === b.getTime();\n  if (!a || !b || (typeof a !== 'object' && typeof b !== 'object')) return a === b;\n  if (a.prototype !== b.prototype) return false;\n  let keys = Object.keys(a);\n  if (keys.length !== Object.keys(b).length) return false;\n  return keys.every(k => equals(a[k], b[k]));\n};",
-    "description": "Performs a deep comparison between two values to determine if they are equivalent.\n\n- Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.getTime()` or if they are both non-object values with an equivalent value (strict comparison).\n- Check if only one value is `null` or `undefined` or if their prototypes differ.\n- If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys.\n- Use `Array.prototype.every()` to check if every key in `a` exists in `b` and if they are equivalent by calling `equals()` recursively.",
+    "description": "Performs a deep comparison between two values to determine if they are equivalent.\n\n- Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.prototype.getTime()` or if they are both non-object values with an equivalent value (strict comparison).\n- Check if only one value is `null` or `undefined` or if their prototypes differ.\n- If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys.\n- Use `Array.prototype.every()` to check if every key in `a` exists in `b` and if they are equivalent by calling `equals()` recursively.",
     "example": "equals({ a: [2, { e: 3 }], b: [4], c: 'foo' }, { a: [2, { e: 3 }], b: [4], c: 'foo' }); // true\nequals([1, 2, 3], { 0: 1, 1: 2, 2: 3 }); // true",
     "id": "equals",
     "tags": [
@@ -1480,7 +1480,7 @@
   },
   {
     "code": "const functions = (obj, inherited = false) =>\n  (inherited\n    ? [...Object.keys(obj), ...Object.keys(Object.getPrototypeOf(obj))]\n    : Object.keys(obj)\n  ).filter(key => typeof obj[key] === 'function');",
-    "description": "Gets an array of function property names from own (and optionally inherited) enumerable properties of an object.\n\n- Use `Object.keys(obj)` to iterate over the object's own properties.\n- If `inherited` is `true`, use `Object.get.PrototypeOf(obj)` to also get the object's inherited properties.\n- Use `Array.prototype.filter()` to keep only those properties that are functions.\n- Omit the second argument, `inherited`, to not include inherited properties by default.",
+    "description": "Gets an array of function property names from own (and optionally inherited) enumerable properties of an object.\n\n- Use `Object.keys(obj)` to iterate over the object's own properties.\n- If `inherited` is `true`, use `Object.getPrototypeOf(obj)` to also get the object's inherited properties.\n- Use `Array.prototype.filter()` to keep only those properties that are functions.\n- Omit the second argument, `inherited`, to not include inherited properties by default.",
     "example": "function Foo() {\n  this.a = () => 1;\n  this.b = () => 2;\n}\nFoo.prototype.c = () => 3;\nfunctions(new Foo()); // ['a', 'b']\nfunctions(new Foo(), true); // ['a', 'b', 'c']",
     "id": "functions",
     "tags": [
@@ -1616,7 +1616,7 @@
   },
   {
     "code": "const getProtocol = () => window.location.protocol;",
-    "description": "Gets the protocol being used on the current page.\n\n- Use `window.location.protocol` to get the protocol (`http:` or `https:`) of the current page.",
+    "description": "Gets the protocol being used on the current page.\n\n- Use `Window.location.protocol` to get the protocol (`http:` or `https:`) of the current page.",
     "example": "getProtocol(); // 'https:'",
     "id": "getProtocol",
     "tags": [
@@ -1751,7 +1751,7 @@
   },
   {
     "code": "const hashBrowser = val =>\n  crypto.subtle.digest('SHA-256', new TextEncoder('utf-8').encode(val)).then(h => {\n    let hexes = [],\n      view = new DataView(h);\n    for (let i = 0; i < view.byteLength; i += 4)\n      hexes.push(('00000000' + view.getUint32(i).toString(16)).slice(-8));\n    return hexes.join('');\n  });",
-    "description": "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm.\nReturns a promise.\n\n- Use the [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) API to create a hash for the given value.\n- Create a new `TextEncoder` and use it to encode `val`, passing its value to `SubtleCrypto.digest()` to generate a digest of the given data.\n- Use `DataView.prototype.getUint32()` to read data from the resolved `ArrayBuffer`.\n- Add the data to an array using `Array.prototype.push()` after converting it to its hexadecimal representation using `Number.toString(16)`.\n- Finally, use `Array.prototype.join()` to combine values in the array of `hexes` into a string.",
+    "description": "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm.\nReturns a promise.\n\n- Use the [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) API to create a hash for the given value.\n- Create a new `TextEncoder` and use it to encode `val`, passing its value to `SubtleCrypto.digest()` to generate a digest of the given data.\n- Use `DataView.prototype.getUint32()` to read data from the resolved `ArrayBuffer`.\n- Add the data to an array using `Array.prototype.push()` after converting it to its hexadecimal representation using `Number.prototype.toString(16)`.\n- Finally, use `Array.prototype.join()` to combine values in the array of `hexes` into a string.",
     "example": "hashBrowser(\n  JSON.stringify({ a: 'a', b: [1, 2, 3, 4], foo: { c: 'bar' } })\n).then(console.log);\n// '04aa106279f5977f59f9067fa9712afc4aedc6f5862a8defc34552d8c7206393'",
     "id": "hashBrowser",
     "tags": [
@@ -1885,7 +1885,7 @@
   },
   {
     "code": "const includesAll = (arr, values) => values.every(v => arr.includes(v));",
-    "description": "Returns `true` if all the elements in `values` are included in `arr`, `false` otherwise.\n\n- Use `Array.prototype.every()` and `Array.prototype.includes()` to check if all elements of `values` are included in `arr`.",
+    "description": "Checks if all the elements in `values` are included in `arr`.\n\n- Use `Array.prototype.every()` and `Array.prototype.includes()` to check if all elements of `values` are included in `arr`.",
     "example": "includesAll([1, 2, 3, 4], [1, 4]); // true\nincludesAll([1, 2, 3, 4], [1, 5]); // false",
     "id": "includesAll",
     "tags": [
@@ -1895,7 +1895,7 @@
   },
   {
     "code": "const includesAny = (arr, values) => values.some(v => arr.includes(v));",
-    "description": "Returns `true` if at least one element of values is included in arr , `false` otherwise.\n\n- Use `Array.prototype.some()` and `Array.prototype.includes()` to check if at least one element of `values` is included in `arr`.",
+    "description": "Checks if at least one element of `values` is included in `arr`.\n\n- Use `Array.prototype.some()` and `Array.prototype.includes()` to check if at least one element of `values` is included in `arr`.",
     "example": "includesAny([1, 2, 3, 4], [2, 9]); // true\nincludesAny([1, 2, 3, 4], [8, 9]); // false",
     "id": "includesAny",
     "tags": [
@@ -1904,8 +1904,8 @@
     ]
   },
   {
-    "code": "const indentString = (str, count, indent = ' ') => str.replace(/^/gm, indent.repeat(count));",
-    "description": "Indents each line in the provided string.\n\n- Use `String.replace` and a regular expression to add the character specified by `indent` `count` times at the start of each line.\n- Omit the third parameter, `indent`, to use a default indentation character of `' '`.",
+    "code": "const indentString = (str, count, indent = ' ') =>\n  str.replace(/^/gm, indent.repeat(count));",
+    "description": "Indents each line in the provided string.\n\n- Use `String.prototype.replace()` and a regular expression to add the character specified by `indent` `count` times at the start of each line.\n- Omit the third parameter, `indent`, to use a default indentation character of `' '`.",
     "example": "indentString('Lorem\\nIpsum', 2); // '  Lorem\\n  Ipsum'\nindentString('Lorem\\nIpsum', 2, '_'); // '__Lorem\\n__Ipsum'",
     "id": "indentString",
     "tags": [
@@ -1914,8 +1914,8 @@
     ]
   },
   {
-    "code": "const indexOfAll = (arr, val) => arr.reduce((acc, el, i) => (el === val ? [...acc, i] : acc), []);",
-    "description": "Returns all indices of `val` in an array.\nIf `val` never occurs, returns `[]`.\n\n- Use `Array.prototype.reduce()` to loop over elements and store indices for matching elements.\n- Return the array of indices.",
+    "code": "const indexOfAll = (arr, val) =>\n  arr.reduce((acc, el, i) => (el === val ? [...acc, i] : acc), []);",
+    "description": "Returns all indexes of `val` in an array.\nIf `val` never occurs, returns an empty array.\n\n- Use `Array.prototype.reduce()` to loop over elements and store indexes for matching elements.",
     "example": "indexOfAll([1, 2, 3, 1, 2, 3], 1); // [0, 3]\nindexOfAll([1, 2, 3], 4); // []",
     "id": "indexOfAll",
     "tags": [
@@ -1925,8 +1925,8 @@
   },
   {
     "code": "const initial = arr => arr.slice(0, -1);",
-    "description": "Returns all the elements of an array except the last one.\n\n- Use `arr.slice(0,-1)` to return all but the last element of the array.",
-    "example": "initial([1, 2, 3]); // [1,2]",
+    "description": "Returns all the elements of an array except the last one.\n\n- Use `Array.prototype.slice(0,-1)` to return all but the last element of the array.",
+    "example": "initial([1, 2, 3]); // [1, 2]",
     "id": "initial",
     "tags": [
       "array",
@@ -1935,8 +1935,8 @@
   },
   {
     "code": "const initialize2DArray = (w, h, val = null) =>\n  Array.from({ length: h }).map(() => Array.from({ length: w }).fill(val));",
-    "description": "Initializes a 2D array of given width and height and value.\n\n- Use `Array.prototype.map()` to generate h rows where each is a new array of size w initialize with value.\n- If the value is not provided, default to `null`.",
-    "example": "initialize2DArray(2, 2, 0); // [[0,0], [0,0]]",
+    "description": "Initializes a 2D array of given width and height and value.\n\n- Use `Array.from()` and `Array.prototype.map()` to generate `h` rows where each is a new array of size `w`.\n- Use `Array.prototype.fill()` to initialize all items with value `val`.\n- Omit the last argument, `val`, to use a default value of `null`.",
+    "example": "initialize2DArray(2, 2, 0); // [[0, 0], [0, 0]]",
     "id": "initialize2DArray",
     "tags": [
       "array",
@@ -1945,41 +1945,38 @@
   },
   {
     "code": "const initializeArrayWithRange = (end, start = 0, step = 1) =>\n  Array.from({ length: Math.ceil((end - start + 1) / step) }, (v, i) => i * step + start);",
-    "description": "Initializes an array containing the numbers in the specified range where `start` and `end` are inclusive with their common difference `step`.\n\n- Use `Array.from()` to create an array of the desired length, `(end - start + 1)/step`, and a map function to fill it with the desired values in the given range.\n- You can omit `start` to use a default value of `0`.\n- You can omit `step` to use a default value of `1`.",
-    "example": "initializeArrayWithRange(5); // [0,1,2,3,4,5]\ninitializeArrayWithRange(7, 3); // [3,4,5,6,7]\ninitializeArrayWithRange(9, 0, 2); // [0,2,4,6,8]",
+    "description": "Initializes an array containing the numbers in the specified range where `start` and `end` are inclusive with their common difference `step`.\n\n- Use `Array.from()` to create an array of the desired length.\n- Use `(end - start + 1)/step` and a map function to fill the array with the desired values in the given range.\n- Omit the second argument, `start`, to use a default value of `0`.\n- Omit the last argument, `step`, to use a default value of `1`.",
+    "example": "initializeArrayWithRange(5); // [0, 1, 2, 3, 4, 5]\ninitializeArrayWithRange(7, 3); // [3, 4, 5, 6, 7]\ninitializeArrayWithRange(9, 0, 2); // [0, 2, 4, 6, 8]",
     "id": "initializeArrayWithRange",
     "tags": [
       "array",
-      "math",
       "intermediate"
     ]
   },
   {
     "code": "const initializeArrayWithRangeRight = (end, start = 0, step = 1) =>\n  Array.from({ length: Math.ceil((end + 1 - start) / step) }).map(\n    (v, i, arr) => (arr.length - i - 1) * step + start\n  );",
-    "description": "Initializes an array containing the numbers in the specified range (in reverse) where `start` and `end` are inclusive with their common difference `step`.\n\n- Use `Array.from(Math.ceil((end+1-start)/step))` to create an array of the desired length(the amounts of elements is equal to `(end-start)/step` or `(end+1-start)/step` for inclusive end), `Array.prototype.map()` to fill with the desired values in a range.\n- You can omit `start` to use a default value of `0`.\n- You can omit `step` to use a default value of `1`.",
-    "example": "initializeArrayWithRangeRight(5); // [5,4,3,2,1,0]\ninitializeArrayWithRangeRight(7, 3); // [7,6,5,4,3]\ninitializeArrayWithRangeRight(9, 0, 2); // [8,6,4,2,0]",
+    "description": "Initializes an array containing the numbers in the specified range (in reverse) where `start` and `end` are inclusive with their common difference `step`.\n\n- Use `Array.from(Math.ceil((end+1-start)/step))` to create an array of the desired length(the amounts of elements is equal to `(end-start)/step` or `(end+1-start)/step` for inclusive end), `Array.prototype.map()` to fill with the desired values in a range.\n- Omit the second argument, `start`, to use a default value of `0`.\n- Omit the last argument, `step`, to use a default value of `1`.",
+    "example": "initializeArrayWithRangeRight(5); // [5, 4, 3, 2, 1, 0]\ninitializeArrayWithRangeRight(7, 3); // [7, 6, 5, 4, 3]\ninitializeArrayWithRangeRight(9, 0, 2); // [8, 6, 4, 2, 0]",
     "id": "initializeArrayWithRangeRight",
     "tags": [
       "array",
-      "math",
       "intermediate"
     ]
   },
   {
-    "code": "const initializeArrayWithValues = (n, val = 0) => Array(n).fill(val);",
-    "description": "Initializes and fills an array with the specified values.\n\n- Use `Array(n)` to create an array of the desired length, `fill(v)` to fill it with the desired values.\n- You can omit `val` to use a default value of `0`.",
+    "code": "const initializeArrayWithValues = (n, val = 0) =>\n  Array.from({ length: n }).fill(val);",
+    "description": "Initializes and fills an array with the specified values.\n\n- Use `Array.from()` to create an array of the desired length, `Array.prototype.fill()` to fill it with the desired values.\n- Omit the last argument, `val`, to use a default value of `0`.",
     "example": "initializeArrayWithValues(5, 2); // [2, 2, 2, 2, 2]",
     "id": "initializeArrayWithValues",
     "tags": [
       "array",
-      "math",
       "intermediate"
     ]
   },
   {
     "code": "const initializeNDArray = (val, ...args) =>\n  args.length === 0\n    ? val\n    : Array.from({ length: args[0] }).map(() => initializeNDArray(val, ...args.slice(1)));",
-    "description": "Create a n-dimensional array with given value.\n\n- Use recursion.\n- Use `Array.prototype.map()` to generate rows where each is a new array initialized using `initializeNDArray`.",
-    "example": "initializeNDArray(1, 3); // [1,1,1]\ninitializeNDArray(5, 2, 2, 2); // [[[5,5],[5,5]],[[5,5],[5,5]]]",
+    "description": "Create a n-dimensional array with given value.\n\n- Use recursion.\n- Use `Array.from()`, `Array.prototype.map()` to generate rows where each is a new array initialized using `initializeNDArray()`.",
+    "example": "initializeNDArray(1, 3); // [1, 1, 1]\ninitializeNDArray(5, 2, 2, 2); // [[[5, 5], [5, 5]], [[5, 5], [5, 5]]]",
     "id": "initializeNDArray",
     "tags": [
       "array",
@@ -1989,8 +1986,8 @@
   },
   {
     "code": "const injectCSS = css => {\n  let el = document.createElement('style');\n  el.type = 'text/css';\n  el.innerText = css;\n  document.head.appendChild(el);\n  return el;\n}",
-    "description": "Injects the given css code into the current document\n\n- Use `document.createElement()` to create a new `style` element and set its type to `text/css`.\n- Use `Element.innerText` to set the value to the given css string, `document.head` and `Element.appendChild()` to append the new element to the document head.\n- Return the newly created `style` element.",
-    "example": "injectCSS('body { background-color: #000 }'); // '<style type=\"text/css\">body { background-color: #000 }</style>'",
+    "description": "Injects the given CSS code into the current document\n\n- Use `Document.createElement()` to create a new `style` element and set its type to `text/css`.\n- Use `Element.innerText` to set the value to the given CSS string.\n- Use `Document.head` and `Element.appendChild()` to append the new element to the document head.\n- Return the newly created `style` element.",
+    "example": "injectCSS('body { background-color: #000 }'); \n// '<style type=\"text/css\">body { background-color: #000 }</style>'",
     "id": "injectCSS",
     "tags": [
       "browser",
@@ -1999,8 +1996,8 @@
     ]
   },
   {
-    "code": "const insertAfter = (el, htmlString) => el.insertAdjacentHTML('afterend', htmlString);",
-    "description": "Inserts an HTML string after the end of the specified element.\n\n- Use `el.insertAdjacentHTML()` with a position of `'afterend'` to parse `htmlString` and insert it after the end of `el`.",
+    "code": "const insertAfter = (el, htmlString) =>\n  el.insertAdjacentHTML('afterend', htmlString);",
+    "description": "Inserts an HTML string after the end of the specified element.\n\n- Use `Element.insertAdjacentHTML()` with a position of `'afterend'` to parse `htmlString` and insert it after the end of `el`.",
     "example": "insertAfter(document.getElementById('myId'), '<p>after</p>');\n// <div id=\"myId\">...</div> <p>after</p>",
     "id": "insertAfter",
     "tags": [
@@ -2010,7 +2007,7 @@
   },
   {
     "code": "const insertAt = (arr, i, ...v) => {\n  arr.splice(i + 1, 0, ...v);\n  return arr;\n};",
-    "description": "Mutates the original array to insert the given values at the specified index.\n\n- Use `Array.prototype.splice()` with an appropriate index and a delete count of `0`, spreading the given values to be inserted.",
+    "description": "Mutates the original array to insert the given values after the specified index.\n\n- Use `Array.prototype.splice()` with an appropriate index and a delete count of `0`, spreading the given values to be inserted.",
     "example": "let myArray = [1, 2, 3, 4];\ninsertAt(myArray, 2, 5); // myArray = [1, 2, 3, 5, 4]\n\nlet otherArray = [2, 10];\ninsertAt(otherArray, 0, 4, 6, 8); // otherArray = [2, 4, 6, 8, 10]",
     "id": "insertAt",
     "tags": [
@@ -2019,8 +2016,8 @@
     ]
   },
   {
-    "code": "const insertBefore = (el, htmlString) => el.insertAdjacentHTML('beforebegin', htmlString);",
-    "description": "Inserts an HTML string before the start of the specified element.\n\n- Use `el.insertAdjacentHTML()` with a position of `'beforebegin'` to parse `htmlString` and insert it before the start of `el`.",
+    "code": "const insertBefore = (el, htmlString) =>\n  el.insertAdjacentHTML('beforebegin', htmlString);",
+    "description": "Inserts an HTML string before the start of the specified element.\n\n- Use `Element.insertAdjacentHTML()` with a position of `'beforebegin'` to parse `htmlString` and insert it before the start of `el`.",
     "example": "insertBefore(document.getElementById('myId'), '<p>before</p>');\n// <p>before</p> <div id=\"myId\">...</div>",
     "id": "insertBefore",
     "tags": [
@@ -2030,19 +2027,18 @@
   },
   {
     "code": "const intersection = (a, b) => {\n  const s = new Set(b);\n  return [...new Set(a)].filter(x => s.has(x));\n};",
-    "description": "Returns the elements that exist in both arrays.\n\n- Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`.",
+    "description": "Returns the elements that exist in both arrays, filtering duplicate values.\n\n- Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`.",
     "example": "intersection([1, 2, 3], [4, 3, 2]); // [2, 3]",
     "id": "intersection",
     "tags": [
       "array",
-      "math",
       "intermediate"
     ]
   },
   {
     "code": "const intersectionBy = (a, b, fn) => {\n  const s = new Set(b.map(fn));\n  return [...new Set(a)].filter(x => s.has(fn(x)));\n};",
-    "description": "Returns the elements that exist in both arrays, after applying the provided function to each array element of both.\n\n- Create a `Set` by applying `fn` to all elements in `b`, then use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them.",
-    "example": "intersectionBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [2.1]\nintersectionBy([{ title: 'Apple' }, { title: 'Orange' }], [{ title: 'Orange' }, { title: 'Melon' }], x => x.title) // [{ title: 'Orange' }]",
+    "description": "Returns the elements that exist in both arrays, after applying the provided function to each array element of both.\n\n- Create a `Set` by applying `fn` to all elements in `b`.\n- Use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them.",
+    "example": "intersectionBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [2.1]\nintersectionBy(\n  [{ title: 'Apple' }, { title: 'Orange' }],\n  [{ title: 'Orange' }, { title: 'Melon' }],\n  x => x.title\n); // [{ title: 'Orange' }]",
     "id": "intersectionBy",
     "tags": [
       "array",
@@ -2050,9 +2046,9 @@
     ]
   },
   {
-    "code": "const intersectionWith = (a, b, comp) => a.filter(x => b.findIndex(y => comp(x, y)) !== -1);",
+    "code": "const intersectionWith = (a, b, comp) =>\n  a.filter(x => b.findIndex(y => comp(x, y)) !== -1);",
     "description": "Returns the elements that exist in both arrays, using a provided comparator function.\n\n- Use `Array.prototype.filter()` and `Array.prototype.findIndex()` in combination with the provided comparator to determine intersecting values.",
-    "example": "intersectionWith([1, 1.2, 1.5, 3, 0], [1.9, 3, 0, 3.9], (a, b) => Math.round(a) === Math.round(b)); // [1.5, 3, 0]",
+    "example": "intersectionWith(\n  [1, 1.2, 1.5, 3, 0],\n  [1.9, 3, 0, 3.9],\n  (a, b) => Math.round(a) === Math.round(b)\n); // [1.5, 3, 0]",
     "id": "intersectionWith",
     "tags": [
       "array",
@@ -2061,40 +2057,40 @@
   },
   {
     "code": "const invertKeyValues = (obj, fn) =>\n  Object.keys(obj).reduce((acc, key) => {\n    const val = fn ? fn(obj[key]) : obj[key];\n    acc[val] = acc[val] || [];\n    acc[val].push(key);\n    return acc;\n  }, {});",
-    "description": "Inverts the key-value pairs of an object, without mutating it. The corresponding inverted value of each inverted key is an array of keys responsible for generating the inverted value. If a function is supplied, it is applied to each inverted key.\n\n- Use `Object.keys()` and `Array.prototype.reduce()` to invert the key-value pairs of an object and apply the function provided (if any).\n- Omit the second argument, `fn`, to get the inverted keys without applying a function to them.",
-    "example": "invertKeyValues({ a: 1, b: 2, c: 1 }); // { 1: [ 'a', 'c' ], 2: [ 'b' ] }\ninvertKeyValues({ a: 1, b: 2, c: 1 }, value => 'group' + value); // { group1: [ 'a', 'c' ], group2: [ 'b' ] }",
+    "description": "Inverts the key-value pairs of an object, without mutating it. \n\n- Use `Object.keys()` and `Array.prototype.reduce()` to invert the key-value pairs of an object and apply the function provided (if any).\n- Omit the second argument, `fn`, to get the inverted keys without applying a function to them.\n- The corresponding inverted value of each inverted key is an array of keys responsible for generating the inverted value. If a function is supplied, it is applied to each inverted key.",
+    "example": "invertKeyValues({ a: 1, b: 2, c: 1 }); // { 1: [ 'a', 'c' ], 2: [ 'b' ] }\ninvertKeyValues({ a: 1, b: 2, c: 1 }, value => 'group' + value);\n// { group1: [ 'a', 'c' ], group2: [ 'b' ] }",
     "id": "invertKeyValues",
     "tags": [
       "object",
-      "intermediate"
+      "advanced"
     ]
   },
   {
     "code": "const is = (type, val) => ![, null].includes(val) && val.constructor === type;",
-    "description": "Checks if the provided value is of the specified type.\n\n- Ensure the value is not `undefined` or `null` using `Array.prototype.includes()`, and compare the `constructor` property on the value with `type` to check if the provided value is of the specified `type`.",
+    "description": "Checks if the provided value is of the specified type.\n\n- Ensure the value is not `undefined` or `null` using `Array.prototype.includes()`.\n- Compare the `constructor` property on the value with `type` to check if the provided value is of the specified `type`.",
     "example": "is(Array, [1]); // true\nis(ArrayBuffer, new ArrayBuffer()); // true\nis(Map, new Map()); // true\nis(RegExp, /./g); // true\nis(Set, new Set()); // true\nis(WeakMap, new WeakMap()); // true\nis(WeakSet, new WeakSet()); // true\nis(String, ''); // true\nis(String, new String('')); // true\nis(Number, 1); // true\nis(Number, new Number(1)); // true\nis(Boolean, true); // true\nis(Boolean, new Boolean(true)); // true",
     "id": "is",
     "tags": [
       "type",
       "array",
-      "regexp",
-      "beginner"
+      "intermediate"
     ]
   },
   {
     "code": "const isAbsoluteURL = str => /^[a-z][a-z0-9+.-]*:/.test(str);",
-    "description": "Returns `true` if the given string is an absolute URL, `false` otherwise.\n\n- Use a regular expression to test if the string is an absolute URL.",
+    "description": "Checks if the given string is an absolute URL.\n\n- Use `RegExp.prototype.test()` to test if the string is an absolute URL.",
     "example": "isAbsoluteURL('https://google.com'); // true\nisAbsoluteURL('ftp://www.myserver.net'); // true\nisAbsoluteURL('/foo/bar'); // false",
     "id": "isAbsoluteURL",
     "tags": [
       "string",
       "browser",
+      "regexp",
       "intermediate"
     ]
   },
   {
     "code": "const isAfterDate = (dateA, dateB) => dateA > dateB;",
-    "description": "Check if a date is after another date.\n\n- Use the greater than operator (`>`) to check if the first date comes after the second one.",
+    "description": "Checks if a date is after another date.\n\n- Use the greater than operator (`>`) to check if the first date comes after the second one.",
     "example": "isAfterDate(new Date(2010, 10, 21), new Date(2010, 10, 20)); // true",
     "id": "isAfterDate",
     "tags": [
@@ -2104,7 +2100,7 @@
   },
   {
     "code": "const isAlphaNumeric = str => /^[a-z0-9]+$/gi.test(str);",
-    "description": "Checks if a string contains only alphanumeric characters.\n\n- Use `RegExp.prototype.test()` to check if input string matches against alphanumeric regex pattern.",
+    "description": "Checks if a string contains only alphanumeric characters.\n\n- Use `RegExp.prototype.test()` to check if the input string matches against the alphanumeric regexp pattern.",
     "example": "isAlphaNumeric('hello123'); // true\nisAlphaNumeric('123'); // true\nisAlphaNumeric('hello 123'); // false (space character is not alphanumeric)\nisAlphaNumeric('#$hello'); // false",
     "id": "isAlphaNumeric",
     "tags": [
@@ -2115,7 +2111,7 @@
   },
   {
     "code": "const isAnagram = (str1, str2) => {\n  const normalize = str =>\n    str\n      .toLowerCase()\n      .replace(/[^a-z0-9]/gi, '')\n      .split('')\n      .sort()\n      .join('');\n  return normalize(str1) === normalize(str2);\n};",
-    "description": "Checks if a string is an anagram of another string (case-insensitive, ignores spaces, punctuation and special characters).\n\n- Use `String.prototype.toLowerCase()`, `String.prototype.replace()` with an appropriate regular expression to remove unnecessary characters, `String.prototype.split('')`, `Array.prototype.sort()` and `Array.prototype.join('')` on both strings to normalize them, then check if their normalized forms are equal.",
+    "description": "Checks if a string is an anagram of another string (case-insensitive, ignores spaces, punctuation and special characters).\n\n- Use `String.prototype.toLowerCase()` and `String.prototype.replace()` with an appropriate regular expression to remove unnecessary characters.\n- Use `String.prototype.split('')`, `Array.prototype.sort()` and `Array.prototype.join('')` on both strings to normalize them, then check if their normalized forms are equal.",
     "example": "isAnagram('iceman', 'cinema'); // true",
     "id": "isAnagram",
     "tags": [
@@ -2125,7 +2121,7 @@
     ]
   },
   {
-    "code": "const isArrayLike = obj => obj != null && typeof obj[Symbol.iterator] === 'function';",
+    "code": "const isArrayLike = obj =>\n  obj != null && typeof obj[Symbol.iterator] === 'function';",
     "description": "Checks if the provided argument is array-like (i.e. is iterable).\n\n- Check if the provided argument is not `null` and that its `Symbol.iterator` property is a function.",
     "example": "isArrayLike([1, 2, 3]); // true\nisArrayLike(document.querySelectorAll('.className')); // true\nisArrayLike('abc'); // true\nisArrayLike(null); // false",
     "id": "isArrayLike",
@@ -2137,7 +2133,7 @@
   },
   {
     "code": "const isAsyncFunction = val =>\n  Object.prototype.toString.call(val) === '[object AsyncFunction]';",
-    "description": "Checks if the given argument is an `async` function.\n\n- Use `Object.prototype.toString()` and `Function.call()` and check if the result is `'[object AsyncFunction]'`.",
+    "description": "Checks if the given argument is an `async` function.\n\n- Use `Object.prototype.toString()` and `Function.prototype.call()` and check if the result is `'[object AsyncFunction]'`.",
     "example": "isAsyncFunction(function() {}); // false\nisAsyncFunction(async function() {}); // true",
     "id": "isAsyncFunction",
     "tags": [
@@ -2148,7 +2144,7 @@
   },
   {
     "code": "const isBeforeDate = (dateA, dateB) => dateA < dateB;",
-    "description": "Check if a date is before another date.\n\n- Use the less than operator (`<`) to check if the first date comes before the second one.",
+    "description": "Checks if a date is before another date.\n\n- Use the less than operator (`<`) to check if the first date comes before the second one.",
     "example": "isBeforeDate(new Date(2010, 10, 20), new Date(2010, 10, 21)); // true",
     "id": "isBeforeDate",
     "tags": [
@@ -2157,9 +2153,9 @@
     ]
   },
   {
-    "code": "const isBetweenDates = (dateStart, dateEnd, date) => date > dateStart && date < dateEnd;",
-    "description": "Check if a date is between two other dates.\n\n- Use the greater than (`>`) and less than (`<`) operators to check if `date` is between `dateStart` and `dateEnd`.",
-    "example": "isBetweenDates(new Date(2010, 11, 20), new Date(2010, 11, 30), new Date(2010, 11, 19)); // false\nisBetweenDates(new Date(2010, 11, 20), new Date(2010, 11, 30), new Date(2010, 11, 25)); // true",
+    "code": "const isBetweenDates = (dateStart, dateEnd, date) =>\n  date > dateStart && date < dateEnd;",
+    "description": "Checks if a date is between two other dates.\n\n- Use the greater than (`>`) and less than (`<`) operators to check if `date` is between `dateStart` and `dateEnd`.",
+    "example": "isBetweenDates(\n  new Date(2010, 11, 20),\n  new Date(2010, 11, 30),\n  new Date(2010, 11, 19)\n); // false\nisBetweenDates(\n  new Date(2010, 11, 20),\n  new Date(2010, 11, 30),\n  new Date(2010, 11, 25)\n); // true",
     "id": "isBetweenDates",
     "tags": [
       "date",
@@ -2183,12 +2179,13 @@
     "id": "isBrowser",
     "tags": [
       "browser",
+      "node",
       "intermediate"
     ]
   },
   {
     "code": "const isBrowserTabFocused = () => !document.hidden;",
-    "description": "Returns `true` if the browser tab of the page is focused, `false` otherwise.\n\n- Use the `Document.hidden` property, introduced by the Page Visibility API to check if the browser tab of the page is visible or hidden.",
+    "description": "Checks if the browser tab of the page is focused.\n\n- Use the `Document.hidden` property, introduced by the [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API) to check if the browser tab of the page is visible or hidden.",
     "example": "isBrowserTabFocused(); // true",
     "id": "isBrowserTabFocused",
     "tags": [
@@ -2198,7 +2195,7 @@
   },
   {
     "code": "const isContainedIn = (a, b) => {\n  for (const v of new Set(a)) {\n    if (!b.some(e => e === v) || a.filter(e => e === v).length > b.filter(e => e === v).length)\n      return false;\n  }\n  return true;\n};",
-    "description": "Returns `true` if the elements of the first array are contained in the second one regardless of order, `false` otherwise.\n\n- Use a `for...of` loop over a `Set` created from the first array.\n- Use `Array.prototype.some()` to check if all distinct values are contained in the second array, use `Array.prototype.filter()` to compare the number of occurrences of each distinct value in both arrays.\n- Return `false` if the count of any element is greater in the first array than the second one, `true` otherwise.",
+    "description": "Checks if the elements of the first array are contained in the second one regardless of order.\n\n- Use a `for...of` loop over a `Set` created from the first array.\n- Use `Array.prototype.some()` to check if all distinct values are contained in the second array.\n- Use `Array.prototype.filter()` to compare the number of occurrences of each distinct value in both arrays.\n- Return `false` if the count of any element is greater in the first array than the second one, `true` otherwise.",
     "example": "isContainedIn([1, 4], [2, 4, 1]); // true",
     "id": "isContainedIn",
     "tags": [
@@ -2207,8 +2204,8 @@
     ]
   },
   {
-    "code": "const isDateValid = (...val) => !isNaN(new Date(...val).valueOf());",
-    "description": "Returns `true` if a valid date object can be created from the given values, `false` otherwise.\n\n- Use the spread operator (`...`) to pass the array of arguments to the `Date` constructor.\n- Use `Date.prototype.valueOf()` and `Number.isNaN()` to check if a valid `Date` object can be created from the given values.",
+    "code": "const isDateValid = (...val) => !Number.isNaN(new Date(...val).valueOf());",
+    "description": "Checks if a valid date object can be created from the given values.\n\n- Use the spread operator (`...`) to pass the array of arguments to the `Date` constructor.\n- Use `Date.prototype.valueOf()` and `Number.isNaN()` to check if a valid `Date` object can be created from the given values.",
     "example": "isDateValid('December 17, 1995 03:24:00'); // true\nisDateValid('1995-12-17T03:24:00'); // true\nisDateValid('1995-12-17 T03:24:00'); // false\nisDateValid('Duck'); // false\nisDateValid(1995, 11, 17); // true\nisDateValid(1995, 11, 17, 'Duck'); // false\nisDateValid({}); // false",
     "id": "isDateValid",
     "tags": [
@@ -2218,7 +2215,7 @@
   },
   {
     "code": "const isDeepFrozen = obj =>\n  Object.isFrozen(obj) &&\n  Object.keys(obj).every(\n    prop => typeof obj[prop] !== 'object' || isDeepFrozen(obj[prop])\n  );",
-    "description": "Checks if an object is deeply frozen\n\n- Use recursion.\n- Use `Object.isFrozen()` on the given object.\n- Use `Object.keys()`, `Array.prototype.every()` to check that all keys are either deeply frozen objects or non-object values.",
+    "description": "Checks if an object is deeply frozen.\n\n- Use recursion.\n- Use `Object.isFrozen()` on the given object.\n- Use `Object.keys()`, `Array.prototype.every()` to check that all keys are either deeply frozen objects or non-object values.",
     "example": "const x = Object.freeze({ a: 1 });\nconst y = Object.freeze({ b: { c: 2 } });\nisDeepFrozen(x); // true\nisDeepFrozen(y); // false",
     "id": "isDeepFrozen",
     "tags": [
@@ -2249,7 +2246,7 @@
   },
   {
     "code": "const isDuplexStream = val =>\n  val !== null &&\n  typeof val === 'object' &&\n  typeof val.pipe === 'function' &&\n  typeof val._read === 'function' &&\n  typeof val._readableState === 'object' &&\n  typeof val._write === 'function' &&\n  typeof val._writableState === 'object';",
-    "description": "Checks if the given argument is a duplex (readable and writable) stream.\n\n- Check if the value is different from `null`, use `typeof` to check if a value is of type `object` and the `pipe` property is of type `function`.\n- Additionally check if the `typeof` the `_read`, `_write` and `_readableState`, `_writableState` properties are `function` and `object` respectively.",
+    "description": "Checks if the given argument is a duplex (readable and writable) stream.\n\n- Check if the value is different from `null`.\n- Use `typeof` to check if a value is of type `object` and the `pipe` property is of type `function`.\n- Additionally check if the `typeof` the `_read`, `_write` and `_readableState`, `_writableState` properties are `function` and `object` respectively.",
     "example": "const Stream = require('stream');\n\nisDuplexStream(new Stream.Duplex()); // true",
     "id": "isDuplexStream",
     "tags": [
@@ -2261,7 +2258,7 @@
   {
     "code": "const hasDuplicates = arr => new Set(arr).size !== arr.length;",
     "description": "Checks if there are duplicate values in a flat array.\n\n- Use `Set()` to get the unique values in the array.\n- Use `Set.prototype.size` and `Array.prototype.length` to check if the count of the unique values is the same as elements in the original array.",
-    "example": "hasDuplicates([0,1,1,2]); // true\nhasDuplicates([0,1,2,3,]); // false",
+    "example": "hasDuplicates([0, 1, 1, 2]); // true\nhasDuplicates([0, 1, 2, 3]); // false",
     "id": "hasDuplicates",
     "tags": [
       "array",
@@ -2270,7 +2267,7 @@
   },
   {
     "code": "const isEmpty = val => val == null || !(Object.keys(val) || val).length;",
-    "description": "Returns true if the a value is an empty object, collection, has no enumerable properties or is any type that is not considered a collection.\n\n- Check if the provided value is `null` or if its `length` is equal to `0`.",
+    "description": "Checks if the a value is an empty object/collection, has no enumerable properties or is any type that is not considered a collection.\n\n- Check if the provided value is `null` or if its `length` is equal to `0`.",
     "example": "isEmpty([]); // true\nisEmpty({}); // true\nisEmpty(''); // true\nisEmpty([1, 2]); // false\nisEmpty({ a: 1, b: 2 }); // false\nisEmpty('text'); // false\nisEmpty(123); // true - type is not considered a collection\nisEmpty(true); // true - type is not considered a collection",
     "id": "isEmpty",
     "tags": [
@@ -2283,7 +2280,7 @@
   },
   {
     "code": "const isEven = num => num % 2 === 0;",
-    "description": "Returns `true` if the given number is even, `false` otherwise.\n\n- Checks whether a number is odd or even using the modulo (`%`) operator.\n- Returns `true` if the number is even, `false` if the number is odd.",
+    "description": "Checks if the given number is even.\n\n- Checks whether a number is odd or even using the modulo (`%`) operator.\n- Returns `true` if the number is even, `false` if the number is odd.",
     "example": "isEven(3); // false",
     "id": "isEven",
     "tags": [
@@ -2304,7 +2301,7 @@
   },
   {
     "code": "const isGeneratorFunction = val =>\n  Object.prototype.toString.call(val) === '[object GeneratorFunction]';",
-    "description": "Checks if the given argument is a generator function.\n\n- Use `Object.prototype.toString()` and `Function.call()` and check if the result is `'[object GeneratorFunction]'`.",
+    "description": "Checks if the given argument is a generator function.\n\n- Use `Object.prototype.toString()` and `Function.prototype.call()` and check if the result is `'[object GeneratorFunction]'`.",
     "example": "isGeneratorFunction(function() {}); // false\nisGeneratorFunction(function*() {}); // true",
     "id": "isGeneratorFunction",
     "tags": [
@@ -2315,7 +2312,7 @@
   },
   {
     "code": "const isLeapYear = year => new Date(year, 1, 29).getMonth() === 1;",
-    "description": "Returns `true` if the given `year` is a leap year, `false` otherwise.\n\n- Use `new Date()`, setting the date to February 29th of the given `year` and use `Date.prototype.getMonth()` to check if the month is equal to `1`.",
+    "description": "Checks if the given `year` is a leap year.\n\n- Use `new Date()`, setting the date to February 29th of the given `year`.\n- Use `Date.prototype.getMonth()` to check if the month is equal to `1`.",
     "example": "isLeapYear(2019); // false\nisLeapYear(2020); // true",
     "id": "isLeapYear",
     "tags": [
@@ -2325,7 +2322,7 @@
   },
   {
     "code": "const isLowerCase = str => str === str.toLowerCase();",
-    "description": "Checks if a string is lower case.\n\n- Convert the given string to lower case, using `String.toLowerCase()` and compare it to the original.",
+    "description": "Checks if a string is lower case.\n\n- Convert the given string to lower case, using `String.prototype.toLowerCase()` and compare it to the original.",
     "example": "isLowerCase('abc'); // true\nisLowerCase('a3@$'); // true\nisLowerCase('Ab4'); // false",
     "id": "isLowerCase",
     "tags": [
@@ -2335,17 +2332,17 @@
   },
   {
     "code": "const isNegativeZero = val => val === 0 && 1 / val === -Infinity;",
-    "description": "Checks if the given value is equal to negative zero (`-0`).\n\n- Checks whether a passed value is equal to `0` and if `1` divided by the value equals `-Infinity`.",
+    "description": "Checks if the given value is equal to negative zero (`-0`).\n\n- Check whether a passed value is equal to `0` and if `1` divided by the value equals `-Infinity`.",
     "example": "isNegativeZero(-0); // true\nisNegativeZero(0); // false",
     "id": "isNegativeZero",
     "tags": [
       "math",
-      "beginner"
+      "intermediate"
     ]
   },
   {
     "code": "const isNil = val => val === undefined || val === null;",
-    "description": "Returns `true` if the specified value is `null` or `undefined`, `false` otherwise.\n\n- Use the strict equality operator to check if the value of `val` is equal to `null` or `undefined`.",
+    "description": "Checks if the specified value is `null` or `undefined`.\n\n- Use the strict equality operator to check if the value of `val` is equal to `null` or `undefined`.",
     "example": "isNil(null); // true\nisNil(undefined); // true\nisNil(''); // false",
     "id": "isNil",
     "tags": [
@@ -2360,12 +2357,13 @@
     "id": "isNode",
     "tags": [
       "node",
+      "browser",
       "intermediate"
     ]
   },
   {
     "code": "const isNull = val => val === null;",
-    "description": "Returns `true` if the specified value is `null`, `false` otherwise.\n\n- Use the strict equality operator to check if the value of `val` is equal to `null`.",
+    "description": "Checks if the specified value is `null`.\n\n- Use the strict equality operator to check if the value of `val` is equal to `null`.",
     "example": "isNull(null); // true",
     "id": "isNull",
     "tags": [
@@ -2386,7 +2384,7 @@
   },
   {
     "code": "const isObject = obj => obj === Object(obj);",
-    "description": "Returns a boolean determining if the passed value is an object or not.\n\n- Uses the  `Object` constructor to create an object wrapper for the given value.\n- If the value is `null` or `undefined`, create and return an empty object.\n- Οtherwise, return an object of a type that corresponds to the given value.",
+    "description": "Returns a boolean determining if the passed value is an object or not.\n\n- Uses the `Object` constructor to create an object wrapper for the given value.\n- If the value is `null` or `undefined`, create and return an empty object.\n- Οtherwise, return an object of a type that corresponds to the given value.",
     "example": "isObject([1, 2, 3, 4]); // true\nisObject([]); // true\nisObject(['Hello!']); // true\nisObject({ a: 1 }); // true\nisObject({}); // true\nisObject(true); // false",
     "id": "isObject",
     "tags": [
@@ -2408,7 +2406,7 @@
   },
   {
     "code": "const isOdd = num => num % 2 === 1;",
-    "description": "Returns `true` if the given number is odd, `false` otherwise.\n\n- Checks whether a number is odd or even using the modulo (`%`) operator.\n- Returns `true` if the number is odd, `false` if the number is even.",
+    "description": "Checks if the given number is odd.\n\n- Check whether a number is odd or even using the modulo (`%`) operator.\n- Return `true` if the number is odd, `false` if the number is even.",
     "example": "isOdd(3); // true",
     "id": "isOdd",
     "tags": [
@@ -2417,8 +2415,8 @@
     ]
   },
   {
-    "code": "const isPlainObject = val => !!val && typeof val === 'object' && val.constructor === Object;",
-    "description": "Checks if the provided value is an object created by the Object constructor.\n\n- Check if the provided value is truthy, use `typeof` to check if it is an object and `Object.constructor` to make sure the constructor is equal to `Object`.",
+    "code": "const isPlainObject = val =>\n  !!val && typeof val === 'object' && val.constructor === Object;",
+    "description": "Checks if the provided value is an object created by the Object constructor.\n\n- Check if the provided value is truthy.\n- Use `typeof` to check if it is an object and `Object.prototype.constructor` to make sure the constructor is equal to `Object`.",
     "example": "isPlainObject({ a: 1 }); // true\nisPlainObject(new Map()); // false",
     "id": "isPlainObject",
     "tags": [
@@ -2429,7 +2427,7 @@
   },
   {
     "code": "const isPowerOfTwo = n => !!n && (n & (n - 1)) == 0;",
-    "description": "Returns `true` if the given number is a power of `2`, `false` otherwise.\n\n- Use the bitwise binary AND operator (`&`) to determine if `n` is a power of `2`.\n- Additionally, check that `n` is not falsy.",
+    "description": "Checks if the given number is a power of `2`.\n\n- Use the bitwise binary AND operator (`&`) to determine if `n` is a power of `2`.\n- Additionally, check that `n` is not falsy.",
     "example": "isPowerOfTwo(0); // false\nisPowerOfTwo(1); // true\nisPowerOfTwo(8); // true",
     "id": "isPowerOfTwo",
     "tags": [
@@ -2459,7 +2457,7 @@
   },
   {
     "code": "const isPromiseLike = obj =>\n  obj !== null &&\n  (typeof obj === 'object' || typeof obj === 'function') &&\n  typeof obj.then === 'function';",
-    "description": "Returns `true` if an object looks like a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), `false` otherwise.\n\n- Check if the object is not `null`, its `typeof` matches either `object` or `function` and if it has a `.then` property, which is also a `function`.",
+    "description": "Checks if an object looks like a [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).\n\n- Check if the object is not `null`, its `typeof` matches either `object` or `function` and if it has a `.then` property, which is also a `function`.",
     "example": "isPromiseLike({\n  then: function() {\n    return '';\n  }\n}); // true\nisPromiseLike(null); // false\nisPromiseLike({}); // false",
     "id": "isPromiseLike",
     "tags": [
@@ -2471,7 +2469,7 @@
   },
   {
     "code": "const isReadableStream = val =>\n  val !== null &&\n  typeof val === 'object' &&\n  typeof val.pipe === 'function' &&\n  typeof val._read === 'function' &&\n  typeof val._readableState === 'object';",
-    "description": "Checks if the given argument is a readable stream.\n\n- Check if the value is different from `null`, use `typeof` to check if the value is of type `object` and the `pipe` property is of type `function`.\n- Additionally check if the `typeof` the `_read` and `_readableState` properties are `function` and `object` respectively.",
+    "description": "Checks if the given argument is a readable stream.\n\n- Check if the value is different from `null`.\n- Use `typeof` to check if the value is of type `object` and the `pipe` property is of type `function`.\n- Additionally check if the `typeof` the `_read` and `_readableState` properties are `function` and `object` respectively.",
     "example": "const fs = require('fs');\n\nisReadableStream(fs.createReadStream('test.txt')); // true",
     "id": "isReadableStream",
     "tags": [
@@ -2482,7 +2480,7 @@
   },
   {
     "code": "const isSameDate = (dateA, dateB) => dateA.toISOString() === dateB.toISOString();",
-    "description": "Check if a date is the same as another date.\n\n- Use `Date.prototype.toISOString()` and strict equality checking (`===`) to check if the first date is the same as the second one.",
+    "description": "Checks if a date is the same as another date.\n\n- Use `Date.prototype.toISOString()` and strict equality checking (`===`) to check if the first date is the same as the second one.",
     "example": "isSameDate(new Date(2010, 10, 20), new Date(2010, 10, 20)); // true",
     "id": "isSameDate",
     "tags": [
@@ -2492,7 +2490,7 @@
   },
   {
     "code": "const isSorted = arr => {\n  if (arr.length <= 1) return 0;\n  const direction = arr[1] - arr[0];\n  for (let i = 2; i < arr.length; i++) {\n    if ((arr[i] - arr[i - 1]) * direction < 0) return 0;\n  }\n  return Math.sign(direction);\n};",
-    "description": "Returns `1` if a numeric array is sorted in ascending order, `-1` if it is sorted in descending order or `0` if it is not sorted.\n\n- Calculate the ordering `direction` for the first pair of adjacent array elements.\n- Return `0` if the given array is empty, only has one element or the `direction` changes for any pair of adjacent array elements.\n- Use `Math.sign()` to covert the final value of `direction` to `-1` or `1`.",
+    "description": "Checks if a numeric array is sorted.\n\n- Calculate the ordering `direction` for the first pair of adjacent array elements.\n- Return `0` if the given array is empty, only has one element or the `direction` changes for any pair of adjacent array elements.\n- Use `Math.sign()` to covert the final value of `direction` to `-1` (descending order) or `1` (ascending order).",
     "example": "isSorted([0, 1, 2, 2]); // 1\nisSorted([4, 3, 2]); // -1\nisSorted([4, 3, 5]); // 0\nisSorted([4]); // 0",
     "id": "isSorted",
     "tags": [
@@ -2501,8 +2499,8 @@
     ]
   },
   {
-    "code": "const isStream = val => val !== null && typeof val === 'object' && typeof val.pipe === 'function';",
-    "description": "Checks if the given argument is a stream.\n\n- Check if the value is different from `null`, use `typeof` to check if the value is of type `object` and the `pipe` property is of type `function`.",
+    "code": "const isStream = val =>\n  val !== null && typeof val === 'object' && typeof val.pipe === 'function';",
+    "description": "Checks if the given argument is a stream.\n\n- Check if the value is different from `null`.\n- Use `typeof` to check if the value is of type `object` and the `pipe` property is of type `function`.",
     "example": "const fs = require('fs');\n\nisStream(fs.createReadStream('test.txt')); // true",
     "id": "isStream",
     "tags": [
@@ -2513,7 +2511,7 @@
   },
   {
     "code": "const isString = val => typeof val === 'string';",
-    "description": "Checks if the given argument is a string. Only works for string primitives.\n\n- Use `typeof` to check if a value is classified as a string primitive.",
+    "description": "Checks if the given argument is a string.\nOnly works for string primitives.\n\n- Use `typeof` to check if a value is classified as a string primitive.",
     "example": "isString('10'); // true",
     "id": "isString",
     "tags": [
@@ -2534,7 +2532,7 @@
   },
   {
     "code": "const isTravisCI = () => 'TRAVIS' in process.env && 'CI' in process.env;",
-    "description": "Checks if the current environment is [Travis CI](https://travis-ci.org/).\n\n- Checks if the current environment has the `TRAVIS` and `CI` environment variables ([reference](https://docs.travis-ci.com/user/environment-variables/#Default-Environment-Variables)).",
+    "description": "Checks if the current environment is [Travis CI](https://travis-ci.org/).\n\n- Check if the current environment has the `TRAVIS` and `CI` environment variables ([reference](https://docs.travis-ci.com/user/environment-variables/#Default-Environment-Variables)).",
     "example": "isTravisCI(); // true (if code is running on Travis CI)",
     "id": "isTravisCI",
     "tags": [
@@ -2544,7 +2542,7 @@
   },
   {
     "code": "const isUndefined = val => val === undefined;",
-    "description": "Returns `true` if the specified value is `undefined`, `false` otherwise.\n\n- Use the strict equality operator to check if `val` is equal to `undefined`.",
+    "description": "Checks if the specified value is `undefined`.\n\n- Use the strict equality operator to check if `val` is equal to `undefined`.",
     "example": "isUndefined(undefined); // true",
     "id": "isUndefined",
     "tags": [
@@ -2574,7 +2572,7 @@
   },
   {
     "code": "const isWeekday = (d = new Date()) => d.getDay() % 6 !== 0;",
-    "description": "Results in a boolean representation of a specific date.\n\n- Pass the specific date object firstly.\n- Use `Date.getDay()` to check weekday by using a modulo operator and then returning a boolean.",
+    "description": "Checks if the given date is a weekday.\n\n- Use `Date.prototype.getDay()` to check weekday by using a modulo operator (`%`).\n- Omit the argument, `d`, to use the current date as default.",
     "example": "isWeekday(); // true (if current date is 2019-07-19)",
     "id": "isWeekday",
     "tags": [
@@ -2583,8 +2581,8 @@
     ]
   },
   {
-    "code": "const isWeekend = (d = new Date()) => {\n  return d.getDay() % 6 === 0;\n};",
-    "description": "Results in a boolean representation of a specific date.\n\n- Pass the specific date object firstly.\n- Use `Date.getDay()` to check weekend based on the day being returned as 0 - 6 using a modulo operation then return a boolean.",
+    "code": "const isWeekend = (d = new Date()) => d.getDay() % 6 === 0;",
+    "description": "Checks if the given date is a weekend.\n\n- Use `Date.prototype.getDay()` to check weekend by using a modulo operator (`%`).\n- Omit the argument, `d`, to use the current date as default.",
     "example": "isWeekend(); // 2018-10-19 (if current date is 2018-10-18)",
     "id": "isWeekend",
     "tags": [
@@ -2594,7 +2592,7 @@
   },
   {
     "code": "const isWritableStream = val =>\n  val !== null &&\n  typeof val === 'object' &&\n  typeof val.pipe === 'function' &&\n  typeof val._write === 'function' &&\n  typeof val._writableState === 'object';",
-    "description": "Checks if the given argument is a writable stream.\n\n- Check if the value is different from `null`, use `typeof` to check if the value is of type `object` and the `pipe` property is of type `function`.\n- Additionally check if the `typeof` the `_write` and `_writableState` properties are `function` and `object` respectively.",
+    "description": "Checks if the given argument is a writable stream.\n\n- Check if the value is different from `null`.\n- Use `typeof` to check if the value is of type `object` and the `pipe` property is of type `function`.\n- Additionally check if the `typeof` the `_write` and `_writableState` properties are `function` and `object` respectively.",
     "example": "const fs = require('fs');\n\nisWritableStream(fs.createWriteStream('test.txt')); // true",
     "id": "isWritableStream",
     "tags": [
@@ -2606,7 +2604,7 @@
   {
     "code": "const join = (arr, separator = ',', end = separator) =>\n  arr.reduce(\n    (acc, val, i) =>\n      i === arr.length - 2\n        ? acc + val + end\n        : i === arr.length - 1\n          ? acc + val\n          : acc + val + separator,\n    ''\n  );",
     "description": "Joins all elements of an array into a string and returns this string.\nUses a separator and an end separator.\n\n- Use `Array.prototype.reduce()` to combine elements into a string.\n- Omit the second argument, `separator`, to use a default separator of `','`.\n- Omit the third argument, `end`, to use the same value as `separator` by default.",
-    "example": "join(['pen', 'pineapple', 'apple', 'pen'], ',', '&'); // \"pen,pineapple,apple&pen\"\njoin(['pen', 'pineapple', 'apple', 'pen'], ','); // \"pen,pineapple,apple,pen\"\njoin(['pen', 'pineapple', 'apple', 'pen']); // \"pen,pineapple,apple,pen\"",
+    "example": "join(['pen', 'pineapple', 'apple', 'pen'], ',', '&'); // 'pen,pineapple,apple&pen'\njoin(['pen', 'pineapple', 'apple', 'pen'], ','); // 'pen,pineapple,apple,pen'\njoin(['pen', 'pineapple', 'apple', 'pen']); // 'pen,pineapple,apple,pen'",
     "id": "join",
     "tags": [
       "array",
@@ -2616,7 +2614,7 @@
   {
     "code": "const juxt = (...fns) => (...args) => [...fns].map(fn => [...args].map(fn));",
     "description": "Takes several functions as argument and returns a function that is the juxtaposition of those functions.\n\n- Use `Array.prototype.map()` to return a `fn` that can take a variable number of `args`.\n- When `fn` is called, return an array containing the result of applying each `fn` to the `args`.",
-    "example": "juxt(\n  x => x + 1,\n  x => x - 1,\n  x => x * 10\n)(1, 2, 3); // [[2,3,4],[0,1,2],[10,20,30]]\n\njuxt(\n  s => s.length,\n  s => s.split(\" \").join(\"-\")\n)(\"30 seconds of code\"); // [[18],['30-seconds-of-code']]",
+    "example": "juxt(\n  x => x + 1,\n  x => x - 1,\n  x => x * 10\n)(1, 2, 3); // [[2, 3, 4], [0, 1, 2], [10, 20, 30]]\njuxt(\n  s => s.length,\n  s => s.split(' ').join('-')\n)('30 seconds of code'); // [[18], ['30-seconds-of-code']]",
     "id": "juxt",
     "tags": [
       "function",
@@ -2635,7 +2633,7 @@
   },
   {
     "code": "const last = arr => (arr && arr.length ? arr[arr.length - 1] : undefined);",
-    "description": "Returns the last element in an array.\n\n- Check if `arr` is truthy and has a `length` property, use `arr.length - 1` to compute the index of the last element of the given array and return it, otherwise return `undefined`.",
+    "description": "Returns the last element in an array.\n\n- Check if `arr` is truthy and has a `length` property.\n- Use `Array.prototype.length - 1` to compute the index of the last element of the given array and return it, otherwise return `undefined`.",
     "example": "last([1, 2, 3]); // 3\nlast([]); // undefined\nlast(null); // undefined\nlast(undefined); // undefined",
     "id": "last",
     "tags": [
@@ -2661,12 +2659,12 @@
     "tags": [
       "math",
       "recursion",
-      "beginner"
+      "intermediate"
     ]
   },
   {
     "code": "const listenOnce = (el, evt, fn) => el.addEventListener(evt, fn, { once: true });",
-    "description": "Adds an event listener to an element that will only run the callback the first time the event is triggered.\n\n- Use `EventTarget.addEventListener()` to add an event listener to an element, using `{ once: true }` as options to only run the given callback once.",
+    "description": "Adds an event listener to an element that will only run the callback the first time the event is triggered.\n\n- Use `EventTarget.addEventListener()` to add an event listener to an element.\n- Use `{ once: true }` as options to only run the given callback once.",
     "example": "listenOnce(\n  document.getElementById('my-id'),\n  'click',\n  () => console.log('Hello world')\n); // 'Hello world' will only be logged on the first click",
     "id": "listenOnce",
     "tags": [
@@ -2687,7 +2685,7 @@
   },
   {
     "code": "const longestItem = (...vals) => vals.reduce((a, x) => (x.length > a.length ? x : a));",
-    "description": "Takes any number of iterable objects or objects with a `length` property and returns the longest one.\nIf multiple objects have the same length, the first one will be returned.\nReturns `undefined` if no arguments are provided.\n\n- Use `Array.prototype.reduce()`, comparing the `length` of objects to find the longest one.",
+    "description": "Takes any number of iterable objects or objects with a `length` property and returns the longest one.\n\n- Use `Array.prototype.reduce()`, comparing the `length` of objects to find the longest one.\n- If multiple objects have the same length, the first one will be returned.\n- Returns `undefined` if no arguments are provided.",
     "example": "longestItem('this', 'is', 'a', 'testcase'); // 'testcase'\nlongestItem(...['a', 'ab', 'abc']); // 'abc'\nlongestItem(...['a', 'ab', 'abc'], 'abcd'); // 'abcd'\nlongestItem([1, 2, 3], [1, 2], [1, 2, 3, 4, 5]); // [1, 2, 3, 4, 5]\nlongestItem([1, 2, 3], 'foobar'); // 'foobar'",
     "id": "longestItem",
     "tags": [
@@ -2697,7 +2695,7 @@
   },
   {
     "code": "const lowercaseKeys = obj =>\n  Object.keys(obj).reduce((acc, key) => {\n    acc[key.toLowerCase()] = obj[key];\n    return acc;\n  }, {});",
-    "description": "Creates a new object from the specified object, where all the keys are in lowercase.\n\n- Use `Object.keys()` and `Array.prototype.reduce()` to create a new object from the specified object.\n- Convert each key in the original object to lowercase, using `String.toLowerCase()`.",
+    "description": "Creates a new object from the specified object, where all the keys are in lowercase.\n\n- Use `Object.keys()` and `Array.prototype.reduce()` to create a new object from the specified object.\n- Convert each key in the original object to lowercase, using `String.prototype.toLowerCase()`.",
     "example": "const myObj = { Name: 'Adam', sUrnAME: 'Smith' };\nconst myObjLower = lowercaseKeys(myObj); // {name: 'Adam', surname: 'Smith'};",
     "id": "lowercaseKeys",
     "tags": [
@@ -2778,7 +2776,7 @@
   },
   {
     "code": "const matches = (obj, source) =>\n  Object.keys(source).every(key => obj.hasOwnProperty(key) && obj[key] === source[key]);",
-    "description": "Compares two objects to determine if the first one contains equivalent property values to the second one.\n\n- Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.hasOwnProperty()` and strict comparison to determine if all keys exist in the first object and have the same values.",
+    "description": "Compares two objects to determine if the first one contains equivalent property values to the second one.\n\n- Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.prototype.hasOwnProperty()` and strict comparison to determine if all keys exist in the first object and have the same values.",
     "example": "matches({ age: 25, hair: 'long', beard: true }, { hair: 'long', beard: true }); // true\nmatches({ hair: 'long', beard: true }, { age: 25, hair: 'long', beard: true }); // false",
     "id": "matches",
     "tags": [
@@ -2788,7 +2786,7 @@
   },
   {
     "code": "const matchesWith = (obj, source, fn) =>\n  Object.keys(source).every(key =>\n    obj.hasOwnProperty(key) && fn\n      ? fn(obj[key], source[key], key, obj, source)\n      : obj[key] == source[key]\n  );",
-    "description": "Compares two objects to determine if the first one contains equivalent property values to the second one, based on a provided function.\n\n- Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.hasOwnProperty()` and the provided function to determine if all keys exist in the first object and have equivalent values.\n- If no function is provided, the values will be compared using the equality operator.",
+    "description": "Compares two objects to determine if the first one contains equivalent property values to the second one, based on a provided function.\n\n- Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.prototype.hasOwnProperty()` and the provided function to determine if all keys exist in the first object and have equivalent values.\n- If no function is provided, the values will be compared using the equality operator.",
     "example": "const isGreeting = val => /^h(?:i|ello)$/.test(val);\nmatchesWith(\n  { greeting: 'hello' },\n  { greeting: 'hi' },\n  (oV, sV) => isGreeting(oV) && isGreeting(sV)\n); // true",
     "id": "matchesWith",
     "tags": [
@@ -3364,7 +3362,7 @@
   },
   {
     "code": "const prefersDarkColorScheme = () =>\n  window && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;",
-    "description": "Returns `true` if the user color scheme preference is `dark`, `false` otherwise.\n\n- Use `window.matchMedia()` with the appropriate media query to check the user color scheme preference.",
+    "description": "Returns `true` if the user color scheme preference is `dark`, `false` otherwise.\n\n- Use `Window.matchMedia()` with the appropriate media query to check the user color scheme preference.",
     "example": "prefersDarkColorScheme(); // true",
     "id": "prefersDarkColorScheme",
     "tags": [
@@ -3374,7 +3372,7 @@
   },
   {
     "code": "const prefersLightColorScheme = () =>\n  window && window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;",
-    "description": "Returns `true` if the user color scheme preference is `light`, `false` otherwise.\n\n- Use `window.matchMedia()` with the appropriate media query to check the user color scheme preference.",
+    "description": "Returns `true` if the user color scheme preference is `light`, `false` otherwise.\n\n- Use `Window.matchMedia()` with the appropriate media query to check the user color scheme preference.",
     "example": "prefersLightColorScheme(); // true",
     "id": "prefersLightColorScheme",
     "tags": [
@@ -3384,7 +3382,7 @@
   },
   {
     "code": "const prefix = prop => {\n  const capitalizedProp = prop.charAt(0).toUpperCase() + prop.slice(1);\n  const prefixes = ['', 'webkit', 'moz', 'ms', 'o'];\n  const i = prefixes.findIndex(\n    prefix => typeof document.body.style[prefix ? prefix + capitalizedProp : prop] !== 'undefined'\n  );\n  return i !== -1 ? (i === 0 ? prop : prefixes[i] + capitalizedProp) : null;\n};",
-    "description": "Returns the prefixed version (if necessary) of a CSS property that the browser supports.\n\n- Use `Array.prototype.findIndex()` on an array of vendor prefix strings to test if `document.body` has one of them defined in its `CSSStyleDeclaration` object, otherwise return `null`.\n- Use `String.prototype.charAt()` and `String.prototype.toUpperCase()` to capitalize the property, which will be appended to the vendor prefix string.",
+    "description": "Returns the prefixed version (if necessary) of a CSS property that the browser supports.\n\n- Use `Array.prototype.findIndex()` on an array of vendor prefix strings to test if `Document.body` has one of them defined in its `CSSStyleDeclaration` object, otherwise return `null`.\n- Use `String.prototype.charAt()` and `String.prototype.toUpperCase()` to capitalize the property, which will be appended to the vendor prefix string.",
     "example": "prefix('appearance'); // 'appearance' on a supported browser, otherwise 'webkitAppearance', 'mozAppearance', 'msAppearance' or 'oAppearance'",
     "id": "prefix",
     "tags": [
@@ -3394,8 +3392,8 @@
   },
   {
     "code": "const prettyBytes = (num, precision = 3, addSpace = true) => {\n  const UNITS = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];\n  if (Math.abs(num) < 1) return num + (addSpace ? ' ' : '') + UNITS[0];\n  const exponent = Math.min(Math.floor(Math.log10(num < 0 ? -num : num) / 3), UNITS.length - 1);\n  const n = Number(((num < 0 ? -num : num) / 1000 ** exponent).toPrecision(precision));\n  return (num < 0 ? '-' : '') + n + (addSpace ? ' ' : '') + UNITS[exponent];\n};",
-    "description": "Converts a number in bytes to a human-readable string.\n\n- Use an array dictionary of units to be accessed based on the exponent.\n- Use `Number.toPrecision()` to truncate the number to a certain number of digits.\n- Return the prettified string by building it up, taking into account the supplied options and whether it is negative or not.\n- Omit the second argument, `precision`, to use a default precision of `3` digits.\n- Omit the third argument, `addSpace`, to add space between the number and unit by default.",
-    "example": "prettyBytes(1000); // \"1 KB\"\nprettyBytes(-27145424323.5821, 5); // \"-27.145 GB\"\nprettyBytes(123456789, 3, false); // \"123MB\"",
+    "description": "Converts a number in bytes to a human-readable string.\n\n- Use an array dictionary of units to be accessed based on the exponent.\n- Use `Number.prototype.toPrecision()` to truncate the number to a certain number of digits.\n- Return the prettified string by building it up, taking into account the supplied options and whether it is negative or not.\n- Omit the second argument, `precision`, to use a default precision of `3` digits.\n- Omit the third argument, `addSpace`, to add space between the number and unit by default.",
+    "example": "prettyBytes(1000); // '1 KB'\nprettyBytes(-27145424323.5821, 5); // '-27.145 GB'\nprettyBytes(123456789, 3, false); // '123MB'",
     "id": "prettyBytes",
     "tags": [
       "string",
@@ -3509,7 +3507,7 @@
   {
     "code": "const randomHexColorCode = () => {\n  let n = (Math.random() * 0xfffff * 1000000).toString(16);\n  return '#' + n.slice(0, 6);\n};",
     "description": "Generates a random hexadecimal color code.\n\n- Use `Math.random` to generate a random 24-bit(6x4bits) hexadecimal number.\n- Use bit shifting and then convert it to an hexadecimal String using `toString(16)`.",
-    "example": "randomHexColorCode(); // \"#e34155\"",
+    "example": "randomHexColorCode(); // '#e34155'",
     "id": "randomHexColorCode",
     "tags": [
       "math",
@@ -3583,7 +3581,7 @@
   },
   {
     "code": "const recordAnimationFrames = (callback, autoStart = true) => {\n  let running = false,\n    raf;\n  const stop = () => {\n    if (!running) return;\n    running = false;\n    cancelAnimationFrame(raf);\n  };\n  const start = () => {\n    if (running) return;\n    running = true;\n    run();\n  };\n  const run = () => {\n    raf = requestAnimationFrame(() => {\n      callback();\n      if (running) run();\n    });\n  };\n  if (autoStart) start();\n  return { start, stop };\n};",
-    "description": "Invokes the provided callback on each animation frame.\n\n- Use recursion.\n- Provided that `running` is `true`, continue invoking `window.requestAnimationFrame()` which invokes the provided callback.\n- Return an object with two methods `start` and `stop` to allow manual control of the recording.\n- Omit the second argument, `autoStart`, to implicitly call `start` when the function is invoked.",
+    "description": "Invokes the provided callback on each animation frame.\n\n- Use recursion.\n- Provided that `running` is `true`, continue invoking `Window.requestAnimationFrame()` which invokes the provided callback.\n- Return an object with two methods `start` and `stop` to allow manual control of the recording.\n- Omit the second argument, `autoStart`, to implicitly call `start` when the function is invoked.",
     "example": "const cb = () => console.log('Animation frame fired');\nconst recorder = recordAnimationFrames(cb); // logs 'Animation frame fired' on each animation frame\nrecorder.stop(); // stops logging\nrecorder.start(); // starts again\nconst recorder2 = recordAnimationFrames(cb, false); // `start` needs to be explicitly called to begin recording frames",
     "id": "recordAnimationFrames",
     "tags": [
@@ -3593,7 +3591,7 @@
   },
   {
     "code": "const redirect = (url, asLink = true) =>\n  asLink ? (window.location.href = url) : window.location.replace(url);",
-    "description": "Redirects to a specified URL.\n\n- Use `window.location.href` or `window.location.replace()` to redirect to `url`.\n- Pass a second argument to simulate a link click (`true` - default) or an HTTP redirect (`false`).",
+    "description": "Redirects to a specified URL.\n\n- Use `Window.location.href` or `Window.location.replace()` to redirect to `url`.\n- Pass a second argument to simulate a link click (`true` - default) or an HTTP redirect (`false`).",
     "example": "redirect('https://google.com');",
     "id": "redirect",
     "tags": [
@@ -3614,7 +3612,7 @@
   {
     "code": "const reduceWhich = (arr, comparator = (a, b) => a - b) =>\n  arr.reduce((a, b) => (comparator(a, b) >= 0 ? b : a));",
     "description": "Returns the minimum/maximum value of an array, after applying the provided function to set comparing rule.\n\n- Use `Array.prototype.reduce()` in combination with the `comparator` function to get the appropriate element in the array.\n- You can omit the second parameter, `comparator`, to use the default one that returns the minimum element in the array.",
-    "example": "reduceWhich([1, 3, 2]); // 1\nreduceWhich([1, 3, 2], (a, b) => b - a); // 3\nreduceWhich(\n  [{ name: 'Tom', age: 12 }, { name: 'Jack', age: 18 }, { name: 'Lucy', age: 9 }],\n  (a, b) => a.age - b.age\n); // {name: \"Lucy\", age: 9}",
+    "example": "reduceWhich([1, 3, 2]); // 1\nreduceWhich([1, 3, 2], (a, b) => b - a); // 3\nreduceWhich(\n  [{ name: 'Tom', age: 12 }, { name: 'Jack', age: 18 }, { name: 'Lucy', age: 9 }],\n  (a, b) => a.age - b.age\n); // {name: 'Lucy', age: 9}",
     "id": "reduceWhich",
     "tags": [
       "array",
@@ -3652,7 +3650,7 @@
     ]
   },
   {
-    "code": "const removeAccents = str => str.normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\");",
+    "code": "const removeAccents = str => str.normalize('NFD').replace(/[\\u0300-\\u036f]/g, '');",
     "description": "Removes accents from strings.\n\n- Use `String.prototype.normalize()` to convert the string to a normalized Unicode format.\n- Use `String.prototype.replace()` to replace diacritical marks in the given Unicode range by empty strings.",
     "example": "removeAccents('Antoine de Saint-Exupéry'); // 'Antoine de Saint-Exupery'",
     "id": "removeAccents",
@@ -3803,7 +3801,7 @@
   },
   {
     "code": "const scrollToTop = () => {\n  const c = document.documentElement.scrollTop || document.body.scrollTop;\n  if (c > 0) {\n    window.requestAnimationFrame(scrollToTop);\n    window.scrollTo(0, c - c / 8);\n  }\n};",
-    "description": "Smooth-scrolls to the top of the page.\n\n- Get distance from top using `document.documentElement.scrollTop` or `document.body.scrollTop`.\n- Scroll by a fraction of the distance from the top.\n- Use `window.requestAnimationFrame()` to animate the scrolling.",
+    "description": "Smooth-scrolls to the top of the page.\n\n- Get distance from top using `Document.documentElement` or `Document.body` and `Element.scrollTop`.\n- Scroll by a fraction of the distance from the top.\n- Use `Window.requestAnimationFrame()` to animate the scrolling.",
     "example": "scrollToTop();",
     "id": "scrollToTop",
     "tags": [
@@ -3834,7 +3832,7 @@
   },
   {
     "code": "const serializeForm = form =>\n  Array.from(new FormData(form), field => field.map(encodeURIComponent).join('=')).join('&');",
-    "description": "Encode a set of form elements as a query string.\n\n- Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.from()` to convert to an array, passing a map function as the second argument.\n- Use `Array.prototype.map()` and `window.encodeURIComponent()` to encode each field's value.\n- Use `Array.prototype.join()` with appropriate argumens to produce an appropriate query string.",
+    "description": "Encode a set of form elements as a query string.\n\n- Use the `FormData` constructor to convert the HTML `form` to `FormData`, `Array.from()` to convert to an array, passing a map function as the second argument.\n- Use `Array.prototype.map()` and `encodeURIComponent()` to encode each field's value.\n- Use `Array.prototype.join()` with appropriate argumens to produce an appropriate query string.",
     "example": "serializeForm(document.querySelector('#form')); // email=test%40email.com&name=Test%20Name",
     "id": "serializeForm",
     "tags": [
@@ -3953,7 +3951,7 @@
   },
   {
     "code": "const sortCharactersInString = str => [...str].sort((a, b) => a.localeCompare(b)).join('');",
-    "description": "Alphabetically sorts the characters in a string.\n\n- Use the spread operator (`...`), `Array.prototype.sort()` and  `String.localeCompare()` to sort the characters in `str`, recombine using `String.prototype.join('')`.",
+    "description": "Alphabetically sorts the characters in a string.\n\n- Use the spread operator (`...`), `Array.prototype.sort()` and  `String.prototype.localeCompare()` to sort the characters in `str`, recombine using `String.prototype.join('')`.",
     "example": "sortCharactersInString('cabbage'); // 'aabbceg'",
     "id": "sortCharactersInString",
     "tags": [
@@ -4141,13 +4139,13 @@
     ]
   },
   {
-    "code": "const supportsTouchEvents = () =>\n  window &&\n  ('ontouchstart' in window || window.DocumentTouch && document instanceof window.DocumentTouch);",
-    "description": "Returns `true` if touch events are supported, `false` otherwise.\n\n- Check if `ontouchstart` exists in `window` or `window.DocumentTouch` is true and the current `document` is an instance of it.",
+    "code": "const supportsTouchEvents = () =>\n  window && 'ontouchstart' in window;",
+    "description": "Checks if touch events are supported.\n\n- Check if `ontouchstart` exists in `window`.",
     "example": "supportsTouchEvents(); // true",
     "id": "supportsTouchEvents",
     "tags": [
       "browser",
-      "intermediate"
+      "beginner"
     ]
   },
   {
@@ -4253,7 +4251,7 @@
   },
   {
     "code": "const times = (n, fn, context = undefined) => {\n  let i = 0;\n  while (fn.call(context, i) !== false && ++i < n) {}\n};",
-    "description": "Iterates over a callback `n` times\n\n- Use `Function.call()` to call `fn` `n` times or until it returns `false`.\n- Omit the last argument, `context`, to use an `undefined` object (or the global object in non-strict mode).",
+    "description": "Iterates over a callback `n` times\n\n- Use `Function.prototype.call()` to call `fn` `n` times or until it returns `false`.\n- Omit the last argument, `context`, to use an `undefined` object (or the global object in non-strict mode).",
     "example": "var output = '';\ntimes(5, i => (output += i));\nconsole.log(output); // 01234",
     "id": "times",
     "tags": [
@@ -4296,7 +4294,7 @@
   {
     "code": "const toDecimalMark = num => num.toLocaleString('en-US');",
     "description": "Converts a number to a decimal mark formatted string.\n\n- Use `Number.prototype.toLocaleString()` to convert the numbre to decimal mark format.",
-    "example": "toDecimalMark(12305030388.9087); // \"12,305,030,388.909\"",
+    "example": "toDecimalMark(12305030388.9087); // '12,305,030,388.909'",
     "id": "toDecimalMark",
     "tags": [
       "math",
@@ -4318,7 +4316,7 @@
   {
     "code": "const toHSLObject = hslStr => {\n  const [hue, saturation, lightness] = hslStr.match(/\\d+/g).map(Number);\n  return { hue, saturation, lightness };\n};",
     "description": "Converts an `hsl()` color string to an object with the values of each color.\n\n- Use `String.prototype.match()` to get an array of 3 string with the numeric values.\n- Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values.\n- Use array destructuring to store the values into named variables and create an appropriate object from them.",
-    "example": "toHSLObject(\"hsl(50,10%,10%)\"); // { hue: 50, saturation: 10, lightness: 10 }",
+    "example": "toHSLObject('hsl(50,10%,10%)'); // { hue: 50, saturation: 10, lightness: 10 }",
     "id": "toHSLObject",
     "tags": [
       "string",
@@ -4330,7 +4328,7 @@
   {
     "code": "const toHash = (object, key) =>\n  Array.prototype.reduce.call(\n    object,\n    (acc, data, index) => ((acc[!key ? index : data[key]] = data), acc),\n    {}\n  );",
     "description": "Reduces a given Array-like into a value hash (keyed data store).\n\n- Given an Iterable or Array-like structure, call `Array.prototype.reduce.call()` on the provided object to step over it and return an Object, keyed by the reference value.",
-    "example": "toHash([4, 3, 2, 1]); // { 0: 4, 1: 3, 2: 2, 3: 1 }\ntoHash([{ a: 'label' }], 'a'); // { label: { a: 'label' } }\n// A more in depth example:\nlet users = [{ id: 1, first: 'Jon' }, { id: 2, first: 'Joe' }, { id: 3, first: 'Moe' }];\nlet managers = [{ manager: 1, employees: [2, 3] }];\n// We use function here because we want a bindable reference, but a closure referencing the hash would work, too.\nmanagers.forEach(\n  manager =>\n    (manager.employees = manager.employees.map(function(id) {\n      return this[id];\n    }, toHash(users, 'id')))\n);\nmanagers; // [ { manager:1, employees: [ { id: 2, first: \"Joe\" }, { id: 3, first: \"Moe\" } ] } ]",
+    "example": "toHash([4, 3, 2, 1]); // { 0: 4, 1: 3, 2: 2, 3: 1 }\ntoHash([{ a: 'label' }], 'a'); // { label: { a: 'label' } }\n// A more in depth example:\nlet users = [{ id: 1, first: 'Jon' }, { id: 2, first: 'Joe' }, { id: 3, first: 'Moe' }];\nlet managers = [{ manager: 1, employees: [2, 3] }];\n// We use function here because we want a bindable reference, but a closure referencing the hash would work, too.\nmanagers.forEach(\n  manager =>\n    (manager.employees = manager.employees.map(function(id) {\n      return this[id];\n    }, toHash(users, 'id')))\n);\nmanagers; // [ { manager:1, employees: [ { id: 2, first: 'Joe' }, { id: 3, first: 'Moe' } ] } ]",
     "id": "toHash",
     "tags": [
       "array",
@@ -4340,7 +4338,7 @@
   {
     "code": "const toISOStringWithTimezone = date => {\n  const tzOffset = -date.getTimezoneOffset();\n  const diff = tzOffset >= 0 ? '+' : '-';\n  const pad = n => \\`\\${Math.floor(Math.abs(n))}\\`.padStart(2, '0');\n  return date.getFullYear() +\n    '-' + pad(date.getMonth() + 1) +\n    '-' + pad(date.getDate()) +\n    'T' + pad(date.getHours()) +\n    ':' + pad(date.getMinutes()) +\n    ':' + pad(date.getSeconds()) +\n    diff + pad(tzOffset / 60) +\n    ':' + pad(tzOffset % 60);\n};",
     "description": "Returns a string in simplified extended ISO format (ISO 8601), including timezone offset.\n\n- Use `Date.prototype.getTimezoneOffset()` to get the timezone offset and reverse it, storing its sign in `diff`.\n- Define a helper function, `pad`, that normalizes any passed number to an integer using `Math.floor()` and `Math.abs()` and pads it to 2 digits, using `String.prototype.padStart()`.\n- Use `pad` and the built-in methods in the `Date` prototype to build the ISO 8601 string with timezone offset.",
-    "example": "toISOStringWithTimezone(new Date()); // \"2020-10-06T20:43:33-04:00\"",
+    "example": "toISOStringWithTimezone(new Date()); // '2020-10-06T20:43:33-04:00'",
     "id": "toISOStringWithTimezone",
     "tags": [
       "date",
@@ -4351,7 +4349,7 @@
   {
     "code": "const toKebabCase = str =>\n  str &&\n  str\n    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)\n    .map(x => x.toLowerCase())\n    .join('-');",
     "description": "Converts a string to kebab case.\n\n- Break the string into words and combine them adding `-` as a separator, using a regexp.",
-    "example": "toKebabCase('camelCase'); // 'camel-case'\ntoKebabCase('some text'); // 'some-text'\ntoKebabCase('some-mixed_string With spaces_underscores-and-hyphens'); // 'some-mixed-string-with-spaces-underscores-and-hyphens'\ntoKebabCase('AllThe-small Things'); // \"all-the-small-things\"\ntoKebabCase('IAmListeningToFMWhileLoadingDifferentURLOnMyBrowserAndAlsoEditingSomeXMLAndHTML'); // \"i-am-listening-to-fm-while-loading-different-url-on-my-browser-and-also-editing-xml-and-html\"",
+    "example": "toKebabCase('camelCase'); // 'camel-case'\ntoKebabCase('some text'); // 'some-text'\ntoKebabCase('some-mixed_string With spaces_underscores-and-hyphens'); // 'some-mixed-string-with-spaces-underscores-and-hyphens'\ntoKebabCase('AllThe-small Things'); // 'all-the-small-things'\ntoKebabCase('IAmListeningToFMWhileLoadingDifferentURLOnMyBrowserAndAlsoEditingSomeXMLAndHTML'); // 'i-am-listening-to-fm-while-loading-different-url-on-my-browser-and-also-editing-xml-and-html'",
     "id": "toKebabCase",
     "tags": [
       "string",
@@ -4362,7 +4360,7 @@
   {
     "code": "const toOrdinalSuffix = num => {\n  const int = parseInt(num),\n    digits = [int % 10, int % 100],\n    ordinals = ['st', 'nd', 'rd', 'th'],\n    oPattern = [1, 2, 3, 4],\n    tPattern = [11, 12, 13, 14, 15, 16, 17, 18, 19];\n  return oPattern.includes(digits[0]) && !tPattern.includes(digits[1])\n    ? int + ordinals[digits[0] - 1]\n    : int + ordinals[3];\n};",
     "description": "Adds an ordinal suffix to a number.\n\n- Use the modulo operator (`%`) to find values of single and tens digits.\n- Find which ordinal pattern digits match.\n- If digit is found in teens pattern, use teens ordinal.",
-    "example": "toOrdinalSuffix('123'); // \"123rd\"",
+    "example": "toOrdinalSuffix('123'); // '123rd'",
     "id": "toOrdinalSuffix",
     "tags": [
       "math",
@@ -4395,7 +4393,7 @@
   {
     "code": "const toRGBObject = rgbStr => {\n  const [red, green, blue] = rgbStr.match(/\\d+/g).map(Number);\n  return { red, green, blue };\n};",
     "description": "Converts an `rgb()` color string to an object with the values of each color.\n\n- Use `String.prototype.match()` to get an array of 3 string with the numeric values.\n- Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values.\n- Use array destructuring to store the values into named variables and create an appropriate object from them.",
-    "example": "toRGBObject(\"rgb(255,12,0)\"); // {red: 255, green: 12, blue: 0}",
+    "example": "toRGBObject('rgb(255,12,0)'); // {red: 255, green: 12, blue: 0}",
     "id": "toRGBObject",
     "tags": [
       "string",
@@ -4428,7 +4426,7 @@
   {
     "code": "const toSnakeCase = str =>\n  str &&\n  str\n    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)\n    .map(x => x.toLowerCase())\n    .join('_');",
     "description": "Converts a string to snake case.\n\n- Break the string into words and combine them adding `_` as a separator, using a regexp.",
-    "example": "toSnakeCase('camelCase'); // 'camel_case'\ntoSnakeCase('some text'); // 'some_text'\ntoSnakeCase('some-mixed_string With spaces_underscores-and-hyphens'); // 'some_mixed_string_with_spaces_underscores_and_hyphens'\ntoSnakeCase('AllThe-small Things'); // \"all_the_small_things\"\ntoSnakeCase('IAmListeningToFMWhileLoadingDifferentURLOnMyBrowserAndAlsoEditingSomeXMLAndHTML'); // \"i_am_listening_to_fm_while_loading_different_url_on_my_browser_and_also_editing_some_xml_and_html\"",
+    "example": "toSnakeCase('camelCase'); // 'camel_case'\ntoSnakeCase('some text'); // 'some_text'\ntoSnakeCase('some-mixed_string With spaces_underscores-and-hyphens'); // 'some_mixed_string_with_spaces_underscores_and_hyphens'\ntoSnakeCase('AllThe-small Things'); // 'all_the_small_things'\ntoSnakeCase('IAmListeningToFMWhileLoadingDifferentURLOnMyBrowserAndAlsoEditingSomeXMLAndHTML'); // \n'i_am_listening_to_fm_while_loading_different_url_on_my_browser_and_also_editing_some_xml_and_html'",
     "id": "toSnakeCase",
     "tags": [
       "string",
@@ -4459,7 +4457,7 @@
   },
   {
     "code": "const tomorrow = () => {\n  let d = new Date();\n  d.setDate(d.getDate() + 1);\n  return d.toISOString().split('T')[0];\n};",
-    "description": "Results in a string representation of tomorrow's date.\n\n- Use `new Date()` to get the current date, increment by one using `Date.getDate()` and set the value to the result using `Date.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
+    "description": "Results in a string representation of tomorrow's date.\n\n- Use `new Date()` to get the current date, increment by one using `Date.prototype.getDate()` and set the value to the result using `Date.prototype.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "tomorrow(); // 2018-10-19 (if current date is 2018-10-18)",
     "id": "tomorrow",
     "tags": [
@@ -4760,7 +4758,7 @@
   {
     "code": "const words = (str, pattern = /[^a-zA-Z-]+/) => str.split(pattern).filter(Boolean);",
     "description": "Converts a given string into an array of words.\n\n- Use `String.prototype.split()` with a supplied pattern (defaults to non-alpha as a regexp) to convert to an array of strings.\n- Use `Array.prototype.filter()` to remove any empty strings.\n- Omit the second argument to use the default regexp.",
-    "example": "words('I love javaScript!!'); // [\"I\", \"love\", \"javaScript\"]\nwords('python, javaScript & coffee'); // [\"python\", \"javaScript\", \"coffee\"]",
+    "example": "words('I love javaScript!!'); // ['I', 'love', 'javaScript']\nwords('python, javaScript & coffee'); // ['python', 'javaScript', 'coffee']",
     "id": "words",
     "tags": [
       "string",
@@ -4792,7 +4790,7 @@
   },
   {
     "code": "const yesNo = (val, def = false) =>\n  /^(y|yes)$/i.test(val) ? true : /^(n|no)$/i.test(val) ? false : def;",
-    "description": "Returns `true` if the string is `y`/`yes` or `false` if the string is `n`/`no`.\n\n- Use `RegExp.test()` to check if the string evaluates to `y/yes` or `n/no`.\n- Omit the second argument, `def` to set the default answer as `no`.",
+    "description": "Returns `true` if the string is `y`/`yes` or `false` if the string is `n`/`no`.\n\n- Use `RegExp.prototype.test()` to check if the string evaluates to `y/yes` or `n/no`.\n- Omit the second argument, `def` to set the default answer as `no`.",
     "example": "yesNo('Y'); // true\nyesNo('yes'); // true\nyesNo('No'); // false\nyesNo('Foo', true); // true",
     "id": "yesNo",
     "tags": [
@@ -4803,7 +4801,7 @@
   },
   {
     "code": "const yesterday = () => {\n  let d = new Date();\n  d.setDate(d.getDate() - 1);\n  return d.toISOString().split('T')[0];\n};",
-    "description": "Results in a string representation of yesterday's date.\n\n- Use `new Date()` to get the current date, decrement by one using `Date.getDate()` and set the value to the result using `Date.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
+    "description": "Results in a string representation of yesterday's date.\n\n- Use `new Date()` to get the current date, decrement by one using `Date.prototype.getDate()` and set the value to the result using `Date.prototype.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "yesterday(); // 2018-10-17 (if current date is 2018-10-18)",
     "id": "yesterday",
     "tags": [
