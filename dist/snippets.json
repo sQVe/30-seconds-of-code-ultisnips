@@ -325,7 +325,7 @@
   },
   {
     "code": "const average = (...nums) => nums.reduce((acc, val) => acc + val, 0) / nums.length;",
-    "description": "Calculates the average of two or more numbers.\n\n- Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`, divide by the `length` of the array.",
+    "description": "Calculates the average of two or more numbers.\n\n- Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`.\n- Divide the resulting array by its length.",
     "example": "average(...[1, 2, 3]); // 2\naverage(1, 2, 3); // 2",
     "id": "average",
     "tags": [
@@ -335,8 +335,8 @@
     ]
   },
   {
-    "code": "const averageBy = (arr, fn) =>\n  arr.map(typeof fn === 'function' ? fn : val => val[fn]).reduce((acc, val) => acc + val, 0) /\n  arr.length;",
-    "description": "Calculates the average of an array, after mapping each element to a value using the provided function.\n\n- Use `Array.prototype.map()` to map each element to the value returned by `fn`.\n- Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`, divide by the `length` of the array.",
+    "code": "const averageBy = (arr, fn) =>\n  arr\n    .map(typeof fn === 'function' ? fn : val => val[fn])\n    .reduce((acc, val) => acc + val, 0) / arr.length;",
+    "description": "Calculates the average of an array, after mapping each element to a value using the provided function.\n\n- Use `Array.prototype.map()` to map each element to the value returned by `fn`.\n- Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`.\n- Divide the resulting array by its length.",
     "example": "averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], o => o.n); // 5\naverageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 5",
     "id": "averageBy",
     "tags": [
@@ -905,7 +905,7 @@
     "tags": [
       "object",
       "recursion",
-      "intermediate"
+      "advanced"
     ]
   },
   {
@@ -1431,7 +1431,7 @@
   {
     "code": "const fromCamelCase = (str, separator = '_') =>\n  str\n    .replace(/([a-z\\d])([A-Z])/g, '$1' + separator + '$2')\n    .replace(/([A-Z]+)([A-Z][a-z\\d]+)/g, '$1' + separator + '$2')\n    .toLowerCase();",
     "description": "Converts a string from camelcase.\n\n- Use `String.prototype.replace()` to break the string into words and add a `separator` between them.\n- Omit the second argument to use a default `separator` of `_`.",
-    "example": "fromCamelCase('someDatabaseFieldName', ' '); // 'some database field name'\nfromCamelCase('someLabelThatNeedsToBeDecamelized', '-'); // 'some-label-that-needs-to-be-decamelized'\nfromCamelCase('someJavascriptProperty', '_'); // 'some_javascript_property'",
+    "example": "fromCamelCase('someDatabaseFieldName', ' '); // 'some database field name'\nfromCamelCase('someLabelThatNeedsToBeDecamelized', '-'); // 'some-label-that-needs-to-be-decamelized'\nfromCamelCase('someJavascriptProperty', '_'); // 'some_javascript_property'\nfromCamelCase('JSONToCSV', '.'); // 'json.to.csv'",
     "id": "fromCamelCase",
     "tags": [
       "string",
@@ -1944,7 +1944,7 @@
     ]
   },
   {
-    "code": "const initializeArrayWithRange = (end, start = 0, step = 1) =>\n  Array.from({ length: Math.ceil((end - start + 1) / step) }, (v, i) => i * step + start);",
+    "code": "const initializeArrayWithRange = (end, start = 0, step = 1) =>\n  Array.from({ length: Math.ceil((end - start + 1) / step) }, (_, i) => i * step + start);",
     "description": "Initializes an array containing the numbers in the specified range where `start` and `end` are inclusive with their common difference `step`.\n\n- Use `Array.from()` to create an array of the desired length.\n- Use `(end - start + 1)/step` and a map function to fill the array with the desired values in the given range.\n- Omit the second argument, `start`, to use a default value of `0`.\n- Omit the last argument, `step`, to use a default value of `1`.",
     "example": "initializeArrayWithRange(5); // [0, 1, 2, 3, 4, 5]\ninitializeArrayWithRange(7, 3); // [3, 4, 5, 6, 7]\ninitializeArrayWithRange(9, 0, 2); // [0, 2, 4, 6, 8]",
     "id": "initializeArrayWithRange",
@@ -2685,7 +2685,7 @@
   },
   {
     "code": "const longestItem = (...vals) => vals.reduce((a, x) => (x.length > a.length ? x : a));",
-    "description": "Takes any number of iterable objects or objects with a `length` property and returns the longest one.\n\n- Use `Array.prototype.reduce()`, comparing the `length` of objects to find the longest one.\n- If multiple objects have the same length, the first one will be returned.\n- Returns `undefined` if no arguments are provided.",
+    "description": "Takes any number of iterable objects or objects with a `length` property and returns the longest one.\n\n- Use `Array.prototype.reduce()`, comparing the length of objects to find the longest one.\n- If multiple objects have the same length, the first one will be returned.\n- Returns `undefined` if no arguments are provided.",
     "example": "longestItem('this', 'is', 'a', 'testcase'); // 'testcase'\nlongestItem(...['a', 'ab', 'abc']); // 'abc'\nlongestItem(...['a', 'ab', 'abc'], 'abcd'); // 'abcd'\nlongestItem([1, 2, 3], [1, 2], [1, 2, 3, 4, 5]); // [1, 2, 3, 4, 5]\nlongestItem([1, 2, 3], 'foobar'); // 'foobar'",
     "id": "longestItem",
     "tags": [
@@ -2715,7 +2715,7 @@
   },
   {
     "code": "const mapKeys = (obj, fn) =>\n  Object.keys(obj).reduce((acc, k) => {\n    acc[fn(obj[k], k, obj)] = obj[k];\n    return acc;\n  }, {});",
-    "description": "Creates an object with keys generated by running the provided function for each key and the same values as the provided object.\n\n- Use `Object.keys(obj)` to iterate over the object's keys.\n- Use `Array.prototype.reduce()` to create a new object with the same values and mapped keys using `fn`.",
+    "description": "Maps the keys of an object using the provided function, generating a new object.\n\n- Use `Object.keys()` to iterate over the object's keys.\n- Use `Array.prototype.reduce()` to create a new object with the same values and mapped keys using `fn`.",
     "example": "mapKeys({ a: 1, b: 2 }, (val, key) => key + val); // { a1: 1, b2: 2 }",
     "id": "mapKeys",
     "tags": [
@@ -2725,7 +2725,7 @@
   },
   {
     "code": "const mapNumRange = (num, inMin, inMax, outMin, outMax) =>\n  ((num - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;",
-    "description": "Maps a number from one range to another range.\n\n- Returns `num` mapped between `outMin`-`outMax` from `inMin`-`inMax`.",
+    "description": "Maps a number from one range to another range.\n\n- Return `num` mapped between `outMin`-`outMax` from `inMin`-`inMax`.",
     "example": "mapNumRange(5, 0, 10, 0, 100); // 50",
     "id": "mapNumRange",
     "tags": [
@@ -2735,7 +2735,7 @@
   },
   {
     "code": "const mapObject = (arr, fn) =>\n  arr.reduce((acc, el, i) => {\n    acc[el] = fn(el, i, arr);\n    return acc;\n  }, {});",
-    "description": "Maps the values of an array to an object using a function, where the key-value pairs consist of the original value as the key and the result of the function as the value.\n\n- Use `Array.prototype.reduce()` to apply `fn` to each element in `arr` and combine the results into an object.\n- Use `el` as the key for each property and the result of `fn` as the value.",
+    "description": "Maps the values of an array to an object using a function.\n\n- Use `Array.prototype.reduce()` to apply `fn` to each element in `arr` and combine the results into an object.\n- Use `el` as the key for each property and the result of `fn` as the value.",
     "example": "mapObject([1, 2, 3], a => a * a); // { 1: 1, 2: 4, 3: 9 }",
     "id": "mapObject",
     "tags": [
@@ -2746,7 +2746,7 @@
   },
   {
     "code": "const mapString = (str, fn) =>\n  str\n    .split('')\n    .map((c, i) => fn(c, i, str))\n    .join('');",
-    "description": "Creates a new string with the results of calling a provided function on every character in the calling string.\n\n- Use `String.prototype.split('')` and `Array.prototype.map()` to call the provided function, `fn`, for each character in `str`.\n- Use `Array.prototype.join('')` to recombine the array of characters into a string.\n- The callback function, `fn`, takes three arguments (the current character, the index of the current character and the string `mapString` was called upon).",
+    "description": "Creates a new string with the results of calling a provided function on every character in the given string.\n\n- Use `String.prototype.split('')` and `Array.prototype.map()` to call the provided function, `fn`, for each character in `str`.\n- Use `Array.prototype.join('')` to recombine the array of characters into a string.\n- The callback function, `fn`, takes three arguments (the current character, the index of the current character and the string `mapString` was called upon).",
     "example": "mapString('lorem ipsum', c => c.toUpperCase()); // 'LOREM IPSUM'",
     "id": "mapString",
     "tags": [
@@ -2756,7 +2756,7 @@
   },
   {
     "code": "const mapValues = (obj, fn) =>\n  Object.keys(obj).reduce((acc, k) => {\n    acc[k] = fn(obj[k], k, obj);\n    return acc;\n  }, {});",
-    "description": "Creates an object with the same keys as the provided object and values generated by running the provided function for each value.\n\n- Use `Object.keys(obj)` to iterate over the object's keys.\n- Use `Array.prototype.reduce()` to create a new object with the same keys and mapped values using `fn`.",
+    "description": "Maps the values of an object using the provided function, generating a new object with the same keys.\n\n- Use `Object.keys()` to iterate over the object's keys.\n- Use `Array.prototype.reduce()` to create a new object with the same keys and mapped values using `fn`.",
     "example": "const users = {\n  fred: { user: 'fred', age: 40 },\n  pebbles: { user: 'pebbles', age: 1 }\n};\nmapValues(users, u => u.age); // { fred: 40, pebbles: 1 }",
     "id": "mapValues",
     "tags": [
@@ -2765,8 +2765,8 @@
     ]
   },
   {
-    "code": "const mask = (cc, num = 4, mask = '*') => \\`\\${cc}\\`.slice(-num).padStart(\\`\\${cc}\\`.length, mask);",
-    "description": "Replaces all but the last `num` of characters with the specified mask character.\n\n- Use `String.prototype.slice()` to grab the portion of the characters that will remain unmasked and use `String.padStart()` to fill the beginning of the string with the mask character up to the original length.\n- Omit the second argument, `num`, to keep a default of `4` characters unmasked. If `num` is negative, the unmasked characters will be at the start of the string.\n- Omit the third argument, `mask`, to use a default character of `'*'` for the mask.",
+    "code": "const mask = (cc, num = 4, mask = '*') =>\n  \\`\\${cc}\\`.slice(-num).padStart(\\`\\${cc}\\`.length, mask);",
+    "description": "Replaces all but the last `num` of characters with the specified mask character.\n\n- Use `String.prototype.slice()` to grab the portion of the characters that will remain unmasked.\n- Use `String.padStart()` to fill the beginning of the string with the `mask` character up to the original length.\n- If `num` is negative, the unmasked characters will be at the start of the string.\n- Omit the second argument, `num`, to keep a default of `4` characters unmasked.\n- Omit the third argument, `mask`, to use a default character of `'*'` for the mask.",
     "example": "mask(1234567890); // '******7890'\nmask(1234567890, 3); // '*******890'\nmask(1234567890, -4, '$'); // '$$$$567890'",
     "id": "mask",
     "tags": [
@@ -2775,9 +2775,9 @@
     ]
   },
   {
-    "code": "const matches = (obj, source) =>\n  Object.keys(source).every(key => obj.hasOwnProperty(key) && obj[key] === source[key]);",
-    "description": "Compares two objects to determine if the first one contains equivalent property values to the second one.\n\n- Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.prototype.hasOwnProperty()` and strict comparison to determine if all keys exist in the first object and have the same values.",
-    "example": "matches({ age: 25, hair: 'long', beard: true }, { hair: 'long', beard: true }); // true\nmatches({ hair: 'long', beard: true }, { age: 25, hair: 'long', beard: true }); // false",
+    "code": "const matches = (obj, source) =>\n  Object.keys(source).every(\n    key => obj.hasOwnProperty(key) && obj[key] === source[key]\n  );",
+    "description": "Compares two objects to determine if the first one contains equivalent property values to the second one.\n\n- Use `Object.keys()` to get all the keys of the second object.\n- Use `Array.prototype.every()`, `Object.prototype.hasOwnProperty()` and strict comparison to determine if all keys exist in the first object and have the same values.",
+    "example": "matches({ age: 25, hair: 'long', beard: true }, { hair: 'long', beard: true }); \n// true\nmatches({ hair: 'long', beard: true }, { age: 25, hair: 'long', beard: true }); \n// false",
     "id": "matches",
     "tags": [
       "object",
@@ -2786,7 +2786,7 @@
   },
   {
     "code": "const matchesWith = (obj, source, fn) =>\n  Object.keys(source).every(key =>\n    obj.hasOwnProperty(key) && fn\n      ? fn(obj[key], source[key], key, obj, source)\n      : obj[key] == source[key]\n  );",
-    "description": "Compares two objects to determine if the first one contains equivalent property values to the second one, based on a provided function.\n\n- Use `Object.keys(source)` to get all the keys of the second object, then `Array.prototype.every()`, `Object.prototype.hasOwnProperty()` and the provided function to determine if all keys exist in the first object and have equivalent values.\n- If no function is provided, the values will be compared using the equality operator.",
+    "description": "Compares two objects to determine if the first one contains equivalent property values to the second one, based on a provided function.\n\n- Use `Object.keys()` to get all the keys of the second object.\n- Use `Array.prototype.every()`, `Object.prototype.hasOwnProperty()` and the provided function to determine if all keys exist in the first object and have equivalent values.\n- If no function is provided, the values will be compared using the equality operator.",
     "example": "const isGreeting = val => /^h(?:i|ello)$/.test(val);\nmatchesWith(\n  { greeting: 'hello' },\n  { greeting: 'hi' },\n  (oV, sV) => isGreeting(oV) && isGreeting(sV)\n); // true",
     "id": "matchesWith",
     "tags": [
@@ -2795,9 +2795,9 @@
     ]
   },
   {
-    "code": "const maxBy = (arr, fn) => Math.max(...arr.map(typeof fn === 'function' ? fn : val => val[fn]));",
-    "description": "Returns the maximum value of an array, after mapping each element to a value using the provided function.\n\n- Use `Array.prototype.map()` to map each element to the value returned by `fn`, `Math.max()` to get the maximum value.",
-    "example": "maxBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], o => o.n); // 8\nmaxBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 8",
+    "code": "const maxBy = (arr, fn) =>\n  Math.max(...arr.map(typeof fn === 'function' ? fn : val => val[fn]));",
+    "description": "Returns the maximum value of an array, after mapping each element to a value using the provided function.\n\n- Use `Array.prototype.map()` to map each element to the value returned by `fn`.\n- Use `Math.max()` to get the maximum value.",
+    "example": "maxBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], x => x.n); // 8\nmaxBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 8",
     "id": "maxBy",
     "tags": [
       "math",
@@ -2806,30 +2806,29 @@
     ]
   },
   {
-    "code": "const maxDate = dates => new Date(Math.max(...dates));",
-    "description": "Returns the maximum of the given dates.\n\n- Use the ES6 spread syntax with `Math.max` to find the maximum date value, `new Date()` to convert it to a `Date` object.",
-    "example": "const array = [\n  new Date(2017, 4, 13),\n  new Date(2018, 2, 12),\n  new Date(2016, 0, 10),\n  new Date(2016, 0, 9)\n];\nmaxDate(array); // 2018-03-11T22:00:00.000Z",
+    "code": "const maxDate = (...dates) => new Date(Math.max(...dates));",
+    "description": "Returns the maximum of the given dates.\n\n- Use the ES6 spread syntax with `Math.max()` to find the maximum date value.\n- Use `new Date()` to convert it to a `Date` object.",
+    "example": "const dates = [\n  new Date(2017, 4, 13),\n  new Date(2018, 2, 12),\n  new Date(2016, 0, 10),\n  new Date(2016, 0, 9)\n];\nmaxDate(...dates); // 2018-03-11T22:00:00.000Z",
     "id": "maxDate",
     "tags": [
       "date",
-      "math",
-      "beginner"
+      "intermediate"
     ]
   },
   {
     "code": "const maxN = (arr, n = 1) => [...arr].sort((a, b) => b - a).slice(0, n);",
-    "description": "Returns the `n` maximum elements from the provided array.\nIf `n` is greater than or equal to the provided array's length, then return the original array (sorted in descending order).\n\n- Use `Array.prototype.sort()` combined with the spread operator (`...`) to create a shallow clone of the array and sort it in descending order.\n- Use `Array.prototype.slice()` to get the specified number of elements.\n- Omit the second argument, `n`, to get a one-element array.",
-    "example": "maxN([1, 2, 3]); // [3]\nmaxN([1, 2, 3], 2); // [3,2]",
+    "description": "Returns the `n` maximum elements from the provided array.\n\n- Use `Array.prototype.sort()` combined with the spread operator (`...`) to create a shallow clone of the array and sort it in descending order.\n- Use `Array.prototype.slice()` to get the specified number of elements.\n- Omit the second argument, `n`, to get a one-element array.\n- If `n` is greater than or equal to the provided array's length, then return the original array (sorted in descending order).",
+    "example": "maxN([1, 2, 3]); // [3]\nmaxN([1, 2, 3], 2); // [3, 2]",
     "id": "maxN",
     "tags": [
       "array",
       "math",
-      "beginner"
+      "intermediate"
     ]
   },
   {
     "code": "const median = arr => {\n  const mid = Math.floor(arr.length / 2),\n    nums = [...arr].sort((a, b) => a - b);\n  return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;\n};",
-    "description": "Returns the median of an array of numbers.\n\n- Find the middle of the array, use `Array.prototype.sort()` to sort the values.\n- Return the number at the midpoint if `length` is odd, otherwise the average of the two middle numbers.",
+    "description": "Returns the median of an array of numbers.\n\n- Find the middle of the array, use `Array.prototype.sort()` to sort the values.\n- Return the number at the midpoint if `Array.prototype.length` is odd, otherwise the average of the two middle numbers.",
     "example": "median([5, 6, 50, 1, -5]); // 5",
     "id": "median",
     "tags": [
@@ -2839,9 +2838,9 @@
     ]
   },
   {
-    "code": "const memoize = fn => {\n  const cache = new Map();\n  const cached = function(val) {\n    return cache.has(val) ? cache.get(val) : cache.set(val, fn.call(this, val)) && cache.get(val);\n  };\n  cached.cache = cache;\n  return cached;\n};",
+    "code": "const memoize = fn => {\n  const cache = new Map();\n  const cached = function (val) {\n    return cache.has(val)\n      ? cache.get(val)\n      : cache.set(val, fn.call(this, val)) && cache.get(val);\n  };\n  cached.cache = cache;\n  return cached;\n};",
     "description": "Returns the memoized (cached) function.\n\n- Create an empty cache by instantiating a new `Map` object.\n- Return a function which takes a single argument to be supplied to the memoized function by first checking if the function's output for that specific input value is already cached, or store and return it if not.\n- The `function` keyword must be used in order to allow the memoized function to have its `this` context changed if necessary.\n- Allow access to the `cache` by setting it as a property on the returned function.",
-    "example": "// See the `anagrams` snippet.\nconst anagramsCached = memoize(anagrams);\nanagramsCached('javascript'); // takes a long time\nanagramsCached('javascript'); // returns virtually instantly since it's now cached\nconsole.log(anagramsCached.cache); // The cached anagrams map",
+    "example": "// See the `anagrams` snippet.\nconst anagramsCached = memoize(anagrams);\nanagramsCached('javascript'); // takes a long time\nanagramsCached('javascript'); // returns virtually instantly since it's cached\nconsole.log(anagramsCached.cache); // The cached anagrams map",
     "id": "memoize",
     "tags": [
       "function",
@@ -2849,9 +2848,9 @@
     ]
   },
   {
-    "code": "const merge = (...objs) =>\n  [...objs].reduce(\n    (acc, obj) =>\n      Object.keys(obj).reduce((a, k) => {\n        acc[k] = acc.hasOwnProperty(k) ? [].concat(acc[k]).concat(obj[k]) : obj[k];\n        return acc;\n      }, {}),\n    {}\n  );",
-    "description": "Creates a new object from the combination of two or more objects.\n\n- Use `Array.prototype.reduce()` combined with `Object.keys(obj)` to iterate over all objects and keys.\n- Use `hasOwnProperty()` and `Array.prototype.concat()` to append values for keys existing in multiple objects.",
-    "example": "const object = {\n  a: [{ x: 2 }, { y: 4 }],\n  b: 1\n};\nconst other = {\n  a: { z: 3 },\n  b: [2, 3],\n  c: 'foo'\n};\nmerge(object, other); // { a: [ { x: 2 }, { y: 4 }, { z: 3 } ], b: [ 1, 2, 3 ], c: 'foo' }",
+    "code": "const merge = (...objs) =>\n  [...objs].reduce(\n    (acc, obj) =>\n      Object.keys(obj).reduce((a, k) => {\n        acc[k] = acc.hasOwnProperty(k)\n          ? [].concat(acc[k]).concat(obj[k])\n          : obj[k];\n        return acc;\n      }, {}),\n    {}\n  );",
+    "description": "Creates a new object from the combination of two or more objects.\n\n- Use `Array.prototype.reduce()` combined with `Object.keys()` to iterate over all objects and keys.\n- Use `Object.prototype.hasOwnProperty()` and `Array.prototype.concat()` to append values for keys existing in multiple objects.",
+    "example": "const object = {\n  a: [{ x: 2 }, { y: 4 }],\n  b: 1\n};\nconst other = {\n  a: { z: 3 },\n  b: [2, 3],\n  c: 'foo'\n};\nmerge(object, other);\n// { a: [ { x: 2 }, { y: 4 }, { z: 3 } ], b: [ 1, 2, 3 ], c: 'foo' }",
     "id": "merge",
     "tags": [
       "object",
@@ -2861,7 +2860,7 @@
   },
   {
     "code": "const midpoint = ([x1, y1], [x2, y2]) => [(x1 + x2) / 2, (y1 + y2) / 2];",
-    "description": "Calculates the midpoint between two pairs of (x,y) points.\n\n- Destructure the array to get `x1`, `y1`, `x2` and `y2`, calculate the midpoint for each dimension by dividing the sum of the two endpoints by `2`.",
+    "description": "Calculates the midpoint between two pairs of (x,y) points.\n\n- Destructure the array to get `x1`, `y1`, `x2` and `y2`.\n- Calculate the midpoint for each dimension by dividing the sum of the two endpoints by `2`.",
     "example": "midpoint([2, 2], [4, 4]); // [3, 3]\nmidpoint([4, 4], [6, 6]); // [5, 5]\nmidpoint([1, 3], [2, 4]); // [1.5, 3.5]",
     "id": "midpoint",
     "tags": [
@@ -2870,9 +2869,9 @@
     ]
   },
   {
-    "code": "const milesToKm = miles => distance * 1.609344;",
+    "code": "const milesToKm = miles => miles * 1.609344;",
     "description": "Converts miles to kilometers.\n\n- Follows the conversion formula `km = mi * 1.609344`.",
-    "example": "milesToKm(5); // 8.04672",
+    "example": "milesToKm(5); // ~8.04672",
     "id": "milesToKm",
     "tags": [
       "math",
@@ -2880,9 +2879,9 @@
     ]
   },
   {
-    "code": "const minBy = (arr, fn) => Math.min(...arr.map(typeof fn === 'function' ? fn : val => val[fn]));",
-    "description": "Returns the minimum value of an array, after mapping each element to a value using the provided function.\n\n- Use `Array.prototype.map()` to map each element to the value returned by `fn`, `Math.min()` to get the minimum value.",
-    "example": "minBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], o => o.n); // 2\nminBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 2",
+    "code": "const minBy = (arr, fn) =>\n  Math.min(...arr.map(typeof fn === 'function' ? fn : val => val[fn]));",
+    "description": "Returns the minimum value of an array, after mapping each element to a value using the provided function.\n\n- Use `Array.prototype.map()` to map each element to the value returned by `fn`.\n- Use `Math.min()` to get the minimum value.",
+    "example": "minBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], x => x.n); // 2\nminBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 2",
     "id": "minBy",
     "tags": [
       "math",
@@ -2891,25 +2890,24 @@
     ]
   },
   {
-    "code": "const minDate = dates => new Date(Math.min(...dates));",
-    "description": "Returns the minimum of the given dates.\n\n- Use the ES6 spread syntax to find the minimum date value, `new Date()` to convert it to a `Date` object.",
-    "example": "const array = [\n  new Date(2017, 4, 13),\n  new Date(2018, 2, 12),\n  new Date(2016, 0, 10),\n  new Date(2016, 0, 9)\n];\nminDate(array); // 2016-01-08T22:00:00.000Z",
+    "code": "const minDate = (...dates) => new Date(Math.min(...dates));",
+    "description": "Returns the minimum of the given dates.\n\n- Use the ES6 spread syntax with `Math.min()` to find the minimum date value.\n- Use `new Date()` to convert it to a `Date` object.",
+    "example": "const dates = [\n  new Date(2017, 4, 13),\n  new Date(2018, 2, 12),\n  new Date(2016, 0, 10),\n  new Date(2016, 0, 9)\n];\nminDate(...dates); // 2016-01-08T22:00:00.000Z",
     "id": "minDate",
     "tags": [
       "date",
-      "math",
-      "beginner"
+      "intermediate"
     ]
   },
   {
     "code": "const minN = (arr, n = 1) => [...arr].sort((a, b) => a - b).slice(0, n);",
-    "description": "Returns the `n` minimum elements from the provided array.\nIf `n` is greater than or equal to the provided array's length, then return the original array (sorted in ascending order).\n\n- Use `Array.prototype.sort()` combined with the spread operator (`...`) to create a shallow clone of the array and sort it in ascending order.\n- Use `Array.prototype.slice()` to get the specified number of elements.\n- Omit the second argument, `n`, to get a one-element array.",
-    "example": "minN([1, 2, 3]); // [1]\nminN([1, 2, 3], 2); // [1,2]",
+    "description": "Returns the `n` minimum elements from the provided array.\n\n- Use `Array.prototype.sort()` combined with the spread operator (`...`) to create a shallow clone of the array and sort it in ascending order.\n- Use `Array.prototype.slice()` to get the specified number of elements.\n- Omit the second argument, `n`, to get a one-element array.\n- If `n` is greater than or equal to the provided array's length, then return the original array (sorted in ascending order).",
+    "example": "minN([1, 2, 3]); // [1]\nminN([1, 2, 3], 2); // [1, 2]",
     "id": "minN",
     "tags": [
       "array",
       "math",
-      "beginner"
+      "intermediate"
     ]
   },
   {
@@ -2924,12 +2922,12 @@
   },
   {
     "code": "const mostPerformant = (fns, iterations = 10000) => {\n  const times = fns.map(fn => {\n    const before = performance.now();\n    for (let i = 0; i < iterations; i++) fn();\n    return performance.now() - before;\n  });\n  return times.indexOf(Math.min(...times));\n};",
-    "description": "Returns the index of the function in an array of functions which executed the fastest.\n\n- Use `Array.prototype.map()` to generate an array where each value is the total time taken to execute the function after `iterations` times.\n-Use the difference in `performance.now()` values before and after to get the total time in milliseconds to a high degree of accuracy.\n- Use `Math.min()` to find the minimum execution time, and return the index of that shortest time which corresponds to the index of the most performant function.\n- Omit the second argument, `iterations`, to use a default of 10,000 iterations.\n- The more iterations, the more reliable the result but the longer it will take.",
-    "example": "mostPerformant([\n  () => {\n    // Loops through the entire array before returning `false`\n    [1, 2, 3, 4, 5, 6, 7, 8, 9, '10'].every(el => typeof el === 'number');\n  },\n  () => {\n    // Only needs to reach index `1` before returning false\n    [1, '2', 3, 4, 5, 6, 7, 8, 9, 10].every(el => typeof el === 'number');\n  }\n]); // 1",
+    "description": "Returns the index of the function in an array of functions which executed the fastest.\n\n- Use `Array.prototype.map()` to generate an array where each value is the total time taken to execute the function after `iterations` times.\n- Use the difference in `performance.now()` values before and after to get the total time in milliseconds to a high degree of accuracy.\n- Use `Math.min()` to find the minimum execution time, and return the index of that shortest time which corresponds to the index of the most performant function.\n- Omit the second argument, `iterations`, to use a default of `10000` iterations.\n- The more iterations, the more reliable the result but the longer it will take.",
+    "example": "mostPerformant([\n  () => {\n    // Loops through the entire array before returning `false`\n    [1, 2, 3, 4, 5, 6, 7, 8, 9, '10'].every(el => typeof el === 'number');\n  },\n  () => {\n    // Only needs to reach index `1` before returning `false`\n    [1, '2', 3, 4, 5, 6, 7, 8, 9, 10].every(el => typeof el === 'number');\n  }\n]); // 1",
     "id": "mostPerformant",
     "tags": [
       "function",
-      "intermediate"
+      "advanced"
     ]
   },
   {
@@ -2944,17 +2942,18 @@
   },
   {
     "code": "const nest = (items, id = null, link = 'parent_id') =>\n  items\n    .filter(item => item[link] === id)\n    .map(item => ({ ...item, children: nest(items, item.id, link) }));",
-    "description": "Given a flat array of objects linked to one another, it will nest them recursively.\nUseful for nesting comments, such as the ones on reddit.com.\n\n- Use recursion.\n- Use `Array.prototype.filter()` to filter the items where the `id` matches the `link`, then `Array.prototype.map()` to map each one to a new object that has a `children` property which recursively nests the items based on which ones are children of the current item.\n- Omit the second argument, `id`, to default to `null` which indicates the object is not linked to another one (i.e. it is a top level object).\n- Omit the third argument, `link`, to use `'parent_id'` as the default property which links the object to another one by its `id`.",
-    "example": "// One top level comment\nconst comments = [\n  { id: 1, parent_id: null },\n  { id: 2, parent_id: 1 },\n  { id: 3, parent_id: 1 },\n  { id: 4, parent_id: 2 },\n  { id: 5, parent_id: 4 }\n];\nconst nestedComments = nest(comments); // [{ id: 1, parent_id: null, children: [...] }]",
+    "description": "Nests recursively objects linked to one another in a flat array.\n\n- Use recursion.\n- Use `Array.prototype.filter()` to filter the items where the `id` matches the `link`.\n- Use `Array.prototype.map()` to map each item to a new object that has a `children` property which recursively nests the items based on which ones are children of the current item.\n- Omit the second argument, `id`, to default to `null` which indicates the object is not linked to another one (i.e. it is a top level object).\n- Omit the third argument, `link`, to use `'parent_id'` as the default property which links the object to another one by its `id`.",
+    "example": "const comments = [\n  { id: 1, parent_id: null },\n  { id: 2, parent_id: 1 },\n  { id: 3, parent_id: 1 },\n  { id: 4, parent_id: 2 },\n  { id: 5, parent_id: 4 }\n];\nconst nestedComments = nest(comments);\n// [{ id: 1, parent_id: null, children: [...] }]",
     "id": "nest",
     "tags": [
       "object",
+      "recursion",
       "intermediate"
     ]
   },
   {
     "code": "const nodeListToArray = nodeList => [...nodeList];",
-    "description": "Converts a `NodeList` to an array.\n\n- Use spread operator inside new array to convert a `NodeList` to an array.",
+    "description": "Converts a `NodeList` to an array.\n\n- Use spread operator (`...`) inside new array to convert a `NodeList` to an array.",
     "example": "nodeListToArray(document.childNodes); // [ <!DOCTYPE html>, html ]",
     "id": "nodeListToArray",
     "tags": [
@@ -2965,7 +2964,7 @@
   },
   {
     "code": "const none = (arr, fn = Boolean) => !arr.some(fn);",
-    "description": "Returns `true` if the provided predicate function returns `false` for all elements in a collection, `false` otherwise.\n\n- Use `Array.prototype.some()` to test if any elements in the collection return `true` based on `fn`.\n- Omit the second argument, `fn`, to use `Boolean` as a default.",
+    "description": "Checks if the provided predicate function returns `false` for all elements in a collection.\n\n- Use `Array.prototype.some()` to test if any elements in the collection return `true` based on `fn`.\n- Omit the second argument, `fn`, to use `Boolean` as a default.",
     "example": "none([0, 1, 3, 0], x => x == 2); // true\nnone([0, 0, 0]); // true",
     "id": "none",
     "tags": [
@@ -2974,12 +2973,13 @@
     ]
   },
   {
-    "code": "const normalizeLineEndings = (str, normalized = '\\r\\n') => str.replace(/\\r?\\n/g, normalized);",
+    "code": "const normalizeLineEndings = (str, normalized = '\\r\\n') =>\n  str.replace(/\\r?\\n/g, normalized);",
     "description": "Normalizes line endings in a string.\n\n- Use `String.prototype.replace()` and a regular expression to match and replace line endings with the `normalized` version.\n- Omit the second argument, `normalized`, to use the default value of `'\\r\\n'`.",
-    "example": "normalizeLineEndings('This\\r\\nis a\\nmultiline\\nstring.\\r\\n'); // 'This\\r\\nis a\\r\\nmultiline\\r\\nstring.\\r\\n'\nnormalizeLineEndings('This\\r\\nis a\\nmultiline\\nstring.\\r\\n', '\\n'); // 'This\\nis a\\nmultiline\\nstring.\\n'",
+    "example": "normalizeLineEndings('This\\r\\nis a\\nmultiline\\nstring.\\r\\n');\n// 'This\\r\\nis a\\r\\nmultiline\\r\\nstring.\\r\\n'\nnormalizeLineEndings('This\\r\\nis a\\nmultiline\\nstring.\\r\\n', '\\n');\n// 'This\\nis a\\nmultiline\\nstring.\\n'",
     "id": "normalizeLineEndings",
     "tags": [
       "string",
+      "regexp",
       "intermediate"
     ]
   },
@@ -2996,7 +2996,7 @@
   },
   {
     "code": "const nthArg = n => (...args) => args.slice(n)[0];",
-    "description": "Creates a function that gets the argument at index `n`. If `n` is negative, the nth argument from the end is returned.\n\n- Use `Array.prototype.slice()` to get the desired argument at index `n`.",
+    "description": "Creates a function that gets the argument at index `n`.\n\n- Use `Array.prototype.slice()` to get the desired argument at index `n`.\n- If `n` is negative, the nth argument from the end is returned.",
     "example": "const third = nthArg(2);\nthird(1, 2, 3); // 3\nthird(1, 2); // undefined\nconst last = nthArg(-1);\nlast(1, 2, 3, 4, 5); // 5",
     "id": "nthArg",
     "tags": [
@@ -3005,7 +3005,7 @@
     ]
   },
   {
-    "code": "const nthElement = (arr, n = 0) => (n === -1 ? arr.slice(n) : arr.slice(n, n + 1))[0];",
+    "code": "const nthElement = (arr, n = 0) =>\n  (n === -1 ? arr.slice(n) : arr.slice(n, n + 1))[0];",
     "description": "Returns the nth element of an array.\n\n- Use `Array.prototype.slice()` to get an array containing the nth element at the first place.\n- If the index is out of bounds, return `undefined`.\n- Omit the second argument, `n`, to get the first element of the array.",
     "example": "nthElement(['a', 'b', 'c'], 1); // 'b'\nnthElement(['a', 'b', 'b'], -3); // 'a'",
     "id": "nthElement",
@@ -3015,7 +3015,7 @@
     ]
   },
   {
-    "code": "const objectFromPairs = arr => arr.reduce((a, [key, val]) => ((a[key] = val), a), {});",
+    "code": "const objectFromPairs = arr =>\n  arr.reduce((a, [key, val]) => ((a[key] = val), a), {});",
     "description": "Creates an object from the given key-value pairs.\n\n- Use `Array.prototype.reduce()` to create and combine key-value pairs.",
     "example": "objectFromPairs([['a', 1], ['b', 2]]); // {a: 1, b: 2}",
     "id": "objectFromPairs",
@@ -3048,19 +3048,19 @@
     ]
   },
   {
-    "code": "const objectToQueryString = queryParameters => {\n  return queryParameters\n    ? Object.entries(queryParameters).reduce((queryString, [key, val], index) => {\n      const symbol = queryString.length === 0 ? '?' : '&';\n      queryString += typeof val === 'string' ? \\`\\${symbol}\\${key}=\\${val}\\` : '';\n      return queryString;\n    }, '')\n    : '';\n};",
-    "description": "Returns a query string generated from the key-value pairs of the given object.\n\n- Use `Array.prototype.reduce()` on `Object.entries(queryParameters)` to create the query string.\n- Determine the `symbol` to be either `?` or `&` based on the `length` of `queryString` and concatenate `val` to `queryString` only if it's a string.\n- Return the `queryString` or an empty string when the `queryParameters` are falsy.",
-    "example": "objectToQueryString({ page: '1', size: '2kg', key: undefined }); // '?page=1&size=2kg'",
+    "code": "const objectToQueryString = queryParameters => {\n  return queryParameters\n    ? Object.entries(queryParameters).reduce(\n        (queryString, [key, val], index) => {\n          const symbol = queryString.length === 0 ? '?' : '&';\n          queryString +=\n            typeof val === 'string' ? \\`\\${symbol}\\${key}=\\${val}\\` : '';\n          return queryString;\n        },\n        ''\n      )\n    : '';\n};",
+    "description": "Returns a query string generated from the key-value pairs of the given object.\n\n- Use `Array.prototype.reduce()` on `Object.entries(queryParameters)` to create the query string.\n- Determine the `symbol` to be either `?` or `&` based on the length of `queryString`.\n- Concatenate `val` to `queryString` only if it's a string.\n- Return the `queryString` or an empty string when the `queryParameters` are falsy.",
+    "example": "objectToQueryString({ page: '1', size: '2kg', key: undefined });\n// '?page=1&size=2kg'",
     "id": "objectToQueryString",
     "tags": [
       "object",
-      "intermediate"
+      "advanced"
     ]
   },
   {
-    "code": "const observeMutations = (element, callback, options) => {\n  const observer = new MutationObserver(mutations => mutations.forEach(m => callback(m)));\n  observer.observe(\n    element,\n    Object.assign(\n      {\n        childList: true,\n        attributes: true,\n        attributeOldValue: true,\n        characterData: true,\n        characterDataOldValue: true,\n        subtree: true\n      },\n      options\n    )\n  );\n  return observer;\n};",
-    "description": "Returns a new MutationObserver and runs the provided callback for each mutation on the specified element.\n\n- Use a [`MutationObserver`](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to observe mutations on the given element.\n- Use `Array.prototype.forEach()` to run the callback for each mutation that is observed.\n- Omit the third argument, `options`, to use the default [options](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver#MutationObserverInit) (all `true`).",
-    "example": "const obs = observeMutations(document, console.log); // Logs all mutations that happen on the page\nobs.disconnect(); // Disconnects the observer and stops logging mutations on the page",
+    "code": "const observeMutations = (element, callback, options) => {\n  const observer = new MutationObserver(mutations =>\n    mutations.forEach(m => callback(m))\n  );\n  observer.observe(\n    element,\n    Object.assign(\n      {\n        childList: true,\n        attributes: true,\n        attributeOldValue: true,\n        characterData: true,\n        characterDataOldValue: true,\n        subtree: true,\n      },\n      options\n    )\n  );\n  return observer;\n};",
+    "description": "Returns a new `MutationObserver` and runs the provided callback for each mutation on the specified element.\n\n- Use a [`MutationObserver`](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to observe mutations on the given element.\n- Use `Array.prototype.forEach()` to run the callback for each mutation that is observed.\n- Omit the third argument, `options`, to use the default [options](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver#MutationObserverInit) (all `true`).",
+    "example": "const obs = observeMutations(document, console.log);\n// Logs all mutations that happen on the page\nobs.disconnect();\n// Disconnects the observer and stops logging mutations on the page",
     "id": "observeMutations",
     "tags": [
       "browser",
@@ -3069,7 +3069,7 @@
     ]
   },
   {
-    "code": "const off = (el, evt, fn, opts = false) => el.removeEventListener(evt, fn, opts);",
+    "code": "const off = (el, evt, fn, opts = false) =>\n  el.removeEventListener(evt, fn, opts);",
     "description": "Removes an event listener from an element.\n\n- Use `EventTarget.removeEventListener()` to remove an event listener from an element.\n- Omit the fourth argument `opts` to use `false` or specify it based on the options used when the event listener was added.",
     "example": "const fn = () => console.log('!');\ndocument.body.addEventListener('click', fn);\noff(document.body, 'click', fn); // no longer logs '!' upon clicking on the page",
     "id": "off",
@@ -3081,7 +3081,7 @@
   },
   {
     "code": "const offset = (arr, offset) => [...arr.slice(offset), ...arr.slice(0, offset)];",
-    "description": "Moves the specified amount of elements to the end of the array.\n\n- Use `Array.prototype.slice()` twice to get the elements after the specified index and the elements before that.\n- Use the spread operator(`...`) to combine the two into one array.\n- If `offset` is negative, the elements will be moved from end to start.",
+    "description": "Moves the specified amount of elements to the end of the array.\n\n- Use `Array.prototype.slice()` twice to get the elements after the specified index and the elements before that.\n- Use the spread operator (`...`) to combine the two into one array.\n- If `offset` is negative, the elements will be moved from end to start.",
     "example": "offset([1, 2, 3, 4, 5], 2); // [3, 4, 5, 1, 2]\noffset([1, 2, 3, 4, 5], -2); // [4, 5, 1, 2, 3]",
     "id": "offset",
     "tags": [
@@ -3091,7 +3091,7 @@
   },
   {
     "code": "const omit = (obj, arr) =>\n  Object.keys(obj)\n    .filter(k => !arr.includes(k))\n    .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});",
-    "description": "Omits the key-value pairs corresponding to the given keys from an object.\n\n- Use `Object.keys(obj)`, `Array.prototype.filter()` and `Array.prototype.includes()` to remove the provided keys.\n- Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.",
+    "description": "Omits the key-value pairs corresponding to the given keys from an object.\n\n- Use `Object.keys()`, `Array.prototype.filter()` and `Array.prototype.includes()` to remove the provided keys.\n- Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.",
     "example": "omit({ a: 1, b: '2', c: 3 }, ['b']); // { 'a': 1, 'c': 3 }",
     "id": "omit",
     "tags": [
@@ -3101,7 +3101,7 @@
   },
   {
     "code": "const omitBy = (obj, fn) =>\n  Object.keys(obj)\n    .filter(k => !fn(obj[k], k))\n    .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});",
-    "description": "Creates an object composed of the properties the given function returns falsy for. The function is invoked with two arguments: (value, key).\n\n- Use `Object.keys(obj)` and `Array.prototype.filter()`to remove the keys for which `fn` returns a truthy value.\n- Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.",
+    "description": "Omits the key-value pairs corresponding to the keys of the object for which the given function returns falsy.\n\n- Use `Object.keys()` and `Array.prototype.filter()` to remove the keys for which `fn` returns a truthy value.\n- Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.\n- The callback function is invoked with two arguments: (value, key).",
     "example": "omitBy({ a: 1, b: '2', c: 3 }, x => typeof x === 'number'); // { b: '2' }",
     "id": "omitBy",
     "tags": [
@@ -3110,9 +3110,9 @@
     ]
   },
   {
-    "code": "const on = (el, evt, fn, opts = {}) => {\n  const delegatorFn = e => e.target.matches(opts.target) && fn.call(e.target, e);\n  el.addEventListener(evt, opts.target ? delegatorFn : fn, opts.options || false);\n  if (opts.target) return delegatorFn;\n};",
-    "description": "Adds an event listener to an element with the ability to use event delegation.\n\n- Use `EventTarget.addEventListener()` to add an event listener to an element.\n- If there is a `target` property supplied to the options object, ensure the event target matches the target specified and then invoke the callback by supplying the correct `this` context.\n- Returns a reference to the custom delegator function, in order to be possible to use with [`off`](#off).\n- Omit `opts` to default to non-delegation behavior and event bubbling.",
-    "example": "const fn = () => console.log('!');\non(document.body, 'click', fn); // logs '!' upon clicking the body\non(document.body, 'click', fn, { target: 'p' }); // logs '!' upon clicking a `p` element child of the body\non(document.body, 'click', fn, { options: true }); // use capturing instead of bubbling",
+    "code": "const on = (el, evt, fn, opts = {}) => {\n  const delegatorFn = e =>\n    e.target.matches(opts.target) && fn.call(e.target, e);\n  el.addEventListener(\n    evt,\n    opts.target ? delegatorFn : fn,\n    opts.options || false\n  );\n  if (opts.target) return delegatorFn;\n};",
+    "description": "Adds an event listener to an element with the ability to use event delegation.\n\n- Use `EventTarget.addEventListener()` to add an event listener to an element.\n- If there is a `target` property supplied to the options object, ensure the event target matches the target specified and then invoke the callback by supplying the correct `this` context.\n- Omit `opts` to default to non-delegation behavior and event bubbling.\n- Returns a reference to the custom delegator function, in order to be possible to use with [`off`](/js/s/off).",
+    "example": "const fn = () => console.log('!');\non(document.body, 'click', fn); // logs '!' upon clicking the body\non(document.body, 'click', fn, { target: 'p' });\n// logs '!' upon clicking a `p` element child of the body\non(document.body, 'click', fn, { options: true });\n// use capturing instead of bubbling",
     "id": "on",
     "tags": [
       "browser",
@@ -3121,8 +3121,8 @@
     ]
   },
   {
-    "code": "const onUserInputChange = callback => {\n  let type = 'mouse',\n    lastTime = 0;\n  const mousemoveHandler = () => {\n    const now = performance.now();\n    if (now - lastTime < 20)\n      (type = 'mouse'), callback(type), document.removeEventListener('mousemove', mousemoveHandler);\n    lastTime = now;\n  };\n  document.addEventListener('touchstart', () => {\n    if (type === 'touch') return;\n    (type = 'touch'), callback(type), document.addEventListener('mousemove', mousemoveHandler);\n  });\n};",
-    "description": "Run the callback whenever the user input type changes (`mouse` or `touch`). Useful for enabling/disabling code depending on the input device. This process is dynamic and works with hybrid devices (e.g. touchscreen laptops).\n\n- Use two event listeners.\n- Assume `mouse` input initially and bind a `touchstart` event listener to the document.\n- On `touchstart`, add a `mousemove` event listener to listen for two consecutive `mousemove` events firing within 20ms, using `performance.now()`.\n- Run the callback with the input type as an argument in either of these situations.",
+    "code": "const onUserInputChange = callback => {\n  let type = 'mouse',\n    lastTime = 0;\n  const mousemoveHandler = () => {\n    const now = performance.now();\n    if (now - lastTime < 20)\n      (type = 'mouse'),\n        callback(type),\n        document.removeEventListener('mousemove', mousemoveHandler);\n    lastTime = now;\n  };\n  document.addEventListener('touchstart', () => {\n    if (type === 'touch') return;\n    (type = 'touch'),\n      callback(type),\n      document.addEventListener('mousemove', mousemoveHandler);\n  });\n};",
+    "description": "Runs the callback whenever the user input type changes (`mouse` or `touch`).\n\n- Use two event listeners.\n- Assume `mouse` input initially and bind a `'touchstart'` event listener to the document.\n- On `'touchstart'`, add a `'mousemove'` event listener to listen for two consecutive `'mousemove'` events firing within 20ms, using `performance.now()`.\n- Run the callback with the input type as an argument in either of these situations.",
     "example": "onUserInputChange(type => {\n  console.log('The user is now using', type, 'as an input method.');\n});",
     "id": "onUserInputChange",
     "tags": [
@@ -3134,7 +3134,7 @@
   {
     "code": "const once = fn => {\n  let called = false;\n  return function(...args) {\n    if (called) return;\n    called = true;\n    return fn.apply(this, args);\n  };\n};",
     "description": "Ensures a function is called only once.\n\n- Utilizing a closure, use a flag, `called`, and set it to `true` once the function is called for the first time, preventing it from being called again.\n- In order to allow the function to have its `this` context changed (such as in an event listener), the `function` keyword must be used, and the supplied function must have the context applied.\n- Allow the function to be supplied with an arbitrary number of arguments using the rest/spread (`...`) operator.",
-    "example": "const startApp = function(event) {\n  console.log(this, event); // document.body, MouseEvent\n};\ndocument.body.addEventListener('click', once(startApp)); // only runs `startApp` once upon click",
+    "example": "const startApp = function(event) {\n  console.log(this, event); // document.body, MouseEvent\n};\ndocument.body.addEventListener('click', once(startApp));\n// only runs `startApp` once upon click",
     "id": "once",
     "tags": [
       "function",
@@ -3143,7 +3143,7 @@
   },
   {
     "code": "const or = (a, b) => a || b;",
-    "description": "Returns `true` if at least one of the arguments is `true`, `false` otherwise.\n\n- Use the logical or (`||`) operator on the two given values.",
+    "description": "Checks if at least one of the arguments is `true`.\n\n- Use the logical or (`||`) operator on the two given values.",
     "example": "or(true, true); // true\nor(true, false); // true\nor(false, false); // false",
     "id": "or",
     "tags": [
@@ -3153,19 +3153,19 @@
     ]
   },
   {
-    "code": "const orderBy = (arr, props, orders) =>\n  [...arr].sort((a, b) =>\n    props.reduce((acc, prop, i) => {\n      if (acc === 0) {\n        const [p1, p2] = orders && orders[i] === 'desc' ? [b[prop], a[prop]] : [a[prop], b[prop]];\n        acc = p1 > p2 ? 1 : p1 < p2 ? -1 : 0;\n      }\n      return acc;\n    }, 0)\n  );",
-    "description": "Returns a sorted array of objects ordered by properties and orders.\n\n- Uses `Array.prototype.sort()`, `Array.prototype.reduce()` on the `props` array with a default value of `0`, use array destructuring to swap the properties position depending on the order passed.\n- If no `orders` array is passed it sort by `'asc'` by default.",
-    "example": "const users = [{ name: 'fred', age: 48 }, { name: 'barney', age: 36 }, { name: 'fred', age: 40 }];\norderBy(users, ['name', 'age'], ['asc', 'desc']); // [{name: 'barney', age: 36}, {name: 'fred', age: 48}, {name: 'fred', age: 40}]\norderBy(users, ['name', 'age']); // [{name: 'barney', age: 36}, {name: 'fred', age: 40}, {name: 'fred', age: 48}]",
+    "code": "const orderBy = (arr, props, orders) =>\n  [...arr].sort((a, b) =>\n    props.reduce((acc, prop, i) => {\n      if (acc === 0) {\n        const [p1, p2] =\n          orders && orders[i] === 'desc'\n            ? [b[prop], a[prop]]\n            : [a[prop], b[prop]];\n        acc = p1 > p2 ? 1 : p1 < p2 ? -1 : 0;\n      }\n      return acc;\n    }, 0)\n  );",
+    "description": "Sorts an array of objects, ordered by properties and orders.\n\n- Uses `Array.prototype.sort()`, `Array.prototype.reduce()` on the `props` array with a default value of `0`.\n- Use array destructuring to swap the properties position depending on the order supplied.\n- If no `orders` array is supplied, sort by `'asc'` by default.",
+    "example": "const users = [\n  { name: 'fred', age: 48 },\n  { name: 'barney', age: 36 },\n  { name: 'fred', age: 40 },\n];\norderBy(users, ['name', 'age'], ['asc', 'desc']);\n// [{name: 'barney', age: 36}, {name: 'fred', age: 48}, {name: 'fred', age: 40}]\norderBy(users, ['name', 'age']);\n// [{name: 'barney', age: 36}, {name: 'fred', age: 40}, {name: 'fred', age: 48}]",
     "id": "orderBy",
     "tags": [
       "object",
       "array",
-      "intermediate"
+      "advanced"
     ]
   },
   {
     "code": "const orderWith = (arr, prop, order) => {\n  const orderValues = order.reduce((acc, v, i) => {\n    acc[v] = i;\n    return acc;\n  }, {});\n  return [...arr].sort((a, b) => {\n    if (orderValues[a[prop]] === undefined) return 1;\n    if (orderValues[b[prop]] === undefined) return -1;\n    return orderValues[a[prop]] - orderValues[b[prop]];\n  });\n};",
-    "description": "Returns a sorted array of objects ordered by a property, based on the array of orders provided.\n\n- Use `Array.prototype.reduce()` to create an object from the `order` array with the values as keys and their original index as the value.\n- Use `Array.prototype.sort()` to sort the given array, skipping elements for which `prop` is empty or not in the `order` array.",
+    "description": "Sorts an array of objects, ordered by a property, based on the array of orders provided.\n\n- Use `Array.prototype.reduce()` to create an object from the `order` array with the values as keys and their original index as the value.\n- Use `Array.prototype.sort()` to sort the given array, skipping elements for which `prop` is empty or not in the `order` array.",
     "example": "const users = [\n  { name: 'fred', language: 'Javascript' },\n  { name: 'barney', language: 'TypeScript' },\n  { name: 'frannie', language: 'Javascript' },\n  { name: 'anna', language: 'Java' },\n  { name: 'jimmy' },\n  { name: 'nicky', language: 'Python' },\n];\norderWith(users, 'language', ['Javascript', 'TypeScript', 'Java']);\n/* \n[\n  { name: 'fred', language: 'Javascript' },\n  { name: 'frannie', language: 'Javascript' },\n  { name: 'barney', language: 'TypeScript' },\n  { name: 'anna', language: 'Java' },\n  { name: 'jimmy' },\n  { name: 'nicky', language: 'Python' }\n]\n*/",
     "id": "orderWith",
     "tags": [
@@ -3177,7 +3177,7 @@
   {
     "code": "const over = (...fns) => (...args) => fns.map(fn => fn.apply(null, args));",
     "description": "Creates a function that invokes each provided function with the arguments it receives and returns the results.\n\n- Use `Array.prototype.map()` and `Function.prototype.apply()` to apply each function to the given arguments.",
-    "example": "const minMax = over(Math.min, Math.max);\nminMax(1, 2, 3, 4, 5); // [1,5]",
+    "example": "const minMax = over(Math.min, Math.max);\nminMax(1, 2, 3, 4, 5); // [1, 5]",
     "id": "over",
     "tags": [
       "function",
@@ -3185,7 +3185,7 @@
     ]
   },
   {
-    "code": "const overArgs = (fn, transforms) => (...args) => fn(...args.map((val, i) => transforms[i](val)));",
+    "code": "const overArgs = (fn, transforms) =>\n  (...args) => fn(...args.map((val, i) => transforms[i](val)));",
     "description": "Creates a function that invokes the provided function with its arguments transformed.\n\n- Use `Array.prototype.map()` to apply `transforms` to `args` in combination with the spread operator (`...`) to pass the transformed arguments to `fn`.",
     "example": "const square = n => n * n;\nconst double = n => n * 2;\nconst fn = overArgs((x, y) => [x, y], [square, double]);\nfn(9, 3); // [81, 6]",
     "id": "overArgs",
@@ -3290,7 +3290,7 @@
   },
   {
     "code": "const permutations = arr => {\n  if (arr.length <= 2) return arr.length === 2 ? [arr, [arr[1], arr[0]]] : arr;\n  return arr.reduce(\n    (acc, item, i) =>\n      acc.concat(\n        permutations([...arr.slice(0, i), ...arr.slice(i + 1)]).map(val => [item, ...val])\n      ),\n    []\n  );\n};",
-    "description": "Generates all permutations of an array's elements (contains duplicates).\n\n- Use recursion.\n- For each element in the given array, create all the partial permutations for the rest of its elements.\n- Use `Array.prototype.map()` to combine the element with each partial permutation, then `Array.prototype.reduce()` to combine all permutations in one array.\n- Base cases are for array `length` equal to `2` or `1`.\n- ⚠️ **WARNING**: This function's execution time increases exponentially with each array element. Anything more than 8 to 10 entries will cause your browser to hang as it tries to solve all the different combinations.",
+    "description": "Generates all permutations of an array's elements (contains duplicates).\n\n- Use recursion.\n- For each element in the given array, create all the partial permutations for the rest of its elements.\n- Use `Array.prototype.map()` to combine the element with each partial permutation, then `Array.prototype.reduce()` to combine all permutations in one array.\n- Base cases are for `Array.prototype.length` equal to `2` or `1`.\n- ⚠️ **WARNING**: This function's execution time increases exponentially with each array element. Anything more than 8 to 10 entries will cause your browser to hang as it tries to solve all the different combinations.",
     "example": "permutations([1, 33, 5]); // [ [ 1, 33, 5 ], [ 1, 5, 33 ], [ 33, 1, 5 ], [ 33, 5, 1 ], [ 5, 1, 33 ], [ 5, 33, 1 ] ]",
     "id": "permutations",
     "tags": [
@@ -3338,6 +3338,17 @@
     "tags": [
       "function",
       "intermediate"
+    ]
+  },
+  {
+    "code": "const pluck = (arr, key) => arr.map(i => i[key]);",
+    "description": "Converts and array of objects into an array of values corresponding to the specified `key`.\n\n- Use `Array.prototype.map()` to map the array of objects to the value of `key` for each one.",
+    "example": "const simpsons = [\n  { name: 'lisa', age: 8 },\n  { name: 'homer', age: 36 },\n  { name: 'marge', age: 34 },\n  { name: 'bart', age: 10 },\n];\npluck(simpsons, 'age'); // [8, 36, 34, 10]",
+    "id": "pluck",
+    "tags": [
+      "array",
+      "object",
+      "beginner"
     ]
   },
   {
@@ -3779,7 +3790,7 @@
   },
   {
     "code": "const sample = arr => arr[Math.floor(Math.random() * arr.length)];",
-    "description": "Returns a random element from an array.\n\n- Use `Math.random()` to generate a random number, multiply it by `length` and round it off to the nearest whole number using `Math.floor()`.\n- This method also works with strings.",
+    "description": "Returns a random element from an array.\n\n- Use `Math.random()` to generate a random number.\n- Multiply it by `Array.prototype.length` and round it off to the nearest whole number using `Math.floor()`.\n- This method also works with strings.",
     "example": "sample([3, 7, 9, 11]); // 9",
     "id": "sample",
     "tags": [
@@ -3906,7 +3917,7 @@
   },
   {
     "code": "const size = val =>\n  Array.isArray(val)\n    ? val.length\n    : val && typeof val === 'object'\n      ? val.size || val.length || Object.keys(val).length\n      : typeof val === 'string'\n        ? new Blob([val]).size\n        : 0;",
-    "description": "Gets the size of an array, object or string.\n\n- Get type of `val` (`array`, `object` or `string`).\n- Use `length` property for arrays.\n- Use `length` or `size` value if available or number of keys for objects.\n- Use `size` of a [`Blob` object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) created from `val` for strings.\n- Split strings into array of characters with `split('')` and return its length.",
+    "description": "Gets the size of an array, object or string.\n\n- Get type of `val` (`array`, `object` or `string`).\n- Use `Array.prototype.length` property for arrays.\n- Use `length` or `size` value if available or number of keys for objects.\n- Use `size` of a [`Blob` object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) created from `val` for strings.\n- Split strings into array of characters with `split('')` and return its length.",
     "example": "size([1, 2, 3, 4, 5]); // 5\nsize('size'); // 4\nsize({ one: 1, two: 2, three: 3 }); // 3",
     "id": "size",
     "tags": [
@@ -4046,7 +4057,7 @@
   },
   {
     "code": "const stringPermutations = str => {\n  if (str.length <= 2) return str.length === 2 ? [str, str[1] + str[0]] : [str];\n  return str\n    .split('')\n    .reduce(\n      (acc, letter, i) =>\n        acc.concat(stringPermutations(str.slice(0, i) + str.slice(i + 1)).map(val => letter + val)),\n      []\n    );\n};",
-    "description": "Generates all permutations of a string (contains duplicates).\n\n- Use recursion.\n- For each letter in the given string, create all the partial permutations for the rest of its letters.\n- Use `Array.prototype.map()` to combine the letter with each partial permutation, then `Array.prototype.reduce()` to combine all permutations in one array.\n- Base cases are for string `length` equal to `2` or `1`.\n- ⚠️ **WARNING**: This function's execution time increases exponentially with each character. Anything more than 8 to 10 characters will cause your browser to hang as it tries to solve all the different combinations.",
+    "description": "Generates all permutations of a string (contains duplicates).\n\n- Use recursion.\n- For each letter in the given string, create all the partial permutations for the rest of its letters.\n- Use `Array.prototype.map()` to combine the letter with each partial permutation, then `Array.prototype.reduce()` to combine all permutations in one array.\n- Base cases are for `String.prototype.length` equal to `2` or `1`.\n- ⚠️ **WARNING**: This function's execution time increases exponentially with each character. Anything more than 8 to 10 characters will cause your browser to hang as it tries to solve all the different combinations.",
     "example": "stringPermutations('abc'); // ['abc','acb','bac','bca','cab','cba']",
     "id": "stringPermutations",
     "tags": [
@@ -4488,7 +4499,7 @@
   },
   {
     "code": "const truncateString = (str, num) =>\n  str.length > num ? str.slice(0, num > 3 ? num - 3 : num) + '...' : str;",
-    "description": "Truncates a string up to a specified length.\n\n- Determine if the string's `length` is greater than `num`.\n- Return the string truncated to the desired length, with `'...'` appended to the end or the original string.",
+    "description": "Truncates a string up to a specified length.\n\n- Determine if `String.prototype.length` is greater than `num`.\n- Return the string truncated to the desired length, with `'...'` appended to the end or the original string.",
     "example": "truncateString('boomerang', 7); // 'boom...'",
     "id": "truncateString",
     "tags": [
@@ -4498,7 +4509,7 @@
   },
   {
     "code": "const truncateStringAtWhitespace = (str, lim, ending = '...') => {\n  if (str.length <= lim) return str;\n  const lastSpace = str.slice(0, lim - ending.length + 1).lastIndexOf(' ');\n  return str.slice(0, lastSpace > 0 ? lastSpace : lim - ending.length) + ending;\n};",
-    "description": "Truncates a string up to specified length, respecting whitespace when possible.\n\n- Determine if the string's `length` is greater or equal to `lim`. If not, return it as-is.\n- Use `String.prototype.slice()` and `String.prototype.lastIndexOf()` to find the index of the last space below the desired `lim`.\n- Use `String.prototype.slice()` to appropriately truncate `str` based on `lastSpace`, respecting whitespace if possible and appending `ending` at the end.\n- Omit the third argument, `ending`, to use the default ending of `'...'`.",
+    "description": "Truncates a string up to specified length, respecting whitespace when possible.\n\n- Determine if `String.prototype.length` is greater or equal to `lim`. If not, return it as-is.\n- Use `String.prototype.slice()` and `String.prototype.lastIndexOf()` to find the index of the last space below the desired `lim`.\n- Use `String.prototype.slice()` to appropriately truncate `str` based on `lastSpace`, respecting whitespace if possible and appending `ending` at the end.\n- Omit the third argument, `ending`, to use the default ending of `'...'`.",
     "example": "truncateStringAtWhitespace('short', 10); // 'short'\ntruncateStringAtWhitespace('not so short', 10); // 'not so...'\ntruncateStringAtWhitespace('trying a thing', 10); // 'trying...'\ntruncateStringAtWhitespace('javascripting', 10); // 'javascr...'",
     "id": "truncateStringAtWhitespace",
     "tags": [
