@@ -3495,6 +3495,16 @@
     ]
   },
   {
+    "code": "const queryStringToObject = url =>\n  [...new URLSearchParams(url.split('?')[1])].reduce(\n    (a, [k, v]) => ((a[k] = v), a),\n    {}\n  );",
+    "description": "Generates an object from the given query string or URL.\n\n- Use `String.prototype.split()` to get the params from the given `url`.\n- Use `new URLSearchParams()` to create an appropriate object and convert it to an array of key-value pairs using the spread operator (`...`).\n- Use `Array.prototype.reduce()` to convert the array of key-value pairs into an object.",
+    "example": "queryStringToObject('https://google.com?page=1&count=10'); // {page: '1', count: '10'}",
+    "id": "queryStringToObject",
+    "tags": [
+      "object",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const radsToDegrees = rad => (rad * 180.0) / Math.PI;",
     "description": "Converts an angle from radians to degrees.\n\n- Use `Math.PI` and the radian to degree formula to convert the angle from radians to degrees.",
     "example": "radsToDegrees(Math.PI / 2); // 90",
