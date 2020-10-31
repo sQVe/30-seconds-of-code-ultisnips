@@ -523,6 +523,18 @@
     ]
   },
   {
+    "code": "const changeLightness = (delta, hslStr) => {\n  const [hue, saturation, lightness] = hslStr.match(/\\d+/g).map(Number);\n\n  const newLightness = Math.max(\n    0,\n    Math.min(100, lightness + parseFloat(delta))\n  );\n\n  return \\`hsl(\\${hue}, \\${saturation}%, \\${newLightness}%)\\`;\n};",
+    "description": "Changes the lightness value of an `hsl()` color string.\n\n- Use `String.prototype.match()` to get an array of 3 strings with the numeric values.\n- Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values.\n- Make sure the lightness is within the valid range (between `0` and `100`), using `Math.max()` and `Math.min()`.\n- Use a template literal to create a new `hsl()` string with the updated value.",
+    "example": "changeLightness(10, 'hsl(330, 50%, 50%)'); // 'hsl(330, 50%, 60%)'\nchangeLightness(-10, 'hsl(330, 50%, 50%)'); // 'hsl(330, 50%, 40%)'",
+    "id": "changeLightness",
+    "tags": [
+      "string",
+      "browser",
+      "regexp",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const checkProp = (predicate, prop) => obj => !!predicate(obj[prop]);",
     "description": "Creates a function that will invoke a predicate function for the specified property on a given object.\n\n- Return a curried function, that will invoke `predicate` for the specified `prop` on `obj` and return a boolean.",
     "example": "const lengthIs4 = checkProp(l => l === 4, 'length');\nlengthIs4([]); // false\nlengthIs4([1, 2, 3, 4]); // true\nlengthIs4(new Set([1, 2, 3, 4])); // false (Set uses Size, not length)\n\nconst session = { user: {} };\nconst validUserSession = checkProp(u => u.active && !u.disabled, 'user');\n\nvalidUserSession(session); // false\n\nsession.user.active = true;\nvalidUserSession(session); // true\n\nconst noLength = checkProp(l => l === undefined, 'length');\nnoLength([]); // false\nnoLength({}); // true\nnoLength(new Set()); // true",
