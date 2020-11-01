@@ -140,7 +140,7 @@
   },
   {
     "code": "const addDaysToDate = (date, n) => {\n  d = new Date(date);\n  d.setDate(d.getDate() + n);\n  return d.toISOString().split('T')[0];\n};",
-    "description": "Calculates the date of `n` days from the given date, returning its string representation.\n\n- Use `new Date()` to create a date object from the first parameter.\n- Use `Date.prototype.getDate()` and `Date.prototype.setDate()` to add `n` days to the given date.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
+    "description": "Calculates the date of `n` days from the given date, returning its string representation.\n\n- Use `new Date()` to create a date object from the first argument.\n- Use `Date.prototype.getDate()` and `Date.prototype.setDate()` to add `n` days to the given date.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "addDaysToDate('2020-10-15', 10); // '2020-10-25'\naddDaysToDate('2020-10-15', -10); // '2020-10-05'",
     "id": "addDaysToDate",
     "tags": [
@@ -252,7 +252,7 @@
   },
   {
     "code": "const approximatelyEqual = (v1, v2, epsilon = 0.001) =>\n  Math.abs(v1 - v2) < epsilon;",
-    "description": "Checks if two numbers are approximately equal to each other.\n\n- Use `Math.abs()` to compare the absolute difference of the two values to `epsilon`.\n- Omit the third parameter, `epsilon`, to use a default value of `0.001`.",
+    "description": "Checks if two numbers are approximately equal to each other.\n\n- Use `Math.abs()` to compare the absolute difference of the two values to `epsilon`.\n- Omit the third argument, `epsilon`, to use a default value of `0.001`.",
     "example": "approximatelyEqual(Math.PI / 2.0, 1.5708); // true",
     "id": "approximatelyEqual",
     "tags": [
@@ -348,7 +348,7 @@
   {
     "code": "const bifurcate = (arr, filter) =>\n  arr.reduce((acc, val, i) => (acc[filter[i] ? 0 : 1].push(val), acc), [\n    [],\n    [],\n  ]);",
     "description": "Splits values into two groups, based on the result of the given `filter` array. \n\n- Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on `filter`.\n- If `filter` has a truthy value for any element, add it to the first group, otherwise add it to the second group.",
-    "example": "bifurcate(['beep', 'boop', 'foo', 'bar'], [true, true, false, true]); \n// [ ['beep', 'boop', 'bar'], ['foo'] ]",
+    "example": "bifurcate(['beep', 'boop', 'foo', 'bar'], [true, true, false, true]);\n// [ ['beep', 'boop', 'bar'], ['foo'] ]",
     "id": "bifurcate",
     "tags": [
       "array",
@@ -358,7 +358,7 @@
   {
     "code": "const bifurcateBy = (arr, fn) =>\n  arr.reduce((acc, val, i) => (acc[fn(val, i) ? 0 : 1].push(val), acc), [\n    [],\n    [],\n  ]);",
     "description": "Splits values into two groups, based on the result of the given filtering function. \n\n- Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on the value returned by `fn` for each element.\n- If `fn` returns a truthy value for any element, add it to the first group, otherwise add it to the second group.",
-    "example": "bifurcateBy(['beep', 'boop', 'foo', 'bar'], x => x[0] === 'b'); // [ ['beep', 'boop', 'bar'], ['foo'] ]",
+    "example": "bifurcateBy(['beep', 'boop', 'foo', 'bar'], x => x[0] === 'b');\n// [ ['beep', 'boop', 'bar'], ['foo'] ]",
     "id": "bifurcateBy",
     "tags": [
       "array",
@@ -472,7 +472,7 @@
   },
   {
     "code": "const capitalize = ([first, ...rest], lowerRest = false) =>\n  first.toUpperCase() +\n  (lowerRest ? rest.join('').toLowerCase() : rest.join(''));",
-    "description": "Capitalizes the first letter of a string.\n\n- Use array destructuring and `String.prototype.toUpperCase()` to capitalize the first letter of the string.\n- Use `Array.prototype.join('')` to combine the capitalized `first` with the `...rest` of the characters.\n- Omit the `lowerRest` parameter to keep the rest of the string intact, or set it to `true` to convert to lowercase.",
+    "description": "Capitalizes the first letter of a string.\n\n- Use array destructuring and `String.prototype.toUpperCase()` to capitalize the first letter of the string.\n- Use `Array.prototype.join('')` to combine the capitalized `first` with the `...rest` of the characters.\n- Omit the `lowerRest` argument to keep the rest of the string intact, or set it to `true` to convert to lowercase.",
     "example": "capitalize('fooBar'); // 'FooBar'\ncapitalize('fooBar', true); // 'Foobar'",
     "id": "capitalize",
     "tags": [
@@ -504,7 +504,7 @@
   },
   {
     "code": "const celsiusToFahrenheit = degrees => 1.8 * degrees + 32;",
-    "description": "Converts Celsius to Fahrenheit.\n\n- Follows the conversion formula `F = 1.8 * C + 32`.",
+    "description": "Converts Celsius to Fahrenheit.\n\n- Follow the conversion formula `F = 1.8 * C + 32`.",
     "example": "celsiusToFahrenheit(33); // 91.4",
     "id": "celsiusToFahrenheit",
     "tags": [
@@ -542,7 +542,7 @@
     "tags": [
       "function",
       "object",
-      "beginner"
+      "intermediate"
     ]
   },
   {
@@ -767,7 +767,7 @@
   },
   {
     "code": "const counter = (selector, start, end, step = 1, duration = 2000) => {\n  let current = start,\n    _step = (end - start) * step < 0 ? -step : step,\n    timer = setInterval(() => {\n      current += _step;\n      document.querySelector(selector).innerHTML = current;\n      if (current >= end) document.querySelector(selector).innerHTML = end;\n      if (current >= end) clearInterval(timer);\n    }, Math.abs(Math.floor(duration / (end - start))));\n  return timer;\n};",
-    "description": "Creates a counter with the specified range, step and duration for the specified selector.\n\n- Check if `step` has the proper sign and change it accordingly.\n- Use `setInterval()` in combination with `Math.abs()` and `Math.floor()` to calculate the time between each new text draw.\n- Use `Document.querySelector()`, `Element.innerHTML` to update the value of the selected element.\n- Omit the fourth parameter, `step`, to use a default step of `1`.\n- Omit the fifth parameter, `duration`, to use a default duration of `2000`ms.",
+    "description": "Creates a counter with the specified range, step and duration for the specified selector.\n\n- Check if `step` has the proper sign and change it accordingly.\n- Use `setInterval()` in combination with `Math.abs()` and `Math.floor()` to calculate the time between each new text draw.\n- Use `Document.querySelector()`, `Element.innerHTML` to update the value of the selected element.\n- Omit the fourth argument, `step`, to use a default step of `1`.\n- Omit the fifth argument, `duration`, to use a default duration of `2000`ms.",
     "example": "counter('#my-id', 1, 1000, 5, 2000);\n// Creates a 2-second timer for the element with id=\"my-id\"",
     "id": "counter",
     "tags": [
@@ -840,7 +840,7 @@
   },
   {
     "code": "const dayName = (date, locale) =>\n  date.toLocaleDateString(locale, { weekday: 'long' });",
-    "description": "Gets the name of the weekday from a `Date` object.\n\n- Use `Date.prototype.toLocaleDateString()` with the `{ weekday: 'long' }` option to retrieve the weekday.\n- Use the optional second parameter to get a language-specific name or omit it to use the default locale.",
+    "description": "Gets the name of the weekday from a `Date` object.\n\n- Use `Date.prototype.toLocaleDateString()` with the `{ weekday: 'long' }` option to retrieve the weekday.\n- Use the optional second argument to get a language-specific name or omit it to use the default locale.",
     "example": "dayName(new Date()); // 'Saturday'\ndayName(new Date('09/23/2020'), 'de-DE'); // 'Samstag'",
     "id": "dayName",
     "tags": [
@@ -901,7 +901,7 @@
   },
   {
     "code": "const decapitalize = ([first, ...rest], upperRest = false) =>\n  first.toLowerCase() +\n  (upperRest ? rest.join('').toUpperCase() : rest.join(''));",
-    "description": "Decapitalizes the first letter of a string.\n\n- Use array destructuring and `String.prototype.toLowerCase()` to decapitalize first letter, `...rest` to get array of characters after first letter and then `Array.prototype.join('')` to make it a string again.\n- Omit the `upperRest` parameter to keep the rest of the string intact, or set it to `true` to convert to uppercase.",
+    "description": "Decapitalizes the first letter of a string.\n\n- Use array destructuring and `String.prototype.toLowerCase()` to decapitalize first letter, `...rest` to get array of characters after first letter and then `Array.prototype.join('')` to make it a string again.\n- Omit the `upperRest` argument to keep the rest of the string intact, or set it to `true` to convert to uppercase.",
     "example": "decapitalize('FooBar'); // 'fooBar'\ndecapitalize('FooBar', true); // 'fOOBAR'",
     "id": "decapitalize",
     "tags": [
@@ -1097,7 +1097,7 @@
   },
   {
     "code": "const drop = (arr, n = 1) => arr.slice(n);",
-    "description": "Creates a new array with `n` elements removed from the left.\n\n- Use `Array.prototype.slice()` to remove the specified number of elements from the left.",
+    "description": "Creates a new array with `n` elements removed from the left.\n\n- Use `Array.prototype.slice()` to remove the specified number of elements from the left.\n- Omit the last argument, `n`, to use a default value of `1`.",
     "example": "drop([1, 2, 3]); // [2, 3]\ndrop([1, 2, 3], 2); // [3]\ndrop([1, 2, 3], 42); // []",
     "id": "drop",
     "tags": [
@@ -1107,8 +1107,8 @@
   },
   {
     "code": "const dropRight = (arr, n = 1) => arr.slice(0, -n);",
-    "description": "Creates a new array with `n` elements removed from the right.\n\n- Use `Array.prototype.slice()` to remove the specified number of elements from the right.",
-    "example": "dropRight([1, 2, 3]); // [1,2]\ndropRight([1, 2, 3], 2); // [1]\ndropRight([1, 2, 3], 42); // []",
+    "description": "Creates a new array with `n` elements removed from the right.\n\n- Use `Array.prototype.slice()` to remove the specified number of elements from the right.\n- Omit the last argument, `n`, to use a default value of `1`.",
+    "example": "dropRight([1, 2, 3]); // [1, 2]\ndropRight([1, 2, 3], 2); // [1]\ndropRight([1, 2, 3], 42); // []",
     "id": "dropRight",
     "tags": [
       "array",
@@ -1255,7 +1255,7 @@
   },
   {
     "code": "const fahrenheitToCelsius = degrees => (degrees - 32) * 5 / 9;",
-    "description": "Converts Fahrenheit to Celsius.\n\n- Follows the conversion formula `C = (F - 32) * 5/9`.",
+    "description": "Converts Fahrenheit to Celsius.\n\n- Follow the conversion formula `C = (F - 32) * 5/9`.",
     "example": "fahrenheitToCelsius(32); // 0",
     "id": "fahrenheitToCelsius",
     "tags": [
@@ -1897,7 +1897,7 @@
   },
   {
     "code": "const inRange = (n, start, end = null) => {\n  if (end && start > end) [end, start] = [start, end];\n  return end == null ? n >= 0 && n < start : n >= start && n < end;\n};",
-    "description": "Checks if the given number falls within the given range.\n\n- Use arithmetic comparison to check if the given number is in the specified range.\n- If the second parameter, `end`, is not specified, the range is considered to be from `0` to `start`.",
+    "description": "Checks if the given number falls within the given range.\n\n- Use arithmetic comparison to check if the given number is in the specified range.\n- If the second argument, `end`, is not specified, the range is considered to be from `0` to `start`.",
     "example": "inRange(3, 2, 5); // true\ninRange(3, 4); // true\ninRange(2, 3, 5); // false\ninRange(3, 2); // false",
     "id": "inRange",
     "tags": [
@@ -1927,7 +1927,7 @@
   },
   {
     "code": "const indentString = (str, count, indent = ' ') =>\n  str.replace(/^/gm, indent.repeat(count));",
-    "description": "Indents each line in the provided string.\n\n- Use `String.prototype.replace()` and a regular expression to add the character specified by `indent` `count` times at the start of each line.\n- Omit the third parameter, `indent`, to use a default indentation character of `' '`.",
+    "description": "Indents each line in the provided string.\n\n- Use `String.prototype.replace()` and a regular expression to add the character specified by `indent` `count` times at the start of each line.\n- Omit the third argument, `indent`, to use a default indentation character of `' '`.",
     "example": "indentString('Lorem\\nIpsum', 2); // '  Lorem\\n  Ipsum'\nindentString('Lorem\\nIpsum', 2, '_'); // '__Lorem\\n__Ipsum'",
     "id": "indentString",
     "tags": [
@@ -2635,7 +2635,7 @@
   },
   {
     "code": "const kmToMiles = km => km * 0.621371;",
-    "description": "Converts kilometers to miles.\n\n- Follows the conversion formula `mi = km * 0.621371`.",
+    "description": "Converts kilometers to miles.\n\n- Follow the conversion formula `mi = km * 0.621371`.",
     "example": "kmToMiles(8.1) // 5.0331051",
     "id": "kmToMiles",
     "tags": [
@@ -2882,7 +2882,7 @@
   },
   {
     "code": "const milesToKm = miles => miles * 1.609344;",
-    "description": "Converts miles to kilometers.\n\n- Follows the conversion formula `km = mi * 1.609344`.",
+    "description": "Converts miles to kilometers.\n\n- Follow the conversion formula `km = mi * 1.609344`.",
     "example": "milesToKm(5); // ~8.04672",
     "id": "milesToKm",
     "tags": [
@@ -3646,7 +3646,7 @@
   },
   {
     "code": "const reduceWhich = (arr, comparator = (a, b) => a - b) =>\n  arr.reduce((a, b) => (comparator(a, b) >= 0 ? b : a));",
-    "description": "Returns the minimum/maximum value of an array, after applying the provided function to set the comparing rule.\n\n- Use `Array.prototype.reduce()` in combination with the `comparator` function to get the appropriate element in the array.\n- You can omit the second parameter, `comparator`, to use the default one that returns the minimum element in the array.",
+    "description": "Returns the minimum/maximum value of an array, after applying the provided function to set the comparing rule.\n\n- Use `Array.prototype.reduce()` in combination with the `comparator` function to get the appropriate element in the array.\n- Omit the second argument, `comparator`, to use the default one that returns the minimum element in the array.",
     "example": "reduceWhich([1, 3, 2]); // 1\nreduceWhich([1, 3, 2], (a, b) => b - a); // 3\nreduceWhich(\n  [{ name: 'Tom', age: 12 }, { name: 'Jack', age: 18 }, { name: 'Lucy', age: 9 }],\n  (a, b) => a.age - b.age\n); // {name: 'Lucy', age: 9}",
     "id": "reduceWhich",
     "tags": [
