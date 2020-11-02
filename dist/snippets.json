@@ -1274,8 +1274,8 @@
     ]
   },
   {
-    "code": "const filterNonUnique = arr =>\n  arr.filter(i => arr.indexOf(i) === arr.lastIndexOf(i));",
-    "description": "Creates an array with the non-unique values filtered out.\n\n- Use `Array.prototype.filter()` to create an array containing only the unique values.",
+    "code": "const filterNonUnique = arr =>\n  [...new Set(arr)].filter(i => arr.indexOf(i) === arr.lastIndexOf(i));",
+    "description": "Creates an array with the non-unique values filtered out.\n\n- Use `new Set()` and the spread operator (`...`) to create an array of the unique values in `arr`.\n- Use `Array.prototype.filter()` to create an array containing only the unique values.",
     "example": "filterNonUnique([1, 2, 2, 3, 4, 4, 5]); // [1, 3, 5]",
     "id": "filterNonUnique",
     "tags": [
@@ -1286,8 +1286,28 @@
   {
     "code": "const filterNonUniqueBy = (arr, fn) =>\n  arr.filter((v, i) => arr.every((x, j) => (i === j) === fn(v, x, i, j)));",
     "description": "Creates an array with the non-unique values filtered out, based on a provided comparator function.\n\n- Use `Array.prototype.filter()` and `Array.prototype.every()` to create an array containing only the unique values, based on the comparator function, `fn`.\n- The comparator function takes four arguments: the values of the two elements being compared and their indexes.",
-    "example": "filterNonUniqueBy(\n  [\n    { id: 0, value: 'a' },\n    { id: 1, value: 'b' },\n    { id: 2, value: 'c' },\n    { id: 1, value: 'd' },\n    { id: 0, value: 'e' }\n  ],\n  (a, b) => a.id == b.id\n); // [ { id: 2, value: 'c' } ]",
+    "example": "filterNonUniqueBy(\n  [\n    { id: 0, value: 'a' },\n    { id: 1, value: 'b' },\n    { id: 2, value: 'c' },\n    { id: 1, value: 'd' },\n    { id: 0, value: 'e' }\n  ],\n  (a, b) => a.id === b.id\n); // [ { id: 2, value: 'c' } ]",
     "id": "filterNonUniqueBy",
+    "tags": [
+      "array",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const filterUnique = arr =>\n  [...new Set(arr)].filter(i => arr.indexOf(i) !== arr.lastIndexOf(i));",
+    "description": "Creates an array with the unique values filtered out.\n\n- Use `new Set()` and the spread operator (`...`) to create an array of the unique values in `arr`.\n- Use `Array.prototype.filter()` to create an array containing only the non-unique values.",
+    "example": "filterUnique([1, 2, 2, 3, 4, 4, 5]); // [2, 4]",
+    "id": "filterUnique",
+    "tags": [
+      "array",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const filterUniqueBy = (arr, fn) =>\n  arr.filter((v, i) => arr.some((x, j) => (i !== j) === fn(v, x, i, j)));",
+    "description": "Creates an array with the unique values filtered out, based on a provided comparator function.\n\n- Use `Array.prototype.filter()` and `Array.prototype.every()` to create an array containing only the non-unique values, based on the comparator function, `fn`.\n- The comparator function takes four arguments: the values of the two elements being compared and their indexes.",
+    "example": "filterUniqueBy(\n  [\n    { id: 0, value: 'a' },\n    { id: 1, value: 'b' },\n    { id: 2, value: 'c' },\n    { id: 3, value: 'd' },\n    { id: 0, value: 'e' }\n  ],\n  (a, b) => a.id == b.id\n); // [ { id: 0, value: 'a' }, { id: 0, value: 'e' } ]",
+    "id": "filterUniqueBy",
     "tags": [
       "array",
       "intermediate"

@@ -921,14 +921,24 @@ const fibonacci = n =>
   );
 endsnippet
 
-snippet filterNonUnique "Creates an array with the non-unique values filtered out.  - Use `Array.prototype.filter()` to create an array containing only the unique values." b
+snippet filterNonUnique "Creates an array with the non-unique values filtered out.  - Use `new Set()` and the spread operator (`...`) to create an array of the unique values in `arr`. - Use `Array.prototype.filter()` to create an array containing only the unique values." b
 const filterNonUnique = arr =>
-  arr.filter(i => arr.indexOf(i) === arr.lastIndexOf(i));
+  [...new Set(arr)].filter(i => arr.indexOf(i) === arr.lastIndexOf(i));
 endsnippet
 
 snippet filterNonUniqueBy "Creates an array with the non-unique values filtered out, based on a provided comparator function.  - Use `Array.prototype.filter()` and `Array.prototype.every()` to create an array containing only the unique values, based on the comparator function, `fn`. - The comparator function takes four arguments: the values of the two elements being compared and their indexes." b
 const filterNonUniqueBy = (arr, fn) =>
   arr.filter((v, i) => arr.every((x, j) => (i === j) === fn(v, x, i, j)));
+endsnippet
+
+snippet filterUnique "Creates an array with the unique values filtered out.  - Use `new Set()` and the spread operator (`...`) to create an array of the unique values in `arr`. - Use `Array.prototype.filter()` to create an array containing only the non-unique values." b
+const filterUnique = arr =>
+  [...new Set(arr)].filter(i => arr.indexOf(i) !== arr.lastIndexOf(i));
+endsnippet
+
+snippet filterUniqueBy "Creates an array with the unique values filtered out, based on a provided comparator function.  - Use `Array.prototype.filter()` and `Array.prototype.every()` to create an array containing only the non-unique values, based on the comparator function, `fn`. - The comparator function takes four arguments: the values of the two elements being compared and their indexes." b
+const filterUniqueBy = (arr, fn) =>
+  arr.filter((v, i) => arr.some((x, j) => (i !== j) === fn(v, x, i, j)));
 endsnippet
 
 snippet findKey "Finds the first key that satisfies the provided testing function. Otherwise `undefined` is returned.  - Use `Object.keys(obj)` to get all the properties of the object, `Array.prototype.find()` to test each key-value pair using `fn`. - The callback receives three arguments - the value, the key and the object." b
