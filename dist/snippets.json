@@ -2,7 +2,7 @@
   {
     "code": "const CSVToArray = (data, delimiter = ',', omitFirstRow = false) =>\n  data\n    .slice(omitFirstRow ? data.indexOf('\\n') + 1 : 0)\n    .split('\\n')\n    .map(v => v.split(delimiter));",
     "description": "Converts a comma-separated values (CSV) string to a 2D array.\n\n- Use `Array.prototype.slice()` and `Array.prototype.indexOf('\\n')` to remove the first row (title row) if `omitFirstRow` is `true`.\n- Use `String.prototype.split('\\n')` to create a string for each row, then `String.prototype.split(delimiter)` to separate the values in each row.\n- Omit the second argument, `delimiter`, to use a default delimiter of `,`.\n- Omit the third argument, `omitFirstRow`, to include the first row (title row) of the CSV string.",
-    "example": "CSVToArray('a,b\\nc,d'); // [['a','b'],['c','d']];\nCSVToArray('a;b\\nc;d', ';'); // [['a','b'],['c','d']];\nCSVToArray('col1,col2\\na,b\\nc,d', ',', true); // [['a','b'],['c','d']];",
+    "example": "CSVToArray('a,b\\nc,d'); // [['a', 'b'], ['c', 'd']];\nCSVToArray('a;b\\nc;d', ';'); // [['a', 'b'], ['c', 'd']];\nCSVToArray('col1,col2\\na,b\\nc,d', ',', true); // [['a', 'b'], ['c', 'd']];",
     "id": "CSVToArray",
     "tags": [
       "string",
@@ -13,7 +13,7 @@
   {
     "code": "const CSVToJSON = (data, delimiter = ',') => {\n  const titles = data.slice(0, data.indexOf('\\n')).split(delimiter);\n  return data\n    .slice(data.indexOf('\\n') + 1)\n    .split('\\n')\n    .map(v => {\n      const values = v.split(delimiter);\n      return titles.reduce(\n        (obj, title, index) => ((obj[title] = values[index]), obj),\n        {}\n      );\n    });\n};",
     "description": "Converts a comma-separated values (CSV) string to a 2D array of objects.\nThe first row of the string is used as the title row.\n\n- Use `Array.prototype.slice()` and `Array.prototype.indexOf('\\n')` and `String.prototype.split(delimiter)` to separate the first row (title row) into values.\n- Use `String.prototype.split('\\n')` to create a string for each row, then `Array.prototype.map()` and `String.prototype.split(delimiter)` to separate the values in each row.\n- Use `Array.prototype.reduce()` to create an object for each row's values, with the keys parsed from the title row.\n- Omit the second argument, `delimiter`, to use a default delimiter of `,`.",
-    "example": "CSVToJSON('col1,col2\\na,b\\nc,d'); // [{'col1': 'a', 'col2': 'b'}, {'col1': 'c', 'col2': 'd'}];\nCSVToJSON('col1;col2\\na;b\\nc;d', ';'); // [{'col1': 'a', 'col2': 'b'}, {'col1': 'c', 'col2': 'd'}];",
+    "example": "CSVToJSON('col1,col2\\na,b\\nc,d');\n// [{'col1': 'a', 'col2': 'b'}, {'col1': 'c', 'col2': 'd'}];\nCSVToJSON('col1;col2\\na;b\\nc;d', ';');\n// [{'col1': 'a', 'col2': 'b'}, {'col1': 'c', 'col2': 'd'}];",
     "id": "CSVToJSON",
     "tags": [
       "string",
@@ -84,8 +84,8 @@
     ]
   },
   {
-    "code": "const RGBToHex = (r, g, b) => ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');",
-    "description": "Converts the values of RGB components to a hexadecimal color code.\n\n- Convert given RGB parameters to hexadecimal string using bitwise left-shift operator (`<<`) and `Number.prototype.toString(16)`.\n- Use `String.prototype.padStart(6,'0')` to get a 6-digit hexadecimal value.",
+    "code": "const RGBToHex = (r, g, b) =>\n  ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');",
+    "description": "Converts the values of RGB components to a hexadecimal color code.\n\n- Convert given RGB parameters to hexadecimal string using bitwise left-shift operator (`<<`) and `Number.prototype.toString(16)`.\n- Use `String.prototype.padStart(6, '0')` to get a 6-digit hexadecimal value.",
     "example": "RGBToHex(255, 165, 1); // 'ffa501'",
     "id": "RGBToHex",
     "tags": [
@@ -128,7 +128,7 @@
     ]
   },
   {
-    "code": "const accumulate = (...nums) =>\n  nums.reduce((acc, n) => [...acc, n + +acc.slice(-1)],[]);",
+    "code": "const accumulate = (...nums) =>\n  nums.reduce((acc, n) => [...acc, n + +acc.slice(-1)], []);",
     "description": "Creates an array of partial sums.\n\n- Use `Array.prototype.reduce()`, initialized with an empty array accumulator to iterate over `nums`.\n- Use `Array.prototype.slice(-1)`, the spread operator (`...`) and the unary `+` operator to add each value to the accumulator array containing the previous sums.",
     "example": "accumulate(1, 2, 3, 4); // [1, 3, 6, 10]\naccumulate(...[1, 2, 3, 4]); // [1, 3, 6, 10]",
     "id": "accumulate",
@@ -271,9 +271,9 @@
     ]
   },
   {
-    "code": "const arrayToCSV = (arr, delimiter = ',') =>\n  arr\n    .map(v => v.map(x => (isNaN(x) ? \\`\"\\${x.replace(/\"/g, '\"\"')}\"\\` : x)).join(delimiter))\n    .join('\\n');",
+    "code": "const arrayToCSV = (arr, delimiter = ',') =>\n  arr\n    .map(v =>\n      v.map(x => (isNaN(x) ? \\`\"\\${x.replace(/\"/g, '\"\"')}\"\\` : x)).join(delimiter)\n    )\n    .join('\\n');",
     "description": "Converts a 2D array to a comma-separated values (CSV) string.\n\n- Use `Array.prototype.map()` and `Array.prototype.join(delimiter)` to combine individual 1D arrays (rows) into strings.\n- Use `Array.prototype.join('\\n')` to combine all rows into a CSV string, separating each row with a newline.\n- Omit the second argument, `delimiter`, to use a default delimiter of `,`.",
-    "example": "arrayToCSV([['a', 'b'], ['c', 'd']]); // '\"a\",\"b\"\\n\"c\",\"d\"'\narrayToCSV([['a', 'b'], ['c', 'd']], ';'); // '\"a\";\"b\"\\n\"c\";\"d\"'\narrayToCSV([['a', '\"b\" great'], ['c', 3.1415]]); // '\"a\",\"\"\"b\"\" great\"\\n\"c\",3.1415'",
+    "example": "arrayToCSV([['a', 'b'], ['c', 'd']]); // '\"a\",\"b\"\\n\"c\",\"d\"'\narrayToCSV([['a', 'b'], ['c', 'd']], ';'); // '\"a\";\"b\"\\n\"c\";\"d\"'\narrayToCSV([['a', '\"b\" great'], ['c', 3.1415]]);\n// '\"a\",\"\"\"b\"\" great\"\\n\"c\",3.1415'",
     "id": "arrayToCSV",
     "tags": [
       "array",
@@ -389,7 +389,7 @@
   {
     "code": "const bindAll = (obj, ...fns) =>\n  fns.forEach(\n    fn => (\n      (f = obj[fn]),\n      (obj[fn] = function() {\n        return f.apply(obj);\n      })\n    )\n  );",
     "description": "Binds methods of an object to the object itself, overwriting the existing method.\n\n- Use `Array.prototype.forEach()` to iterate over the given `fns`.\n- Return a function for each one, using `Function.prototype.apply()` to apply the given context (`obj`) to `fn`.",
-    "example": "var view = {\n  label: 'docs',\n  click: function() {\n    console.log('clicked ' + this.label);\n  }\n};\nbindAll(view, 'click');\ndocument.body.addEventListener('click', view.click); // Log 'clicked docs' when clicked.",
+    "example": "var view = {\n  label: 'docs',\n  click: function() {\n    console.log('clicked ' + this.label);\n  }\n};\nbindAll(view, 'click');\ndocument.body.addEventListener('click', view.click);\n// Log 'clicked docs' when clicked.",
     "id": "bindAll",
     "tags": [
       "object",
@@ -548,7 +548,7 @@
   {
     "code": "const chunk = (arr, size) =>\n  Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>\n    arr.slice(i * size, i * size + size)\n  );",
     "description": "Chunks an array into smaller arrays of a specified size.\n\n- Use `Array.from()` to create a new array, that fits the number of chunks that will be produced.\n- Use `Array.prototype.slice()` to map each element of the new array to a chunk the length of `size`.\n- If the original array can't be split evenly, the final chunk will contain the remaining elements.",
-    "example": "chunk([1, 2, 3, 4, 5], 2); // [[1,2],[3,4],[5]]",
+    "example": "chunk([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]",
     "id": "chunk",
     "tags": [
       "array",
@@ -558,7 +558,7 @@
   {
     "code": "const chunkIntoN = (arr, n) => {\n  const size = Math.ceil(arr.length / n);\n  return Array.from({ length: n }, (v, i) =>\n    arr.slice(i * size, i * size + size)\n  );\n}",
     "description": "Chunks an array into `n` smaller arrays.\n\n- Use `Math.ceil()` and `Array.prototype.length` to get the size of each chunk.\n- Use `Array.from()` to create a new array of size `n`.\n- Use `Array.prototype.slice()` to map each element of the new array to a chunk the length of `size`.\n- If the original array can't be split evenly, the final chunk will contain the remaining elements.",
-    "example": "chunkIntoN([1, 2, 3, 4, 5, 6, 7], 4); // [[1,2], [3,4], [5,6], [7]]",
+    "example": "chunkIntoN([1, 2, 3, 4, 5, 6, 7], 4); // [[1, 2], [3, 4], [5, 6], [7]]",
     "id": "chunkIntoN",
     "tags": [
       "array",
@@ -620,7 +620,7 @@
   {
     "code": "const colorize = (...args) => ({\n  black: \\`\\x1b[30m\\${args.join(' ')}\\`,\n  red: \\`\\x1b[31m\\${args.join(' ')}\\`,\n  green: \\`\\x1b[32m\\${args.join(' ')}\\`,\n  yellow: \\`\\x1b[33m\\${args.join(' ')}\\`,\n  blue: \\`\\x1b[34m\\${args.join(' ')}\\`,\n  magenta: \\`\\x1b[35m\\${args.join(' ')}\\`,\n  cyan: \\`\\x1b[36m\\${args.join(' ')}\\`,\n  white: \\`\\x1b[37m\\${args.join(' ')}\\`,\n  bgBlack: \\`\\x1b[40m\\${args.join(' ')}\\x1b[0m\\`,\n  bgRed: \\`\\x1b[41m\\${args.join(' ')}\\x1b[0m\\`,\n  bgGreen: \\`\\x1b[42m\\${args.join(' ')}\\x1b[0m\\`,\n  bgYellow: \\`\\x1b[43m\\${args.join(' ')}\\x1b[0m\\`,\n  bgBlue: \\`\\x1b[44m\\${args.join(' ')}\\x1b[0m\\`,\n  bgMagenta: \\`\\x1b[45m\\${args.join(' ')}\\x1b[0m\\`,\n  bgCyan: \\`\\x1b[46m\\${args.join(' ')}\\x1b[0m\\`,\n  bgWhite: \\`\\x1b[47m\\${args.join(' ')}\\x1b[0m\\`\n});",
     "description": "Adds special characters to text to print in color in the console (combined with `console.log()`).\n\n- Use template literals and special characters to add the appropriate color code to the string output.\n- For background colors, add a special character that resets the background color at the end of the string.",
-    "example": "console.log(colorize('foo').red); // 'foo' (red letters)\nconsole.log(colorize('foo', 'bar').bgBlue); // 'foo bar' (blue background)\nconsole.log(colorize(colorize('foo').yellow, colorize('foo').green).bgWhite); \n// 'foo bar' (first word in yellow letters, second word in green letters, white background for both)",
+    "example": "console.log(colorize('foo').red); // 'foo' (red letters)\nconsole.log(colorize('foo', 'bar').bgBlue); // 'foo bar' (blue background)\nconsole.log(colorize(colorize('foo').yellow, colorize('foo').green).bgWhite);\n// 'foo bar' (first word in yellow letters, second word in green letters, white background for both)",
     "id": "colorize",
     "tags": [
       "node",
@@ -737,7 +737,7 @@
   {
     "code": "const countBy = (arr, fn) =>\n  arr.map(typeof fn === 'function' ? fn : val => val[fn]).reduce((acc, val) => {\n    acc[val] = (acc[val] || 0) + 1;\n    return acc;\n  }, {});",
     "description": "Groups the elements of an array based on the given function and returns the count of elements in each group.\n\n- Use `Array.prototype.map()` to map the values of an array to a function or property name.\n- Use `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results.",
-    "example": "countBy([6.1, 4.2, 6.3], Math.floor); // {4: 1, 6: 2}\ncountBy(['one', 'two', 'three'], 'length'); // {3: 2, 5: 1}\ncountBy([{ count: 5 }, { count: 10 }, { count: 5 }], x => x.count) // {5: 2, 10: 1}",
+    "example": "countBy([6.1, 4.2, 6.3], Math.floor); // {4: 1, 6: 2}\ncountBy(['one', 'two', 'three'], 'length'); // {3: 2, 5: 1}\ncountBy([{ count: 5 }, { count: 10 }, { count: 5 }], x => x.count)\n// {5: 2, 10: 1}",
     "id": "countBy",
     "tags": [
       "array",
@@ -1149,7 +1149,7 @@
   {
     "code": "const elementContains = (parent, child) =>\n  parent !== child && parent.contains(child);",
     "description": "Checks if the `parent` element contains the `child` element.\n\n- Check that `parent` is not the same element as `child`.\n- Use `Node.contains()` to check if the `parent` element contains the `child` element.",
-    "example": "elementContains(document.querySelector('head'), document.querySelector('title'));\n// true\nelementContains(document.querySelector('body'), document.querySelector('body'));\n// false",
+    "example": "elementContains(\n  document.querySelector('head'),\n  document.querySelector('title')\n);\n// true\nelementContains(document.querySelector('body'), document.querySelector('body'));\n// false",
     "id": "elementContains",
     "tags": [
       "browser",
@@ -1967,7 +1967,7 @@
   },
   {
     "code": "const initial = arr => arr.slice(0, -1);",
-    "description": "Returns all the elements of an array except the last one.\n\n- Use `Array.prototype.slice(0,-1)` to return all but the last element of the array.",
+    "description": "Returns all the elements of an array except the last one.\n\n- Use `Array.prototype.slice(0, -1)` to return all but the last element of the array.",
     "example": "initial([1, 2, 3]); // [1, 2]",
     "id": "initial",
     "tags": [
@@ -2511,7 +2511,7 @@
     ]
   },
   {
-    "code": "const isSameDate = (dateA, dateB) => dateA.toISOString() === dateB.toISOString();",
+    "code": "const isSameDate = (dateA, dateB) =>\n  dateA.toISOString() === dateB.toISOString();",
     "description": "Checks if a date is the same as another date.\n\n- Use `Date.prototype.toISOString()` and strict equality checking (`===`) to check if the first date is the same as the second one.",
     "example": "isSameDate(new Date(2010, 10, 20), new Date(2010, 10, 20)); // true",
     "id": "isSameDate",
@@ -2685,7 +2685,7 @@
   },
   {
     "code": "const lcm = (...arr) => {\n  const gcd = (x, y) => (!y ? x : gcd(y, x % y));\n  const _lcm = (x, y) => (x * y) / gcd(x, y);\n  return [...arr].reduce((a, b) => _lcm(a, b));\n};",
-    "description": "Calculates the least common multiple of two or more numbers.\n\n- Use the greatest common divisor (GCD) formula and the fact that `lcm(x,y) = x * y / gcd(x,y)` to determine the least common multiple.\n- The GCD formula uses recursion.",
+    "description": "Calculates the least common multiple of two or more numbers.\n\n- Use the greatest common divisor (GCD) formula and the fact that `lcm(x, y) = x * y / gcd(x, y)` to determine the least common multiple.\n- The GCD formula uses recursion.",
     "example": "lcm(12, 7); // 84\nlcm(...[1, 3, 4, 5]); // 60",
     "id": "lcm",
     "tags": [
@@ -2736,8 +2736,8 @@
     ]
   },
   {
-    "code": "const luhnCheck = num => {\n  let arr = (num + '')\n    .split('')\n    .reverse()\n    .map(x => parseInt(x));\n  let lastDigit = arr.splice(0, 1)[0];\n  let sum = arr.reduce((acc, val, i) => (i % 2 !== 0 ? acc + val : acc + ((val * 2) % 9) || 9), 0);\n  sum += lastDigit;\n  return sum % 10 === 0;\n};",
-    "description": "Implementation of the [Luhn Algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm) used to validate a variety of identification numbers, such as credit card numbers, IMEI numbers, National Provider Identifier numbers etc.\n\n- Use `String.prototype.split('')`, `Array.prototype.reverse()` and `Array.prototype.map()` in combination with `parseInt()` to obtain an array of digits.\n- Use `Array.prototype.splice(0,1)` to obtain the last digit.\n- Use `Array.prototype.reduce()` to implement the Luhn Algorithm.\n- Return `true` if `sum` is divisible by `10`, `false` otherwise.",
+    "code": "const luhnCheck = num => {\n  let arr = (num + '')\n    .split('')\n    .reverse()\n    .map(x => parseInt(x));\n  let lastDigit = arr.splice(0, 1)[0];\n  let sum = arr.reduce(\n    (acc, val, i) => (i % 2 !== 0 ? acc + val : acc + ((val * 2) % 9) || 9),\n    0\n  );\n  sum += lastDigit;\n  return sum % 10 === 0;\n};",
+    "description": "Implementation of the [Luhn Algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm) used to validate a variety of identification numbers, such as credit card numbers, IMEI numbers, National Provider Identifier numbers etc.\n\n- Use `String.prototype.split('')`, `Array.prototype.reverse()` and `Array.prototype.map()` in combination with `parseInt()` to obtain an array of digits.\n- Use `Array.prototype.splice(0, 1)` to obtain the last digit.\n- Use `Array.prototype.reduce()` to implement the Luhn Algorithm.\n- Return `true` if `sum` is divisible by `10`, `false` otherwise.",
     "example": "luhnCheck('4485275742308327'); // true\nluhnCheck(6011329933655299); //  false\nluhnCheck(123456789); // false",
     "id": "luhnCheck",
     "tags": [
@@ -2809,7 +2809,7 @@
   {
     "code": "const matches = (obj, source) =>\n  Object.keys(source).every(\n    key => obj.hasOwnProperty(key) && obj[key] === source[key]\n  );",
     "description": "Compares two objects to determine if the first one contains equivalent property values to the second one.\n\n- Use `Object.keys()` to get all the keys of the second object.\n- Use `Array.prototype.every()`, `Object.prototype.hasOwnProperty()` and strict comparison to determine if all keys exist in the first object and have the same values.",
-    "example": "matches({ age: 25, hair: 'long', beard: true }, { hair: 'long', beard: true }); \n// true\nmatches({ hair: 'long', beard: true }, { age: 25, hair: 'long', beard: true }); \n// false",
+    "example": "matches({ age: 25, hair: 'long', beard: true }, { hair: 'long', beard: true });\n// true\nmatches({ hair: 'long', beard: true }, { age: 25, hair: 'long', beard: true });\n// false",
     "id": "matches",
     "tags": [
       "object",
@@ -3291,7 +3291,7 @@
   {
     "code": "const partition = (arr, fn) =>\n  arr.reduce(\n    (acc, val, i, arr) => {\n      acc[fn(val, i, arr) ? 0 : 1].push(val);\n      return acc;\n    },\n    [[], []]\n  );",
     "description": "Groups the elements into two arrays, depending on the provided function's truthiness for each element.\n\n- Use `Array.prototype.reduce()` to create an array of two arrays.\n- Use `Array.prototype.push()` to add elements for which `fn` returns `true` to the first array and elements for which `fn` returns `false` to the second one.",
-    "example": "const users = [\n  { user: 'barney', age: 36, active: false },\n  { user: 'fred', age: 40, active: true },\n];\npartition(users, o => o.active);\n// [[{ 'user': 'fred', 'age': 40, 'active': true }],[{ 'user': 'barney', 'age': 36, 'active': false }]]",
+    "example": "const users = [\n  { user: 'barney', age: 36, active: false },\n  { user: 'fred', age: 40, active: true },\n];\npartition(users, o => o.active);\n// [\n//   [{ user: 'fred', age: 40, active: true }],\n//   [{ user: 'barney', age: 36, active: false }]\n// ]",
     "id": "partition",
     "tags": [
       "array",
@@ -3529,7 +3529,7 @@
   {
     "code": "const queryStringToObject = url =>\n  [...new URLSearchParams(url.split('?')[1])].reduce(\n    (a, [k, v]) => ((a[k] = v), a),\n    {}\n  );",
     "description": "Generates an object from the given query string or URL.\n\n- Use `String.prototype.split()` to get the params from the given `url`.\n- Use `new URLSearchParams()` to create an appropriate object and convert it to an array of key-value pairs using the spread operator (`...`).\n- Use `Array.prototype.reduce()` to convert the array of key-value pairs into an object.",
-    "example": "queryStringToObject('https://google.com?page=1&count=10'); // {page: '1', count: '10'}",
+    "example": "queryStringToObject('https://google.com?page=1&count=10');\n// {page: '1', count: '10'}",
     "id": "queryStringToObject",
     "tags": [
       "object",
@@ -3667,7 +3667,7 @@
   {
     "code": "const reduceWhich = (arr, comparator = (a, b) => a - b) =>\n  arr.reduce((a, b) => (comparator(a, b) >= 0 ? b : a));",
     "description": "Returns the minimum/maximum value of an array, after applying the provided function to set the comparing rule.\n\n- Use `Array.prototype.reduce()` in combination with the `comparator` function to get the appropriate element in the array.\n- Omit the second argument, `comparator`, to use the default one that returns the minimum element in the array.",
-    "example": "reduceWhich([1, 3, 2]); // 1\nreduceWhich([1, 3, 2], (a, b) => b - a); // 3\nreduceWhich(\n  [{ name: 'Tom', age: 12 }, { name: 'Jack', age: 18 }, { name: 'Lucy', age: 9 }],\n  (a, b) => a.age - b.age\n); // {name: 'Lucy', age: 9}",
+    "example": "reduceWhich([1, 3, 2]); // 1\nreduceWhich([1, 3, 2], (a, b) => b - a); // 3\nreduceWhich(\n  [\n    { name: 'Tom', age: 12 },\n    { name: 'Jack', age: 18 },\n    { name: 'Lucy', age: 9 }\n  ],\n  (a, b) => a.age - b.age\n); // {name: 'Lucy', age: 9}",
     "id": "reduceWhich",
     "tags": [
       "array",
@@ -3726,7 +3726,7 @@
     ]
   },
   {
-    "code": "const removeWhitespace = str => str.replace(/\\s+/g,'');",
+    "code": "const removeWhitespace = str => str.replace(/\\s+/g, '');",
     "description": "Returns a string with whitespaces removed.\n\n- Use `String.prototype.replace()` with a regular expression to replace all occurrences of whitespace characters with an empty string.",
     "example": "removeWhitespace('Lorem ipsum.\\n Dolor sit amet. ');\n// 'Loremipsum.Dolorsitamet.'",
     "id": "removeWhitespace",
@@ -3747,9 +3747,9 @@
     ]
   },
   {
-    "code": "const renderElement = ({ type, props = {} }, container) => {\n  const isTextElement = !type;\n  const element = isTextElement\n    ? document.createTextNode('')\n    : document.createElement(type);\n\n  const isListener = p => p.startsWith('on');\n  const isAttribute = p => !isListener(p) && p !== 'children';\n\n  Object.keys(props).forEach(p => {\n    if(isAttribute(p)) element[p] = props[p];\n    if(!isTextElement && isListener(p))\n      element.addEventListener(p.toLowerCase().slice(2), props[p]);\n  });\n\n  if(!isTextElement && props.children && props.children.length)\n    props.children.forEach(childElement => renderElement(childElement, element));\n\n  container.appendChild(element);\n}",
+    "code": "const renderElement = ({ type, props = {} }, container) => {\n  const isTextElement = !type;\n  const element = isTextElement\n    ? document.createTextNode('')\n    : document.createElement(type);\n\n  const isListener = p => p.startsWith('on');\n  const isAttribute = p => !isListener(p) && p !== 'children';\n\n  Object.keys(props).forEach(p => {\n    if (isAttribute(p)) element[p] = props[p];\n    if (!isTextElement && isListener(p))\n      element.addEventListener(p.toLowerCase().slice(2), props[p]);\n  });\n\n  if (!isTextElement && props.children && props.children.length)\n    props.children.forEach(childElement =>\n      renderElement(childElement, element)\n    );\n\n  container.appendChild(element);\n};",
     "description": "Renders the given DOM tree in the specified DOM element.\n\n- Destructure the first argument into `type` and `props`, using `type` to determine if the given element is a text element.\n- Based on the element's `type`, use either `Document.createTextNode()` or `Document.createElement()` to create the DOM element.\n- Use `Object.keys()` to add attributes to the DOM element and setting event listeners, as necessary.\n- Use recursion to render `props.children`, if any.\n- Finally, use `Node.appendChild()` to append the DOM element to the specified `container`.",
-    "example": "const myElement = {\n  type: 'button',\n  props: {\n    type: 'button',\n    className: 'btn',\n    onClick: () => alert('Clicked'),\n    children: [\n      { props: { nodeValue: 'Click me' } }\n    ]\n  }\n};\n\nrenderElement(\n  myElement,\n  document.body\n);",
+    "example": "const myElement = {\n  type: 'button',\n  props: {\n    type: 'button',\n    className: 'btn',\n    onClick: () => alert('Clicked'),\n    children: [{ props: { nodeValue: 'Click me' } }]\n  }\n};\n\nrenderElement(myElement, document.body);",
     "id": "renderElement",
     "tags": [
       "browser",
@@ -4153,7 +4153,7 @@
     ]
   },
   {
-    "code": "const sumBy = (arr, fn) =>\n  arr.map(typeof fn === 'function' ? fn : val => val[fn]).reduce((acc, val) => acc + val, 0);",
+    "code": "const sumBy = (arr, fn) =>\n  arr\n    .map(typeof fn === 'function' ? fn : val => val[fn])\n    .reduce((acc, val) => acc + val, 0);",
     "description": "Calculates the sum of an array, after mapping each element to a value using the provided function.\n\n- Use `Array.prototype.map()` to map each element to the value returned by `fn`.\n- Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`.",
     "example": "sumBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], x => x.n); // 20\nsumBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 20",
     "id": "sumBy",
@@ -4760,7 +4760,7 @@
   {
     "code": "const weightedAverage = (nums, weights) => {\n  const [sum, weightSum] = weights.reduce(\n    (acc, w, i) => {\n      acc[0] = acc[0] + nums[i] * w;\n      acc[1] = acc[1] + w;\n      return acc;\n    },\n    [0, 0]\n  );\n  return sum / weightSum;\n};",
     "description": "Calculates the weighted average of two or more numbers.\n\n- Use `Array.prototype.reduce()` to create the weighted sum of the values and the sum of the weights.\n- Divide them with each other to get the weighted average.",
-    "example": "weightedAverage([1, 2, 3], [0.6,0.2,0.3]); // 1.72727",
+    "example": "weightedAverage([1, 2, 3], [0.6, 0.2, 0.3]); // 1.72727",
     "id": "weightedAverage",
     "tags": [
       "math",
@@ -4888,7 +4888,7 @@
   {
     "code": "const zipWith = (...array) => {\n  const fn =\n    typeof array[array.length - 1] === 'function' ? array.pop() : undefined;\n  return Array.from({ length: Math.max(...array.map(a => a.length)) }, (_, i) =>\n    fn ? fn(...array.map(a => a[i])) : array.map(a => a[i])\n  );\n};",
     "description": "Creates an array of elements, grouped based on the position in the original arrays and using a function to specify how grouped values should be combined.\n\n- Check if the last argument provided is a function.\n- Use `Math.max()` to get the longest array in the arguments.\n- Use `Array.from()` to create an array with appropriate length and a mapping function to create array of grouped elements.\n- If lengths of the argument arrays vary, `undefined` is used where no value could be found.\n- The function is invoked with the elements of each group.",
-    "example": "zipWith([1, 2], [10, 20], [100, 200], (a, b, c) => a + b + c); // [111,222]\nzipWith(\n  [1, 2, 3],\n  [10, 20],\n  [100, 200],\n  (a, b, c) =>\n    (a != null ? a : 'a') + (b != null ? b : 'b') + (c != null ? c : 'c')\n); // [111, 222, '3bc']",
+    "example": "zipWith([1, 2], [10, 20], [100, 200], (a, b, c) => a + b + c); // [111, 222]\nzipWith(\n  [1, 2, 3],\n  [10, 20],\n  [100, 200],\n  (a, b, c) =>\n    (a != null ? a : 'a') + (b != null ? b : 'b') + (c != null ? c : 'c')\n); // [111, 222, '3bc']",
     "id": "zipWith",
     "tags": [
       "array",
