@@ -40,16 +40,7 @@ const snippets = sourceFiles.reduce((acc, file) => {
   const [identifiers, description, code, example] = sections
   const [id, tags] = sanitizeIdentifiers(identifiers)
 
-  return [
-    ...acc,
-    {
-      code: sanitizeCode(code),
-      description,
-      example,
-      id,
-      tags,
-    },
-  ]
+  return [...acc, { code: sanitizeCode(code), description, example, id, tags }]
 }, [])
 
 // eslint-disable-next-line fp/no-nil
