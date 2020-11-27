@@ -650,6 +650,18 @@
     ]
   },
   {
+    "code": "const compactObject = val => {\n  const data = Array.isArray(val) ? val.filter(Boolean) : val;\n  return Object.keys(data).reduce(\n    (acc, key) => {\n      const value = data[key];\n      if (Boolean(value))\n        acc[key] = typeof value === 'object' ? compactObject(value) : value;\n      return acc;\n    },\n    Array.isArray(val) ? [] : {}\n  );\n};",
+    "description": "Deeply removes all falsy values from an object or array.\n\n- Use recursion.\n- Initialize the iterable data, using `Array.isArray()`, `Array.prototype.filter()` and `Boolean` for arrays in order to avoid sparse arrays.\n- Use `Object.keys()` and `Array.prototype.reduce()` to iterate over each key with an appropriate initial value.\n- Use `Boolean` to determine the truthiness of each key's value and add it to the accumulator if it's truthy.\n- Use `typeof` to determine if a given value is an `object` and call the function again to deeply compact it.",
+    "example": "const obj = {\n  a: null,\n  b: false,\n  c: true,\n  d: 0,\n  e: 1,\n  f: '',\n  g: 'a',\n  h: [null, false, '', true, 1, 'a'],\n  i: { j: 0, k: false, l: 'a' }\n};\ncompactObject(obj);\n// { c: true, e: 1, g: 'a', h: [ true, 1, 'a' ], i: { l: 'a' } }",
+    "id": "compactObject",
+    "tags": [
+      "object",
+      "array",
+      "recursion",
+      "advanced"
+    ]
+  },
+  {
     "code": "const compactWhitespace = str => str.replace(/\\s{2,}/g, ' ');",
     "description": "Compacts whitespaces in a string.\n\n- Use `String.prototype.replace()` with a regular expression to replace all occurrences of 2 or more whitespace characters with a single space.",
     "example": "compactWhitespace('Lorem    Ipsum'); // 'Lorem Ipsum'\ncompactWhitespace('Lorem \\n Ipsum'); // 'Lorem Ipsum'",
