@@ -139,10 +139,20 @@
     ]
   },
   {
-    "code": "const addDaysToDate = (date, n) => {\n  d = new Date(date);\n  d.setDate(d.getDate() + n);\n  return d.toISOString().split('T')[0];\n};",
+    "code": "const addDaysToDate = (date, n) => {\n  const d = new Date(date);\n  d.setDate(d.getDate() + n);\n  return d.toISOString().split('T')[0];\n};",
     "description": "Calculates the date of `n` days from the given date, returning its string representation.\n\n- Use `new Date()` to create a date object from the first argument.\n- Use `Date.prototype.getDate()` and `Date.prototype.setDate()` to add `n` days to the given date.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "addDaysToDate('2020-10-15', 10); // '2020-10-25'\naddDaysToDate('2020-10-15', -10); // '2020-10-05'",
     "id": "addDaysToDate",
+    "tags": [
+      "date",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const addMinutesToDate = (date, n) => {\n  const d = new Date(date);\n  d.setTime(d.getTime() + n * 60000);\n  return d.toISOString().split('.')[0].replace('T',' ');\n};",
+    "description": "Calculates the date of `n` minutes from the given date, returning its string representation.\n\n- Use `new Date()` to create a date object from the first argument.\n- Use `Date.prototype.getTime()` and `Date.prototype.setTime()` to add `n` minutes to the given date.\n- Use `Date.prototype.toISOString()`, `String.prototype.split()` and `String.prototype.replace()` to return a string in `yyyy-mm-dd HH:MM:SS` format.",
+    "example": "addMinutesToDate('2020-10-19 12:00:00', 10); // '2020-10-19 12:10:00'\naddMinutesToDate('2020-10-19', -10); // '2020-10-18 23:50:00'",
+    "id": "addMinutesToDate",
     "tags": [
       "date",
       "intermediate"
