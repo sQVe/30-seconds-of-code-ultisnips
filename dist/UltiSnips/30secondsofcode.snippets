@@ -1668,6 +1668,13 @@ const isGeneratorFunction = val =>
   Object.prototype.toString.call(val) === '[object GeneratorFunction]';
 endsnippet
 
+snippet isISOString "Checks if the given string is valid in the simplified extended ISO format (ISO 8601).  - Use `new Date()` to create a date object from the given string. - Use `Date.prototype.valueOf()` and `Number.isNaN()` to check if the produced date object is valid. - Use `Date.prototype.toISOString()` to compare the ISO formatted string representation of the date with the original string." b
+const isISOString = val => {
+  const d = new Date(val);
+  return !Number.isNaN(d.valueOf()) && d.toISOString() === val;
+};
+endsnippet
+
 snippet isLeapYear "Checks if the given `year` is a leap year.  - Use `new Date()`, setting the date to February 29th of the given `year`. - Use `Date.prototype.getMonth()` to check if the month is equal to `1`." b
 const isLeapYear = year => new Date(year, 1, 29).getMonth() === 1;
 endsnippet
@@ -3037,14 +3044,32 @@ snippet takeRight "Creates an array with `n` elements removed from the end.  - U
 const takeRight = (arr, n = 1) => arr.slice(arr.length - n, arr.length);
 endsnippet
 
-snippet takeRightWhile "Removes elements from the end of an array until the passed function returns `true`. Returns the removed elements.  - Loop through the array, using `Array.prototype.reduceRight()` and accumulating elements while `func` returns falsy values." b
-const takeRightWhile = (arr, func) =>
-  arr.reduceRight((acc, el) => (func(el) ? acc : [el, ...acc]), []);
+snippet takeRightUntil "Removes elements from the end of an array until the passed function returns `true`. Returns the removed elements.  - Create a reversed copy of the array, using the spread operator (`...`) and `Array.prototype.reverse()`. - Loop through the reversed copy, using a `for...of` loop over `Array.prototype.entries()` until the returned value from the function is truthy. - Return the removed elements, using `Array.prototype.slice()`. - The callback function, `fn`, accepts a single argument which is the value of the element." b
+const takeRightUntil = (arr, fn) => {
+  for (const [i, val] of [...arr].reverse().entries())
+    if (fn(val)) return i === 0 ? [] : arr.slice(-i);
+  return arr;
+};
 endsnippet
 
-snippet takeWhile "Removes elements in an array until the passed function returns `true`. Returns the removed elements.  - Loop through the array, using a `for...of` loop over `Array.prototype.entries()` until the returned value from the function is `true`. - Return the removed elements, using `Array.prototype.slice()`." b
-const takeWhile = (arr, func) => {
-  for (const [i, val] of arr.entries()) if (func(val)) return arr.slice(0, i);
+snippet takeRightWhile "Removes elements from the end of an array until the passed function returns `false`. Returns the removed elements.  - Create a reversed copy of the array, using the spread operator (`...`) and `Array.prototype.reverse()`. - Loop through the reversed copy, using a `for...of` loop over `Array.prototype.entries()` until the returned value from the function is falsy. - Return the removed elements, using `Array.prototype.slice()`. - The callback function, `fn`, accepts a single argument which is the value of the element." b
+const takeRightWhile = (arr, fn) => {
+  for (const [i, val] of [...arr].reverse().entries())
+    if (!fn(val)) return i === 0 ? [] : arr.slice(-i);
+  return arr;
+};
+endsnippet
+
+snippet takeUntil "Removes elements in an array until the passed function returns `true`. Returns the removed elements.  - Loop through the array, using a `for...of` loop over `Array.prototype.entries()` until the returned value from the function is truthy. - Return the removed elements, using `Array.prototype.slice()`. - The callback function, `fn`, accepts a single argument which is the value of the element." b
+const takeUntil = (arr, fn) => {
+  for (const [i, val] of arr.entries()) if (fn(val)) return arr.slice(0, i);
+  return arr;
+};
+endsnippet
+
+snippet takeWhile "Removes elements in an array until the passed function returns `false`. Returns the removed elements.  - Loop through the array, using a `for...of` loop over `Array.prototype.entries()` until the returned value from the function is falsy. - Return the removed elements, using `Array.prototype.slice()`. - The callback function, `fn`, accepts a single argument which is the value of the element." b
+const takeWhile = (arr, fn) => {
+  for (const [i, val] of arr.entries()) if (!fn(val)) return arr.slice(0, i);
   return arr;
 };
 endsnippet

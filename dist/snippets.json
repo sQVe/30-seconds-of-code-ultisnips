@@ -2375,6 +2375,16 @@
     ]
   },
   {
+    "code": "const isISOString = val => {\n  const d = new Date(val);\n  return !Number.isNaN(d.valueOf()) && d.toISOString() === val;\n};",
+    "description": "Checks if the given string is valid in the simplified extended ISO format (ISO 8601).\n\n- Use `new Date()` to create a date object from the given string.\n- Use `Date.prototype.valueOf()` and `Number.isNaN()` to check if the produced date object is valid.\n- Use `Date.prototype.toISOString()` to compare the ISO formatted string representation of the date with the original string.",
+    "example": "isISOString('2020-10-12T10:10:10.000Z'); // true\nisISOString('2020-10-12'); // false",
+    "id": "isISOString",
+    "tags": [
+      "date",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const isLeapYear = year => new Date(year, 1, 29).getMonth() === 1;",
     "description": "Checks if the given `year` is a leap year.\n\n- Use `new Date()`, setting the date to February 29th of the given `year`.\n- Use `Date.prototype.getMonth()` to check if the month is equal to `1`.",
     "example": "isLeapYear(2019); // false\nisLeapYear(2020); // true",
@@ -4307,9 +4317,19 @@
     ]
   },
   {
-    "code": "const takeRightWhile = (arr, func) =>\n  arr.reduceRight((acc, el) => (func(el) ? acc : [el, ...acc]), []);",
-    "description": "Removes elements from the end of an array until the passed function returns `true`.\nReturns the removed elements.\n\n- Loop through the array, using `Array.prototype.reduceRight()` and accumulating elements while `func` returns falsy values.",
-    "example": "takeRightWhile([1, 2, 3, 4], n => n < 3); // [3, 4]",
+    "code": "const takeRightUntil = (arr, fn) => {\n  for (const [i, val] of [...arr].reverse().entries())\n    if (fn(val)) return i === 0 ? [] : arr.slice(-i);\n  return arr;\n};",
+    "description": "Removes elements from the end of an array until the passed function returns `true`.\nReturns the removed elements.\n\n- Create a reversed copy of the array, using the spread operator (`...`) and `Array.prototype.reverse()`.\n- Loop through the reversed copy, using a `for...of` loop over `Array.prototype.entries()` until the returned value from the function is truthy.\n- Return the removed elements, using `Array.prototype.slice()`.\n- The callback function, `fn`, accepts a single argument which is the value of the element.",
+    "example": "takeRightUntil([1, 2, 3, 4], n => n < 3); // [3, 4]",
+    "id": "takeRightUntil",
+    "tags": [
+      "array",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const takeRightWhile = (arr, fn) => {\n  for (const [i, val] of [...arr].reverse().entries())\n    if (!fn(val)) return i === 0 ? [] : arr.slice(-i);\n  return arr;\n};",
+    "description": "Removes elements from the end of an array until the passed function returns `false`.\nReturns the removed elements.\n\n- Create a reversed copy of the array, using the spread operator (`...`) and `Array.prototype.reverse()`.\n- Loop through the reversed copy, using a `for...of` loop over `Array.prototype.entries()` until the returned value from the function is falsy.\n- Return the removed elements, using `Array.prototype.slice()`.\n- The callback function, `fn`, accepts a single argument which is the value of the element.",
+    "example": "takeRightWhile([1, 2, 3, 4], n => n >= 3); // [3, 4]",
     "id": "takeRightWhile",
     "tags": [
       "array",
@@ -4317,9 +4337,19 @@
     ]
   },
   {
-    "code": "const takeWhile = (arr, func) => {\n  for (const [i, val] of arr.entries()) if (func(val)) return arr.slice(0, i);\n  return arr;\n};",
-    "description": "Removes elements in an array until the passed function returns `true`.\nReturns the removed elements.\n\n- Loop through the array, using a `for...of` loop over `Array.prototype.entries()` until the returned value from the function is `true`.\n- Return the removed elements, using `Array.prototype.slice()`.",
-    "example": "takeWhile([1, 2, 3, 4], n => n >= 3); // [1, 2]",
+    "code": "const takeUntil = (arr, fn) => {\n  for (const [i, val] of arr.entries()) if (fn(val)) return arr.slice(0, i);\n  return arr;\n};",
+    "description": "Removes elements in an array until the passed function returns `true`.\nReturns the removed elements.\n\n- Loop through the array, using a `for...of` loop over `Array.prototype.entries()` until the returned value from the function is truthy.\n- Return the removed elements, using `Array.prototype.slice()`.\n- The callback function, `fn`, accepts a single argument which is the value of the element.",
+    "example": "takeUntil([1, 2, 3, 4], n => n >= 3); // [1, 2]",
+    "id": "takeUntil",
+    "tags": [
+      "array",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const takeWhile = (arr, fn) => {\n  for (const [i, val] of arr.entries()) if (!fn(val)) return arr.slice(0, i);\n  return arr;\n};",
+    "description": "Removes elements in an array until the passed function returns `false`.\nReturns the removed elements.\n\n- Loop through the array, using a `for...of` loop over `Array.prototype.entries()` until the returned value from the function is falsy.\n- Return the removed elements, using `Array.prototype.slice()`.\n- The callback function, `fn`, accepts a single argument which is the value of the element.",
+    "example": "takeWhile([1, 2, 3, 4], n => n < 3); // [1, 2]",
     "id": "takeWhile",
     "tags": [
       "array",
