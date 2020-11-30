@@ -23,7 +23,7 @@
     "@types/node": "^14.14.10",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.14.0",
-    "eslint-config-sqve": "^2.15.7",
+    "eslint-config-sqve": "^2.15.10",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.0",
