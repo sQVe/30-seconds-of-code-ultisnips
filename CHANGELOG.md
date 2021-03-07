@@ -1,3 +1,11 @@
+## [1.3.50](https://github.com/sQVe/30-seconds-of-code-ultisnips/compare/v1.3.49...v1.3.50) (2021-03-07)
+
+
+### Bug Fixes
+
+* **action:** add github actions ([2f73db8](https://github.com/sQVe/30-seconds-of-code-ultisnips/commit/2f73db871a89709ac5c7f5cfc90b8124f056ff3d))
+* build new snippets and ultisnips ([feacb15](https://github.com/sQVe/30-seconds-of-code-ultisnips/commit/feacb157df9a814fa4275c874bfc672cc16d5a8d))
+
 ## [1.3.49](https://github.com/sQVe/30-seconds-of-code-ultisnips/compare/v1.3.48...v1.3.49) (2020-11-29)
 
 
