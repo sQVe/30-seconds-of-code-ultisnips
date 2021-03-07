@@ -38,6 +38,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
+          token: ${{ secrets.GH_ADMIN_TOKEN }}
 
       - name: Use Node.js 14
         uses: actions/setup-node@v1
@@ -50,5 +51,5 @@ jobs:
       - name: Release new version to NPM
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
