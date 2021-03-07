@@ -8,19 +8,16 @@
 set -o errexit
 
 setup_git() {
-  git config --global user.email "travis@travis-ci.org"
-  git config --global user.name "Travis CI"
+  git config --global user.email "github@github.com"
+  git config --global user.name "GitHub Actions"
 }
 
 get_snippets_sha() {
-  sha256sum dist/UltiSnips/30secondsofcode.snippets | awk '{print $1}'
+  sha256sum lib/snippets.json | awk '{print $1}'
 }
 
 check_submodules_changes() {
   local snippetsSha
-
-  git checkout master
-  git submodule foreach git pull origin master
 
   if [[ $(git status --short | wc -l) -eq 0 ]]; then
     echo "Clean working status after pulling all submodules, exiting..."
@@ -31,7 +28,7 @@ check_submodules_changes() {
   npm run build
 
   if [[ $snippetsSha == $(get_snippets_sha) ]]; then
-    echo "No changes in built 30secondsofcode.snippets, exiting..."
+    echo "No changes in built snippets.json, exiting..."
     exit 0
   fi
 }
@@ -41,21 +38,18 @@ commit_changes() {
   git add .
 
   if [[ $TRAVIS_EVENT_TYPE == "cron" ]]; then
-    git commit --message "fix(submodules): update snippets (cron build: $TRAVIS_BUILD_NUMBER)"
+    git commit --message "fix(submodules): update snippets (cron build: $GITHUB_RUN_NUMBER)"
   else
-    git commit --message "fix(submodules): update snippets (build: $TRAVIS_BUILD_NUMBER)"
+    git commit --message "fix(submodules): update snippets (build: $GITHUB_RUN_NUMBER)"
   fi
 }
 
 push_changes() {
   echo "Pushing to master branch..."
-  git push --force --quiet "https://${GH_TOKEN}@github.com/sQVe/30-seconds-of-code-ultisnips.git" master >/dev/null 2>&1
+  git push --force --quiet "https://${GH_TOKEN}@github.com/sQVe/30s.git" master > /dev/null 2>&1
 }
 
-# Ensure master branch and a not pull request event.
-if [[ $TRAVIS_BRANCH == "master" && $TRAVIS_EVENT_TYPE != "pull_request" ]]; then
-  setup_git
-  check_submodules_changes
-  commit_changes
-  push_changes
-fi
+setup_git
+check_submodules_changes
+commit_changes
+push_changes
