@@ -139,6 +139,16 @@
     ]
   },
   {
+    "code": "const addClass = (el, className) => el.classList.add(className);",
+    "description": "Adds a class to an HTML element.\n\n- Use `Element.classList` and `DOMTokenList.add()` to add the specified class to the element.",
+    "example": "addClass(document.querySelector('p'), 'special');\n// The paragraph will now have the 'special' class",
+    "id": "addClass",
+    "tags": [
+      "browser",
+      "beginner"
+    ]
+  },
+  {
     "code": "const addDaysToDate = (date, n) => {\n  const d = new Date(date);\n  d.setDate(d.getDate() + n);\n  return d.toISOString().split('T')[0];\n};",
     "description": "Calculates the date of `n` days from the given date, returning its string representation.\n\n- Use `new Date()` to create a date object from the first argument.\n- Use `Date.prototype.getDate()` and `Date.prototype.setDate()` to add `n` days to the given date.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "addDaysToDate('2020-10-15', 10); // '2020-10-25'\naddDaysToDate('2020-10-15', -10); // '2020-10-05'",
@@ -170,8 +180,18 @@
     ]
   },
   {
+    "code": "const addStyles = (el, styles) => Object.assign(el.style, styles);",
+    "description": "Adds the provided styles to the given element.\n\n- Use `Object.assign()` and `ElementCSSInlineStyle.style` to merge the provided `styles` object into the style of the given element.",
+    "example": "addStyles(document.getElementById('my-element'), {\n  background: 'red',\n  color: '#ffff00',\n  fontSize: '3rem'\n});",
+    "id": "addStyles",
+    "tags": [
+      "browser",
+      "beginner"
+    ]
+  },
+  {
     "code": "const addWeekDays = (startDate, count) =>\n  Array.from({ length: count }).reduce(date => {\n    date = new Date(date.setDate(date.getDate() + 1));\n    if (date.getDay() % 6 === 0)\n      date = new Date(date.setDate(date.getDate() + (date.getDay() / 6 + 1)));\n    return date;\n  }, startDate);",
-    "description": "Calculates the date after adding the ginen number of business days.\n\n- Use `Array.from()` to construct an array with `length` equal to the `count` of business days to be added.\n- Use `Array.prototype.reduce()` to iterate over the array, starting from `startDate` and incrementing, using `Date.prototype.getDate()` and `Date.prototype.setDate()`.\n- If the current `date` is on a weekend, update it again by adding either one day or two days to make it a weekday.\n- **NOTE:** Does not take official holidays into account.",
+    "description": "Calculates the date after adding the given number of business days.\n\n- Use `Array.from()` to construct an array with `length` equal to the `count` of business days to be added.\n- Use `Array.prototype.reduce()` to iterate over the array, starting from `startDate` and incrementing, using `Date.prototype.getDate()` and `Date.prototype.setDate()`.\n- If the current `date` is on a weekend, update it again by adding either one day or two days to make it a weekday.\n- **NOTE:** Does not take official holidays into account.",
     "example": "addWeekDays(new Date('Oct 09, 2020'), 5); // 'Oct 16, 2020'\naddWeekDays(new Date('Oct 12, 2020'), 5); // 'Oct 19, 2020'",
     "id": "addWeekDays",
     "tags": [
@@ -211,7 +231,7 @@
   },
   {
     "code": "const allUnique = arr => arr.length === new Set(arr).size;",
-    "description": "Checks if all elements in an array are unique.\n\n- Create a new `Set` from the mapped values to keep only unique occurences.\n- Use `Array.prototype.length` and `Set.prototype.size` to compare the length of the unique values to the original array.",
+    "description": "Checks if all elements in an array are unique.\n\n- Create a new `Set` from the mapped values to keep only unique occurrences.\n- Use `Array.prototype.length` and `Set.prototype.size` to compare the length of the unique values to the original array.",
     "example": "allUnique([1, 2, 3, 4]); // true\nallUnique([1, 1, 2, 3]); // false",
     "id": "allUnique",
     "tags": [
@@ -221,7 +241,7 @@
   },
   {
     "code": "const allUniqueBy = (arr, fn) => arr.length === new Set(arr.map(fn)).size;",
-    "description": "Checks if all elements in an array are unique, based on the provided mapping function.\n\n- Use `Array.prototype.map()` to apply `fn` to all elements in `arr`.\n- Create a new `Set` from the mapped values to keep only unique occurences.\n- Use `Array.prototype.length` and `Set.prototype.size` to compare the length of the unique mapped values to the original array.",
+    "description": "Checks if all elements in an array are unique, based on the provided mapping function.\n\n- Use `Array.prototype.map()` to apply `fn` to all elements in `arr`.\n- Create a new `Set` from the mapped values to keep only unique occurrences.\n- Use `Array.prototype.length` and `Set.prototype.size` to compare the length of the unique mapped values to the original array.",
     "example": "allUniqueBy([1.2, 2.4, 2.9], Math.round); // true\nallUniqueBy([1.2, 2.3, 2.4], Math.round); // false",
     "id": "allUniqueBy",
     "tags": [
@@ -271,12 +291,13 @@
     ]
   },
   {
-    "code": "const arithmeticProgression  = (n, lim) => \n  Array.from({ length: Math.ceil(lim / n) }, (_, i) => (i + 1) * n );",
+    "code": "const arithmeticProgression  = (n, lim) =>\n  Array.from({ length: Math.ceil(lim / n) }, (_, i) => (i + 1) * n );",
     "description": "Creates an array of numbers in the arithmetic progression, starting with the given positive integer and up to the specified limit.\n\n- Use `Array.from()` to create an array of the desired length, `lim/n`, and a map function to fill it with the desired values in the given range.",
     "example": "arithmeticProgression(5, 25); // [5, 10, 15, 20, 25]",
     "id": "arithmeticProgression",
     "tags": [
       "math",
+      "algorithm",
       "beginner"
     ]
   },
@@ -386,6 +407,17 @@
     ]
   },
   {
+    "code": "const binarySearch = (arr, item) => {\n  let l = 0,\n    r = arr.length - 1;\n  while (l <= r) {\n    const mid = Math.floor((l + r) / 2);\n    const guess = arr[mid];\n    if (guess === item) return mid;\n    if (guess > item) r = mid - 1;\n    else l = mid + 1;\n  }\n  return -1;\n};",
+    "description": "Finds the index of a given element in a sorted array using the binary search algorithm.\n\n- Declare the left and right search boundaries, `l` and `r`, initialized to `0` and the `length` of the array respectively.\n- Use a `while` loop to repeatedly narrow down the search subarray, using `Math.floor()` to cut it in half.\n- Return the index of the element if found, otherwise return `-1`.\n- **Note:** Does not account for duplicate values in the array.",
+    "example": "binarySearch([1, 2, 3, 4, 5], 1); // 0\nbinarySearch([1, 2, 3, 4, 5], 5); // 4\nbinarySearch([1, 2, 3, 4, 5], 6); // -1",
+    "id": "binarySearch",
+    "tags": [
+      "algorithm",
+      "array",
+      "beginner"
+    ]
+  },
+  {
     "code": "const bind = (fn, context, ...boundArgs) => (...args) =>\n  fn.apply(context, [...boundArgs, ...args]);",
     "description": "Creates a function that invokes `fn` with a given context, optionally prepending any additional supplied parameters to the arguments.\n\n- Return a `function` that uses `Function.prototype.apply()` to apply the given `context` to `fn`.\n- Use the spread operator (`...`) to prepend any additional supplied parameters to the arguments.",
     "example": "function greet(greeting, punctuation) {\n  return greeting + ' ' + this.user + punctuation;\n}\nconst freddy = { user: 'fred' };\nconst freddyBound = bind(greet, freddy);\nconsole.log(freddyBound('hi', '!')); // 'hi fred!'",
@@ -425,6 +457,7 @@
     "id": "binomialCoefficient",
     "tags": [
       "math",
+      "algorithm",
       "beginner"
     ]
   },
@@ -461,11 +494,44 @@
     ]
   },
   {
+    "code": "const bubbleSort = arr => {\n  let swapped = false;\n  const a = [...arr];\n  for (let i = 1; i < a.length - 1; i++) {\n    swapped = false;\n    for (let j = 0; j < a.length - i; j++) {\n      if (a[j + 1] < a[j]) {\n        [a[j], a[j + 1]] = [a[j + 1], a[j]];\n        swapped = true;\n      }\n    }\n    if (!swapped) return a;\n  }\n  return a;\n};",
+    "description": "Sorts an array of numbers, using the bubble sort algorithm.\n\n- Declare a variable, `swapped`, that indicates if any values were swapped during the current iteration.\n- Use the spread operator (`...`) to clone the original array, `arr`.\n- Use a `for` loop to iterate over the elements of the cloned array, terminating before the last element.\n- Use a nested `for` loop to iterate over the segment of the array between `0` and `i`, swapping any adjacent out of order elements and setting `swapped` to `true`.\n- If `swapped` is `false` after an iteration, no more changes are needed, so the cloned array is returned.",
+    "example": "bubbleSort([2, 1, 4, 3]); // [1, 2, 3, 4]",
+    "id": "bubbleSort",
+    "tags": [
+      "algorithm",
+      "array",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const bucketSort = (arr, size = 5) => {\n  const min = Math.min(...arr);\n  const max = Math.max(...arr);\n  const buckets = Array.from(\n    { length: Math.floor((max - min) / size) + 1 },\n    () => []\n  );\n  arr.forEach(val => {\n    buckets[Math.floor((val - min) / size)].push(val);\n  });\n  return buckets.reduce((acc, b) => [...acc, ...b.sort((a, b) => a - b)], []);\n};",
+    "description": "Sorts an array of numbers, using the bucket sort algorithm.\n\n- Use `Math.min(),` `Math.max()` and the spread operator (`...`) to find the minimum and maximum values of the given array.\n- Use `Array.from()` and `Math.floor()` to create the appropriate number of `buckets` (empty arrays).\n- Use `Array.prototype.forEach()` to populate each bucket with the appropriate elements from the array.\n- Use `Array.prototype.reduce()`, the spread operator (`...`) and `Array.prototype.sort()` to sort each bucket and append it to the result.",
+    "example": "bucketSort([6, 3, 4, 1]); // [1, 3, 4, 6]",
+    "id": "bucketSort",
+    "tags": [
+      "algorithm",
+      "array",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const byteSize = str => new Blob([str]).size;",
     "description": "Returns the length of a string in bytes.\n\n- Convert a given string to a [`Blob` Object](https://developer.mozilla.org/en-US/docs/Web/API/Blob).\n- Use `Blob.size` to get the length of the string in bytes.",
     "example": "byteSize('😀'); // 4\nbyteSize('Hello World'); // 11",
     "id": "byteSize",
     "tags": [
+      "string",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const caesarCipher = (str, shift, decrypt = false) => {\n  const s = decrypt ? (26 - shift) % 26 : shift;\n  const n = s > 0 ? s : 26 + (s % 26);\n  return [...str]\n    .map((l, i) => {\n      const c = str.charCodeAt(i);\n      if (c >= 65 && c <= 90)\n        return String.fromCharCode(((c - 65 + n) % 26) + 65);\n      if (c >= 97 && c <= 122)\n        return String.fromCharCode(((c - 97 + n) % 26) + 97);\n      return l;\n    })\n    .join('');\n};",
+    "description": "Encrypts or decrypts a given string using the Caesar cipher.\n\n- Use the modulo (`%`) operator and the ternary operator (`?`) to calculate the correct encryption/decryption key.\n- Use the spread operator (`...`) and `Array.prototype.map()` to iterate over the letters of the given string.\n- Use `String.prototype.charCodeAt()` and `String.fromCharCode()` to convert each letter appropriately, ignoring special characters, spaces etc.\n- Use `Array.prototype.join()` to combine all the letters into a string.\n- Pass `true` to the last parameter, `decrypt`, to decrypt an encrypted string.",
+    "example": "caesarCipher('Hello World!', -3); // 'Ebiil Tloia!'\ncaesarCipher('Ebiil Tloia!', 23, true); // 'Hello World!'",
+    "id": "caesarCipher",
+    "tags": [
+      "algorithm",
       "string",
       "beginner"
     ]
@@ -499,6 +565,17 @@
       "string",
       "regexp",
       "intermediate"
+    ]
+  },
+  {
+    "code": "const cartesianProduct = (a, b) =>\n  a.reduce((p, x) => [...p, ...b.map(y => [x, y])], []);",
+    "description": "Calculates the cartesian product of two arrays.\n\n- Use `Array.prototype.reduce()`, `Array.prototype.map()` and the spread operator (`...`) to generate all possible element pairs from the two arrays.",
+    "example": "cartesianProduct(['x', 'y'], [1, 2]);\n// [['x', 1], ['x', 2], ['y', 1], ['y', 2]]",
+    "id": "cartesianProduct",
+    "tags": [
+      "math",
+      "array",
+      "beginner"
     ]
   },
   {
@@ -726,7 +803,7 @@
   },
   {
     "code": "const converge = (converger, fns) => (...args) =>\n  converger(...fns.map(fn => fn.apply(null, args)));",
-    "description": "Accepts a converging function and a list of branching functions and returns a function that applies each branching function to the arguments and the results of the branching functions are passed as arguments to the converging function.\n\n- Use `Array.prototype.map()` and `Function.prototype.apply()` to apply each function to the given arguments.\n- Use the spread operator (`...`) to call `coverger` with the results of all other functions.",
+    "description": "Accepts a converging function and a list of branching functions and returns a function that applies each branching function to the arguments and the results of the branching functions are passed as arguments to the converging function.\n\n- Use `Array.prototype.map()` and `Function.prototype.apply()` to apply each function to the given arguments.\n- Use the spread operator (`...`) to call `converger` with the results of all other functions.",
     "example": "const average = converge((a, b) => a / b, [\n  arr => arr.reduce((a, v) => a + v, 0),\n  arr => arr.length\n]);\naverage([1, 2, 3, 4, 5, 6, 7]); // 4",
     "id": "converge",
     "tags": [
@@ -775,6 +852,17 @@
     "tags": [
       "array",
       "intermediate"
+    ]
+  },
+  {
+    "code": "const countSubstrings = (str, searchValue) => {\n  let count = 0,\n    i = 0;\n  while (true) {\n    const r = str.indexOf(searchValue, i);\n    if (r !== -1) [count, i] = [count + 1, r + 1];\n    else return count;\n  }\n};",
+    "description": "Counts the occurrences of a substring in a given string.\n\n- Use `Array.prototype.indexOf()` to look for `searchValue` in `str`.\n- Increment a counter if the value is found and update the index, `i`.\n- Use a `while` loop that will return as soon as the value returned from `Array.prototype.indexOf()` is `-1`.",
+    "example": "countSubstrings('tiktok tok tok tik tok tik', 'tik'); // 3\ncountSubstrings('tutut tut tut', 'tut'); // 4",
+    "id": "countSubstrings",
+    "tags": [
+      "string",
+      "algorithm",
+      "beginner"
     ]
   },
   {
@@ -1104,6 +1192,7 @@
     "id": "distance",
     "tags": [
       "math",
+      "algorithm",
       "beginner"
     ]
   },
@@ -1234,6 +1323,17 @@
     ]
   },
   {
+    "code": "const euclideanDistance = (a, b) =>\n  Math.hypot(...Object.keys(a).map(k => b[k] - a[k]));",
+    "description": "Calculates the distance between two points in any number of dimensions.\n\n- Use `Object.keys()` and `Array.prototype.map()` to map each coordinate to its difference between the two points.\n- Use `Math.hypot()` to calculate the Euclidean distance between the two points.",
+    "example": "euclideanDistance([1, 1], [2, 3]); // ~2.2361\neuclideanDistance([1, 1, 1], [2, 3, 2]); // ~2.4495",
+    "id": "euclideanDistance",
+    "tags": [
+      "math",
+      "algorithm",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const everyNth = (arr, nth) => arr.filter((e, i) => i % nth === nth - 1);",
     "description": "Returns every `nth` element in an array.\n\n- Use `Array.prototype.filter()` to create a new array that contains every `nth` element of a given array.",
     "example": "everyNth([1, 2, 3, 4, 5, 6], 2); // [ 2, 4, 6 ]",
@@ -1271,6 +1371,7 @@
     "id": "factorial",
     "tags": [
       "math",
+      "algorithm",
       "recursion",
       "beginner"
     ]
@@ -1292,6 +1393,7 @@
     "id": "fibonacci",
     "tags": [
       "math",
+      "algorithm",
       "intermediate"
     ]
   },
@@ -1560,8 +1662,9 @@
     "id": "gcd",
     "tags": [
       "math",
+      "algorithm",
       "recursion",
-      "beginner"
+      "intermediate"
     ]
   },
   {
@@ -1576,12 +1679,25 @@
     ]
   },
   {
+    "code": "const generatorToArray = gen => [...gen];",
+    "description": "Converts the output of a generator function to an array.\n\n- Use the spread operator (`...`) to convert the output of the generator function to an array.",
+    "example": "const s = new Set([1, 2, 1, 3, 1, 4]);\ngeneratorToArray(s.entries()); // [[ 1, 1 ], [ 2, 2 ], [ 3, 3 ], [ 4, 4 ]]",
+    "id": "generatorToArray",
+    "tags": [
+      "function",
+      "array",
+      "generator",
+      "beginner"
+    ]
+  },
+  {
     "code": "const geometricProgression = (end, start = 1, step = 2) =>\n  Array.from({\n    length: Math.floor(Math.log(end / start) / Math.log(step)) + 1,\n  }).map((_, i) => start * step ** i);",
     "description": "Initializes an array containing the numbers in the specified range where `start` and `end` are inclusive and the ratio between two terms is `step`.\nReturns an error if `step` equals `1`.\n\n- Use `Array.from()`, `Math.log()` and `Math.floor()` to create an array of the desired length, `Array.prototype.map()` to fill with the desired values in a range.\n- Omit the second argument, `start`, to use a default value of `1`.\n- Omit the third argument, `step`, to use a default value of `2`.",
     "example": "geometricProgression(256); // [1, 2, 4, 8, 16, 32, 64, 128, 256]\ngeometricProgression(256, 3); // [3, 6, 12, 24, 48, 96, 192]\ngeometricProgression(256, 1, 4); // [1, 4, 16, 64, 256]",
     "id": "geometricProgression",
     "tags": [
       "math",
+      "algorithm",
       "intermediate"
     ]
   },
@@ -1598,7 +1714,7 @@
   },
   {
     "code": "const getAncestors = el => {\n  let ancestors = [];\n  while (el) {\n    ancestors.unshift(el);\n    el = el.parentNode;\n  }\n  return ancestors;\n};",
-    "description": "Returns all the ancestors of an element from the document root to the given element.\n\n- Use a `Node.parentNode` and a `while` loop to move up the ancestor tree of the element.\n- Use `Array.prototype.unshift()` to add each new ancestor to the start of the array.",
+    "description": "Returns all the ancestors of an element from the document root to the given element.\n\n- Use `Node.parentNode` and a `while` loop to move up the ancestor tree of the element.\n- Use `Array.prototype.unshift()` to add each new ancestor to the start of the array.",
     "example": "getAncestors(document.querySelector('nav')); \n// [document, html, body, header, nav]",
     "id": "getAncestors",
     "tags": [
@@ -1607,13 +1723,14 @@
     ]
   },
   {
-    "code": "const getBaseURL = url =>\n  url.indexOf('?') > 0 ? url.slice(0, url.indexOf('?')) : url;",
-    "description": "Gets the current URL without any parameters.\n\n- Use `String.prototype.indexOf()` to check if the given `url` has parameters, `String.prototype.slice()` to remove them if necessary.",
+    "code": "const getBaseURL = url => url.replace(/[?#].*$/, '');",
+    "description": "Gets the current URL without any parameters or fragment identifiers.\n\n- Use `String.prototype.replace()` with an appropriate regular expression to remove everything after either `'?'` or `'#'`, if found.",
     "example": "getBaseURL('http://url.com/page?name=Adam&surname=Smith');\n// 'http://url.com/page'",
     "id": "getBaseURL",
     "tags": [
       "string",
       "browser",
+      "regexp",
       "beginner"
     ]
   },
@@ -1675,6 +1792,16 @@
     "id": "getMonthsDiffBetweenDates",
     "tags": [
       "date",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const getParentsUntil = (el, selector) => {\n  let parents = [],\n    _el = el.parentNode;\n  while (_el && typeof _el.matches === 'function') {\n    parents.unshift(_el);\n    if (_el.matches(selector)) return parents;\n    else _el = _el.parentNode;\n  }\n  return [];\n};",
+    "description": "Finds all the ancestors of an element up until the element matched by the specified selector.\n\n- Use `Node.parentNode` and a `while` loop to move up the ancestor tree of the element.\n- Use `Array.prototype.unshift()` to add each new ancestor to the start of the array.\n- Use `Element.matches()` to check if the current element matches the specified `selector`.",
+    "example": "getParentsUntil(document.querySelector('#home-link'), 'header');\n// [header, nav, ul, li]",
+    "id": "getParentsUntil",
+    "tags": [
+      "browser",
       "intermediate"
     ]
   },
@@ -1762,6 +1889,16 @@
     ]
   },
   {
+    "code": "const getVerticalOffset = el => {\n  let offset = el.offsetTop,\n    _el = el;\n  while (_el.offsetParent) {\n    _el = _el.offsetParent;\n    offset += _el.offsetTop;\n  }\n  return offset;\n};",
+    "description": "Finds the distance from a given element to the top of the document.\n\n- Use a `while` loop and `HTMLElement.offsetParent` to move up the offset parents of the given element.\n- Add `HTMLElement.offsetTop` for each element and return the result.",
+    "example": "getVerticalOffset('.my-element'); // 120",
+    "id": "getVerticalOffset",
+    "tags": [
+      "browser",
+      "beginner"
+    ]
+  },
+  {
     "code": "const groupBy = (arr, fn) =>\n  arr\n    .map(typeof fn === 'function' ? fn : val => val[fn])\n    .reduce((acc, val, i) => {\n      acc[val] = (acc[val] || []).concat(arr[i]);\n      return acc;\n    }, {});",
     "description": "Groups the elements of an array based on the given function.\n\n- Use `Array.prototype.map()` to map the values of the array to a function or property name.\n- Use `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results.",
     "example": "groupBy([6.1, 4.2, 6.3], Math.floor); // {4: [4.2], 6: [6.1, 6.3]}\ngroupBy(['one', 'two', 'three'], 'length'); // {3: ['one', 'two'], 5: ['three']}",
@@ -1779,6 +1916,7 @@
     "id": "hammingDistance",
     "tags": [
       "math",
+      "algorithm",
       "intermediate"
     ]
   },
@@ -1863,6 +2001,18 @@
     "tags": [
       "array",
       "beginner"
+    ]
+  },
+  {
+    "code": "const heapsort = arr => {\n  const a = [...arr];\n  let l = a.length;\n\n  const heapify = (a, i) => {\n    const left = 2 * i + 1;\n    const right = 2 * i + 2;\n    let max = i;\n    if (left < l && a[left] > a[max]) max = left;\n    if (right < l && a[right] > a[max]) max = right;\n    if (max !== i) {\n      [a[max], a[i]] = [a[i], a[max]];\n      heapify(a, max);\n    }\n  };\n\n  for (let i = Math.floor(l / 2); i >= 0; i -= 1) heapify(a, i);\n  for (i = a.length - 1; i > 0; i--) {\n    [a[0], a[i]] = [a[i], a[0]];\n    l--;\n    heapify(a, 0);\n  }\n  return a;\n};",
+    "description": "Sorts an array of numbers, using the heapsort algorithm.\n\n- Use recursion.\n- Use the spread operator (`...`) to clone the original array, `arr`.\n- Use closures to declare a variable, `l`, and a function `heapify`.\n- Use a `for` loop and `Math.floor()` in combination with `heapify` to create a max heap from the array.\n- Use a `for` loop to repeatedly narrow down the considered range, using `heapify` and swapping values as necessary in order to sort the cloned array.",
+    "example": "heapsort([6, 3, 4, 1]); // [1, 3, 4, 6]",
+    "id": "heapsort",
+    "tags": [
+      "algorithm",
+      "array",
+      "recursion",
+      "advanced"
     ]
   },
   {
@@ -1998,6 +2148,18 @@
     ]
   },
   {
+    "code": "const indexOfSubstrings = function* (str, searchValue) {\n  let i = 0;\n  while (true) {\n    const r = str.indexOf(searchValue, i);\n    if (r !== -1) {\n      yield r;\n      i = r + 1;\n    } else return;\n  }\n};",
+    "description": "Finds all the indexes of a substring in a given string.\n\n- Use `Array.prototype.indexOf()` to look for `searchValue` in `str`.\n- Use `yield` to return the index if the value is found and update the index, `i`.\n- Use a `while` loop that will terminate the generator as soon as the value returned from `Array.prototype.indexOf()` is `-1`.",
+    "example": "[...indexOfSubstrings('tiktok tok tok tik tok tik', 'tik')]; // [0, 15, 23]\n[...indexOfSubstrings('tutut tut tut', 'tut')]; // [0, 2, 6, 10]\n[...indexOfSubstrings('hello', 'hi')]; // []",
+    "id": "indexOfSubstrings",
+    "tags": [
+      "string",
+      "algorithm",
+      "generator",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const initial = arr => arr.slice(0, -1);",
     "description": "Returns all the elements of an array except the last one.\n\n- Use `Array.prototype.slice(0, -1)` to return all but the last element of the array.",
     "example": "initial([1, 2, 3]); // [1, 2]",
@@ -2100,6 +2262,17 @@
     ]
   },
   {
+    "code": "const insertionSort = arr =>\n  arr.reduce((acc, x) => {\n    if (!acc.length) return [x];\n    acc.some((y, j) => {\n      if (x <= y) {\n        acc.splice(j, 0, x);\n        return true;\n      }\n      if (x > y && j === acc.length - 1) {\n        acc.splice(j + 1, 0, x);\n        return true;\n      }\n      return false;\n    });\n    return acc;\n  }, []);",
+    "description": "Sorts an array of numbers, using the insertion sort algorithm.\n\n- Use `Array.prototype.reduce()` to iterate over all the elements in the given array.\n- If the `length` of the accumulator is `0`, add the current element to it.\n- Use `Array.prototype.some()` to iterate over the results in the accumulator until the correct position is found.\n- Use `Array.prototype.splice()` to insert the current element into the accumulator.",
+    "example": "insertionSort([6, 3, 4, 1]); // [1, 3, 4, 6]",
+    "id": "insertionSort",
+    "tags": [
+      "algorithm",
+      "array",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const intersection = (a, b) => {\n  const s = new Set(b);\n  return [...new Set(a)].filter(x => s.has(x));\n};",
     "description": "Returns the elements that exist in both arrays, filtering duplicate values.\n\n- Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`.",
     "example": "intersection([1, 2, 3], [4, 3, 2]); // [2, 3]",
@@ -2169,6 +2342,17 @@
     "id": "isAfterDate",
     "tags": [
       "date",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const isAlpha = str => /^[a-zA-Z]*$/.test(str);",
+    "description": "Checks if a string contains only alpha characters.\n\n- Use `RegExp.prototype.test()` to check if the given string matches against the alphabetic regexp pattern.",
+    "example": "isAlpha('sampleInput'); // true\nisAlpha('this Will fail'); // false\nisAlpha('123'); // false",
+    "id": "isAlpha",
+    "tags": [
+      "string",
+      "regexp",
       "beginner"
     ]
   },
@@ -2395,6 +2579,16 @@
     ]
   },
   {
+    "code": "const isLocalStorageEnabled = () => {\n  try {\n    const key = \\`__storage__test\\`;\n    window.localStorage.setItem(key, null);\n    window.localStorage.removeItem(key);\n    return true;\n  } catch (e) {\n    return false;\n  }\n};",
+    "description": "Checks if `localStorage` is enabled.\n\n- Use a `try...catch` block to return `true` if all operations complete successfully, `false` otherwise.\n- Use `Storage.setItem()` and `Storage.removeItem()` to test storing and deleting a value in `window.localStorage`.",
+    "example": "isLocalStorageEnabled(); // true, if localStorage is accessible",
+    "id": "isLocalStorageEnabled",
+    "tags": [
+      "browser",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const isLowerCase = str => str === str.toLowerCase();",
     "description": "Checks if a string is lower case.\n\n- Convert the given string to lower case, using `String.prototype.toLowerCase()` and compare it to the original.",
     "example": "isLowerCase('abc'); // true\nisLowerCase('a3@$'); // true\nisLowerCase('Ab4'); // false",
@@ -2458,7 +2652,7 @@
   },
   {
     "code": "const isObject = obj => obj === Object(obj);",
-    "description": "Checks if the passed value is an object or not.\n\n- Uses the `Object` constructor to create an object wrapper for the given value.\n- If the value is `null` or `undefined`, create and return an empty object.\n- Οtherwise, return an object of a type that corresponds to the given value.",
+    "description": "Checks if the passed value is an object or not.\n\n- Uses the `Object` constructor to create an object wrapper for the given value.\n- If the value is `null` or `undefined`, create and return an empty object.\n- Otherwise, return an object of a type that corresponds to the given value.",
     "example": "isObject([1, 2, 3, 4]); // true\nisObject([]); // true\nisObject(['Hello!']); // true\nisObject({ a: 1 }); // true\nisObject({}); // true\nisObject(true); // false",
     "id": "isObject",
     "tags": [
@@ -2500,6 +2694,16 @@
     ]
   },
   {
+    "code": "const isPowerOfTen = n => Math.log10(n) % 1 === 0;",
+    "description": "Checks if the given number is a power of `10`.\n\n- Use `Math.log10()` and the modulo operator (`%`) to determine if `n` is a power of `10`.",
+    "example": "isPowerOfTen(1); // true\nisPowerOfTen(10); // true\nisPowerOfTen(20); // false",
+    "id": "isPowerOfTen",
+    "tags": [
+      "math",
+      "beginner"
+    ]
+  },
+  {
     "code": "const isPowerOfTwo = n => !!n && (n & (n - 1)) == 0;",
     "description": "Checks if the given number is a power of `2`.\n\n- Use the bitwise binary AND operator (`&`) to determine if `n` is a power of `2`.\n- Additionally, check that `n` is not falsy.",
     "example": "isPowerOfTwo(0); // false\nisPowerOfTwo(1); // true\nisPowerOfTwo(8); // true",
@@ -2510,12 +2714,13 @@
     ]
   },
   {
-    "code": "const isPrime = num => {\n  const boundary = Math.floor(Math.sqrt(num));\n  for (var i = 2; i <= boundary; i++) if (num % i === 0) return false;\n  return num >= 2;\n};",
+    "code": "const isPrime = num => {\n  const boundary = Math.floor(Math.sqrt(num));\n  for (let i = 2; i <= boundary; i++) if (num % i === 0) return false;\n  return num >= 2;\n};",
     "description": "Checks if the provided integer is a prime number.\n\n- Check numbers from `2` to the square root of the given number.\n- Return `false` if any of them divides the given number, else return `true`, unless the number is less than `2`.",
     "example": "isPrime(11); // true",
     "id": "isPrime",
     "tags": [
       "math",
+      "algorithm",
       "beginner"
     ]
   },
@@ -2560,6 +2765,16 @@
     "tags": [
       "date",
       "beginner"
+    ]
+  },
+  {
+    "code": "const isSessionStorageEnabled = () => {\n  try {\n    const key = \\`__storage__test\\`;\n    window.sessionStorage.setItem(key, null);\n    window.sessionStorage.removeItem(key);\n    return true;\n  } catch (e) {\n    return false;\n  }\n};",
+    "description": "Checks if `sessionStorage` is enabled.\n\n- Use a `try...catch` block to return `true` if all operations complete successfully, `false` otherwise.\n- Use `Storage.setItem()` and `Storage.removeItem()` to test storing and deleting a value in `window.sessionStorage`.",
+    "example": "isSessionStorageEnabled(); // true, if sessionStorage is accessible",
+    "id": "isSessionStorageEnabled",
+    "tags": [
+      "browser",
+      "intermediate"
     ]
   },
   {
@@ -2696,6 +2911,28 @@
     ]
   },
   {
+    "code": "const kMeans = (data, k = 1) => {\n  const centroids = data.slice(0, k);\n  const distances = Array.from({ length: data.length }, () =>\n    Array.from({ length: k }, () => 0)\n  );\n  const classes = Array.from({ length: data.length }, () => -1);\n  let itr = true;\n\n  while (itr) {\n    itr = false;\n\n    for (let d in data) {\n      for (let c = 0; c < k; c++) {\n        distances[d][c] = Math.hypot(\n          ...Object.keys(data[0]).map(key => data[d][key] - centroids[c][key])\n        );\n      }\n      const m = distances[d].indexOf(Math.min(...distances[d]));\n      if (classes[d] !== m) itr = true;\n      classes[d] = m;\n    }\n\n    for (let c = 0; c < k; c++) {\n      centroids[c] = Array.from({ length: data[0].length }, () => 0);\n      const size = data.reduce((acc, _, d) => {\n        if (classes[d] === c) {\n          acc++;\n          for (let i in data[0]) centroids[c][i] += data[d][i];\n        }\n        return acc;\n      }, 0);\n      for (let i in data[0]) {\n        centroids[c][i] = parseFloat(Number(centroids[c][i] / size).toFixed(2));\n      }\n    }\n  }\n\n  return classes;\n};",
+    "description": "Groups the given data into `k` clusters, using the [k-means clustering](https://en.wikipedia.org/wiki/K-means_clustering) algorithm.\n\n- Use `Array.from()` and `Array.prototype.slice()` to initialize appropriate variables for the cluster `centroids`, `distances` and `classes`.\n- Use a `while` loop to repeat the assignment and update steps as long as there are changes in the previous iteration, as indicated by `itr`.\n- Calculate the euclidean distance between each data point and centroid using `Math.hypot()`, `Object.keys()` and `Array.prototype.map()`.\n- Use `Array.prototype.indexOf()` and `Math.min()` to find the closest centroid.\n- Use `Array.from()` and `Array.prototype.reduce()`, as well as `parseFloat()` and `Number.prototype.toFixed()` to calculate the new centroids.",
+    "example": "kMeans([[0, 0], [0, 1], [1, 3], [2, 0]], 2); // [0, 1, 1, 0]",
+    "id": "kMeans",
+    "tags": [
+      "algorithm",
+      "array",
+      "advanced"
+    ]
+  },
+  {
+    "code": "const kNearestNeighbors = (data, labels, point, k = 3) => {\n  const kNearest = data\n    .map((el, i) => ({\n      dist: Math.hypot(...Object.keys(el).map(key => point[key] - el[key])),\n      label: labels[i]\n    }))\n    .sort((a, b) => a.dist - b.dist)\n    .slice(0, k);\n\n  return kNearest.reduce(\n    (acc, { label }, i) => {\n      acc.classCounts[label] =\n        Object.keys(acc.classCounts).indexOf(label) !== -1\n          ? acc.classCounts[label] + 1\n          : 1;\n      if (acc.classCounts[label] > acc.topClassCount) {\n        acc.topClassCount = acc.classCounts[label];\n        acc.topClass = label;\n      }\n      return acc;\n    },\n    {\n      classCounts: {},\n      topClass: kNearest[0].label,\n      topClassCount: 0\n    }\n  ).topClass;\n};",
+    "description": "Classifies a data point relative to a labelled data set, using the [k-nearest neighbors](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm) algorithm.\n\n- Use `Array.prototype.map()` to map the `data` to objects containing the euclidean distance of each element from `point`, calculated using `Math.hypot()`, `Object.keys()` and its `label`.\n- Use `Array.prototype.sort()` and `Array.prototype.slice()` to get the `k` nearest neighbors of `point`.\n- Use `Array.prototype.reduce()` in combination with `Object.keys()` and `Array.prototype.indexOf()` to find the most frequent `label` among them.",
+    "example": "const data = [[0, 0], [0, 1], [1, 3], [2, 0]];\nconst labels = [0, 1, 1, 0];\n\nkNearestNeighbors(data, labels, [1, 2], 2); // 1\nkNearestNeighbors(data, labels, [1, 0], 2); // 0",
+    "id": "kNearestNeighbors",
+    "tags": [
+      "algorithm",
+      "array",
+      "advanced"
+    ]
+  },
+  {
     "code": "const kmToMiles = km => km * 0.621371;",
     "description": "Converts kilometers to miles.\n\n- Follow the conversion formula `mi = km * 0.621371`.",
     "example": "kmToMiles(8.1) // 5.0331051",
@@ -2732,8 +2969,31 @@
     "id": "lcm",
     "tags": [
       "math",
+      "algorithm",
       "recursion",
       "intermediate"
+    ]
+  },
+  {
+    "code": "const levenshteinDistance = (s, t) => {\n  if (!s.length) return t.length;\n  if (!t.length) return s.length;\n  const arr = [];\n  for (let i = 0; i <= t.length; i++) {\n    arr[i] = [i];\n    for (let j = 1; j <= s.length; j++) {\n      arr[i][j] =\n        i === 0\n          ? j\n          : Math.min(\n              arr[i - 1][j] + 1,\n              arr[i][j - 1] + 1,\n              arr[i - 1][j - 1] + (s[j - 1] === t[i - 1] ? 0 : 1)\n            );\n    }\n  }\n  return arr[t.length][s.length];\n};",
+    "description": "Calculates the difference between two strings, using the [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) algorithm.\n\n- If either of the two strings has a `length` of zero, return the `length` of the other one.\n- Use a `for` loop to iterate over the letters of the target string and a nested `for` loop to iterate over the letters of the source string.\n- Calculate the cost of substituting the letters corresponding to `i - 1` and `j - 1` in the target and source respectively (`0` if they are the same, `1` otherwise).\n- Use `Math.min()` to populate each element in the 2D array with the minimum of the cell above incremented by one, the cell to the left incremented by one or the cell to the top left incremented by the previously calculated cost.\n- Return the last element of the last row of the produced array.",
+    "example": "levenshteinDistance('duck', 'dark'); // 2",
+    "id": "levenshteinDistance",
+    "tags": [
+      "string",
+      "algorithm",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const linearSearch = (arr, item) => {\n  for (const i in arr) {\n    if (arr[i] === item) return +i;\n  }\n  return -1;\n};",
+    "description": "Finds the first index of a given element in an array using the linear search algorithm.\n\n- Use a `for...in` loop to iterate over the indexes of the given array.\n- Check if the element in the corresponding index is equal to `item`.\n- If the element is found, return the index, using the unary `+` operator to convert it from a string to a number.\n- If the element is not found after iterating over the whole array, return `-1`.",
+    "example": "linearSearch([2, 9, 9], 9); // 1\nlinearSearch([2, 9, 9], 7); // -1",
+    "id": "linearSearch",
+    "tags": [
+      "algorithm",
+      "array",
+      "beginner"
     ]
   },
   {
@@ -2784,6 +3044,7 @@
     "id": "luhnCheck",
     "tags": [
       "math",
+      "algorithm",
       "advanced"
     ]
   },
@@ -2928,6 +3189,28 @@
     "id": "merge",
     "tags": [
       "object",
+      "array",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const mergeSort = arr => {\n  if (arr.length < 2) return arr;\n  const mid = Math.floor(arr.length / 2);\n  const l = mergeSort(arr.slice(0, mid));\n  const r = mergeSort(arr.slice(mid, arr.length));\n  return Array.from({ length: l.length + r.length }, () => {\n    if (!l.length) return r.shift();\n    else if (!r.length) return l.shift();\n    else return l[0] > r[0] ? r.shift() : l.shift();\n  });\n};",
+    "description": "Sorts an array of numbers, using the merge sort algorithm.\n\n- Use recursion.\n- If the `length` of the array is less than `2`, return the array.\n- Use `Math.floor()` to calculate the middle point of the array.\n- Use `Array.prototype.slice()` to slice the array in two and recursively call `mergeSort()` on the created subarrays.\n- Finally, use `Array.from()` and `Array.prototype.shift()` to combine the two sorted subarrays into one.",
+    "example": "mergeSort([5, 1, 4, 2, 3]); // [1, 2, 3, 4, 5]",
+    "id": "mergeSort",
+    "tags": [
+      "algorithm",
+      "array",
+      "recursion",
+      "advanced"
+    ]
+  },
+  {
+    "code": "const mergeSortedArrays = (a, b) => {\n  const _a = [...a],\n    _b = [...b];\n  return Array.from({ length: _a.length + _b.length }, () => {\n    if (!_a.length) return _b.shift();\n    else if (!_b.length) return _a.shift();\n    else return _a[0] > _b[0] ? _b.shift() : _a.shift();\n  });\n};",
+    "description": "Merges two sorted arrays into one.\n\n- Use the spread operator (`...`) to clone both of the given arrays.\n- Use `Array.from()` to create an array of the appropriate length based on the given arrays.\n- Use `Array.prototype.shift()` to populate the newly created array from the removed elements of the cloned arrays.",
+    "example": "mergeSortedArrays([1, 4, 5], [2, 3, 6]); // [1, 2, 3, 4, 5, 6]",
+    "id": "mergeSortedArrays",
+    "tags": [
       "array",
       "intermediate"
     ]
@@ -3089,6 +3372,16 @@
     ]
   },
   {
+    "code": "const nthRoot = (x, n) => Math.pow(x, 1 / n);",
+    "description": "Calculates the nth root of a given number.\n\n- Use `Math.pow()` to calculate `x` to the power of `1/n` which is equal to the nth root of `x`.",
+    "example": "nthRoot(32, 5); // 2",
+    "id": "nthRoot",
+    "tags": [
+      "math",
+      "beginner"
+    ]
+  },
+  {
     "code": "const objectFromPairs = arr =>\n  arr.reduce((a, [key, val]) => ((a[key] = val), a), {});",
     "description": "Creates an object from the given key-value pairs.\n\n- Use `Array.prototype.reduce()` to create and combine key-value pairs.",
     "example": "objectFromPairs([['a', 1], ['b', 2]]); // {a: 1, b: 2}",
@@ -3188,6 +3481,28 @@
     "description": "Adds an event listener to an element with the ability to use event delegation.\n\n- Use `EventTarget.addEventListener()` to add an event listener to an element.\n- If there is a `target` property supplied to the options object, ensure the event target matches the target specified and then invoke the callback by supplying the correct `this` context.\n- Omit `opts` to default to non-delegation behavior and event bubbling.\n- Returns a reference to the custom delegator function, in order to be possible to use with [`off`](/js/s/off).",
     "example": "const fn = () => console.log('!');\non(document.body, 'click', fn); // logs '!' upon clicking the body\non(document.body, 'click', fn, { target: 'p' });\n// logs '!' upon clicking a `p` element child of the body\non(document.body, 'click', fn, { options: true });\n// use capturing instead of bubbling",
     "id": "on",
+    "tags": [
+      "browser",
+      "event",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const onClickOutside = (element, callback) => {\n  document.addEventListener('click', e => {\n    if (!element.contains(e.target)) callback();\n  });\n};",
+    "description": "Runs the callback whenever the user clicks outside of the specified element.\n\n- Use `EventTarget.addEventListener()` to listen for `'click'` events.\n- Use `Node.contains()` to check if `Event.target` is a descendant of `element` and run `callback` if not.",
+    "example": "onClickOutside('#my-element', () => console.log('Hello'));\n// Will log 'Hello' whenever the user clicks outside of #my-element",
+    "id": "onClickOutside",
+    "tags": [
+      "browser",
+      "event",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const onScrollStop = callback => {\n  let isScrolling;\n  window.addEventListener(\n    'scroll',\n    e => {\n      clearTimeout(isScrolling);\n      isScrolling = setTimeout(() => {\n        callback();\n      }, 150);\n    },\n    false\n  );\n};",
+    "description": "Runs the callback whenever the user has stopped scrolling.\n\n- Use `EventTarget.addEventListener()` to listen for the `'scroll'` event.\n- Use `setTimeout()` to wait `150` ms until calling the given `callback`.\n- Use `clearTimeout()` to clear the timeout if a new `'scroll'` event is fired in under `150` ms.",
+    "example": "onScrollStop(() => {\n  console.log('The user has stopped scrolling');\n});",
+    "id": "onScrollStop",
     "tags": [
       "browser",
       "event",
@@ -3369,6 +3684,7 @@
     "id": "permutations",
     "tags": [
       "array",
+      "algorithm",
       "recursion",
       "advanced"
     ]
@@ -3442,6 +3758,7 @@
     "id": "powerset",
     "tags": [
       "math",
+      "algorithm",
       "beginner"
     ]
   },
@@ -3487,12 +3804,24 @@
     ]
   },
   {
+    "code": "const primeFactors = n => {\n  let a = [],\n    f = 2;\n  while (n > 1) {\n    if (n % f === 0) {\n      a.push(f);\n      n /= f;\n    } else {\n      f++;\n    }\n  }\n  return a;\n};",
+    "description": "Finds the prime factors of a given number using the trial division algorithm.\n\n- Use a `while` loop to iterate over all possible prime factors, starting with `2`.\n- If the current factor, `f`, exactly divides `n`, add `f` to the factors array and divide `n` by `f`. Otherwise, increment `f` by one.",
+    "example": "primeFactors(147); // [3, 7, 7]",
+    "id": "primeFactors",
+    "tags": [
+      "math",
+      "algorithm",
+      "beginner"
+    ]
+  },
+  {
     "code": "const primes = num => {\n  let arr = Array.from({ length: num - 1 }).map((x, i) => i + 2),\n    sqroot = Math.floor(Math.sqrt(num)),\n    numsTillSqroot = Array.from({ length: sqroot - 1 }).map((x, i) => i + 2);\n  numsTillSqroot.forEach(x => (arr = arr.filter(y => y % x !== 0 || y === x)));\n  return arr;\n};",
     "description": "Generates primes up to a given number, using the Sieve of Eratosthenes.\n\n- Generate an array from `2` to the given number.\n- Use `Array.prototype.filter()` to filter out the values divisible by any number from `2` to the square root of the provided number.",
     "example": "primes(10); // [2, 3, 5, 7]",
     "id": "primes",
     "tags": [
       "math",
+      "algorithm",
       "intermediate"
     ]
   },
@@ -3579,6 +3908,18 @@
     ]
   },
   {
+    "code": "const quickSort = arr => {\n  const a = [...arr];\n  if (a.length < 2) return a;\n  const pivotIndex = Math.floor(arr.length / 2);\n  const pivot = a[pivotIndex];\n  const [lo, hi] = a.reduce(\n    (acc, val, i) => {\n      if (val < pivot || (val === pivot && i != pivotIndex)) {\n        acc[0].push(val);\n      } else if (val > pivot) {\n        acc[1].push(val);\n      }\n      return acc;\n    },\n    [[], []]\n  );\n  return [...quickSort(lo), pivot, ...quickSort(hi)];\n};",
+    "description": "Sorts an array of numbers, using the quicksort algorithm.\n\n- Use recursion.\n- Use the spread operator (`...`) to clone the original array, `arr`.\n- If the `length` of the array is less than `2`, return the cloned array.\n- Use `Math.floor()` to calculate the index of the pivot element.\n- Use `Array.prototype.reduce()` and `Array.prototype.push()` to split the array into two subarrays (elements smaller or equal to the `pivot` and elements greater than it), destructuring the result into two arrays.\n- Recursively call `quickSort()` on the created subarrays.",
+    "example": "quickSort([1, 6, 1, 5, 3, 2, 1, 4]); // [1, 1, 1, 2, 3, 4, 5, 6]",
+    "id": "quickSort",
+    "tags": [
+      "algorithm",
+      "array",
+      "recursion",
+      "advanced"
+    ]
+  },
+  {
     "code": "const radsToDegrees = rad => (rad * 180.0) / Math.PI;",
     "description": "Converts an angle from radians to degrees.\n\n- Use `Math.PI` and the radian to degree formula to convert the angle from radians to degrees.",
     "example": "radsToDegrees(Math.PI / 2); // 90",
@@ -3600,8 +3941,19 @@
     ]
   },
   {
+    "code": "const randomBoolean = () => Math.random() >= 0.5;",
+    "description": "Generates a random boolean value.\n\n- Use `Math.random()` to generate a random number and check if it is greater than or equal to `0.5`.",
+    "example": "randomBoolean(); // true",
+    "id": "randomBoolean",
+    "tags": [
+      "math",
+      "random",
+      "beginner"
+    ]
+  },
+  {
     "code": "const randomHexColorCode = () => {\n  let n = (Math.random() * 0xfffff * 1000000).toString(16);\n  return '#' + n.slice(0, 6);\n};",
-    "description": "Generates a random hexadecimal color code.\n\n- Use `Math.rando()m` to generate a random 24-bit (6 * 4bits) hexadecimal number.\n- Use bit shifting and then convert it to an hexadecimal string using `Number.prototype.toString(16)`.",
+    "description": "Generates a random hexadecimal color code.\n\n- Use `Math.random()` to generate a random 24-bit (6 * 4bits) hexadecimal number.\n- Use bit shifting and then convert it to an hexadecimal string using `Number.prototype.toString(16)`.",
     "example": "randomHexColorCode(); // '#e34155'",
     "id": "randomHexColorCode",
     "tags": [
@@ -3753,6 +4105,26 @@
     "id": "removeAccents",
     "tags": [
       "string",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const removeClass = (el, className) => el.classList.remove(className);",
+    "description": "Removes a class from an HTML element.\n\n- Use `Element.classList` and `DOMTokenList.remove()` to remove the specified class from the element.",
+    "example": "removeClass(document.querySelector('p.special'), 'special');\n// The paragraph will not have the 'special' class anymore",
+    "id": "removeClass",
+    "tags": [
+      "browser",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const removeElement = el => el.parentNode.removeChild(el);",
+    "description": "Removes an element from the DOM.\n\n- Use `Element.parentNode` to get the given element's parent node.\n- Use `Element.removeChild()` to remove the given element from its parent node.",
+    "example": "removeElement(document.querySelector('#my-element'));\n// Removes #my-element from the DOM",
+    "id": "removeElement",
+    "tags": [
+      "browser",
       "beginner"
     ]
   },
@@ -3918,6 +4290,17 @@
     ]
   },
   {
+    "code": "const selectionSort = arr => {\n  const a = [...arr];\n  for (let i = 0; i < a.length; i++) {\n    const min = a\n      .slice(i + 1)\n      .reduce((acc, val, j) => (val < a[acc] ? j + i + 1 : acc), i);\n    if (min !== i) [a[i], a[min]] = [a[min], a[i]];\n  }\n  return a;\n};",
+    "description": "Sorts an array of numbers, using the selection sort algorithm.\n\n- Use the spread operator (`...`) to clone the original array, `arr`.\n- Use a `for` loop to iterate over elements in the array.\n- Use `Array.prototype.slice()` and `Array.prototype.reduce()` to find the index of the minimum element in the subarray to the right of the current index and perform a swap, if necessary.",
+    "example": "selectionSort([5, 1, 4, 2, 3]); // [1, 2, 3, 4, 5]",
+    "id": "selectionSort",
+    "tags": [
+      "algorithm",
+      "array",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const serializeCookie = (name, val) =>\n  \\`\\${encodeURIComponent(name)}=\\${encodeURIComponent(val)}\\`;",
     "description": "Serializes a cookie name-value pair into a Set-Cookie header string.\n\n- Use template literals and `encodeURIComponent()` to create the appropriate string.",
     "example": "serializeCookie('foo', 'bar'); // 'foo=bar'",
@@ -3988,6 +4371,7 @@
     "tags": [
       "array",
       "random",
+      "algorithm",
       "intermediate"
     ]
   },
@@ -4474,7 +4858,7 @@
   },
   {
     "code": "const toKebabCase = str =>\n  str &&\n  str\n    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)\n    .map(x => x.toLowerCase())\n    .join('-');",
-    "description": "Converts a string to kebab case.\n\n- Use `String.prototype.match()` to break the string into words using an appropriate regexp.\n- Use `Array.prototype.map()`, `Array.prototype.slice()`, `Array.prototype.join()` and `String.prototype.toLowerCase()` to combine them, adding `-` as a separator.",
+    "description": "Converts a string to kebab case.\n\n- Use `String.prototype.match()` to break the string into words using an appropriate regexp.\n- Use `Array.prototype.map()`, `Array.prototype.join()` and `String.prototype.toLowerCase()` to combine them, adding `-` as a separator.",
     "example": "toKebabCase('camelCase'); // 'camel-case'\ntoKebabCase('some text'); // 'some-text'\ntoKebabCase('some-mixed_string With spaces_underscores-and-hyphens');\n// 'some-mixed-string-with-spaces-underscores-and-hyphens'\ntoKebabCase('AllThe-small Things'); // 'all-the-small-things'\ntoKebabCase('IAmEditingSomeXMLAndHTML');\n// 'i-am-editing-some-xml-and-html'",
     "id": "toKebabCase",
     "tags": [
@@ -4811,7 +5195,7 @@
   },
   {
     "code": "const vectorAngle = (x, y) => {\n  let mX = Math.sqrt(x.reduce((acc, n) => acc + Math.pow(n, 2), 0));\n  let mY = Math.sqrt(y.reduce((acc, n) => acc + Math.pow(n, 2), 0));\n  return Math.acos(x.reduce((acc, n, i) => acc + n * y[i], 0) / (mX * mY));\n};",
-    "description": "Calculates the angle (theta) between two vectors.\n\n- Use `Array.prototype.reduce()`, `Math.pow()` and `Math.sqrt()` to calculate the magnitude of each vector and the scalar product of the two vectors.\n- Use `Math.acos()` to calculate the arccos and get the theta value.",
+    "description": "Calculates the angle (theta) between two vectors.\n\n- Use `Array.prototype.reduce()`, `Math.pow()` and `Math.sqrt()` to calculate the magnitude of each vector and the scalar product of the two vectors.\n- Use `Math.acos()` to calculate the arccosine and get the theta value.",
     "example": "vectorAngle([3, 4], [4, 3]); // 0.283794109208328",
     "id": "vectorAngle",
     "tags": [
@@ -4826,7 +5210,20 @@
     "id": "vectorDistance",
     "tags": [
       "math",
+      "algorithm",
       "beginner"
+    ]
+  },
+  {
+    "code": "const walkThrough = function* (obj) {\n  const walk = function* (x, previous = []) {\n    for (let key of Object.keys(x)) {\n      if (typeof x[key] === 'object') yield* walk(x[key], [...previous, key]);\n      else yield [[...previous, key], x[key]];\n    }\n  };\n  yield* walk(obj);\n};",
+    "description": "Creates a generator, that walks through all the keys of a given object.\n\n- Use recursion.\n- Define a generator function, `walk`, that takes an object and an array of keys.\n- Use a `for...of` loop and `Object.keys()` to iterate over the keys of the object.\n- Use `typeof` to check if each value in the given object is itself an object.\n- If so, use the `yield*` expression to recursively delegate to the same generator function, `walk`, appending the current `key` to the array of keys. Otherwise, `yield` the an array of keys representing the current path and the value of the given `key`.\n- Use the `yield*` expression to delegate to the `walk` generator function.",
+    "example": "const obj = {\n  a: 10,\n  b: 20,\n  c: {\n    d: 10,\n    e: 20,\n    f: [30, 40]\n  },\n  g: [\n    {\n      h: 10,\n      i: 20\n    },\n    {\n      j: 30\n    },\n    40\n  ]\n};\n[...walkThrough(obj)];\n/*\n[\n  [['a'], 10],\n  [['b'], 20],\n  [['c', 'd'], 10],\n  [['c', 'e'], 20],\n  [['c', 'f', '0'], 30],\n  [['c', 'f', '1'], 40],\n  [['g', '0', 'h'], 10],\n  [['g', '0', 'i'], 20],\n  [['g', '1', 'j'], 30],\n  [['g', '2'], 40]\n]\n*/",
+    "id": "walkThrough",
+    "tags": [
+      "object",
+      "recursion",
+      "generator",
+      "advanced"
     ]
   },
   {
