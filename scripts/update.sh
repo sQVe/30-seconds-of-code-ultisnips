@@ -16,8 +16,10 @@ get_snippets_sha() {
   sha256sum lib/snippets.json | awk '{print $1}'
 }
 
-check_submodules_changes() {
+check_submodule_changes() {
   local snippetsSha
+
+  git submodule foreach git pull origin master
 
   if [[ $(git status --short | wc -l) -eq 0 ]]; then
     echo "Clean working status after pulling all submodules, exiting..."
@@ -50,6 +52,6 @@ push_changes() {
 }
 
 setup_git
-check_submodules_changes
+check_submodule_changes
 commit_changes
 push_changes
