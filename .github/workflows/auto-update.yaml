@@ -28,3 +28,5 @@ jobs:
 
       - name: Update snippets
         run: scripts/update.sh
+        env:
+          GH_ADMIN_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
