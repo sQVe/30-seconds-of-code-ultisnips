@@ -28,6 +28,3 @@ jobs:
 
       - name: Update snippets
         run: scripts/update.sh
-        env:
-          GH_ADMIN_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
-          GITHUB_RUN_NUMBER: ${{ secrets.GITHUB_RUN_NUMBER }}
