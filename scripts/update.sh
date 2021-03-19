@@ -20,7 +20,7 @@ get_snippets_sha() {
 check_submodule_changes() {
   local snippetsSha
 
-  git submodule foreach git pull origin master
+  git submodule foreach git pull --ff-only origin master
 
   if [[ $(git status --short | wc -l) -eq 0 ]]; then
     echo "Clean working status after pulling all submodules, exiting..."
