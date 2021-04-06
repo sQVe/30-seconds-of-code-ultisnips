@@ -10,7 +10,6 @@ set -o errexit
 setup_git() {
   git config --global user.email "github@github.com"
   git config --global user.name "GitHub Actions"
-  git config pull.ff only
 }
 
 get_snippets_sha() {
@@ -45,7 +44,7 @@ commit_changes() {
 
 push_changes() {
   echo "Pushing to master branch..."
-  git push --force --quiet "https://${GH_ADMIN_TOKEN}@github.com/sQVe/30s.git" master > /dev/null 2>&1
+  git push --force --quiet "https://${GH_ADMIN_TOKEN}@github.com/sQVe/30-seconds-of-code-ultisnips.git" master > /dev/null 2>&1
 }
 
 setup_git
