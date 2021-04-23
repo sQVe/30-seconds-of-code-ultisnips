@@ -159,6 +159,17 @@
     ]
   },
   {
+    "code": "const addEventListenerAll = (targets, type, listener, options, useCapture) => {\n  targets.forEach(target =>\n    target.addEventListener(type, listener, options, useCapture)\n  );\n};",
+    "description": "Attaches an event listener to all the provided targets.\n\n- Use `Array.prototype.forEach()` and `EventTarget.addEventListener()` to attach the provided `listener` for the given event `type` to all `targets`.",
+    "example": "addAllEventListeners(document.querySelectorAll('a'), 'click', () =>\n  console.log('Clicked a link')\n);\n// Logs 'Clicked a link' whenever any anchor element is clicked",
+    "id": "addEventListenerAll",
+    "tags": [
+      "browser",
+      "event",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const addMinutesToDate = (date, n) => {\n  const d = new Date(date);\n  d.setTime(d.getTime() + n * 60000);\n  return d.toISOString().split('.')[0].replace('T',' ');\n};",
     "description": "Calculates the date of `n` minutes from the given date, returning its string representation.\n\n- Use `new Date()` to create a date object from the first argument.\n- Use `Date.prototype.getTime()` and `Date.prototype.setTime()` to add `n` minutes to the given date.\n- Use `Date.prototype.toISOString()`, `String.prototype.split()` and `String.prototype.replace()` to return a string in `yyyy-mm-dd HH:MM:SS` format.",
     "example": "addMinutesToDate('2020-10-19 12:00:00', 10); // '2020-10-19 12:10:00'\naddMinutesToDate('2020-10-19', -10); // '2020-10-18 23:50:00'",
@@ -1446,6 +1457,26 @@
     "id": "filterUniqueBy",
     "tags": [
       "array",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const findClosestAnchor = node => {\n  for (let n = node; n.parentNode; n = n.parentNode)\n    if (n.nodeName.toLowerCase() === 'a') return n;\n  return null;\n};",
+    "description": "Finds the anchor node closest to the given `node`, if any.\n\n- Use a `for` loop and `Node.parentNode` to traverse the node tree upwards from the given `node`.\n- Use `Node.nodeName` and `String.prototype.toLowerCase()` to check if any given node is an anchor (`'a'`).\n- If no matching node is found, return `null`.",
+    "example": "findClosestAnchor(document.querySelector('a > span')); // a",
+    "id": "findClosestAnchor",
+    "tags": [
+      "browser",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const findClosestMatchingNode = (node, selector) => {\n  for (let n = node; n.parentNode; n = n.parentNode)\n    if (n.matches && n.matches(selector)) return n;\n  return null;\n};",
+    "description": "Finds the closest matching node starting at the given `node`.\n\n- Use a `for` loop and `Node.parentNode` to traverse the node tree upwards from the given `node`.\n- Use `Element.matches()` to check if any given element node matches the provided `selector`.\n- If no matching node is found, return `null`.",
+    "example": "findClosestMatchingNode(document.querySelector('span'), 'body'); // body",
+    "id": "findClosestMatchingNode",
+    "tags": [
+      "browser",
       "intermediate"
     ]
   },
@@ -2776,6 +2807,16 @@
     "id": "isSameDate",
     "tags": [
       "date",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const isSameOrigin = (origin, destination) =>\n  origin.protocol === destination.protocol && origin.host === destination.host;",
+    "description": "Checks if two URLs are on the same origin.\n\n- Use `URL.protocol` and `URL.host` to check if both URLs have the same protocol and host.",
+    "example": "const origin = new URL('https://www.30secondsofcode.org/about');\nconst destination = new URL('https://www.30secondsofcode.org/contact');\nisSameOrigin(origin, destination); // true\nconst other = new URL('https://developer.mozilla.org);\nisSameOrigin(origin, other); // false",
+    "id": "isSameOrigin",
+    "tags": [
+      "object",
       "beginner"
     ]
   },
@@ -4152,6 +4193,17 @@
     ]
   },
   {
+    "code": "const removeEventListenerAll = (\n  targets,\n  type,\n  listener,\n  options,\n  useCapture\n) => {\n  targets.forEach(target =>\n    target.removeEventListener(type, listener, options, useCapture)\n  );\n};",
+    "description": "Detaches an event listener from all the provided targets.\n\n- Use `Array.prototype.forEach()` and `EventTarget.removeEventListener()` to detach the provided `listener` for the given event `type` from all `targets`.",
+    "example": "const linkListener = () => console.log('Clicked a link');\ndocument.querySelector('a').addEventListener('click', linkListener);\nremoveEventListenerAll(document.querySelectorAll('a'), 'click', linkListener);",
+    "id": "removeEventListenerAll",
+    "tags": [
+      "browser",
+      "event",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const removeNonASCII = str => str.replace(/[^\\x20-\\x7E]/g, '');",
     "description": "Removes non-printable ASCII characters.\n\n- Use `String.prototype.replace()` with a regular expression to remove non-printable ASCII characters.",
     "example": "removeNonASCII('äÄçÇéÉêlorem-ipsumöÖÐþúÚ'); // 'lorem-ipsum'",
@@ -4202,6 +4254,17 @@
     "tags": [
       "function",
       "generator",
+      "advanced"
+    ]
+  },
+  {
+    "code": "const replaceLast = (str, pattern, replacement) => {\n  const match =\n    typeof pattern === 'string'\n      ? pattern\n      : (str.match(new RegExp(pattern.source, 'g')) || []).slice(-1)[0];\n  if (!match) return str;\n  const last = str.lastIndexOf(match);\n  return last !== -1\n    ? \\`\\${str.slice(0, last)}\\${replacement}\\${str.slice(last + match.length)}\\`\n    : str;\n};",
+    "description": "Replaces the last occurence of a pattern in a string.\n\n- Use `typeof` to determine if `pattern` is a string or a regular expression.\n- If the `pattern` is a string, use it as the `match`.\n- Otherwise, use the `RegeExp` constructor to create a new regular expression using the `RegExp.source` of the `pattern` and adding the `'g'` flag to it. Use `String.prototype.match()` and `Array.prototype.slice()` to get the last match, if any.\n- Use `String.prototype.lastIndexOf()` to find the last occurence of the match in the string.\n- If a match is found, use `String.prototype.slice()` and a template literal to replace the matching substring with the given `replacement`.\n- If no match is found, return the original string.",
+    "example": "replaceLast('abcabdef', 'ab', 'gg'); // 'abcggdef'\nreplaceLast('abcabdef', /ab/, 'gg'); // 'abcggdef'\nreplaceLast('abcabdef', 'ad', 'gg'); // 'abcabdef'\nreplaceLast('abcabdef', /ad/, 'gg'); // 'abcabdef'",
+    "id": "replaceLast",
+    "tags": [
+      "string",
+      "regexp",
       "advanced"
     ]
   },
