@@ -1790,7 +1790,7 @@
   },
   {
     "code": "const getDaysDiffBetweenDates = (dateInitial, dateFinal) =>\n  (dateFinal - dateInitial) / (1000 * 3600 * 24);",
-    "description": "Calculates the difference (in days) between two dates.\n\n- Subtract the two `Date` object and divide by the number of milliseconds in a day to get the difference (in days) between them.",
+    "description": "Calculates the difference (in days) between two dates.\n\n- Subtract the two `Date` objects and divide by the number of milliseconds in a day to get the difference (in days) between them.",
     "example": "getDaysDiffBetweenDates(new Date('2017-12-13'), new Date('2017-12-22')); // 9",
     "id": "getDaysDiffBetweenDates",
     "tags": [
@@ -1809,6 +1809,16 @@
     ]
   },
   {
+    "code": "const getHoursDiffBetweenDates = (dateInitial, dateFinal) =>\n  (dateFinal - dateInitial) / (1000 * 3600);",
+    "description": "Calculates the difference (in hours) between two dates.\n\n- Subtract the two `Date` objects and divide by the number of milliseconds in an hour to get the difference (in hours) between them.",
+    "example": "getHoursDiffBetweenDates(\n  new Date('2021-04-24 10:25:00'),\n  new Date('2021-04-25 10:25:00')\n); // 24",
+    "id": "getHoursDiffBetweenDates",
+    "tags": [
+      "date",
+      "beginner"
+    ]
+  },
+  {
     "code": "const getImages = (el, includeDuplicates = false) => {\n  const images = [...el.getElementsByTagName('img')].map(img =>\n    img.getAttribute('src')\n  );\n  return includeDuplicates ? images : [...new Set(images)];\n};",
     "description": "Fetches all images from within an element and puts them into an array.\n\n- Use `Element.getElementsByTagName()` to get all `<img>` elements inside the provided element.\n- Use `Array.prototype.map()` to map every `src` attribute of each `<img>` element.\n- If `includeDuplicates` is `false`, create a new `Set` to eliminate duplicates and return it after spreading into an array.\n- Omit the second argument, `includeDuplicates`, to discard duplicates by default.",
     "example": "getImages(document, true); // ['image1.jpg', 'image2.png', 'image1.png', '...']\ngetImages(document, false); // ['image1.jpg', 'image2.png', '...']",
@@ -1823,6 +1833,16 @@
     "description": "Converts an integer to a suffixed string, adding `am` or `pm` based on its value.\n\n- Use the modulo operator (`%`) and conditional checks to transform an integer to a stringified 12-hour format with meridiem suffix.",
     "example": "getMeridiemSuffixOfInteger(0); // '12am'\ngetMeridiemSuffixOfInteger(11); // '11am'\ngetMeridiemSuffixOfInteger(13); // '1pm'\ngetMeridiemSuffixOfInteger(25); // '1pm'",
     "id": "getMeridiemSuffixOfInteger",
+    "tags": [
+      "date",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const getMinutesDiffBetweenDates = (dateInitial, dateFinal) =>\n  (dateFinal - dateInitial) / (1000 * 60);",
+    "description": "Calculates the difference (in minutes) between two dates.\n\n- Subtract the two `Date` objects and divide by the number of milliseconds in a minute to get the difference (in minutes) between them.",
+    "example": "getMinutesDiffBetweenDates(\n  new Date('2021-04-24 01:00:15'),\n  new Date('2021-04-24 02:00:15')\n); // 60",
+    "id": "getMinutesDiffBetweenDates",
     "tags": [
       "date",
       "beginner"
@@ -1866,6 +1886,16 @@
     "tags": [
       "browser",
       "intermediate"
+    ]
+  },
+  {
+    "code": "const getSecondsDiffBetweenDates = (dateInitial, dateFinal) =>\n  (dateFinal - dateInitial) / 1000;",
+    "description": "Calculates the difference (in seconds) between two dates.\n\n- Subtract the two `Date` objects and divide by the number of milliseconds in a second to get the difference (in seconds) between them.",
+    "example": "getSecondsDiffBetweenDates(\n  new Date('2020-12-24 00:00:15'),\n  new Date('2020-12-24 00:00:17')\n); // 2",
+    "id": "getSecondsDiffBetweenDates",
+    "tags": [
+      "date",
+      "beginner"
     ]
   },
   {
