@@ -1481,6 +1481,16 @@
     ]
   },
   {
+    "code": "const findFirstN = (arr, matcher, n = 1) => {\n  let res = [];\n  for (let i in arr) {\n    const el = arr[i];\n    const match = matcher(el, i, arr);\n    if (match) res.push(el);\n    if (res.length === n) return res;\n  }\n  return res;\n};",
+    "description": "Finds the first `n` elements for which the provided function returns a truthy value.\n\n- Use a `for..in` loop to execute the provided `matcher` for each element of `arr`.\n- Use `Array.prototype.push()` to append elements to the results array and return them if its `length` is equal to `n`.",
+    "example": "findFirstN([1, 2, 4, 6], n => n % 2 === 0, 2); // [2, 4]\nfindFirstN([1, 2, 4, 6], n => n % 2 === 0, 5); // [2, 4, 6]",
+    "id": "findFirstN",
+    "tags": [
+      "array",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const findKey = (obj, fn) => \n  Object.keys(obj).find(key => fn(obj[key], key, obj));",
     "description": "Finds the first key that satisfies the provided testing function.\nOtherwise `undefined` is returned.\n\n- Use `Object.keys(obj)` to get all the properties of the object, `Array.prototype.find()` to test each key-value pair using `fn`.\n- The callback receives three arguments - the value, the key and the object.",
     "example": "findKey(\n  {\n    barney: { age: 36, active: true },\n    fred: { age: 40, active: false },\n    pebbles: { age: 1, active: true }\n  },\n  x => x['active']\n); // 'barney'",
@@ -1527,6 +1537,16 @@
     "id": "findLastKey",
     "tags": [
       "object",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const findLastN = (arr, matcher, n = 1) => {\n  let res = [];\n  for (let i = arr.length - 1; i >= 0; i--) {\n    const el = arr[i];\n    const match = matcher(el, i, arr);\n    if (match) res.unshift(el);\n    if (res.length === n) return res;\n  }\n  return res;\n};",
+    "description": "Finds the last `n` elements for which the provided function returns a truthy value.\n\n- Use a `for` loop to execute the provided `matcher` for each element of `arr`.\n- Use `Array.prototype.unshift()` to prepend elements to the results array and return them if its `length` is equal to `n`.",
+    "example": "findLastN([1, 2, 4, 6], n => n % 2 === 0, 2); // [4, 6]\nfindLastN([1, 2, 4, 6], n => n % 2 === 0, 5); // [2, 4, 6]",
+    "id": "findLastN",
+    "tags": [
+      "array",
       "intermediate"
     ]
   },
