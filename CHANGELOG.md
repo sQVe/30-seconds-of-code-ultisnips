@@ -1,3 +1,10 @@
+## [1.3.55](https://github.com/sQVe/30-seconds-of-code-ultisnips/compare/v1.3.54...v1.3.55) (2021-05-10)
+
+
+### Bug Fixes
+
+* **submodules:** update snippets (run: 64) ([bd5b81b](https://github.com/sQVe/30-seconds-of-code-ultisnips/commit/bd5b81b504627473843d2ccad3469bd598c1f620))
+
 ## [1.3.54](https://github.com/sQVe/30-seconds-of-code-ultisnips/compare/v1.3.53...v1.3.54) (2021-04-25)
 
 
