@@ -24,7 +24,7 @@
     "@types/node": "^15.0.0",
     "eslint": "^7.26.0",
     "eslint-config-sqve": "^2.15.11",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-import": "^2.23.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.0",
     "eslint-plugin-react": "^7.23.2",
