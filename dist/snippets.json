@@ -1647,6 +1647,18 @@
     ]
   },
   {
+    "code": "const formatSeconds = s => {\n  const [hour, minute, second, sign] =\n    s > 0\n      ? [s / 3600, (s / 60) % 60, s % 60, '']\n      : [-s / 3600, (-s / 60) % 60, -s % 60, '-'];\n\n  return (\n    sign +\n    [hour, minute, second]\n      .map(v => \\`\\${Math.floor(v)}\\`.padStart(2, '0'))\n      .join(':')\n  );\n};",
+    "description": "Returns the ISO format of the given number of seconds.\n\n- Divide `s` with the appropriate values to obtain the appropriate values for `hour`, `minute` and `second`.\n- Store the `sign` in a variable to prepend it to the result.\n- Use `Array.prototype.map()` in combination with `Array.prototype.floor()` and `String.prototype.padStart()` to stringify and format each segment.\n- Use `String.prototype.join(':')` to combine the values into a string.",
+    "example": "formatSeconds(200); // '00:03:20'\nformatSeconds(-200); // '-00:03:20'\nformatSeconds(99999); // '27:46:39'",
+    "id": "formatSeconds",
+    "tags": [
+      "date",
+      "math",
+      "string",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const frequencies = arr =>\n  arr.reduce((a, v) => {\n    a[v] = a[v] ? a[v] + 1 : 1;\n    return a;\n  }, {});",
     "description": "Creates an object with the unique values of an array as keys and their frequencies as the values.\n\n- Use `Array.prototype.reduce()` to map unique values to an object's keys, adding to existing keys every time the same value is encountered.",
     "example": "frequencies(['a', 'b', 'a', 'c', 'a', 'a', 'b']); // { a: 4, b: 2, c: 1 }\nfrequencies([...'ball']); // { b: 1, a: 1, l: 2 }",
