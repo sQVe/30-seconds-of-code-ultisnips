@@ -549,9 +549,9 @@
   },
   {
     "code": "const call = (key, ...args) => context => context[key](...args);",
-    "description": "Given a key and a set of arguments, call them when given a context.\r\n\r\n- Use a closure to call `key` with `args` for the given `context`.",
-    "example": "Promise.resolve([1, 2, 3])\r\n  .then(call('map', x => 2 * x))\r\n  .then(console.log); // [ 2, 4, 6 ]\r\nconst map = call.bind(null, 'map');\r\nPromise.resolve([1, 2, 3])\r\n  .then(map(x => 2 * x))\r\n  .then(console.log); // [ 2, 4, 6 ]",
-    "id": "call\r",
+    "description": "Given a key and a set of arguments, call them when given a context.\n\n- Use a closure to call `key` with `args` for the given `context`.",
+    "example": "Promise.resolve([1, 2, 3])\n  .then(call('map', x => 2 * x))\n  .then(console.log); // [ 2, 4, 6 ]\nconst map = call.bind(null, 'map');\nPromise.resolve([1, 2, 3])\n  .then(map(x => 2 * x))\n  .then(console.log); // [ 2, 4, 6 ]",
+    "id": "call",
     "tags": [
       "function",
       "advanced"
@@ -718,9 +718,9 @@
   },
   {
     "code": "const collectInto = fn => (...args) => fn(args);",
-    "description": "Changes a function that accepts an array into a variadic function.\r\n\r\n- Given a function, return a closure that collects all inputs into an array-accepting function.",
-    "example": "const Pall = collectInto(Promise.all.bind(Promise));\r\nlet p1 = Promise.resolve(1);\r\nlet p2 = Promise.resolve(2);\r\nlet p3 = new Promise(resolve => setTimeout(resolve, 2000, 3));\r\nPall(p1, p2, p3).then(console.log); // [1, 2, 3] (after about 2 seconds)",
-    "id": "collectInto\r",
+    "description": "Changes a function that accepts an array into a variadic function.\n\n- Given a function, return a closure that collects all inputs into an array-accepting function.",
+    "example": "const Pall = collectInto(Promise.all.bind(Promise));\nlet p1 = Promise.resolve(1);\nlet p2 = Promise.resolve(2);\nlet p3 = new Promise(resolve => setTimeout(resolve, 2000, 3));\nPall(p1, p2, p3).then(console.log); // [1, 2, 3] (after about 2 seconds)",
+    "id": "collectInto",
     "tags": [
       "function",
       "array",
@@ -1574,9 +1574,9 @@
   },
   {
     "code": "const flip = fn => (first, ...rest) => fn(...rest, first);",
-    "description": "Takes a function as an argument, then makes the first argument the last.\r\n\r\n- Use argument destructuring and a closure with variadic arguments.\r\n- Splice the first argument, using the spread operator (`...`), to make it the last before applying the rest.",
-    "example": "let a = { name: 'John Smith' };\r\nlet b = {};\r\nconst mergeFrom = flip(Object.assign);\r\nlet mergePerson = mergeFrom.bind(null, a);\r\nmergePerson(b); // == b\r\nb = {};\r\nObject.assign(b, a); // == b",
-    "id": "flip\r",
+    "description": "Takes a function as an argument, then makes the first argument the last.\n\n- Use argument destructuring and a closure with variadic arguments.\n- Splice the first argument, using the spread operator (`...`), to make it the last before applying the rest.",
+    "example": "let a = { name: 'John Smith' };\nlet b = {};\nconst mergeFrom = flip(Object.assign);\nlet mergePerson = mergeFrom.bind(null, a);\nmergePerson(b); // == b\nb = {};\nObject.assign(b, a); // == b",
+    "id": "flip",
     "tags": [
       "function",
       "intermediate"
@@ -4644,9 +4644,9 @@
   },
   {
     "code": "const spreadOver = fn => argsArr => fn(...argsArr);",
-    "description": "Takes a variadic function and returns a function that accepts an array of arguments.\r\n\r\n- Use a closure and the spread operator (`...`) to map the array of arguments to the inputs of the function.",
-    "example": "const arrayMax = spreadOver(Math.max);\r\narrayMax([1, 2, 3]); // 3",
-    "id": "spreadOver\r",
+    "description": "Takes a variadic function and returns a function that accepts an array of arguments.\n\n- Use a closure and the spread operator (`...`) to map the array of arguments to the inputs of the function.",
+    "example": "const arrayMax = spreadOver(Math.max);\narrayMax([1, 2, 3]); // 3",
+    "id": "spreadOver",
     "tags": [
       "function",
       "intermediate"
@@ -5038,9 +5038,9 @@
   },
   {
     "code": "const toRGBArray = rgbStr => rgbStr.match(/\\d+/g).map(Number);",
-    "description": "Converts an `rgb()` color string to an array of values.\r\n\r\n- Use `String.prototype.match()` to get an array of 3 string with the numeric values.\r\n- Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values.",
+    "description": "Converts an `rgb()` color string to an array of values.\n\n- Use `String.prototype.match()` to get an array of 3 string with the numeric values.\n- Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values.",
     "example": "toRGBArray('rgb(255, 12, 0)'); // [255, 12, 0]",
-    "id": "toRGBArray\r",
+    "id": "toRGBArray",
     "tags": [
       "string",
       "browser",

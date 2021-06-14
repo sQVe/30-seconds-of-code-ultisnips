@@ -428,7 +428,7 @@ const caesarCipher = (str, shift, decrypt = false) => {
 };
 endsnippet
 
-snippet call "Given a key and a set of arguments, call them when given a context.    - Use a closure to call `key` with `args` for the given `context`." b
+snippet call "Given a key and a set of arguments, call them when given a context.  - Use a closure to call `key` with `args` for the given `context`." b
 const call = (key, ...args) => context => context[key](...args);
 endsnippet
 
@@ -532,7 +532,7 @@ snippet coalesceFactory "Customizes a coalesce function that returns the first a
 const coalesceFactory = valid => (...args) => args.find(valid);
 endsnippet
 
-snippet collectInto "Changes a function that accepts an array into a variadic function.    - Given a function, return a closure that collects all inputs into an array-accepting function." b
+snippet collectInto "Changes a function that accepts an array into a variadic function.  - Given a function, return a closure that collects all inputs into an array-accepting function." b
 const collectInto = fn => (...args) => fn(args);
 endsnippet
 
@@ -1179,7 +1179,7 @@ const flattenObject = (obj, prefix = '') =>
   }, {});
 endsnippet
 
-snippet flip "Takes a function as an argument, then makes the first argument the last.    - Use argument destructuring and a closure with variadic arguments.  - Splice the first argument, using the spread operator (`...`), to make it the last before applying the rest." b
+snippet flip "Takes a function as an argument, then makes the first argument the last.  - Use argument destructuring and a closure with variadic arguments. - Splice the first argument, using the spread operator (`...`), to make it the last before applying the rest." b
 const flip = fn => (first, ...rest) => fn(...rest, first);
 endsnippet
 
@@ -3470,7 +3470,7 @@ snippet splitLines "Splits a multiline string into an array of lines.  - Use `St
 const splitLines = str => str.split(/\r?\n/);
 endsnippet
 
-snippet spreadOver "Takes a variadic function and returns a function that accepts an array of arguments.    - Use a closure and the spread operator (`...`) to map the array of arguments to the inputs of the function." b
+snippet spreadOver "Takes a variadic function and returns a function that accepts an array of arguments.  - Use a closure and the spread operator (`...`) to map the array of arguments to the inputs of the function." b
 const spreadOver = fn => argsArr => fn(...argsArr);
 endsnippet
 
@@ -3776,7 +3776,7 @@ const toPairs = obj =>
     : Object.entries(obj);
 endsnippet
 
-snippet toRGBArray "Converts an `rgb()` color string to an array of values.    - Use `String.prototype.match()` to get an array of 3 string with the numeric values.  - Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values." b
+snippet toRGBArray "Converts an `rgb()` color string to an array of values.  - Use `String.prototype.match()` to get an array of 3 string with the numeric values. - Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values." b
 const toRGBArray = rgbStr => rgbStr.match(/\d+/g).map(Number);
 endsnippet
 
