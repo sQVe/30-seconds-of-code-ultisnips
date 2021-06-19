@@ -345,6 +345,16 @@
     ]
   },
   {
+    "code": "const assertValidKeys = (obj, keys) =>\n  Object.keys(obj).every(key => keys.includes(key));",
+    "description": "Validates all keys in an object match the given `keys`.\n\n- Use `Object.keys()` to get the keys of the given object, `obj`.\n- Use `Array.prototype.every()` and `Array.prototype.includes()` to validate that each key in the object is specified in the `keys` array.",
+    "example": "assertValidKeys({ id: 10, name: 'apple' }, ['id', 'name']); // true\nassertValidKeys({ id: 10, name: 'apple' }, ['id', 'type']); // false",
+    "id": "assertValidKeys",
+    "tags": [
+      "object",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const atob = str => Buffer.from(str, 'base64').toString('binary');",
     "description": "Decodes a string of data which has been encoded using base-64 encoding.\n\n- Create a `Buffer` for the given string with base-64 encoding and use `Buffer.toString('binary')` to return the decoded string.",
     "example": "atob('Zm9vYmFy'); // 'foobar'",
@@ -1093,6 +1103,17 @@
     "tags": [
       "object",
       "recursion",
+      "advanced"
+    ]
+  },
+  {
+    "code": "const deepMerge = (a, b, fn) =>\n  [...new Set([...Object.keys(a), ...Object.keys(b)])].reduce(\n    (acc, key) => ({ ...acc, [key]: fn(key, a[key], b[key]) }),\n    {}\n  );",
+    "description": "Deeply merges two objects, using a function to handle keys present in both.\n\n- Use `Object.keys()` to get the keys of both objects, create a `Set` from them and use the spread operator (`...`) to create an array of all the unique keys.\n- Use `Array.prototype.reduce()` to add each unique key to the object, using `fn` to combine the values of the two given objects.",
+    "example": "deepMerge(\n  { a: true, b: { c: [1, 2, 3] } },\n  { a: false, b: { d: [1, 2, 3] } },\n  (key, a, b) => (key === 'a' ? a && b : Object.assign({}, a, b))\n);\n// { a: false, b: { c: [ 1, 2, 3 ], d: [ 1, 2, 3 ] } }",
+    "id": "deepMerge",
+    "tags": [
+      "object",
+      "function",
       "advanced"
     ]
   },
@@ -2067,6 +2088,26 @@
     ]
   },
   {
+    "code": "const hasMany = (arr, fn) => arr.filter(fn).length > 1;",
+    "description": "Checks if an array has more than one value matching the given function.\n\n- Use `Array.prototype.filter()` in combination with `fn` to find all matching array elements.\n- Use `Array.prototype.length` to check if more than one element match `fn`.",
+    "example": "hasMany([1, 3], x => x % 2); // true\nhasMany([1, 2], x => x % 2); // false",
+    "id": "hasMany",
+    "tags": [
+      "array",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const hasOne = (arr, fn) => arr.filter(fn).length === 1;",
+    "description": "Checks if an array has only one value matching the given function.\n\n- Use `Array.prototype.filter()` in combination with `fn` to find all matching array elements.\n- Use `Array.prototype.length` to check if only one element matches `fn`.",
+    "example": "hasOne([1, 2], x => x % 2); // true\nhasOne([1, 3], x => x % 2); // false",
+    "id": "hasOne",
+    "tags": [
+      "array",
+      "beginner"
+    ]
+  },
+  {
     "code": "const hashBrowser = val =>\n  crypto.subtle\n    .digest('SHA-256', new TextEncoder('utf-8').encode(val))\n    .then(h => {\n      let hexes = [],\n        view = new DataView(h);\n      for (let i = 0; i < view.byteLength; i += 4)\n        hexes.push(('00000000' + view.getUint32(i).toString(16)).slice(-8));\n      return hexes.join('');\n    });",
     "description": "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm.\nReturns a promise.\n\n- Use the [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) API to create a hash for the given value.\n- Create a new `TextEncoder` and use it to encode `val`, passing its value to `SubtleCrypto.digest()` to generate a digest of the given data.\n- Use `DataView.prototype.getUint32()` to read data from the resolved `ArrayBuffer`.\n- Add the data to an array using `Array.prototype.push()` after converting it to its hexadecimal representation using `Number.prototype.toString(16)`.\n- Finally, use `Array.prototype.join()` to combine values in the array of `hexes` into a string.",
     "example": "hashBrowser(\n  JSON.stringify({ a: 'a', b: [1, 2, 3, 4], foo: { c: 'bar' } })\n).then(console.log);\n// '04aa106279f5977f59f9067fa9712afc4aedc6f5862a8defc34552d8c7206393'",
@@ -2243,6 +2284,17 @@
     ]
   },
   {
+    "code": "const indexBy = (arr, fn) =>\n  arr.reduce((obj, v, i) => {\n    obj[fn(v, i, arr)] = v;\n    return obj;\n  }, {});",
+    "description": "Creates an object from an array, using a function to map each value to a key.\n\n- Use `Array.prototype.reduce()` to create an object from `arr`.\n- Apply `fn` to each value of `arr` to produce a key and add the key-value pair to the object.",
+    "example": "indexBy([\n  { id: 10, name: 'apple' },\n  { id: 20, name: 'orange' }\n], x => x.id);\n// { '10': { id: 10, name: 'apple' }, '20': { id: 20, name: 'orange' } }",
+    "id": "indexBy",
+    "tags": [
+      "array",
+      "object",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const indexOfAll = (arr, val) =>\n  arr.reduce((acc, el, i) => (el === val ? [...acc, i] : acc), []);",
     "description": "Finds all indexes of `val` in an array.\nIf `val` never occurs, returns an empty array.\n\n- Use `Array.prototype.reduce()` to loop over elements and store indexes for matching elements.",
     "example": "indexOfAll([1, 2, 3, 1, 2, 3], 1); // [0, 3]\nindexOfAll([1, 2, 3], 4); // []",
@@ -2261,6 +2313,17 @@
       "string",
       "algorithm",
       "generator",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const indexOn = (arr, key) =>\n  arr.reduce((obj, v) => {\n    const { [key]: id, ...data } = v;\n    obj[id] = data;\n    return obj;\n  }, {});",
+    "description": "Creates an object from an array, using the specified key and excluding it from each value.\n\n- Use `Array.prototype.reduce()` to create an object from `arr`.\n- Use object destructuring to get the value of the given `key` and the associated `data` and add the key-value pair to the object.",
+    "example": "indexOn([\n  { id: 10, name: 'apple' },\n  { id: 20, name: 'orange' }\n], x => x.id);\n// { '10': { name: 'apple' }, '20': { name: 'orange' } }",
+    "id": "indexOn",
+    "tags": [
+      "array",
+      "object",
       "intermediate"
     ]
   },
@@ -3161,6 +3224,16 @@
       "math",
       "algorithm",
       "advanced"
+    ]
+  },
+  {
+    "code": "const mapConsecutive = (arr, n, fn) =>\n  arr.slice(n - 1).map((v, i) => fn(arr.slice(i, i + n)));",
+    "description": "Maps each block of `n` consencutive elements using the given function, `fn`.\n\n- Use `Array.prototype.slice()` to get `arr` with `n` elements removed from the left.\n- Use `Array.prototype.map()` and `Array.prototype.slice()` to apply `fn` to each block of `n` consecutive elements in `arr`.",
+    "example": "mapConsecutive([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3, x => x.join('-'));\n// ['1-2-3', '2-3-4', '3-4-5', '4-5-6', '5-6-7', '6-7-8', '7-8-9', '8-9-10'];",
+    "id": "mapConsecutive",
+    "tags": [
+      "array",
+      "intermediate"
     ]
   },
   {
@@ -4788,6 +4861,16 @@
     ]
   },
   {
+    "code": "const symbolizeKeys = obj =>\n  Object.keys(obj).reduce(\n    (acc, key) => ({ ...acc, [Symbol(key)]: obj[key] }),\n    {}\n  );",
+    "description": "Creates a new object, converting each key to a `Symbol`.\n\n- Use `Object.keys()` to get the keys of `obj`.\n- Use `Array.prototype.reduce()` and `Symbol()` to create a new object where each key is converted to a `Symbol`.",
+    "example": "symbolizeKeys({ id: 10, name: 'apple' });\n// { [Symbol(id)]: 10, [Symbol(name)]: 'apple' }",
+    "id": "symbolizeKeys",
+    "tags": [
+      "object",
+      "advanced"
+    ]
+  },
+  {
     "code": "const symmetricDifference = (a, b) => {\n  const sA = new Set(a),\n    sB = new Set(b);\n  return [...a.filter(x => !sB.has(x)), ...b.filter(x => !sA.has(x))];\n};",
     "description": "Returns the symmetric difference between two arrays, without filtering out duplicate values.\n\n- Create a `new Set()` from each array to get the unique values of each one.\n- Use `Array.prototype.filter()` on each of them to only keep values not contained in the other.",
     "example": "symmetricDifference([1, 2, 3], [1, 2, 4]); // [3, 4]\nsymmetricDifference([1, 2, 2], [1, 3, 1]); // [2, 2, 3]",
@@ -5371,6 +5454,16 @@
       "object",
       "recursion",
       "generator",
+      "advanced"
+    ]
+  },
+  {
+    "code": "const weekOfYear = date => {\n  const startOfYear = new Date(date.getFullYear(), 0, 1);\n  startOfYear.setDate(startOfYear.getDate() + (startOfYear.getDay() % 7));\n  return Math.round((date - startOfYear) / (7 * 24 * 3600 * 1000));\n};",
+    "description": "Returns the zero-indexed week of the year that a date corresponds to.\n\n- Use `new Date()` and `Date.prototype.getFullYear()` to get the first day of the year as a `Date` object.\n- Use `Date.prototype.setDate()`, `Date.prototype.getDate()` and `Date.prototype.getDay()` along with the modulo (`%`) operator to get the first Monday of the year.\n- Subtract the first Monday of the year from the given `date` and divide with the number of milliseconds in a week.\n- Use `Math.round()` to get the zero-indexed week of the year corresponding to the given `date`.\n- `-0` is returned if the given `date` is before the first Monday of the year.",
+    "example": "weekOfYear(new Date('2021-06-18')); // 23",
+    "id": "weekOfYear",
+    "tags": [
+      "date",
       "advanced"
     ]
   },
