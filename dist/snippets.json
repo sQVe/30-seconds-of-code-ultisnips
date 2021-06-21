@@ -982,6 +982,18 @@
     ]
   },
   {
+    "code": "const dateRangeGenerator = function* (start, end, step = 1) {\n  let d = start;\n  while (d < end) {\n    yield new Date(d);\n    d.setDate(d.getDate() + step);\n  }\n};",
+    "description": "Creates a generator, that generates all dates in the given range using the given step.\n\n- Use a `while` loop to iterate from `start` to `end`, using `yield` to return each date in the range, using the `Date` constructor.\n- Use `Date.prototype.getDate()` and `Date.prototype.setDate()` to increment by `step` days after returning each subsequent value.\n- Omit the third argument, `step`, to use a default value of `1`.",
+    "example": "[...dateRangeGenerator(new Date('2021-06-01'), new Date('2021-06-04'))];\n// [ 2021-06-01, 2021-06-02, 2021-06-03 ]",
+    "id": "dateRangeGenerator",
+    "tags": [
+      "date",
+      "function",
+      "generator",
+      "advanced"
+    ]
+  },
+  {
     "code": "const dayName = (date, locale) =>\n  date.toLocaleDateString(locale, { weekday: 'long' });",
     "description": "Gets the name of the weekday from a `Date` object.\n\n- Use `Date.prototype.toLocaleDateString()` with the `{ weekday: 'long' }` option to retrieve the weekday.\n- Use the optional second argument to get a language-specific name or omit it to use the default locale.",
     "example": "dayName(new Date()); // 'Saturday'\ndayName(new Date('09/23/2020'), 'de-DE'); // 'Samstag'",
@@ -1016,6 +1028,16 @@
     "description": "Calculates the date of `n` days from today as a string representation.\n\n- Use `new Date()` to get the current date, `Math.abs()` and `Date.prototype.getDate()` to update the date accordingly and set to the result using `Date.prototype.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "daysFromNow(5); // 2020-10-13 (if current date is 2020-10-08)",
     "id": "daysFromNow",
+    "tags": [
+      "date",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const daysInMonth = (year, month) => new Date(year, month, 0).getDate();",
+    "description": "Gets the number of days in the given `month` of the specified `year`.\n\n- Use the `new Date()` constructor to create a date from the given `year` and `month`.\n- Set the days parameter to `0` to get the last day of the previous month, as months are zero-indexed.\n- Use `Date.prototype.getDate()` to return the number of days in the given `month`.",
+    "example": "daysInMonth(2020, 12)); // 31\ndaysInMonth(2024, 2)); // 29",
+    "id": "daysInMonth",
     "tags": [
       "date",
       "beginner"
@@ -5002,7 +5024,7 @@
     ]
   },
   {
-    "code": "const toCamelCase = str => {\n  let s =\n    str &&\n    str\n      .match(\n        /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g\n      )\n      .map(x => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase())\n      .join('');\n  return s.slice(0, 1).toLowerCase() + s.slice(1);\n};",
+    "code": "const toCamelCase = str => {\n  const s =\n    str &&\n    str\n      .match(\n        /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g\n      )\n      .map(x => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase())\n      .join('');\n  return s.slice(0, 1).toLowerCase() + s.slice(1);\n};",
     "description": "Converts a string to camelcase.\n\n- Use `String.prototype.match()` to break the string into words using an appropriate regexp.\n- Use `Array.prototype.map()`, `Array.prototype.slice()`, `Array.prototype.join()`, `String.prototype.toLowerCase()` and `String.prototype.toUpperCase()` to combine them, capitalizing the first letter of each one.",
     "example": "toCamelCase('some_database_field_name'); // 'someDatabaseFieldName'\ntoCamelCase('Some label that needs to be camelized');\n// 'someLabelThatNeedsToBeCamelized'\ntoCamelCase('some-javascript-property'); // 'someJavascriptProperty'\ntoCamelCase('some-mixed_string with spaces_underscores-and-hyphens');\n// 'someMixedStringWithSpacesUnderscoresAndHyphens'",
     "id": "toCamelCase",

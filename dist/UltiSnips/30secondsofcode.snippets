@@ -748,6 +748,16 @@ const cycleGenerator = function* (arr) {
 };
 endsnippet
 
+snippet dateRangeGenerator "Creates a generator, that generates all dates in the given range using the given step.  - Use a `while` loop to iterate from `start` to `end`, using `yield` to return each date in the range, using the `Date` constructor. - Use `Date.prototype.getDate()` and `Date.prototype.setDate()` to increment by `step` days after returning each subsequent value. - Omit the third argument, `step`, to use a default value of `1`." b
+const dateRangeGenerator = function* (start, end, step = 1) {
+  let d = start;
+  while (d < end) {
+    yield new Date(d);
+    d.setDate(d.getDate() + step);
+  }
+};
+endsnippet
+
 snippet dayName "Gets the name of the weekday from a `Date` object.  - Use `Date.prototype.toLocaleDateString()` with the `{ weekday: 'long' }` option to retrieve the weekday. - Use the optional second argument to get a language-specific name or omit it to use the default locale." b
 const dayName = (date, locale) =>
   date.toLocaleDateString(locale, { weekday: 'long' });
@@ -772,6 +782,10 @@ const daysFromNow = n => {
   d.setDate(d.getDate() + Math.abs(n));
   return d.toISOString().split('T')[0];
 };
+endsnippet
+
+snippet daysInMonth "Gets the number of days in the given `month` of the specified `year`.  - Use the `new Date()` constructor to create a date from the given `year` and `month`. - Set the days parameter to `0` to get the last day of the previous month, as months are zero-indexed. - Use `Date.prototype.getDate()` to return the number of days in the given `month`." b
+const daysInMonth = (year, month) => new Date(year, month, 0).getDate();
 endsnippet
 
 snippet debounce "Creates a debounced function that delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked.  - Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed. - Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments. - Omit the second argument, `ms`, to set the timeout at a default of `0` ms." b
@@ -3734,7 +3748,7 @@ endsnippet
 
 snippet toCamelCase "Converts a string to camelcase.  - Use `String.prototype.match()` to break the string into words using an appropriate regexp. - Use `Array.prototype.map()`, `Array.prototype.slice()`, `Array.prototype.join()`, `String.prototype.toLowerCase()` and `String.prototype.toUpperCase()` to combine them, capitalizing the first letter of each one." b
 const toCamelCase = str => {
-  let s =
+  const s =
     str &&
     str
       .match(
