@@ -515,7 +515,7 @@
     ]
   },
   {
-    "code": "const bubbleSort = arr => {\n  let swapped = false;\n  const a = [...arr];\n  for (let i = 1; i < a.length - 1; i++) {\n    swapped = false;\n    for (let j = 0; j < a.length - i; j++) {\n      if (a[j + 1] < a[j]) {\n        [a[j], a[j + 1]] = [a[j + 1], a[j]];\n        swapped = true;\n      }\n    }\n    if (!swapped) return a;\n  }\n  return a;\n};",
+    "code": "const bubbleSort = arr => {\n  let swapped = false;\n  const a = [...arr];\n  for (let i = 1; i < a.length; i++) {\n    swapped = false;\n    for (let j = 0; j < a.length - i; j++) {\n      if (a[j + 1] < a[j]) {\n        [a[j], a[j + 1]] = [a[j + 1], a[j]];\n        swapped = true;\n      }\n    }\n    if (!swapped) return a;\n  }\n  return a;\n};",
     "description": "Sorts an array of numbers, using the bubble sort algorithm.\n\n- Declare a variable, `swapped`, that indicates if any values were swapped during the current iteration.\n- Use the spread operator (`...`) to clone the original array, `arr`.\n- Use a `for` loop to iterate over the elements of the cloned array, terminating before the last element.\n- Use a nested `for` loop to iterate over the segment of the array between `0` and `i`, swapping any adjacent out of order elements and setting `swapped` to `true`.\n- If `swapped` is `false` after an iteration, no more changes are needed, so the cloned array is returned.",
     "example": "bubbleSort([2, 1, 4, 3]); // [1, 2, 3, 4]",
     "id": "bubbleSort",
