@@ -1644,7 +1644,7 @@ const hexToRGB = hex => {
 };
 endsnippet
 
-snippet hide "Hides all the elements specified.  - Use `NodeList.prototype.forEach()` to apply `display: none` to each element specified." b
+snippet hide "Hides all the elements specified.  - Use the spread operator (`...`) and `Array.prototype.forEach()` to apply `display: none` to each element specified." b
 const hide = (...el) => [...el].forEach(e => (e.style.display = 'none'));
 endsnippet
 
@@ -2366,7 +2366,7 @@ const luhnCheck = num => {
     .map(x => parseInt(x));
   let lastDigit = arr.splice(0, 1)[0];
   let sum = arr.reduce(
-    (acc, val, i) => (i % 2 !== 0 ? acc + val : acc + ((val * 2) % 9) || 9),
+    (acc, val, i) => (i % 2 !== 0 ? acc + val : acc + ((val *= 2) > 9 ? val - 9 : val)),
     0
   );
   sum += lastDigit;

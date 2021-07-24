@@ -2196,8 +2196,8 @@
   },
   {
     "code": "const hide = (...el) => [...el].forEach(e => (e.style.display = 'none'));",
-    "description": "Hides all the elements specified.\n\n- Use `NodeList.prototype.forEach()` to apply `display: none` to each element specified.",
-    "example": "hide(document.querySelectorAll('img')); // Hides all <img> elements on the page",
+    "description": "Hides all the elements specified.\n\n- Use the spread operator (`...`) and `Array.prototype.forEach()` to apply `display: none` to each element specified.",
+    "example": "hide(...document.querySelectorAll('img')); // Hides all <img> elements on the page",
     "id": "hide",
     "tags": [
       "browser",
@@ -2341,7 +2341,7 @@
   {
     "code": "const indexOn = (arr, key) =>\n  arr.reduce((obj, v) => {\n    const { [key]: id, ...data } = v;\n    obj[id] = data;\n    return obj;\n  }, {});",
     "description": "Creates an object from an array, using the specified key and excluding it from each value.\n\n- Use `Array.prototype.reduce()` to create an object from `arr`.\n- Use object destructuring to get the value of the given `key` and the associated `data` and add the key-value pair to the object.",
-    "example": "indexOn([\n  { id: 10, name: 'apple' },\n  { id: 20, name: 'orange' }\n], x => x.id);\n// { '10': { name: 'apple' }, '20': { name: 'orange' } }",
+    "example": "indexOn([\n  { id: 10, name: 'apple' },\n  { id: 20, name: 'orange' }\n], 'id');\n// { '10': { name: 'apple' }, '20': { name: 'orange' } }",
     "id": "indexOn",
     "tags": [
       "array",
@@ -3238,9 +3238,9 @@
     ]
   },
   {
-    "code": "const luhnCheck = num => {\n  let arr = (num + '')\n    .split('')\n    .reverse()\n    .map(x => parseInt(x));\n  let lastDigit = arr.splice(0, 1)[0];\n  let sum = arr.reduce(\n    (acc, val, i) => (i % 2 !== 0 ? acc + val : acc + ((val * 2) % 9) || 9),\n    0\n  );\n  sum += lastDigit;\n  return sum % 10 === 0;\n};",
+    "code": "const luhnCheck = num => {\n  let arr = (num + '')\n    .split('')\n    .reverse()\n    .map(x => parseInt(x));\n  let lastDigit = arr.splice(0, 1)[0];\n  let sum = arr.reduce(\n    (acc, val, i) => (i % 2 !== 0 ? acc + val : acc + ((val *= 2) > 9 ? val - 9 : val)),\n    0\n  );\n  sum += lastDigit;\n  return sum % 10 === 0;\n};",
     "description": "Implementation of the [Luhn Algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm) used to validate a variety of identification numbers, such as credit card numbers, IMEI numbers, National Provider Identifier numbers etc.\n\n- Use `String.prototype.split('')`, `Array.prototype.reverse()` and `Array.prototype.map()` in combination with `parseInt()` to obtain an array of digits.\n- Use `Array.prototype.splice(0, 1)` to obtain the last digit.\n- Use `Array.prototype.reduce()` to implement the Luhn Algorithm.\n- Return `true` if `sum` is divisible by `10`, `false` otherwise.",
-    "example": "luhnCheck('4485275742308327'); // true\nluhnCheck(6011329933655299); //  false\nluhnCheck(123456789); // false",
+    "example": "luhnCheck('4485275742308327'); // true\nluhnCheck(6011329933655299); //  true\nluhnCheck(123456789); // false",
     "id": "luhnCheck",
     "tags": [
       "math",
@@ -5189,7 +5189,7 @@
   {
     "code": "const toSnakeCase = str =>\n  str &&\n  str\n    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)\n    .map(x => x.toLowerCase())\n    .join('_');",
     "description": "Converts a string to snake case.\n\n- Use `String.prototype.match()` to break the string into words using an appropriate regexp.\n- Use `Array.prototype.map()`, `Array.prototype.slice()`, `Array.prototype.join()` and `String.prototype.toLowerCase()` to combine them, adding `_` as a separator.",
-    "example": "toSnakeCase('camelCase'); // 'camel_case'\ntoSnakeCase('some text'); // 'some_text'\ntoSnakeCase('some-mixed_string With spaces_underscores-and-hyphens');\n// 'some_mixed_string_with_spaces_underscores_and_hyphens'\ntoSnakeCase('AllThe-small Things'); // 'all_the_small_things'\ntoKebabCase('IAmEditingSomeXMLAndHTML');\n// 'i_am_editing_some_xml_and_html'",
+    "example": "toSnakeCase('camelCase'); // 'camel_case'\ntoSnakeCase('some text'); // 'some_text'\ntoSnakeCase('some-mixed_string With spaces_underscores-and-hyphens');\n// 'some_mixed_string_with_spaces_underscores_and_hyphens'\ntoSnakeCase('AllThe-small Things'); // 'all_the_small_things'\ntoSnakeCase('IAmEditingSomeXMLAndHTML');\n// 'i_am_editing_some_xml_and_html'",
     "id": "toSnakeCase",
     "tags": [
       "string",
