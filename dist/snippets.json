@@ -64,7 +64,7 @@
     ]
   },
   {
-    "code": "const RGBToHSB = (r, g, b) => {\n  r /= 255;\n  g /= 255;\n  b /= 255;\n  const v = Math.max(r, g, b),\n    n = v - Math.min(r, g, b);\n  const h =\n    n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;\n  return [60 * (h < 0 ? h + 6 : h), v && (n / v) * 100, v * 100];\n};",
+    "code": "const RGBToHSB = (r, g, b) => {\n  r /= 255;\n  g /= 255;\n  b /= 255;\n  const v = Math.max(r, g, b),\n    n = v - Math.min(r, g, b);\n  const h =\n    n === 0 ? 0 : n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;\n  return [60 * (h < 0 ? h + 6 : h), v && (n / v) * 100, v * 100];\n};",
     "description": "Converts a RGB color tuple to HSB format.\n\n- Use the [RGB to HSB conversion formula](https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB) to convert to the appropriate format.\n- The range of all input parameters is [0, 255].\n- The range of the resulting values is H: [0, 360], S: [0, 100], B: [0, 100].",
     "example": "RGBToHSB(252, 111, 48);\n// [18.529411764705856, 80.95238095238095, 98.82352941176471]",
     "id": "RGBToHSB",
