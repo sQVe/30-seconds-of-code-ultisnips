@@ -3846,6 +3846,14 @@ const toPairs = obj =>
     : Object.entries(obj);
 endsnippet
 
+snippet toPascalCase "Converts a string to pascal case.    - Use `String.prototype.match()` to break the string into words using an appropriate regexp.  - Use `Array.prototype.map()`, `Array.prototype.slice()`, `Array.prototype.join()`, `String.prototype.toUpperCase()` and `String.prototype.toLowerCase()` to combine them, capitalizing the first letter of each word and lowercasing the rest." b
+const toPascalCase = str =>
+  str
+    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+    .map(x => x.charAt(0).toUpperCase() + x.slice(1).toLowerCase())
+    .join('');
+endsnippet
+
 snippet toRGBArray "Converts an `rgb()` color string to an array of values.  - Use `String.prototype.match()` to get an array of 3 string with the numeric values. - Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values." b
 const toRGBArray = rgbStr => rgbStr.match(/\d+/g).map(Number);
 endsnippet

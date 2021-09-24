@@ -5143,6 +5143,17 @@
     ]
   },
   {
+    "code": "const toPascalCase = str =>\r\n  str\r\n    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)\r\n    .map(x => x.charAt(0).toUpperCase() + x.slice(1).toLowerCase())\r\n    .join('');",
+    "description": "Converts a string to pascal case.\r\n\r\n- Use `String.prototype.match()` to break the string into words using an appropriate regexp.\r\n- Use `Array.prototype.map()`, `Array.prototype.slice()`, `Array.prototype.join()`, `String.prototype.toUpperCase()` and `String.prototype.toLowerCase()` to combine them, capitalizing the first letter of each word and lowercasing the rest.",
+    "example": "toPascalCase('some_database_field_name'); // 'SomeDatabaseFieldName'\r\ntoPascalCase('Some label that needs to be pascalized');\r\n// 'SomeLabelThatNeedsToBePascalized'\r\ntoPascalCase('some-javascript-property'); // 'SomeJavascriptProperty'\r\ntoPascalCase('some-mixed_string with spaces_underscores-and-hyphens');\r\n// 'SomeMixedStringWithSpacesUnderscoresAndHyphens'",
+    "id": "toPascalCase\r",
+    "tags": [
+      "string",
+      "regexp",
+      "intermediate\r"
+    ]
+  },
+  {
     "code": "const toRGBArray = rgbStr => rgbStr.match(/\\d+/g).map(Number);",
     "description": "Converts an `rgb()` color string to an array of values.\n\n- Use `String.prototype.match()` to get an array of 3 string with the numeric values.\n- Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values.",
     "example": "toRGBArray('rgb(255, 12, 0)'); // [255, 12, 0]",
