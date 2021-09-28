@@ -3974,9 +3974,9 @@
     ]
   },
   {
-    "code": "const powerset = arr =>\n  arr.reduce((a, v) => a.concat(a.map(r => [v].concat(r))), [[]]);",
+    "code": "const powerset = arr =>\n  arr.reduce((a, v) => a.concat(a.map(r => r.concat(v))), [[]]);",
     "description": "Returns the powerset of a given array of numbers.\n\n- Use `Array.prototype.reduce()` combined with `Array.prototype.map()` to iterate over elements and combine into an array containing all combinations.",
-    "example": "powerset([1, 2]); // [[], [1], [2], [2, 1]]",
+    "example": "powerset([1, 2]); // [[], [1], [2], [1, 2]]",
     "id": "powerset",
     "tags": [
       "math",

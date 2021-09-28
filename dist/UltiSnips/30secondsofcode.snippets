@@ -2913,7 +2913,7 @@ endsnippet
 
 snippet powerset "Returns the powerset of a given array of numbers.  - Use `Array.prototype.reduce()` combined with `Array.prototype.map()` to iterate over elements and combine into an array containing all combinations." b
 const powerset = arr =>
-  arr.reduce((a, v) => a.concat(a.map(r => [v].concat(r))), [[]]);
+  arr.reduce((a, v) => a.concat(a.map(r => r.concat(v))), [[]]);
 endsnippet
 
 snippet prefersDarkColorScheme "Checks if the user color scheme preference is `dark`.  - Use `Window.matchMedia()` with the appropriate media query to check the user color scheme preference." b
