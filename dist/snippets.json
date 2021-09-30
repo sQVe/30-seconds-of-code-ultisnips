@@ -64,7 +64,7 @@
     ]
   },
   {
-    "code": "const RGBToHSB = (r, g, b) => {\n  r /= 255;\n  g /= 255;\n  b /= 255;\n  const v = Math.max(r, g, b),\n    n = v - Math.min(r, g, b);\n  const h =\n    n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;\n  return [60 * (h < 0 ? h + 6 : h), v && (n / v) * 100, v * 100];\n};",
+    "code": "const RGBToHSB = (r, g, b) => {\n  r /= 255;\n  g /= 255;\n  b /= 255;\n  const v = Math.max(r, g, b),\n    n = v - Math.min(r, g, b);\n  const h =\n    n === 0 ? 0 : n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;\n  return [60 * (h < 0 ? h + 6 : h), v && (n / v) * 100, v * 100];\n};",
     "description": "Converts a RGB color tuple to HSB format.\n\n- Use the [RGB to HSB conversion formula](https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB) to convert to the appropriate format.\n- The range of all input parameters is [0, 255].\n- The range of the resulting values is H: [0, 360], S: [0, 100], B: [0, 100].",
     "example": "RGBToHSB(252, 111, 48);\n// [18.529411764705856, 80.95238095238095, 98.82352941176471]",
     "id": "RGBToHSB",
@@ -161,7 +161,7 @@
   {
     "code": "const addEventListenerAll = (targets, type, listener, options, useCapture) => {\n  targets.forEach(target =>\n    target.addEventListener(type, listener, options, useCapture)\n  );\n};",
     "description": "Attaches an event listener to all the provided targets.\n\n- Use `Array.prototype.forEach()` and `EventTarget.addEventListener()` to attach the provided `listener` for the given event `type` to all `targets`.",
-    "example": "addAllEventListeners(document.querySelectorAll('a'), 'click', () =>\n  console.log('Clicked a link')\n);\n// Logs 'Clicked a link' whenever any anchor element is clicked",
+    "example": "addEventListenerAll(document.querySelectorAll('a'), 'click', () =>\n  console.log('Clicked a link')\n);\n// Logs 'Clicked a link' whenever any anchor element is clicked",
     "id": "addEventListenerAll",
     "tags": [
       "browser",
@@ -1354,7 +1354,7 @@
     ]
   },
   {
-    "code": "const equals = (a, b) => {\n  if (a === b) return true;\n  if (a instanceof Date && b instanceof Date)\n    return a.getTime() === b.getTime();\n  if (!a || !b || (typeof a !== 'object' && typeof b !== 'object'))\n    return a === b;\n  if (a.prototype !== b.prototype) return false;\n  let keys = Object.keys(a);\n  if (keys.length !== Object.keys(b).length) return false;\n  return keys.every(k => equals(a[k], b[k]));\n};",
+    "code": "const equals = (a, b) => {\n  if (a === b) return true;\n\n  if (a instanceof Date && b instanceof Date)\n    return a.getTime() === b.getTime();\n\n  if (!a || !b || (typeof a !== 'object' && typeof b !== 'object'))\n    return a === b;\n\n  if (a.prototype !== b.prototype) return false;\n\n  const keys = Object.keys(a);\n  if (keys.length !== Object.keys(b).length) return false;\n\n  return keys.every(k => equals(a[k], b[k]));\n};",
     "description": "Performs a deep comparison between two values to determine if they are equivalent.\n\n- Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.prototype.getTime()` or if they are both non-object values with an equivalent value (strict comparison).\n- Check if only one value is `null` or `undefined` or if their prototypes differ.\n- If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys.\n- Use `Array.prototype.every()` to check if every key in `a` exists in `b` and if they are equivalent by calling `equals()` recursively.",
     "example": "equals(\n  { a: [2, { e: 3 }], b: [4], c: 'foo' },\n  { a: [2, { e: 3 }], b: [4], c: 'foo' }\n); // true\nequals([1, 2, 3], { 0: 1, 1: 2, 2: 3 }); // true",
     "id": "equals",
@@ -1362,6 +1362,7 @@
       "object",
       "array",
       "type",
+      "recursion",
       "advanced"
     ]
   },
@@ -3973,9 +3974,9 @@
     ]
   },
   {
-    "code": "const powerset = arr =>\n  arr.reduce((a, v) => a.concat(a.map(r => [v].concat(r))), [[]]);",
+    "code": "const powerset = arr =>\n  arr.reduce((a, v) => a.concat(a.map(r => r.concat(v))), [[]]);",
     "description": "Returns the powerset of a given array of numbers.\n\n- Use `Array.prototype.reduce()` combined with `Array.prototype.map()` to iterate over elements and combine into an array containing all combinations.",
-    "example": "powerset([1, 2]); // [[], [1], [2], [2, 1]]",
+    "example": "powerset([1, 2]); // [[], [1], [2], [1, 2]]",
     "id": "powerset",
     "tags": [
       "math",
@@ -5139,6 +5140,17 @@
       "object",
       "array",
       "intermediate"
+    ]
+  },
+  {
+    "code": "const toPascalCase = str =>\r\n  str\r\n    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)\r\n    .map(x => x.charAt(0).toUpperCase() + x.slice(1).toLowerCase())\r\n    .join('');",
+    "description": "Converts a string to pascal case.\r\n\r\n- Use `String.prototype.match()` to break the string into words using an appropriate regexp.\r\n- Use `Array.prototype.map()`, `Array.prototype.slice()`, `Array.prototype.join()`, `String.prototype.toUpperCase()` and `String.prototype.toLowerCase()` to combine them, capitalizing the first letter of each word and lowercasing the rest.",
+    "example": "toPascalCase('some_database_field_name'); // 'SomeDatabaseFieldName'\r\ntoPascalCase('Some label that needs to be pascalized');\r\n// 'SomeLabelThatNeedsToBePascalized'\r\ntoPascalCase('some-javascript-property'); // 'SomeJavascriptProperty'\r\ntoPascalCase('some-mixed_string with spaces_underscores-and-hyphens');\r\n// 'SomeMixedStringWithSpacesUnderscoresAndHyphens'",
+    "id": "toPascalCase\r",
+    "tags": [
+      "string",
+      "regexp",
+      "intermediate\r"
     ]
   },
   {

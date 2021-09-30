@@ -77,7 +77,7 @@ const RGBToHSB = (r, g, b) => {
   const v = Math.max(r, g, b),
     n = v - Math.min(r, g, b);
   const h =
-    n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;
+    n === 0 ? 0 : n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;
   return [60 * (h < 0 ? h + 6 : h), v && (n / v) * 100, v * 100];
 };
 endsnippet
@@ -1015,13 +1015,18 @@ endsnippet
 snippet equals "Performs a deep comparison between two values to determine if they are equivalent.  - Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.prototype.getTime()` or if they are both non-object values with an equivalent value (strict comparison). - Check if only one value is `null` or `undefined` or if their prototypes differ. - If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys. - Use `Array.prototype.every()` to check if every key in `a` exists in `b` and if they are equivalent by calling `equals()` recursively." b
 const equals = (a, b) => {
   if (a === b) return true;
+
   if (a instanceof Date && b instanceof Date)
     return a.getTime() === b.getTime();
+
   if (!a || !b || (typeof a !== 'object' && typeof b !== 'object'))
     return a === b;
+
   if (a.prototype !== b.prototype) return false;
-  let keys = Object.keys(a);
+
+  const keys = Object.keys(a);
   if (keys.length !== Object.keys(b).length) return false;
+
   return keys.every(k => equals(a[k], b[k]));
 };
 endsnippet
@@ -2908,7 +2913,7 @@ endsnippet
 
 snippet powerset "Returns the powerset of a given array of numbers.  - Use `Array.prototype.reduce()` combined with `Array.prototype.map()` to iterate over elements and combine into an array containing all combinations." b
 const powerset = arr =>
-  arr.reduce((a, v) => a.concat(a.map(r => [v].concat(r))), [[]]);
+  arr.reduce((a, v) => a.concat(a.map(r => r.concat(v))), [[]]);
 endsnippet
 
 snippet prefersDarkColorScheme "Checks if the user color scheme preference is `dark`.  - Use `Window.matchMedia()` with the appropriate media query to check the user color scheme preference." b
@@ -3839,6 +3844,14 @@ const toPairs = obj =>
   obj[Symbol.iterator] instanceof Function && obj.entries instanceof Function
     ? Array.from(obj.entries())
     : Object.entries(obj);
+endsnippet
+
+snippet toPascalCase "Converts a string to pascal case.    - Use `String.prototype.match()` to break the string into words using an appropriate regexp.  - Use `Array.prototype.map()`, `Array.prototype.slice()`, `Array.prototype.join()`, `String.prototype.toUpperCase()` and `String.prototype.toLowerCase()` to combine them, capitalizing the first letter of each word and lowercasing the rest." b
+const toPascalCase = str =>
+  str
+    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
+    .map(x => x.charAt(0).toUpperCase() + x.slice(1).toLowerCase())
+    .join('');
 endsnippet
 
 snippet toRGBArray "Converts an `rgb()` color string to an array of values.  - Use `String.prototype.match()` to get an array of 3 string with the numeric values. - Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values." b
