@@ -64,7 +64,7 @@
     ]
   },
   {
-    "code": "const RGBToHSB = (r, g, b) => {\n  r /= 255;\n  g /= 255;\n  b /= 255;\n  const v = Math.max(r, g, b),\n    n = v - Math.min(r, g, b);\n  const h =\n    n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;\n  return [60 * (h < 0 ? h + 6 : h), v && (n / v) * 100, v * 100];\n};",
+    "code": "const RGBToHSB = (r, g, b) => {\n  r /= 255;\n  g /= 255;\n  b /= 255;\n  const v = Math.max(r, g, b),\n    n = v - Math.min(r, g, b);\n  const h =\n    n === 0 ? 0 : n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;\n  return [60 * (h < 0 ? h + 6 : h), v && (n / v) * 100, v * 100];\n};",
     "description": "Converts a RGB color tuple to HSB format.\n\n- Use the [RGB to HSB conversion formula](https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB) to convert to the appropriate format.\n- The range of all input parameters is [0, 255].\n- The range of the resulting values is H: [0, 360], S: [0, 100], B: [0, 100].",
     "example": "RGBToHSB(252, 111, 48);\n// [18.529411764705856, 80.95238095238095, 98.82352941176471]",
     "id": "RGBToHSB",
@@ -161,7 +161,7 @@
   {
     "code": "const addEventListenerAll = (targets, type, listener, options, useCapture) => {\n  targets.forEach(target =>\n    target.addEventListener(type, listener, options, useCapture)\n  );\n};",
     "description": "Attaches an event listener to all the provided targets.\n\n- Use `Array.prototype.forEach()` and `EventTarget.addEventListener()` to attach the provided `listener` for the given event `type` to all `targets`.",
-    "example": "addAllEventListeners(document.querySelectorAll('a'), 'click', () =>\n  console.log('Clicked a link')\n);\n// Logs 'Clicked a link' whenever any anchor element is clicked",
+    "example": "addEventListenerAll(document.querySelectorAll('a'), 'click', () =>\n  console.log('Clicked a link')\n);\n// Logs 'Clicked a link' whenever any anchor element is clicked",
     "id": "addEventListenerAll",
     "tags": [
       "browser",
@@ -345,6 +345,16 @@
     ]
   },
   {
+    "code": "const assertValidKeys = (obj, keys) =>\n  Object.keys(obj).every(key => keys.includes(key));",
+    "description": "Validates all keys in an object match the given `keys`.\n\n- Use `Object.keys()` to get the keys of the given object, `obj`.\n- Use `Array.prototype.every()` and `Array.prototype.includes()` to validate that each key in the object is specified in the `keys` array.",
+    "example": "assertValidKeys({ id: 10, name: 'apple' }, ['id', 'name']); // true\nassertValidKeys({ id: 10, name: 'apple' }, ['id', 'type']); // false",
+    "id": "assertValidKeys",
+    "tags": [
+      "object",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const atob = str => Buffer.from(str, 'base64').toString('binary');",
     "description": "Decodes a string of data which has been encoded using base-64 encoding.\n\n- Create a `Buffer` for the given string with base-64 encoding and use `Buffer.toString('binary')` to return the decoded string.",
     "example": "atob('Zm9vYmFy'); // 'foobar'",
@@ -505,7 +515,7 @@
     ]
   },
   {
-    "code": "const bubbleSort = arr => {\n  let swapped = false;\n  const a = [...arr];\n  for (let i = 1; i < a.length - 1; i++) {\n    swapped = false;\n    for (let j = 0; j < a.length - i; j++) {\n      if (a[j + 1] < a[j]) {\n        [a[j], a[j + 1]] = [a[j + 1], a[j]];\n        swapped = true;\n      }\n    }\n    if (!swapped) return a;\n  }\n  return a;\n};",
+    "code": "const bubbleSort = arr => {\n  let swapped = false;\n  const a = [...arr];\n  for (let i = 1; i < a.length; i++) {\n    swapped = false;\n    for (let j = 0; j < a.length - i; j++) {\n      if (a[j + 1] < a[j]) {\n        [a[j], a[j + 1]] = [a[j + 1], a[j]];\n        swapped = true;\n      }\n    }\n    if (!swapped) return a;\n  }\n  return a;\n};",
     "description": "Sorts an array of numbers, using the bubble sort algorithm.\n\n- Declare a variable, `swapped`, that indicates if any values were swapped during the current iteration.\n- Use the spread operator (`...`) to clone the original array, `arr`.\n- Use a `for` loop to iterate over the elements of the cloned array, terminating before the last element.\n- Use a nested `for` loop to iterate over the segment of the array between `0` and `i`, swapping any adjacent out of order elements and setting `swapped` to `true`.\n- If `swapped` is `false` after an iteration, no more changes are needed, so the cloned array is returned.",
     "example": "bubbleSort([2, 1, 4, 3]); // [1, 2, 3, 4]",
     "id": "bubbleSort",
@@ -549,9 +559,9 @@
   },
   {
     "code": "const call = (key, ...args) => context => context[key](...args);",
-    "description": "Given a key and a set of arguments, call them when given a context.\r\n\r\n- Use a closure to call `key` with `args` for the given `context`.",
-    "example": "Promise.resolve([1, 2, 3])\r\n  .then(call('map', x => 2 * x))\r\n  .then(console.log); // [ 2, 4, 6 ]\r\nconst map = call.bind(null, 'map');\r\nPromise.resolve([1, 2, 3])\r\n  .then(map(x => 2 * x))\r\n  .then(console.log); // [ 2, 4, 6 ]",
-    "id": "call\r",
+    "description": "Given a key and a set of arguments, call them when given a context.\n\n- Use a closure to call `key` with `args` for the given `context`.",
+    "example": "Promise.resolve([1, 2, 3])\n  .then(call('map', x => 2 * x))\n  .then(console.log); // [ 2, 4, 6 ]\nconst map = call.bind(null, 'map');\nPromise.resolve([1, 2, 3])\n  .then(map(x => 2 * x))\n  .then(console.log); // [ 2, 4, 6 ]",
+    "id": "call",
     "tags": [
       "function",
       "advanced"
@@ -718,9 +728,9 @@
   },
   {
     "code": "const collectInto = fn => (...args) => fn(args);",
-    "description": "Changes a function that accepts an array into a variadic function.\r\n\r\n- Given a function, return a closure that collects all inputs into an array-accepting function.",
-    "example": "const Pall = collectInto(Promise.all.bind(Promise));\r\nlet p1 = Promise.resolve(1);\r\nlet p2 = Promise.resolve(2);\r\nlet p3 = new Promise(resolve => setTimeout(resolve, 2000, 3));\r\nPall(p1, p2, p3).then(console.log); // [1, 2, 3] (after about 2 seconds)",
-    "id": "collectInto\r",
+    "description": "Changes a function that accepts an array into a variadic function.\n\n- Given a function, return a closure that collects all inputs into an array-accepting function.",
+    "example": "const Pall = collectInto(Promise.all.bind(Promise));\nlet p1 = Promise.resolve(1);\nlet p2 = Promise.resolve(2);\nlet p3 = new Promise(resolve => setTimeout(resolve, 2000, 3));\nPall(p1, p2, p3).then(console.log); // [1, 2, 3] (after about 2 seconds)",
+    "id": "collectInto",
     "tags": [
       "function",
       "array",
@@ -972,6 +982,18 @@
     ]
   },
   {
+    "code": "const dateRangeGenerator = function* (start, end, step = 1) {\n  let d = start;\n  while (d < end) {\n    yield new Date(d);\n    d.setDate(d.getDate() + step);\n  }\n};",
+    "description": "Creates a generator, that generates all dates in the given range using the given step.\n\n- Use a `while` loop to iterate from `start` to `end`, using `yield` to return each date in the range, using the `Date` constructor.\n- Use `Date.prototype.getDate()` and `Date.prototype.setDate()` to increment by `step` days after returning each subsequent value.\n- Omit the third argument, `step`, to use a default value of `1`.",
+    "example": "[...dateRangeGenerator(new Date('2021-06-01'), new Date('2021-06-04'))];\n// [ 2021-06-01, 2021-06-02, 2021-06-03 ]",
+    "id": "dateRangeGenerator",
+    "tags": [
+      "date",
+      "function",
+      "generator",
+      "advanced"
+    ]
+  },
+  {
     "code": "const dayName = (date, locale) =>\n  date.toLocaleDateString(locale, { weekday: 'long' });",
     "description": "Gets the name of the weekday from a `Date` object.\n\n- Use `Date.prototype.toLocaleDateString()` with the `{ weekday: 'long' }` option to retrieve the weekday.\n- Use the optional second argument to get a language-specific name or omit it to use the default locale.",
     "example": "dayName(new Date()); // 'Saturday'\ndayName(new Date('09/23/2020'), 'de-DE'); // 'Samstag'",
@@ -1006,6 +1028,16 @@
     "description": "Calculates the date of `n` days from today as a string representation.\n\n- Use `new Date()` to get the current date, `Math.abs()` and `Date.prototype.getDate()` to update the date accordingly and set to the result using `Date.prototype.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "daysFromNow(5); // 2020-10-13 (if current date is 2020-10-08)",
     "id": "daysFromNow",
+    "tags": [
+      "date",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const daysInMonth = (year, month) => new Date(year, month, 0).getDate();",
+    "description": "Gets the number of days in the given `month` of the specified `year`.\n\n- Use the `new Date()` constructor to create a date from the given `year` and `month`.\n- Set the days parameter to `0` to get the last day of the previous month, as months are zero-indexed.\n- Use `Date.prototype.getDate()` to return the number of days in the given `month`.",
+    "example": "daysInMonth(2020, 12)); // 31\ndaysInMonth(2024, 2)); // 29",
+    "id": "daysInMonth",
     "tags": [
       "date",
       "beginner"
@@ -1093,6 +1125,17 @@
     "tags": [
       "object",
       "recursion",
+      "advanced"
+    ]
+  },
+  {
+    "code": "const deepMerge = (a, b, fn) =>\n  [...new Set([...Object.keys(a), ...Object.keys(b)])].reduce(\n    (acc, key) => ({ ...acc, [key]: fn(key, a[key], b[key]) }),\n    {}\n  );",
+    "description": "Deeply merges two objects, using a function to handle keys present in both.\n\n- Use `Object.keys()` to get the keys of both objects, create a `Set` from them and use the spread operator (`...`) to create an array of all the unique keys.\n- Use `Array.prototype.reduce()` to add each unique key to the object, using `fn` to combine the values of the two given objects.",
+    "example": "deepMerge(\n  { a: true, b: { c: [1, 2, 3] } },\n  { a: false, b: { d: [1, 2, 3] } },\n  (key, a, b) => (key === 'a' ? a && b : Object.assign({}, a, b))\n);\n// { a: false, b: { c: [ 1, 2, 3 ], d: [ 1, 2, 3 ] } }",
+    "id": "deepMerge",
+    "tags": [
+      "object",
+      "function",
       "advanced"
     ]
   },
@@ -1311,7 +1354,7 @@
     ]
   },
   {
-    "code": "const equals = (a, b) => {\n  if (a === b) return true;\n  if (a instanceof Date && b instanceof Date)\n    return a.getTime() === b.getTime();\n  if (!a || !b || (typeof a !== 'object' && typeof b !== 'object'))\n    return a === b;\n  if (a.prototype !== b.prototype) return false;\n  let keys = Object.keys(a);\n  if (keys.length !== Object.keys(b).length) return false;\n  return keys.every(k => equals(a[k], b[k]));\n};",
+    "code": "const equals = (a, b) => {\n  if (a === b) return true;\n\n  if (a instanceof Date && b instanceof Date)\n    return a.getTime() === b.getTime();\n\n  if (!a || !b || (typeof a !== 'object' && typeof b !== 'object'))\n    return a === b;\n\n  if (a.prototype !== b.prototype) return false;\n\n  const keys = Object.keys(a);\n  if (keys.length !== Object.keys(b).length) return false;\n\n  return keys.every(k => equals(a[k], b[k]));\n};",
     "description": "Performs a deep comparison between two values to determine if they are equivalent.\n\n- Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.prototype.getTime()` or if they are both non-object values with an equivalent value (strict comparison).\n- Check if only one value is `null` or `undefined` or if their prototypes differ.\n- If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys.\n- Use `Array.prototype.every()` to check if every key in `a` exists in `b` and if they are equivalent by calling `equals()` recursively.",
     "example": "equals(\n  { a: [2, { e: 3 }], b: [4], c: 'foo' },\n  { a: [2, { e: 3 }], b: [4], c: 'foo' }\n); // true\nequals([1, 2, 3], { 0: 1, 1: 2, 2: 3 }); // true",
     "id": "equals",
@@ -1319,6 +1362,7 @@
       "object",
       "array",
       "type",
+      "recursion",
       "advanced"
     ]
   },
@@ -1481,6 +1525,16 @@
     ]
   },
   {
+    "code": "const findFirstN = (arr, matcher, n = 1) => {\n  let res = [];\n  for (let i in arr) {\n    const el = arr[i];\n    const match = matcher(el, i, arr);\n    if (match) res.push(el);\n    if (res.length === n) return res;\n  }\n  return res;\n};",
+    "description": "Finds the first `n` elements for which the provided function returns a truthy value.\n\n- Use a `for..in` loop to execute the provided `matcher` for each element of `arr`.\n- Use `Array.prototype.push()` to append elements to the results array and return them if its `length` is equal to `n`.",
+    "example": "findFirstN([1, 2, 4, 6], n => n % 2 === 0, 2); // [2, 4]\nfindFirstN([1, 2, 4, 6], n => n % 2 === 0, 5); // [2, 4, 6]",
+    "id": "findFirstN",
+    "tags": [
+      "array",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const findKey = (obj, fn) => \n  Object.keys(obj).find(key => fn(obj[key], key, obj));",
     "description": "Finds the first key that satisfies the provided testing function.\nOtherwise `undefined` is returned.\n\n- Use `Object.keys(obj)` to get all the properties of the object, `Array.prototype.find()` to test each key-value pair using `fn`.\n- The callback receives three arguments - the value, the key and the object.",
     "example": "findKey(\n  {\n    barney: { age: 36, active: true },\n    fred: { age: 40, active: false },\n    pebbles: { age: 1, active: true }\n  },\n  x => x['active']\n); // 'barney'",
@@ -1531,6 +1585,16 @@
     ]
   },
   {
+    "code": "const findLastN = (arr, matcher, n = 1) => {\n  let res = [];\n  for (let i = arr.length - 1; i >= 0; i--) {\n    const el = arr[i];\n    const match = matcher(el, i, arr);\n    if (match) res.unshift(el);\n    if (res.length === n) return res;\n  }\n  return res;\n};",
+    "description": "Finds the last `n` elements for which the provided function returns a truthy value.\n\n- Use a `for` loop to execute the provided `matcher` for each element of `arr`.\n- Use `Array.prototype.unshift()` to prepend elements to the results array and return them if its `length` is equal to `n`.",
+    "example": "findLastN([1, 2, 4, 6], n => n % 2 === 0, 2); // [4, 6]\nfindLastN([1, 2, 4, 6], n => n % 2 === 0, 5); // [2, 4, 6]",
+    "id": "findLastN",
+    "tags": [
+      "array",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const flatten = (arr, depth = 1) =>\n  arr.reduce(\n    (a, v) =>\n      a.concat(depth > 1 && Array.isArray(v) ? flatten(v, depth - 1) : v),\n    []\n  );",
     "description": "Flattens an array up to the specified depth.\n\n- Use recursion, decrementing `depth` by `1` for each level of depth.\n- Use `Array.prototype.reduce()` and `Array.prototype.concat()` to merge elements or arrays.\n- Base case, for `depth` equal to `1` stops recursion.\n- Omit the second argument, `depth`, to flatten only to a depth of `1` (single flatten).",
     "example": "flatten([1, [2], 3, 4]); // [1, 2, 3, 4]\nflatten([1, [2, [3, [4, 5], 6], 7], 8], 2); // [1, 2, 3, [4, 5], 6, 7, 8]",
@@ -1554,9 +1618,9 @@
   },
   {
     "code": "const flip = fn => (first, ...rest) => fn(...rest, first);",
-    "description": "Takes a function as an argument, then makes the first argument the last.\r\n\r\n- Use argument destructuring and a closure with variadic arguments.\r\n- Splice the first argument, using the spread operator (`...`), to make it the last before applying the rest.",
-    "example": "let a = { name: 'John Smith' };\r\nlet b = {};\r\nconst mergeFrom = flip(Object.assign);\r\nlet mergePerson = mergeFrom.bind(null, a);\r\nmergePerson(b); // == b\r\nb = {};\r\nObject.assign(b, a); // == b",
-    "id": "flip\r",
+    "description": "Takes a function as an argument, then makes the first argument the last.\n\n- Use argument destructuring and a closure with variadic arguments.\n- Splice the first argument, using the spread operator (`...`), to make it the last before applying the rest.",
+    "example": "let a = { name: 'John Smith' };\nlet b = {};\nconst mergeFrom = flip(Object.assign);\nlet mergePerson = mergeFrom.bind(null, a);\nmergePerson(b); // == b\nb = {};\nObject.assign(b, a); // == b",
+    "id": "flip",
     "tags": [
       "function",
       "intermediate"
@@ -1624,6 +1688,18 @@
       "string",
       "math",
       "beginner"
+    ]
+  },
+  {
+    "code": "const formatSeconds = s => {\n  const [hour, minute, second, sign] =\n    s > 0\n      ? [s / 3600, (s / 60) % 60, s % 60, '']\n      : [-s / 3600, (-s / 60) % 60, -s % 60, '-'];\n\n  return (\n    sign +\n    [hour, minute, second]\n      .map(v => \\`\\${Math.floor(v)}\\`.padStart(2, '0'))\n      .join(':')\n  );\n};",
+    "description": "Returns the ISO format of the given number of seconds.\n\n- Divide `s` with the appropriate values to obtain the appropriate values for `hour`, `minute` and `second`.\n- Store the `sign` in a variable to prepend it to the result.\n- Use `Array.prototype.map()` in combination with `Array.prototype.floor()` and `String.prototype.padStart()` to stringify and format each segment.\n- Use `String.prototype.join(':')` to combine the values into a string.",
+    "example": "formatSeconds(200); // '00:03:20'\nformatSeconds(-200); // '-00:03:20'\nformatSeconds(99999); // '27:46:39'",
+    "id": "formatSeconds",
+    "tags": [
+      "date",
+      "math",
+      "string",
+      "intermediate"
     ]
   },
   {
@@ -2035,6 +2111,26 @@
     ]
   },
   {
+    "code": "const hasMany = (arr, fn) => arr.filter(fn).length > 1;",
+    "description": "Checks if an array has more than one value matching the given function.\n\n- Use `Array.prototype.filter()` in combination with `fn` to find all matching array elements.\n- Use `Array.prototype.length` to check if more than one element match `fn`.",
+    "example": "hasMany([1, 3], x => x % 2); // true\nhasMany([1, 2], x => x % 2); // false",
+    "id": "hasMany",
+    "tags": [
+      "array",
+      "beginner"
+    ]
+  },
+  {
+    "code": "const hasOne = (arr, fn) => arr.filter(fn).length === 1;",
+    "description": "Checks if an array has only one value matching the given function.\n\n- Use `Array.prototype.filter()` in combination with `fn` to find all matching array elements.\n- Use `Array.prototype.length` to check if only one element matches `fn`.",
+    "example": "hasOne([1, 2], x => x % 2); // true\nhasOne([1, 3], x => x % 2); // false",
+    "id": "hasOne",
+    "tags": [
+      "array",
+      "beginner"
+    ]
+  },
+  {
     "code": "const hashBrowser = val =>\n  crypto.subtle\n    .digest('SHA-256', new TextEncoder('utf-8').encode(val))\n    .then(h => {\n      let hexes = [],\n        view = new DataView(h);\n      for (let i = 0; i < view.byteLength; i += 4)\n        hexes.push(('00000000' + view.getUint32(i).toString(16)).slice(-8));\n      return hexes.join('');\n    });",
     "description": "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm.\nReturns a promise.\n\n- Use the [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) API to create a hash for the given value.\n- Create a new `TextEncoder` and use it to encode `val`, passing its value to `SubtleCrypto.digest()` to generate a digest of the given data.\n- Use `DataView.prototype.getUint32()` to read data from the resolved `ArrayBuffer`.\n- Add the data to an array using `Array.prototype.push()` after converting it to its hexadecimal representation using `Number.prototype.toString(16)`.\n- Finally, use `Array.prototype.join()` to combine values in the array of `hexes` into a string.",
     "example": "hashBrowser(\n  JSON.stringify({ a: 'a', b: [1, 2, 3, 4], foo: { c: 'bar' } })\n).then(console.log);\n// '04aa106279f5977f59f9067fa9712afc4aedc6f5862a8defc34552d8c7206393'",
@@ -2101,8 +2197,8 @@
   },
   {
     "code": "const hide = (...el) => [...el].forEach(e => (e.style.display = 'none'));",
-    "description": "Hides all the elements specified.\n\n- Use `NodeList.prototype.forEach()` to apply `display: none` to each element specified.",
-    "example": "hide(document.querySelectorAll('img')); // Hides all <img> elements on the page",
+    "description": "Hides all the elements specified.\n\n- Use the spread operator (`...`) and `Array.prototype.forEach()` to apply `display: none` to each element specified.",
+    "example": "hide(...document.querySelectorAll('img')); // Hides all <img> elements on the page",
     "id": "hide",
     "tags": [
       "browser",
@@ -2211,6 +2307,17 @@
     ]
   },
   {
+    "code": "const indexBy = (arr, fn) =>\n  arr.reduce((obj, v, i) => {\n    obj[fn(v, i, arr)] = v;\n    return obj;\n  }, {});",
+    "description": "Creates an object from an array, using a function to map each value to a key.\n\n- Use `Array.prototype.reduce()` to create an object from `arr`.\n- Apply `fn` to each value of `arr` to produce a key and add the key-value pair to the object.",
+    "example": "indexBy([\n  { id: 10, name: 'apple' },\n  { id: 20, name: 'orange' }\n], x => x.id);\n// { '10': { id: 10, name: 'apple' }, '20': { id: 20, name: 'orange' } }",
+    "id": "indexBy",
+    "tags": [
+      "array",
+      "object",
+      "intermediate"
+    ]
+  },
+  {
     "code": "const indexOfAll = (arr, val) =>\n  arr.reduce((acc, el, i) => (el === val ? [...acc, i] : acc), []);",
     "description": "Finds all indexes of `val` in an array.\nIf `val` never occurs, returns an empty array.\n\n- Use `Array.prototype.reduce()` to loop over elements and store indexes for matching elements.",
     "example": "indexOfAll([1, 2, 3, 1, 2, 3], 1); // [0, 3]\nindexOfAll([1, 2, 3], 4); // []",
@@ -2229,6 +2336,17 @@
       "string",
       "algorithm",
       "generator",
+      "intermediate"
+    ]
+  },
+  {
+    "code": "const indexOn = (arr, key) =>\n  arr.reduce((obj, v) => {\n    const { [key]: id, ...data } = v;\n    obj[id] = data;\n    return obj;\n  }, {});",
+    "description": "Creates an object from an array, using the specified key and excluding it from each value.\n\n- Use `Array.prototype.reduce()` to create an object from `arr`.\n- Use object destructuring to get the value of the given `key` and the associated `data` and add the key-value pair to the object.",
+    "example": "indexOn([\n  { id: 10, name: 'apple' },\n  { id: 20, name: 'orange' }\n], 'id');\n// { '10': { name: 'apple' }, '20': { name: 'orange' } }",
+    "id": "indexOn",
+    "tags": [
+      "array",
+      "object",
       "intermediate"
     ]
   },
@@ -3121,14 +3239,24 @@
     ]
   },
   {
-    "code": "const luhnCheck = num => {\n  let arr = (num + '')\n    .split('')\n    .reverse()\n    .map(x => parseInt(x));\n  let lastDigit = arr.splice(0, 1)[0];\n  let sum = arr.reduce(\n    (acc, val, i) => (i % 2 !== 0 ? acc + val : acc + ((val * 2) % 9) || 9),\n    0\n  );\n  sum += lastDigit;\n  return sum % 10 === 0;\n};",
+    "code": "const luhnCheck = num => {\n  let arr = (num + '')\n    .split('')\n    .reverse()\n    .map(x => parseInt(x));\n  let lastDigit = arr.splice(0, 1)[0];\n  let sum = arr.reduce(\n    (acc, val, i) => (i % 2 !== 0 ? acc + val : acc + ((val *= 2) > 9 ? val - 9 : val)),\n    0\n  );\n  sum += lastDigit;\n  return sum % 10 === 0;\n};",
     "description": "Implementation of the [Luhn Algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm) used to validate a variety of identification numbers, such as credit card numbers, IMEI numbers, National Provider Identifier numbers etc.\n\n- Use `String.prototype.split('')`, `Array.prototype.reverse()` and `Array.prototype.map()` in combination with `parseInt()` to obtain an array of digits.\n- Use `Array.prototype.splice(0, 1)` to obtain the last digit.\n- Use `Array.prototype.reduce()` to implement the Luhn Algorithm.\n- Return `true` if `sum` is divisible by `10`, `false` otherwise.",
-    "example": "luhnCheck('4485275742308327'); // true\nluhnCheck(6011329933655299); //  false\nluhnCheck(123456789); // false",
+    "example": "luhnCheck('4485275742308327'); // true\nluhnCheck(6011329933655299); //  true\nluhnCheck(123456789); // false",
     "id": "luhnCheck",
     "tags": [
       "math",
       "algorithm",
       "advanced"
+    ]
+  },
+  {
+    "code": "const mapConsecutive = (arr, n, fn) =>\n  arr.slice(n - 1).map((v, i) => fn(arr.slice(i, i + n)));",
+    "description": "Maps each block of `n` consencutive elements using the given function, `fn`.\n\n- Use `Array.prototype.slice()` to get `arr` with `n` elements removed from the left.\n- Use `Array.prototype.map()` and `Array.prototype.slice()` to apply `fn` to each block of `n` consecutive elements in `arr`.",
+    "example": "mapConsecutive([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3, x => x.join('-'));\n// ['1-2-3', '2-3-4', '3-4-5', '4-5-6', '5-6-7', '6-7-8', '7-8-9', '8-9-10'];",
+    "id": "mapConsecutive",
+    "tags": [
+      "array",
+      "intermediate"
     ]
   },
   {
@@ -3846,9 +3974,9 @@
     ]
   },
   {
-    "code": "const powerset = arr =>\n  arr.reduce((a, v) => a.concat(a.map(r => [v].concat(r))), [[]]);",
+    "code": "const powerset = arr =>\n  arr.reduce((a, v) => a.concat(a.map(r => r.concat(v))), [[]]);",
     "description": "Returns the powerset of a given array of numbers.\n\n- Use `Array.prototype.reduce()` combined with `Array.prototype.map()` to iterate over elements and combine into an array containing all combinations.",
-    "example": "powerset([1, 2]); // [[], [1], [2], [2, 1]]",
+    "example": "powerset([1, 2]); // [[], [1], [2], [1, 2]]",
     "id": "powerset",
     "tags": [
       "math",
@@ -4612,9 +4740,9 @@
   },
   {
     "code": "const spreadOver = fn => argsArr => fn(...argsArr);",
-    "description": "Takes a variadic function and returns a function that accepts an array of arguments.\r\n\r\n- Use a closure and the spread operator (`...`) to map the array of arguments to the inputs of the function.",
-    "example": "const arrayMax = spreadOver(Math.max);\r\narrayMax([1, 2, 3]); // 3",
-    "id": "spreadOver\r",
+    "description": "Takes a variadic function and returns a function that accepts an array of arguments.\n\n- Use a closure and the spread operator (`...`) to map the array of arguments to the inputs of the function.",
+    "example": "const arrayMax = spreadOver(Math.max);\narrayMax([1, 2, 3]); // 3",
+    "id": "spreadOver",
     "tags": [
       "function",
       "intermediate"
@@ -4756,6 +4884,16 @@
     ]
   },
   {
+    "code": "const symbolizeKeys = obj =>\n  Object.keys(obj).reduce(\n    (acc, key) => ({ ...acc, [Symbol(key)]: obj[key] }),\n    {}\n  );",
+    "description": "Creates a new object, converting each key to a `Symbol`.\n\n- Use `Object.keys()` to get the keys of `obj`.\n- Use `Array.prototype.reduce()` and `Symbol()` to create a new object where each key is converted to a `Symbol`.",
+    "example": "symbolizeKeys({ id: 10, name: 'apple' });\n// { [Symbol(id)]: 10, [Symbol(name)]: 'apple' }",
+    "id": "symbolizeKeys",
+    "tags": [
+      "object",
+      "advanced"
+    ]
+  },
+  {
     "code": "const symmetricDifference = (a, b) => {\n  const sA = new Set(a),\n    sB = new Set(b);\n  return [...a.filter(x => !sB.has(x)), ...b.filter(x => !sA.has(x))];\n};",
     "description": "Returns the symmetric difference between two arrays, without filtering out duplicate values.\n\n- Create a `new Set()` from each array to get the unique values of each one.\n- Use `Array.prototype.filter()` on each of them to only keep values not contained in the other.",
     "example": "symmetricDifference([1, 2, 3], [1, 2, 4]); // [3, 4]\nsymmetricDifference([1, 2, 2], [1, 3, 1]); // [2, 2, 3]",
@@ -4887,7 +5025,7 @@
     ]
   },
   {
-    "code": "const toCamelCase = str => {\n  let s =\n    str &&\n    str\n      .match(\n        /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g\n      )\n      .map(x => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase())\n      .join('');\n  return s.slice(0, 1).toLowerCase() + s.slice(1);\n};",
+    "code": "const toCamelCase = str => {\n  const s =\n    str &&\n    str\n      .match(\n        /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g\n      )\n      .map(x => x.slice(0, 1).toUpperCase() + x.slice(1).toLowerCase())\n      .join('');\n  return s.slice(0, 1).toLowerCase() + s.slice(1);\n};",
     "description": "Converts a string to camelcase.\n\n- Use `String.prototype.match()` to break the string into words using an appropriate regexp.\n- Use `Array.prototype.map()`, `Array.prototype.slice()`, `Array.prototype.join()`, `String.prototype.toLowerCase()` and `String.prototype.toUpperCase()` to combine them, capitalizing the first letter of each one.",
     "example": "toCamelCase('some_database_field_name'); // 'someDatabaseFieldName'\ntoCamelCase('Some label that needs to be camelized');\n// 'someLabelThatNeedsToBeCamelized'\ntoCamelCase('some-javascript-property'); // 'someJavascriptProperty'\ntoCamelCase('some-mixed_string with spaces_underscores-and-hyphens');\n// 'someMixedStringWithSpacesUnderscoresAndHyphens'",
     "id": "toCamelCase",
@@ -5005,10 +5143,21 @@
     ]
   },
   {
+    "code": "const toPascalCase = str =>\r\n  str\r\n    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)\r\n    .map(x => x.charAt(0).toUpperCase() + x.slice(1).toLowerCase())\r\n    .join('');",
+    "description": "Converts a string to pascal case.\r\n\r\n- Use `String.prototype.match()` to break the string into words using an appropriate regexp.\r\n- Use `Array.prototype.map()`, `Array.prototype.slice()`, `Array.prototype.join()`, `String.prototype.toUpperCase()` and `String.prototype.toLowerCase()` to combine them, capitalizing the first letter of each word and lowercasing the rest.",
+    "example": "toPascalCase('some_database_field_name'); // 'SomeDatabaseFieldName'\r\ntoPascalCase('Some label that needs to be pascalized');\r\n// 'SomeLabelThatNeedsToBePascalized'\r\ntoPascalCase('some-javascript-property'); // 'SomeJavascriptProperty'\r\ntoPascalCase('some-mixed_string with spaces_underscores-and-hyphens');\r\n// 'SomeMixedStringWithSpacesUnderscoresAndHyphens'",
+    "id": "toPascalCase\r",
+    "tags": [
+      "string",
+      "regexp",
+      "intermediate\r"
+    ]
+  },
+  {
     "code": "const toRGBArray = rgbStr => rgbStr.match(/\\d+/g).map(Number);",
-    "description": "Converts an `rgb()` color string to an array of values.\r\n\r\n- Use `String.prototype.match()` to get an array of 3 string with the numeric values.\r\n- Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values.",
+    "description": "Converts an `rgb()` color string to an array of values.\n\n- Use `String.prototype.match()` to get an array of 3 string with the numeric values.\n- Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values.",
     "example": "toRGBArray('rgb(255, 12, 0)'); // [255, 12, 0]",
-    "id": "toRGBArray\r",
+    "id": "toRGBArray",
     "tags": [
       "string",
       "browser",
@@ -5052,7 +5201,7 @@
   {
     "code": "const toSnakeCase = str =>\n  str &&\n  str\n    .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)\n    .map(x => x.toLowerCase())\n    .join('_');",
     "description": "Converts a string to snake case.\n\n- Use `String.prototype.match()` to break the string into words using an appropriate regexp.\n- Use `Array.prototype.map()`, `Array.prototype.slice()`, `Array.prototype.join()` and `String.prototype.toLowerCase()` to combine them, adding `_` as a separator.",
-    "example": "toSnakeCase('camelCase'); // 'camel_case'\ntoSnakeCase('some text'); // 'some_text'\ntoSnakeCase('some-mixed_string With spaces_underscores-and-hyphens');\n// 'some_mixed_string_with_spaces_underscores_and_hyphens'\ntoSnakeCase('AllThe-small Things'); // 'all_the_small_things'\ntoKebabCase('IAmEditingSomeXMLAndHTML');\n// 'i_am_editing_some_xml_and_html'",
+    "example": "toSnakeCase('camelCase'); // 'camel_case'\ntoSnakeCase('some text'); // 'some_text'\ntoSnakeCase('some-mixed_string With spaces_underscores-and-hyphens');\n// 'some_mixed_string_with_spaces_underscores_and_hyphens'\ntoSnakeCase('AllThe-small Things'); // 'all_the_small_things'\ntoSnakeCase('IAmEditingSomeXMLAndHTML');\n// 'i_am_editing_some_xml_and_html'",
     "id": "toSnakeCase",
     "tags": [
       "string",
@@ -5339,6 +5488,16 @@
       "object",
       "recursion",
       "generator",
+      "advanced"
+    ]
+  },
+  {
+    "code": "const weekOfYear = date => {\n  const startOfYear = new Date(date.getFullYear(), 0, 1);\n  startOfYear.setDate(startOfYear.getDate() + (startOfYear.getDay() % 7));\n  return Math.round((date - startOfYear) / (7 * 24 * 3600 * 1000));\n};",
+    "description": "Returns the zero-indexed week of the year that a date corresponds to.\n\n- Use `new Date()` and `Date.prototype.getFullYear()` to get the first day of the year as a `Date` object.\n- Use `Date.prototype.setDate()`, `Date.prototype.getDate()` and `Date.prototype.getDay()` along with the modulo (`%`) operator to get the first Monday of the year.\n- Subtract the first Monday of the year from the given `date` and divide with the number of milliseconds in a week.\n- Use `Math.round()` to get the zero-indexed week of the year corresponding to the given `date`.\n- `-0` is returned if the given `date` is before the first Monday of the year.",
+    "example": "weekOfYear(new Date('2021-06-18')); // 23",
+    "id": "weekOfYear",
+    "tags": [
+      "date",
       "advanced"
     ]
   },
