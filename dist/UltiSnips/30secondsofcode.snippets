@@ -2,7 +2,7 @@
 # (https://github.com/sQVe/30-seconds-of-code-ultisnips/)
 # -------------------------------------------------------
 
-snippet CSVToArray "Converts a comma-separated values (CSV) string to a 2D array.  - Use `Array.prototype.slice()` and `Array.prototype.indexOf('\n')` to remove the first row (title row) if `omitFirstRow` is `true`. - Use `String.prototype.split('\n')` to create a string for each row, then `String.prototype.split(delimiter)` to separate the values in each row. - Omit the second argument, `delimiter`, to use a default delimiter of `,`. - Omit the third argument, `omitFirstRow`, to include the first row (title row) of the CSV string." b
+snippet CSVToArray "Converts a comma-separated values (CSV) string to a 2D array.  - Use `Array.prototype.slice()` and `Array.prototype.indexOf('\n')` to remove the first row (title row) if `omitFirstRow` is `true`. - Use `String.prototype.split('\n')` to create a string for each row, then `String.prototype.split(delimiter)` to separate the values in each row. - Omit the second argument, `delimiter`, to use a default delimiter of `','`. - Omit the third argument, `omitFirstRow`, to include the first row (title row) of the CSV string." b
 const CSVToArray = (data, delimiter = ',', omitFirstRow = false) =>
   data
     .slice(omitFirstRow ? data.indexOf('\n') + 1 : 0)
@@ -55,7 +55,7 @@ const JSONToFile = (obj, filename) =>
   fs.writeFileSync(\`\${filename}.json\`, JSON.stringify(obj, null, 2));
 endsnippet
 
-snippet JSONtoCSV "Converts an array of objects to a comma-separated values (CSV) string that contains only the `columns` specified.  - Use `Array.prototype.join(delimiter)` to combine all the names in `columns` to create the first row. - Use `Array.prototype.map()` and `Array.prototype.reduce()` to create a row for each object, substituting non-existent values with empty strings and only mapping values in `columns`. - Use `Array.prototype.join('\n')` to combine all rows into a string. - Omit the third argument, `delimiter`, to use a default delimiter of `,`." b
+snippet JSONtoCSV "Converts an array of objects to a comma-separated values (CSV) string that contains only the `columns` specified.  - Use `Array.prototype.join(delimiter)` to combine all the names in `columns` to create the first row. - Use `Array.prototype.map()` and `Array.prototype.reduce()` to create a row for each object. Substitute non-existent values with empty strings and only mapping values in `columns`. - Use `Array.prototype.join('\n')` to combine all rows into a string. - Omit the third argument, `delimiter`, to use a default delimiter of `','`." b
 const JSONtoCSV = (arr, columns, delimiter = ',') =>
   [
     columns.join(delimiter),
@@ -238,7 +238,7 @@ const approximatelyEqual = (v1, v2, epsilon = 0.001) =>
   Math.abs(v1 - v2) < epsilon;
 endsnippet
 
-snippet arithmeticProgression "Creates an array of numbers in the arithmetic progression, starting with the given positive integer and up to the specified limit.  - Use `Array.from()` to create an array of the desired length, `lim/n`, and a map function to fill it with the desired values in the given range." b
+snippet arithmeticProgression "Creates an array of numbers in the arithmetic progression, starting with the given positive integer and up to the specified limit.  - Use `Array.from()` to create an array of the desired length, `lim/n`. Use a map function to fill it with the desired values in the given range." b
 const arithmeticProgression  = (n, lim) =>
   Array.from({ length: Math.ceil(lim / n) }, (_, i) => (i + 1) * n );
 endsnippet
@@ -625,7 +625,7 @@ snippet copySign "Returns the absolute value of the first number, but the sign o
 const copySign = (x, y) => Math.sign(x) === Math.sign(y) ? x : -x;
 endsnippet
 
-snippet copyToClipboard "Copies a string to the clipboard. Only works as a result of user action (i.e. inside a `click` event listener).  - Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document. - Use `Selection.getRangeAt()`to store the selected range (if any). - Use `Document.execCommand('copy')` to copy to the clipboard. - Remove the `<textarea>` element from the HTML document. - Finally, use `Selection().addRange()` to recover the original selected range (if any). - ⚠️ **NOTICE:** The same functionality can be easily implemented by using the new asynchronous Clipboard API, which is still experimental but should be used in the future instead of this snippet. Find out more about it [here](https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc#writing-to-the-clipboard)." b
+snippet copyToClipboard "Copies a string to the clipboard. Only works as a result of user action (i.e. inside a `click` event listener).  - Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document. - Use `Selection.getRangeAt()`to store the selected range (if any). - Use `Document.execCommand('copy')` to copy to the clipboard. - Remove the `<textarea>` element from the HTML document. - Finally, use `Selection().addRange()` to recover the original selected range (if any). - **Note:** You can use the new asynchronous Clipboard API to implement the same functionality. It's experimental but should be used in the future instead of this snippet. Find out more about it [here](https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc#writing-to-the-clipboard)." b
 const copyToClipboard = str => {
   const el = document.createElement('textarea');
   el.value = str;
@@ -788,7 +788,7 @@ snippet daysInMonth "Gets the number of days in the given `month` of the specifi
 const daysInMonth = (year, month) => new Date(year, month, 0).getDate();
 endsnippet
 
-snippet debounce "Creates a debounced function that delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked.  - Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed. - Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments. - Omit the second argument, `ms`, to set the timeout at a default of `0` ms." b
+snippet debounce "Creates a debounced function that delays invoking the provided function until at least `ms` milliseconds have elapsed since its last invocation.  - Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()`. Use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds have elapsed. - Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments. - Omit the second argument, `ms`, to set the timeout at a default of `0` ms." b
 const debounce = (fn, ms = 0) => {
   let timeoutId;
   return function(...args) {
@@ -1012,7 +1012,7 @@ const elementIsVisibleInViewport = (el, partiallyVisible = false) => {
 };
 endsnippet
 
-snippet equals "Performs a deep comparison between two values to determine if they are equivalent.  - Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.prototype.getTime()` or if they are both non-object values with an equivalent value (strict comparison). - Check if only one value is `null` or `undefined` or if their prototypes differ. - If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys. - Use `Array.prototype.every()` to check if every key in `a` exists in `b` and if they are equivalent by calling `equals()` recursively." b
+snippet equals "Performs a deep comparison between two values to determine if they are equivalent.  - Check if the two values are identical. - Check if both values are `Date` objects with the same time, using `Date.prototype.getTime()`. - Check if both values are non-object values with an equivalent value (strict comparison). - Check if only one value is `null` or `undefined` or if their prototypes differ. - If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys. - Use `Array.prototype.every()` to check if every key in `a` exists in `b` and if they are equivalent by calling `equals()` recursively." b
 const equals = (a, b) => {
   if (a === b) return true;
 
@@ -1031,7 +1031,7 @@ const equals = (a, b) => {
 };
 endsnippet
 
-snippet escapeHTML "Escapes a string for use in HTML.  - Use `String.prototype.replace()` with a regexp that matches the characters that need to be escaped. - Use the callback function to replace each character instance with its associated escaped character using a dictionary (object)." b
+snippet escapeHTML "Escapes a string for use in HTML.  - Use `String.prototype.replace()` with a regexp that matches the characters that need to be escaped. - Use the callback function to replace each character instance with its associated escaped character using a dictionary object." b
 const escapeHTML = str =>
   str.replace(
     /[&<>'"]/g,
@@ -1267,7 +1267,7 @@ snippet formatNumber "Formats a number using the local number format order.  - U
 const formatNumber = num => num.toLocaleString();
 endsnippet
 
-snippet formatSeconds "Returns the ISO format of the given number of seconds.  - Divide `s` with the appropriate values to obtain the appropriate values for `hour`, `minute` and `second`. - Store the `sign` in a variable to prepend it to the result. - Use `Array.prototype.map()` in combination with `Array.prototype.floor()` and `String.prototype.padStart()` to stringify and format each segment. - Use `String.prototype.join(':')` to combine the values into a string." b
+snippet formatSeconds "Returns the ISO format of the given number of seconds.  - Divide `s` with the appropriate values to obtain the appropriate values for `hour`, `minute` and `second`. - Store the `sign` in a variable to prepend it to the result. - Use `Array.prototype.map()` in combination with `Math.floor()` and `String.prototype.padStart()` to stringify and format each segment. - Use `String.prototype.join(':')` to combine the values into a string." b
 const formatSeconds = s => {
   const [hour, minute, second, sign] =
     s > 0
@@ -1562,7 +1562,7 @@ snippet hasOne "Checks if an array has only one value matching the given functio
 const hasOne = (arr, fn) => arr.filter(fn).length === 1;
 endsnippet
 
-snippet hashBrowser "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm. Returns a promise.  - Use the [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) API to create a hash for the given value. - Create a new `TextEncoder` and use it to encode `val`, passing its value to `SubtleCrypto.digest()` to generate a digest of the given data. - Use `DataView.prototype.getUint32()` to read data from the resolved `ArrayBuffer`. - Add the data to an array using `Array.prototype.push()` after converting it to its hexadecimal representation using `Number.prototype.toString(16)`. - Finally, use `Array.prototype.join()` to combine values in the array of `hexes` into a string." b
+snippet hashBrowser "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm. Returns a promise.  - Use the [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) API to create a hash for the given value. - Create a new `TextEncoder` and use it to encode `val`. Pass its value to `SubtleCrypto.digest()` to generate a digest of the given data. - Use `DataView.prototype.getUint32()` to read data from the resolved `ArrayBuffer`. - Convert the data to it hexadecimal representation using `Number.prototype.toString(16)`. Add the data to an array using `Array.prototype.push()`. - Finally, use `Array.prototype.join()` to combine values in the array of `hexes` into a string." b
 const hashBrowser = val =>
   crypto.subtle
     .digest('SHA-256', new TextEncoder('utf-8').encode(val))
@@ -1575,7 +1575,7 @@ const hashBrowser = val =>
     });
 endsnippet
 
-snippet hashNode "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm. Returns a promise.  - Use `crypto.createHash()` to create a `Hash` object with the appropriate algorithm. - Use `hash.update()` to add the data from `val` to the `Hash`, `hash.digest()` to calculate the digest of the data. - Use `setTimeout()` to prevent blocking on a long operation, and return a `Promise` to give it a familiar interface." b
+snippet hashNode "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm. Returns a promise.  - Use `crypto.createHash()` to create a `Hash` object with the appropriate algorithm. - Use `hash.update()` to add the data from `val` to the `Hash`, `hash.digest()` to calculate the digest of the data. - Use `setTimeout()` to prevent blocking on a long operation. Return a `Promise` to give it a familiar interface." b
 const crypto = require('crypto');
 
 const hashNode = val =>
@@ -2256,7 +2256,7 @@ const kMeans = (data, k = 1) => {
 };
 endsnippet
 
-snippet kNearestNeighbors "Classifies a data point relative to a labelled data set, using the [k-nearest neighbors](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm) algorithm.  - Use `Array.prototype.map()` to map the `data` to objects containing the euclidean distance of each element from `point`, calculated using `Math.hypot()`, `Object.keys()` and its `label`. - Use `Array.prototype.sort()` and `Array.prototype.slice()` to get the `k` nearest neighbors of `point`. - Use `Array.prototype.reduce()` in combination with `Object.keys()` and `Array.prototype.indexOf()` to find the most frequent `label` among them." b
+snippet kNearestNeighbors "Classifies a data point relative to a labelled data set, using the [k-nearest neighbors](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm) algorithm.  - Use `Array.prototype.map()` to map the `data` to objects. Each object contains the euclidean distance of the element from `point`, calculated using `Math.hypot()`, `Object.keys()` and its `label`. - Use `Array.prototype.sort()` and `Array.prototype.slice()` to get the `k` nearest neighbors of `point`. - Use `Array.prototype.reduce()` in combination with `Object.keys()` and `Array.prototype.indexOf()` to find the most frequent `label` among them." b
 const kNearestNeighbors = (data, labels, point, k = 3) => {
   const kNearest = data
     .map((el, i) => ({
@@ -2363,7 +2363,7 @@ const lowercaseKeys = obj =>
   }, {});
 endsnippet
 
-snippet luhnCheck "Implementation of the [Luhn Algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm) used to validate a variety of identification numbers, such as credit card numbers, IMEI numbers, National Provider Identifier numbers etc.  - Use `String.prototype.split('')`, `Array.prototype.reverse()` and `Array.prototype.map()` in combination with `parseInt()` to obtain an array of digits. - Use `Array.prototype.splice(0, 1)` to obtain the last digit. - Use `Array.prototype.reduce()` to implement the Luhn Algorithm. - Return `true` if `sum` is divisible by `10`, `false` otherwise." b
+snippet luhnCheck "Implements the [Luhn Algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm) used to validate a variety of identification numbers, such as credit card numbers, IMEI numbers, National Provider Identifier numbers etc.  - Use `String.prototype.split('')`, `Array.prototype.reverse()` and `Array.prototype.map()` in combination with `parseInt()` to obtain an array of digits. - Use `Array.prototype.splice(0, 1)` to obtain the last digit. - Use `Array.prototype.reduce()` to implement the Luhn Algorithm. - Return `true` if `sum` is divisible by `10`, `false` otherwise." b
 const luhnCheck = num => {
   let arr = (num + '')
     .split('')
@@ -3056,7 +3056,7 @@ const queryStringToObject = url =>
   );
 endsnippet
 
-snippet quickSort "Sorts an array of numbers, using the quicksort algorithm.  - Use recursion. - Use the spread operator (`...`) to clone the original array, `arr`. - If the `length` of the array is less than `2`, return the cloned array. - Use `Math.floor()` to calculate the index of the pivot element. - Use `Array.prototype.reduce()` and `Array.prototype.push()` to split the array into two subarrays (elements smaller or equal to the `pivot` and elements greater than it), destructuring the result into two arrays. - Recursively call `quickSort()` on the created subarrays." b
+snippet quickSort "Sorts an array of numbers, using the quicksort algorithm.  - Use recursion. - Use the spread operator (`...`) to clone the original array, `arr`. - If the `length` of the array is less than `2`, return the cloned array. - Use `Math.floor()` to calculate the index of the pivot element. - Use `Array.prototype.reduce()` and `Array.prototype.push()` to split the array into two subarrays. The first one contains elements smaller than or equal to `pivot` and the second on elements greather than it. Destructure the result into two arrays. - Recursively call `quickSort()` on the created subarrays." b
 const quickSort = arr => {
   const a = [...arr];
   if (a.length < 2) return a;
@@ -3257,7 +3257,7 @@ const renameKeys = (keysMap, obj) =>
   );
 endsnippet
 
-snippet renderElement "Renders the given DOM tree in the specified DOM element.  - Destructure the first argument into `type` and `props`, using `type` to determine if the given element is a text element. - Based on the element's `type`, use either `Document.createTextNode()` or `Document.createElement()` to create the DOM element. - Use `Object.keys()` to add attributes to the DOM element and setting event listeners, as necessary. - Use recursion to render `props.children`, if any. - Finally, use `Node.appendChild()` to append the DOM element to the specified `container`." b
+snippet renderElement "Renders the given DOM tree in the specified DOM element.  - Destructure the first argument into `type` and `props`. Use `type` to determine if the given element is a text element. - Based on the element's `type`, use either `Document.createTextNode()` or `Document.createElement()` to create the DOM element. - Use `Object.keys()` to add attributes to the DOM element and set event listeners, as necessary. - Use recursion to render `props.children`, if any. - Finally, use `Node.appendChild()` to append the DOM element to the specified `container`." b
 const renderElement = ({ type, props = {} }, container) => {
   const isTextElement = !type;
   const element = isTextElement
@@ -3390,7 +3390,7 @@ const sdbm = str => {
 };
 endsnippet
 
-snippet selectionSort "Sorts an array of numbers, using the selection sort algorithm.  - Use the spread operator (`...`) to clone the original array, `arr`. - Use a `for` loop to iterate over elements in the array. - Use `Array.prototype.slice()` and `Array.prototype.reduce()` to find the index of the minimum element in the subarray to the right of the current index and perform a swap, if necessary." b
+snippet selectionSort "Sorts an array of numbers, using the selection sort algorithm.  - Use the spread operator (`...`) to clone the original array, `arr`. - Use a `for` loop to iterate over elements in the array. - Use `Array.prototype.slice()` and `Array.prototype.reduce()` to find the index of the minimum element in the subarray to the right of the current index. Perform a swap, if necessary." b
 const selectionSort = arr => {
   const a = [...arr];
   for (let i = 0; i < a.length; i++) {
@@ -3712,7 +3712,7 @@ const takeWhile = (arr, fn) => {
 };
 endsnippet
 
-snippet throttle "Creates a throttled function that only invokes the provided function at most once per every `wait` milliseconds  - Use `setTimeout()` and `clearTimeout()` to throttle the given method, `fn`. - Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary `arguments`. - Use `Date.now()` to keep track of the last time the throttled function was invoked. - Use a variable, `inThrottle`, to prevent a race condition between the first execution of `fn` and the next loop. - Omit the second argument, `wait`, to set the timeout at a default of 0 ms." b
+snippet throttle "Creates a throttled function that only invokes the provided function at most once per every `wait` milliseconds  - Use `setTimeout()` and `clearTimeout()` to throttle the given method, `fn`. - Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary `arguments`. - Use `Date.now()` to keep track of the last time the throttled function was invoked. - Use a variable, `inThrottle`, to prevent a race condition between the first execution of `fn` and the next loop. - Omit the second argument, `wait`, to set the timeout at a default of `0` ms." b
 const throttle = (fn, wait) => {
   let inThrottle, lastFn, lastTime;
   return function() {
@@ -3801,7 +3801,7 @@ const toHash = (object, key) =>
   );
 endsnippet
 
-snippet toISOStringWithTimezone "Converts a date to extended ISO format (ISO 8601), including timezone offset.  - Use `Date.prototype.getTimezoneOffset()` to get the timezone offset and reverse it, storing its sign in `diff`. - Define a helper function, `pad`, that normalizes any passed number to an integer using `Math.floor()` and `Math.abs()` and pads it to `2` digits, using `String.prototype.padStart()`. - Use `pad()` and the built-in methods in the `Date` prototype to build the ISO 8601 string with timezone offset." b
+snippet toISOStringWithTimezone "Converts a date to extended ISO format (ISO 8601), including timezone offset.  - Use `Date.prototype.getTimezoneOffset()` to get the timezone offset and reverse it. Store its sign in `diff`. - Define a helper function, `pad`, that normalizes any passed number to an integer using `Math.floor()` and `Math.abs()` and pads it to `2` digits, using `String.prototype.padStart()`. - Use `pad()` and the built-in methods in the `Date` prototype to build the ISO 8601 string with timezone offset." b
 const toISOStringWithTimezone = date => {
   const tzOffset = -date.getTimezoneOffset();
   const diff = tzOffset >= 0 ? '+' : '-';
@@ -4029,7 +4029,7 @@ snippet uniqueElements "Finds all unique values in an array.  - Create a `new Se
 const uniqueElements = arr => [...new Set(arr)];
 endsnippet
 
-snippet uniqueElementsBy "Finds all unique values of an array, based on a provided comparator function.  - Use `Array.prototype.reduce()` and `Array.prototype.some()` for an array containing only the first unique occurrence of each value, based on the comparator function, `fn`. - The comparator function takes two arguments: the values of the two elements being compared." b
+snippet uniqueElementsBy "Finds all unique values of an array, based on a provided comparator function.  - Use `Array.prototype.reduce()` and `Array.prototype.some()` to create an array containing only the first unique occurrence of each value, based on the comparator function, `fn`. - The comparator function takes two arguments: the values of the two elements being compared." b
 const uniqueElementsBy = (arr, fn) =>
   arr.reduce((acc, v) => {
     if (!acc.some(x => fn(v, x))) acc.push(v);
@@ -4037,7 +4037,7 @@ const uniqueElementsBy = (arr, fn) =>
   }, []);
 endsnippet
 
-snippet uniqueElementsByRight "Finds all unique values of an array, based on a provided comparator function, starting from the right.  - Use `Array.prototype.reduceRight()` and `Array.prototype.some()` for an array containing only the last unique occurrence of each value, based on the comparator function, `fn`. - The comparator function takes two arguments: the values of the two elements being compared." b
+snippet uniqueElementsByRight "Finds all unique values of an array, based on a provided comparator function, starting from the right.  - Use `Array.prototype.reduceRight()` and `Array.prototype.some()` to create an array containing only the last unique occurrence of each value, based on the comparator function, `fn`. - The comparator function takes two arguments: the values of the two elements being compared." b
 const uniqueElementsByRight = (arr, fn) =>
   arr.reduceRight((acc, v) => {
     if (!acc.some(x => fn(v, x))) acc.push(v);

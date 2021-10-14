@@ -1,7 +1,7 @@
 [
   {
     "code": "const CSVToArray = (data, delimiter = ',', omitFirstRow = false) =>\n  data\n    .slice(omitFirstRow ? data.indexOf('\\n') + 1 : 0)\n    .split('\\n')\n    .map(v => v.split(delimiter));",
-    "description": "Converts a comma-separated values (CSV) string to a 2D array.\n\n- Use `Array.prototype.slice()` and `Array.prototype.indexOf('\\n')` to remove the first row (title row) if `omitFirstRow` is `true`.\n- Use `String.prototype.split('\\n')` to create a string for each row, then `String.prototype.split(delimiter)` to separate the values in each row.\n- Omit the second argument, `delimiter`, to use a default delimiter of `,`.\n- Omit the third argument, `omitFirstRow`, to include the first row (title row) of the CSV string.",
+    "description": "Converts a comma-separated values (CSV) string to a 2D array.\n\n- Use `Array.prototype.slice()` and `Array.prototype.indexOf('\\n')` to remove the first row (title row) if `omitFirstRow` is `true`.\n- Use `String.prototype.split('\\n')` to create a string for each row, then `String.prototype.split(delimiter)` to separate the values in each row.\n- Omit the second argument, `delimiter`, to use a default delimiter of `','`.\n- Omit the third argument, `omitFirstRow`, to include the first row (title row) of the CSV string.",
     "example": "CSVToArray('a,b\\nc,d'); // [['a', 'b'], ['c', 'd']];\nCSVToArray('a;b\\nc;d', ';'); // [['a', 'b'], ['c', 'd']];\nCSVToArray('col1,col2\\na,b\\nc,d', ',', true); // [['a', 'b'], ['c', 'd']];",
     "id": "CSVToArray",
     "tags": [
@@ -53,7 +53,7 @@
   },
   {
     "code": "const JSONtoCSV = (arr, columns, delimiter = ',') =>\n  [\n    columns.join(delimiter),\n    ...arr.map(obj =>\n      columns.reduce(\n        (acc, key) =>\n          \\`\\${acc}\\${!acc.length ? '' : delimiter}\"\\${!obj[key] ? '' : obj[key]}\"\\`,\n        ''\n      )\n    ),\n  ].join('\\n');",
-    "description": "Converts an array of objects to a comma-separated values (CSV) string that contains only the `columns` specified.\n\n- Use `Array.prototype.join(delimiter)` to combine all the names in `columns` to create the first row.\n- Use `Array.prototype.map()` and `Array.prototype.reduce()` to create a row for each object, substituting non-existent values with empty strings and only mapping values in `columns`.\n- Use `Array.prototype.join('\\n')` to combine all rows into a string.\n- Omit the third argument, `delimiter`, to use a default delimiter of `,`.",
+    "description": "Converts an array of objects to a comma-separated values (CSV) string that contains only the `columns` specified.\n\n- Use `Array.prototype.join(delimiter)` to combine all the names in `columns` to create the first row.\n- Use `Array.prototype.map()` and `Array.prototype.reduce()` to create a row for each object. Substitute non-existent values with empty strings and only mapping values in `columns`.\n- Use `Array.prototype.join('\\n')` to combine all rows into a string.\n- Omit the third argument, `delimiter`, to use a default delimiter of `','`.",
     "example": "JSONtoCSV(\n  [{ a: 1, b: 2 }, { a: 3, b: 4, c: 5 }, { a: 6 }, { b: 7 }],\n  ['a', 'b']\n); // 'a,b\\n\"1\",\"2\"\\n\"3\",\"4\"\\n\"6\",\"\"\\n\"\",\"7\"'\nJSONtoCSV(\n  [{ a: 1, b: 2 }, { a: 3, b: 4, c: 5 }, { a: 6 }, { b: 7 }],\n  ['a', 'b'],\n  ';'\n); // 'a;b\\n\"1\";\"2\"\\n\"3\";\"4\"\\n\"6\";\"\"\\n\"\";\"7\"'",
     "id": "JSONtoCSV",
     "tags": [
@@ -303,7 +303,7 @@
   },
   {
     "code": "const arithmeticProgression  = (n, lim) =>\n  Array.from({ length: Math.ceil(lim / n) }, (_, i) => (i + 1) * n );",
-    "description": "Creates an array of numbers in the arithmetic progression, starting with the given positive integer and up to the specified limit.\n\n- Use `Array.from()` to create an array of the desired length, `lim/n`, and a map function to fill it with the desired values in the given range.",
+    "description": "Creates an array of numbers in the arithmetic progression, starting with the given positive integer and up to the specified limit.\n\n- Use `Array.from()` to create an array of the desired length, `lim/n`. Use a map function to fill it with the desired values in the given range.",
     "example": "arithmeticProgression(5, 25); // [5, 10, 15, 20, 25]",
     "id": "arithmeticProgression",
     "tags": [
@@ -856,7 +856,7 @@
   },
   {
     "code": "const copyToClipboard = str => {\n  const el = document.createElement('textarea');\n  el.value = str;\n  el.setAttribute('readonly', '');\n  el.style.position = 'absolute';\n  el.style.left = '-9999px';\n  document.body.appendChild(el);\n  const selected =\n    document.getSelection().rangeCount > 0\n      ? document.getSelection().getRangeAt(0)\n      : false;\n  el.select();\n  document.execCommand('copy');\n  document.body.removeChild(el);\n  if (selected) {\n    document.getSelection().removeAllRanges();\n    document.getSelection().addRange(selected);\n  }\n};",
-    "description": "Copies a string to the clipboard.\nOnly works as a result of user action (i.e. inside a `click` event listener).\n\n- Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document.\n- Use `Selection.getRangeAt()`to store the selected range (if any).\n- Use `Document.execCommand('copy')` to copy to the clipboard.\n- Remove the `<textarea>` element from the HTML document.\n- Finally, use `Selection().addRange()` to recover the original selected range (if any).\n- ⚠️ **NOTICE:** The same functionality can be easily implemented by using the new asynchronous Clipboard API, which is still experimental but should be used in the future instead of this snippet. Find out more about it [here](https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc#writing-to-the-clipboard).",
+    "description": "Copies a string to the clipboard.\nOnly works as a result of user action (i.e. inside a `click` event listener).\n\n- Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document.\n- Use `Selection.getRangeAt()`to store the selected range (if any).\n- Use `Document.execCommand('copy')` to copy to the clipboard.\n- Remove the `<textarea>` element from the HTML document.\n- Finally, use `Selection().addRange()` to recover the original selected range (if any).\n- **Note:** You can use the new asynchronous Clipboard API to implement the same functionality. It's experimental but should be used in the future instead of this snippet. Find out more about it [here](https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc#writing-to-the-clipboard).",
     "example": "copyToClipboard('Lorem ipsum'); // 'Lorem ipsum' copied to clipboard.",
     "id": "copyToClipboard",
     "tags": [
@@ -1045,7 +1045,7 @@
   },
   {
     "code": "const debounce = (fn, ms = 0) => {\n  let timeoutId;\n  return function(...args) {\n    clearTimeout(timeoutId);\n    timeoutId = setTimeout(() => fn.apply(this, args), ms);\n  };\n};",
-    "description": "Creates a debounced function that delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked.\n\n- Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed.\n- Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments.\n- Omit the second argument, `ms`, to set the timeout at a default of `0` ms.",
+    "description": "Creates a debounced function that delays invoking the provided function until at least `ms` milliseconds have elapsed since its last invocation.\n\n- Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()`. Use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds have elapsed.\n- Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments.\n- Omit the second argument, `ms`, to set the timeout at a default of `0` ms.",
     "example": "window.addEventListener(\n  'resize',\n  debounce(() => {\n    console.log(window.innerWidth);\n    console.log(window.innerHeight);\n  }, 250)\n); // Will log the window dimensions at most every 250ms",
     "id": "debounce",
     "tags": [
@@ -1355,7 +1355,7 @@
   },
   {
     "code": "const equals = (a, b) => {\n  if (a === b) return true;\n\n  if (a instanceof Date && b instanceof Date)\n    return a.getTime() === b.getTime();\n\n  if (!a || !b || (typeof a !== 'object' && typeof b !== 'object'))\n    return a === b;\n\n  if (a.prototype !== b.prototype) return false;\n\n  const keys = Object.keys(a);\n  if (keys.length !== Object.keys(b).length) return false;\n\n  return keys.every(k => equals(a[k], b[k]));\n};",
-    "description": "Performs a deep comparison between two values to determine if they are equivalent.\n\n- Check if the two values are identical, if they are both `Date` objects with the same time, using `Date.prototype.getTime()` or if they are both non-object values with an equivalent value (strict comparison).\n- Check if only one value is `null` or `undefined` or if their prototypes differ.\n- If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys.\n- Use `Array.prototype.every()` to check if every key in `a` exists in `b` and if they are equivalent by calling `equals()` recursively.",
+    "description": "Performs a deep comparison between two values to determine if they are equivalent.\n\n- Check if the two values are identical.\n- Check if both values are `Date` objects with the same time, using `Date.prototype.getTime()`.\n- Check if both values are non-object values with an equivalent value (strict comparison).\n- Check if only one value is `null` or `undefined` or if their prototypes differ.\n- If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys.\n- Use `Array.prototype.every()` to check if every key in `a` exists in `b` and if they are equivalent by calling `equals()` recursively.",
     "example": "equals(\n  { a: [2, { e: 3 }], b: [4], c: 'foo' },\n  { a: [2, { e: 3 }], b: [4], c: 'foo' }\n); // true\nequals([1, 2, 3], { 0: 1, 1: 2, 2: 3 }); // true",
     "id": "equals",
     "tags": [
@@ -1368,8 +1368,8 @@
   },
   {
     "code": "const escapeHTML = str =>\n  str.replace(\n    /[&<>'\"]/g,\n    tag =>\n      ({\n        '&': '&amp;',\n        '<': '&lt;',\n        '>': '&gt;',\n        \"'\": '&#39;',\n        '\"': '&quot;'\n      }[tag] || tag)\n  );",
-    "description": "Escapes a string for use in HTML.\n\n- Use `String.prototype.replace()` with a regexp that matches the characters that need to be escaped.\n- Use the callback function to replace each character instance with its associated escaped character using a dictionary (object).",
-    "example": "escapeHTML('<a href=\"#\">Me & you</a>'); \n// '&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;'",
+    "description": "Escapes a string for use in HTML.\n\n- Use `String.prototype.replace()` with a regexp that matches the characters that need to be escaped.\n- Use the callback function to replace each character instance with its associated escaped character using a dictionary object.",
+    "example": "escapeHTML('<a href=\"#\">Me & you</a>');\n// '&lt;a href=&quot;#&quot;&gt;Me &amp; you&lt;/a&gt;'",
     "id": "escapeHTML",
     "tags": [
       "string",
@@ -1692,7 +1692,7 @@
   },
   {
     "code": "const formatSeconds = s => {\n  const [hour, minute, second, sign] =\n    s > 0\n      ? [s / 3600, (s / 60) % 60, s % 60, '']\n      : [-s / 3600, (-s / 60) % 60, -s % 60, '-'];\n\n  return (\n    sign +\n    [hour, minute, second]\n      .map(v => \\`\\${Math.floor(v)}\\`.padStart(2, '0'))\n      .join(':')\n  );\n};",
-    "description": "Returns the ISO format of the given number of seconds.\n\n- Divide `s` with the appropriate values to obtain the appropriate values for `hour`, `minute` and `second`.\n- Store the `sign` in a variable to prepend it to the result.\n- Use `Array.prototype.map()` in combination with `Array.prototype.floor()` and `String.prototype.padStart()` to stringify and format each segment.\n- Use `String.prototype.join(':')` to combine the values into a string.",
+    "description": "Returns the ISO format of the given number of seconds.\n\n- Divide `s` with the appropriate values to obtain the appropriate values for `hour`, `minute` and `second`.\n- Store the `sign` in a variable to prepend it to the result.\n- Use `Array.prototype.map()` in combination with `Math.floor()` and `String.prototype.padStart()` to stringify and format each segment.\n- Use `String.prototype.join(':')` to combine the values into a string.",
     "example": "formatSeconds(200); // '00:03:20'\nformatSeconds(-200); // '-00:03:20'\nformatSeconds(99999); // '27:46:39'",
     "id": "formatSeconds",
     "tags": [
@@ -2132,7 +2132,7 @@
   },
   {
     "code": "const hashBrowser = val =>\n  crypto.subtle\n    .digest('SHA-256', new TextEncoder('utf-8').encode(val))\n    .then(h => {\n      let hexes = [],\n        view = new DataView(h);\n      for (let i = 0; i < view.byteLength; i += 4)\n        hexes.push(('00000000' + view.getUint32(i).toString(16)).slice(-8));\n      return hexes.join('');\n    });",
-    "description": "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm.\nReturns a promise.\n\n- Use the [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) API to create a hash for the given value.\n- Create a new `TextEncoder` and use it to encode `val`, passing its value to `SubtleCrypto.digest()` to generate a digest of the given data.\n- Use `DataView.prototype.getUint32()` to read data from the resolved `ArrayBuffer`.\n- Add the data to an array using `Array.prototype.push()` after converting it to its hexadecimal representation using `Number.prototype.toString(16)`.\n- Finally, use `Array.prototype.join()` to combine values in the array of `hexes` into a string.",
+    "description": "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm.\nReturns a promise.\n\n- Use the [SubtleCrypto](https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto) API to create a hash for the given value.\n- Create a new `TextEncoder` and use it to encode `val`. Pass its value to `SubtleCrypto.digest()` to generate a digest of the given data.\n- Use `DataView.prototype.getUint32()` to read data from the resolved `ArrayBuffer`.\n- Convert the data to it hexadecimal representation using `Number.prototype.toString(16)`. Add the data to an array using `Array.prototype.push()`.\n- Finally, use `Array.prototype.join()` to combine values in the array of `hexes` into a string.",
     "example": "hashBrowser(\n  JSON.stringify({ a: 'a', b: [1, 2, 3, 4], foo: { c: 'bar' } })\n).then(console.log);\n// '04aa106279f5977f59f9067fa9712afc4aedc6f5862a8defc34552d8c7206393'",
     "id": "hashBrowser",
     "tags": [
@@ -2143,7 +2143,7 @@
   },
   {
     "code": "const crypto = require('crypto');\n\nconst hashNode = val =>\n  new Promise(resolve =>\n    setTimeout(\n      () => resolve(crypto.createHash('sha256').update(val).digest('hex')),\n      0\n    )\n  );",
-    "description": "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm.\nReturns a promise.\n\n- Use `crypto.createHash()` to create a `Hash` object with the appropriate algorithm.\n- Use `hash.update()` to add the data from `val` to the `Hash`, `hash.digest()` to calculate the digest of the data.\n- Use `setTimeout()` to prevent blocking on a long operation, and return a `Promise` to give it a familiar interface.",
+    "description": "Creates a hash for a value using the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) algorithm.\nReturns a promise.\n\n- Use `crypto.createHash()` to create a `Hash` object with the appropriate algorithm.\n- Use `hash.update()` to add the data from `val` to the `Hash`, `hash.digest()` to calculate the digest of the data.\n- Use `setTimeout()` to prevent blocking on a long operation. Return a `Promise` to give it a familiar interface.",
     "example": "hashNode(JSON.stringify({ a: 'a', b: [1, 2, 3, 4], foo: { c: 'bar' } })).then(\n  console.log\n);\n// '04aa106279f5977f59f9067fa9712afc4aedc6f5862a8defc34552d8c7206393'",
     "id": "hashNode",
     "tags": [
@@ -3124,7 +3124,7 @@
   },
   {
     "code": "const kNearestNeighbors = (data, labels, point, k = 3) => {\n  const kNearest = data\n    .map((el, i) => ({\n      dist: Math.hypot(...Object.keys(el).map(key => point[key] - el[key])),\n      label: labels[i]\n    }))\n    .sort((a, b) => a.dist - b.dist)\n    .slice(0, k);\n\n  return kNearest.reduce(\n    (acc, { label }, i) => {\n      acc.classCounts[label] =\n        Object.keys(acc.classCounts).indexOf(label) !== -1\n          ? acc.classCounts[label] + 1\n          : 1;\n      if (acc.classCounts[label] > acc.topClassCount) {\n        acc.topClassCount = acc.classCounts[label];\n        acc.topClass = label;\n      }\n      return acc;\n    },\n    {\n      classCounts: {},\n      topClass: kNearest[0].label,\n      topClassCount: 0\n    }\n  ).topClass;\n};",
-    "description": "Classifies a data point relative to a labelled data set, using the [k-nearest neighbors](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm) algorithm.\n\n- Use `Array.prototype.map()` to map the `data` to objects containing the euclidean distance of each element from `point`, calculated using `Math.hypot()`, `Object.keys()` and its `label`.\n- Use `Array.prototype.sort()` and `Array.prototype.slice()` to get the `k` nearest neighbors of `point`.\n- Use `Array.prototype.reduce()` in combination with `Object.keys()` and `Array.prototype.indexOf()` to find the most frequent `label` among them.",
+    "description": "Classifies a data point relative to a labelled data set, using the [k-nearest neighbors](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm) algorithm.\n\n- Use `Array.prototype.map()` to map the `data` to objects. Each object contains the euclidean distance of the element from `point`, calculated using `Math.hypot()`, `Object.keys()` and its `label`.\n- Use `Array.prototype.sort()` and `Array.prototype.slice()` to get the `k` nearest neighbors of `point`.\n- Use `Array.prototype.reduce()` in combination with `Object.keys()` and `Array.prototype.indexOf()` to find the most frequent `label` among them.",
     "example": "const data = [[0, 0], [0, 1], [1, 3], [2, 0]];\nconst labels = [0, 1, 1, 0];\n\nkNearestNeighbors(data, labels, [1, 2], 2); // 1\nkNearestNeighbors(data, labels, [1, 0], 2); // 0",
     "id": "kNearestNeighbors",
     "tags": [
@@ -3240,7 +3240,7 @@
   },
   {
     "code": "const luhnCheck = num => {\n  let arr = (num + '')\n    .split('')\n    .reverse()\n    .map(x => parseInt(x));\n  let lastDigit = arr.splice(0, 1)[0];\n  let sum = arr.reduce(\n    (acc, val, i) => (i % 2 !== 0 ? acc + val : acc + ((val *= 2) > 9 ? val - 9 : val)),\n    0\n  );\n  sum += lastDigit;\n  return sum % 10 === 0;\n};",
-    "description": "Implementation of the [Luhn Algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm) used to validate a variety of identification numbers, such as credit card numbers, IMEI numbers, National Provider Identifier numbers etc.\n\n- Use `String.prototype.split('')`, `Array.prototype.reverse()` and `Array.prototype.map()` in combination with `parseInt()` to obtain an array of digits.\n- Use `Array.prototype.splice(0, 1)` to obtain the last digit.\n- Use `Array.prototype.reduce()` to implement the Luhn Algorithm.\n- Return `true` if `sum` is divisible by `10`, `false` otherwise.",
+    "description": "Implements the [Luhn Algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm) used to validate a variety of identification numbers, such as credit card numbers, IMEI numbers, National Provider Identifier numbers etc.\n\n- Use `String.prototype.split('')`, `Array.prototype.reverse()` and `Array.prototype.map()` in combination with `parseInt()` to obtain an array of digits.\n- Use `Array.prototype.splice(0, 1)` to obtain the last digit.\n- Use `Array.prototype.reduce()` to implement the Luhn Algorithm.\n- Return `true` if `sum` is divisible by `10`, `false` otherwise.",
     "example": "luhnCheck('4485275742308327'); // true\nluhnCheck(6011329933655299); //  true\nluhnCheck(123456789); // false",
     "id": "luhnCheck",
     "tags": [
@@ -4131,7 +4131,7 @@
   },
   {
     "code": "const quickSort = arr => {\n  const a = [...arr];\n  if (a.length < 2) return a;\n  const pivotIndex = Math.floor(arr.length / 2);\n  const pivot = a[pivotIndex];\n  const [lo, hi] = a.reduce(\n    (acc, val, i) => {\n      if (val < pivot || (val === pivot && i != pivotIndex)) {\n        acc[0].push(val);\n      } else if (val > pivot) {\n        acc[1].push(val);\n      }\n      return acc;\n    },\n    [[], []]\n  );\n  return [...quickSort(lo), pivot, ...quickSort(hi)];\n};",
-    "description": "Sorts an array of numbers, using the quicksort algorithm.\n\n- Use recursion.\n- Use the spread operator (`...`) to clone the original array, `arr`.\n- If the `length` of the array is less than `2`, return the cloned array.\n- Use `Math.floor()` to calculate the index of the pivot element.\n- Use `Array.prototype.reduce()` and `Array.prototype.push()` to split the array into two subarrays (elements smaller or equal to the `pivot` and elements greater than it), destructuring the result into two arrays.\n- Recursively call `quickSort()` on the created subarrays.",
+    "description": "Sorts an array of numbers, using the quicksort algorithm.\n\n- Use recursion.\n- Use the spread operator (`...`) to clone the original array, `arr`.\n- If the `length` of the array is less than `2`, return the cloned array.\n- Use `Math.floor()` to calculate the index of the pivot element.\n- Use `Array.prototype.reduce()` and `Array.prototype.push()` to split the array into two subarrays. The first one contains elements smaller than or equal to `pivot` and the second on elements greather than it. Destructure the result into two arrays.\n- Recursively call `quickSort()` on the created subarrays.",
     "example": "quickSort([1, 6, 1, 5, 3, 2, 1, 4]); // [1, 1, 1, 2, 3, 4, 5, 6]",
     "id": "quickSort",
     "tags": [
@@ -4395,7 +4395,7 @@
   },
   {
     "code": "const renderElement = ({ type, props = {} }, container) => {\n  const isTextElement = !type;\n  const element = isTextElement\n    ? document.createTextNode('')\n    : document.createElement(type);\n\n  const isListener = p => p.startsWith('on');\n  const isAttribute = p => !isListener(p) && p !== 'children';\n\n  Object.keys(props).forEach(p => {\n    if (isAttribute(p)) element[p] = props[p];\n    if (!isTextElement && isListener(p))\n      element.addEventListener(p.toLowerCase().slice(2), props[p]);\n  });\n\n  if (!isTextElement && props.children && props.children.length)\n    props.children.forEach(childElement =>\n      renderElement(childElement, element)\n    );\n\n  container.appendChild(element);\n};",
-    "description": "Renders the given DOM tree in the specified DOM element.\n\n- Destructure the first argument into `type` and `props`, using `type` to determine if the given element is a text element.\n- Based on the element's `type`, use either `Document.createTextNode()` or `Document.createElement()` to create the DOM element.\n- Use `Object.keys()` to add attributes to the DOM element and setting event listeners, as necessary.\n- Use recursion to render `props.children`, if any.\n- Finally, use `Node.appendChild()` to append the DOM element to the specified `container`.",
+    "description": "Renders the given DOM tree in the specified DOM element.\n\n- Destructure the first argument into `type` and `props`. Use `type` to determine if the given element is a text element.\n- Based on the element's `type`, use either `Document.createTextNode()` or `Document.createElement()` to create the DOM element.\n- Use `Object.keys()` to add attributes to the DOM element and set event listeners, as necessary.\n- Use recursion to render `props.children`, if any.\n- Finally, use `Node.appendChild()` to append the DOM element to the specified `container`.",
     "example": "const myElement = {\n  type: 'button',\n  props: {\n    type: 'button',\n    className: 'btn',\n    onClick: () => alert('Clicked'),\n    children: [{ props: { nodeValue: 'Click me' } }]\n  }\n};\n\nrenderElement(myElement, document.body);",
     "id": "renderElement",
     "tags": [
@@ -4535,7 +4535,7 @@
   },
   {
     "code": "const selectionSort = arr => {\n  const a = [...arr];\n  for (let i = 0; i < a.length; i++) {\n    const min = a\n      .slice(i + 1)\n      .reduce((acc, val, j) => (val < a[acc] ? j + i + 1 : acc), i);\n    if (min !== i) [a[i], a[min]] = [a[min], a[i]];\n  }\n  return a;\n};",
-    "description": "Sorts an array of numbers, using the selection sort algorithm.\n\n- Use the spread operator (`...`) to clone the original array, `arr`.\n- Use a `for` loop to iterate over elements in the array.\n- Use `Array.prototype.slice()` and `Array.prototype.reduce()` to find the index of the minimum element in the subarray to the right of the current index and perform a swap, if necessary.",
+    "description": "Sorts an array of numbers, using the selection sort algorithm.\n\n- Use the spread operator (`...`) to clone the original array, `arr`.\n- Use a `for` loop to iterate over elements in the array.\n- Use `Array.prototype.slice()` and `Array.prototype.reduce()` to find the index of the minimum element in the subarray to the right of the current index. Perform a swap, if necessary.",
     "example": "selectionSort([5, 1, 4, 2, 3]); // [1, 2, 3, 4, 5]",
     "id": "selectionSort",
     "tags": [
@@ -4996,7 +4996,7 @@
   },
   {
     "code": "const throttle = (fn, wait) => {\n  let inThrottle, lastFn, lastTime;\n  return function() {\n    const context = this,\n      args = arguments;\n    if (!inThrottle) {\n      fn.apply(context, args);\n      lastTime = Date.now();\n      inThrottle = true;\n    } else {\n      clearTimeout(lastFn);\n      lastFn = setTimeout(function() {\n        if (Date.now() - lastTime >= wait) {\n          fn.apply(context, args);\n          lastTime = Date.now();\n        }\n      }, Math.max(wait - (Date.now() - lastTime), 0));\n    }\n  };\n};",
-    "description": "Creates a throttled function that only invokes the provided function at most once per every `wait` milliseconds\n\n- Use `setTimeout()` and `clearTimeout()` to throttle the given method, `fn`.\n- Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary `arguments`.\n- Use `Date.now()` to keep track of the last time the throttled function was invoked.\n- Use a variable, `inThrottle`, to prevent a race condition between the first execution of `fn` and the next loop.\n- Omit the second argument, `wait`, to set the timeout at a default of 0 ms.",
+    "description": "Creates a throttled function that only invokes the provided function at most once per every `wait` milliseconds\n\n- Use `setTimeout()` and `clearTimeout()` to throttle the given method, `fn`.\n- Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary `arguments`.\n- Use `Date.now()` to keep track of the last time the throttled function was invoked.\n- Use a variable, `inThrottle`, to prevent a race condition between the first execution of `fn` and the next loop.\n- Omit the second argument, `wait`, to set the timeout at a default of `0` ms.",
     "example": "window.addEventListener(\n  'resize',\n  throttle(function(evt) {\n    console.log(window.innerWidth);\n    console.log(window.innerHeight);\n  }, 250)\n); // Will log the window dimensions at most every 250ms",
     "id": "throttle",
     "tags": [
@@ -5102,7 +5102,7 @@
   },
   {
     "code": "const toISOStringWithTimezone = date => {\n  const tzOffset = -date.getTimezoneOffset();\n  const diff = tzOffset >= 0 ? '+' : '-';\n  const pad = n => \\`\\${Math.floor(Math.abs(n))}\\`.padStart(2, '0');\n  return date.getFullYear() +\n    '-' + pad(date.getMonth() + 1) +\n    '-' + pad(date.getDate()) +\n    'T' + pad(date.getHours()) +\n    ':' + pad(date.getMinutes()) +\n    ':' + pad(date.getSeconds()) +\n    diff + pad(tzOffset / 60) +\n    ':' + pad(tzOffset % 60);\n};",
-    "description": "Converts a date to extended ISO format (ISO 8601), including timezone offset.\n\n- Use `Date.prototype.getTimezoneOffset()` to get the timezone offset and reverse it, storing its sign in `diff`.\n- Define a helper function, `pad`, that normalizes any passed number to an integer using `Math.floor()` and `Math.abs()` and pads it to `2` digits, using `String.prototype.padStart()`.\n- Use `pad()` and the built-in methods in the `Date` prototype to build the ISO 8601 string with timezone offset.",
+    "description": "Converts a date to extended ISO format (ISO 8601), including timezone offset.\n\n- Use `Date.prototype.getTimezoneOffset()` to get the timezone offset and reverse it. Store its sign in `diff`.\n- Define a helper function, `pad`, that normalizes any passed number to an integer using `Math.floor()` and `Math.abs()` and pads it to `2` digits, using `String.prototype.padStart()`.\n- Use `pad()` and the built-in methods in the `Date` prototype to build the ISO 8601 string with timezone offset.",
     "example": "toISOStringWithTimezone(new Date()); // '2020-10-06T20:43:33-04:00'",
     "id": "toISOStringWithTimezone",
     "tags": [
@@ -5388,7 +5388,7 @@
   },
   {
     "code": "const uniqueElementsBy = (arr, fn) =>\n  arr.reduce((acc, v) => {\n    if (!acc.some(x => fn(v, x))) acc.push(v);\n    return acc;\n  }, []);",
-    "description": "Finds all unique values of an array, based on a provided comparator function.\n\n- Use `Array.prototype.reduce()` and `Array.prototype.some()` for an array containing only the first unique occurrence of each value, based on the comparator function, `fn`.\n- The comparator function takes two arguments: the values of the two elements being compared.",
+    "description": "Finds all unique values of an array, based on a provided comparator function.\n\n- Use `Array.prototype.reduce()` and `Array.prototype.some()` to create an array containing only the first unique occurrence of each value, based on the comparator function, `fn`.\n- The comparator function takes two arguments: the values of the two elements being compared.",
     "example": "uniqueElementsBy(\n  [\n    { id: 0, value: 'a' },\n    { id: 1, value: 'b' },\n    { id: 2, value: 'c' },\n    { id: 1, value: 'd' },\n    { id: 0, value: 'e' }\n  ],\n  (a, b) => a.id == b.id\n); // [ { id: 0, value: 'a' }, { id: 1, value: 'b' }, { id: 2, value: 'c' } ]",
     "id": "uniqueElementsBy",
     "tags": [
@@ -5398,7 +5398,7 @@
   },
   {
     "code": "const uniqueElementsByRight = (arr, fn) =>\n  arr.reduceRight((acc, v) => {\n    if (!acc.some(x => fn(v, x))) acc.push(v);\n    return acc;\n  }, []);",
-    "description": "Finds all unique values of an array, based on a provided comparator function, starting from the right.\n\n- Use `Array.prototype.reduceRight()` and `Array.prototype.some()` for an array containing only the last unique occurrence of each value, based on the comparator function, `fn`.\n- The comparator function takes two arguments: the values of the two elements being compared.",
+    "description": "Finds all unique values of an array, based on a provided comparator function, starting from the right.\n\n- Use `Array.prototype.reduceRight()` and `Array.prototype.some()` to create an array containing only the last unique occurrence of each value, based on the comparator function, `fn`.\n- The comparator function takes two arguments: the values of the two elements being compared.",
     "example": "uniqueElementsByRight(\n  [\n    { id: 0, value: 'a' },\n    { id: 1, value: 'b' },\n    { id: 2, value: 'c' },\n    { id: 1, value: 'd' },\n    { id: 0, value: 'e' }\n  ],\n  (a, b) => a.id == b.id\n); // [ { id: 0, value: 'e' }, { id: 1, value: 'd' }, { id: 2, value: 'c' } ]",
     "id": "uniqueElementsByRight",
     "tags": [
