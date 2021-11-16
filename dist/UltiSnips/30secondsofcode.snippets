@@ -4101,7 +4101,7 @@ const vectorDistance = (x, y) =>
   Math.sqrt(x.reduce((acc, val, i) => acc + Math.pow(val - y[i], 2), 0));
 endsnippet
 
-snippet walkThrough "Creates a generator, that walks through all the keys of a given object.  - Use recursion. - Define a generator function, `walk`, that takes an object and an array of keys. - Use a `for...of` loop and `Object.keys()` to iterate over the keys of the object. - Use `typeof` to check if each value in the given object is itself an object. - If so, use the `yield*` expression to recursively delegate to the same generator function, `walk`, appending the current `key` to the array of keys. Otherwise, `yield` the an array of keys representing the current path and the value of the given `key`. - Use the `yield*` expression to delegate to the `walk` generator function." b
+snippet walkThrough "Creates a generator, that walks through all the keys of a given object.  - Use recursion. - Define a generator function, `walk`, that takes an object and an array of keys. - Use a `for...of` loop and `Object.keys()` to iterate over the keys of the object. - Use `typeof` to check if each value in the given object is itself an object. - If so, use the `yield*` expression to recursively delegate to the same generator function, `walk`, appending the current `key` to the array of keys. Otherwise, `yield` an array of keys representing the current path and the value of the given `key`. - Use the `yield*` expression to delegate to the `walk` generator function." b
 const walkThrough = function* (obj) {
   const walk = function* (x, previous = []) {
     for (let key of Object.keys(x)) {
