@@ -3313,6 +3313,13 @@ const requireUncached = module => {
 };
 endsnippet
 
+snippet resolveAfter "Creates a promise that resolves after a given amount of time to the provided value.  - Use the `Promise` constructor to create a new promise. - Use `setTimeout()` to call the promise's `resolve` function with the passed `value` after the specified `delay`." b
+const resolveAfter = (value, delay) =>
+  new Promise(resolve => {
+    setTimeout(() => resolve(value, delay));
+  });
+endsnippet
+
 snippet reverseNumber "Reverses a number.  - Use `Object.prototype.toString()` to convert `n` to a string. - Use `String.prototype.split('')`, `Array.prototype.reverse()` and `String.prototype.join('')` to get the reversed value of `n` as a string. - Use `parseFloat()` to convert the string to a number and `Math.sign()` to preserve its sign." b
 const reverseNumber = n => 
   parseFloat(\`\${n}\`.split('').reverse().join('')) * Math.sign(n);
