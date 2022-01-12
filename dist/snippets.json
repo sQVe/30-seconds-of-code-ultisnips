@@ -856,13 +856,25 @@
   },
   {
     "code": "const copyToClipboard = str => {\n  const el = document.createElement('textarea');\n  el.value = str;\n  el.setAttribute('readonly', '');\n  el.style.position = 'absolute';\n  el.style.left = '-9999px';\n  document.body.appendChild(el);\n  const selected =\n    document.getSelection().rangeCount > 0\n      ? document.getSelection().getRangeAt(0)\n      : false;\n  el.select();\n  document.execCommand('copy');\n  document.body.removeChild(el);\n  if (selected) {\n    document.getSelection().removeAllRanges();\n    document.getSelection().addRange(selected);\n  }\n};",
-    "description": "Copies a string to the clipboard.\nOnly works as a result of user action (i.e. inside a `click` event listener).\n\n- Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document.\n- Use `Selection.getRangeAt()`to store the selected range (if any).\n- Use `Document.execCommand('copy')` to copy to the clipboard.\n- Remove the `<textarea>` element from the HTML document.\n- Finally, use `Selection().addRange()` to recover the original selected range (if any).\n- **Note:** You can use the new asynchronous Clipboard API to implement the same functionality. It's experimental but should be used in the future instead of this snippet. Find out more about it [here](https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc#writing-to-the-clipboard).",
+    "description": "Copies a string to the clipboard.\nOnly works as a result of user action (i.e. inside a `click` event listener).\n\n- Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document.\n- Use `Selection.getRangeAt()`to store the selected range (if any).\n- Use `Document.execCommand('copy')` to copy to the clipboard.\n- Remove the `<textarea>` element from the HTML document.\n- Finally, use `Selection().addRange()` to recover the original selected range (if any).\n- **Note:** You can use the asynchronous [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) in most current browsers. You can find out more about it in the [copyToClipboardAsync snippet](/js/s/copy-to-clipboard-async).",
     "example": "copyToClipboard('Lorem ipsum'); // 'Lorem ipsum' copied to clipboard.",
     "id": "copyToClipboard",
     "tags": [
       "browser",
       "string",
       "event",
+      "advanced"
+    ]
+  },
+  {
+    "code": "const copyToClipboardAsync = str => {\n  if (navigator && navigator.clipboard && navigator.clipboard.writeText)\n    return navigator.clipboard.writeText(str);\n  return Promise.reject('The Clipboard API is not available.');\n};",
+    "description": "Copies a string to the clipboard, returning a promise that resolves when the clipboard's contents have been updated.\n\n- Check if the [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) is available. Use an `if` statement to ensure `Navigator`, `Navigator.clipboard` and `Navigator.clipboard.writeText` are truthy.\n- Use `Clipboard.writeText()` to write the given value, `str`, to the clipboard.\n- Return the result of `Clipboard.writeText()`, which is a promise that resolves when the clipboard's contents have been updated.\n- In case that the Clipboard API is not available, use `Promise.reject()` to reject with an appropriate message.\n- **Note:** If you need to support older browsers, you might want to use `Document.execCommand('copy')` instead. You can find out more about it in the [copyToClipboard snippet](/js/s/copy-to-clipboard).",
+    "example": "copyToClipboardAsync('Lorem ipsum'); // 'Lorem ipsum' copied to clipboard.",
+    "id": "copyToClipboardAsync",
+    "tags": [
+      "browser",
+      "string",
+      "promise",
       "advanced"
     ]
   },

@@ -625,7 +625,7 @@ snippet copySign "Returns the absolute value of the first number, but the sign o
 const copySign = (x, y) => Math.sign(x) === Math.sign(y) ? x : -x;
 endsnippet
 
-snippet copyToClipboard "Copies a string to the clipboard. Only works as a result of user action (i.e. inside a `click` event listener).  - Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document. - Use `Selection.getRangeAt()`to store the selected range (if any). - Use `Document.execCommand('copy')` to copy to the clipboard. - Remove the `<textarea>` element from the HTML document. - Finally, use `Selection().addRange()` to recover the original selected range (if any). - **Note:** You can use the new asynchronous Clipboard API to implement the same functionality. It's experimental but should be used in the future instead of this snippet. Find out more about it [here](https://github.com/w3c/clipboard-apis/blob/master/explainer.adoc#writing-to-the-clipboard)." b
+snippet copyToClipboard "Copies a string to the clipboard. Only works as a result of user action (i.e. inside a `click` event listener).  - Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document. - Use `Selection.getRangeAt()`to store the selected range (if any). - Use `Document.execCommand('copy')` to copy to the clipboard. - Remove the `<textarea>` element from the HTML document. - Finally, use `Selection().addRange()` to recover the original selected range (if any). - **Note:** You can use the asynchronous [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) in most current browsers. You can find out more about it in the [copyToClipboardAsync snippet](/js/s/copy-to-clipboard-async)." b
 const copyToClipboard = str => {
   const el = document.createElement('textarea');
   el.value = str;
@@ -644,6 +644,14 @@ const copyToClipboard = str => {
     document.getSelection().removeAllRanges();
     document.getSelection().addRange(selected);
   }
+};
+endsnippet
+
+snippet copyToClipboardAsync "Copies a string to the clipboard, returning a promise that resolves when the clipboard's contents have been updated.  - Check if the [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) is available. Use an `if` statement to ensure `Navigator`, `Navigator.clipboard` and `Navigator.clipboard.writeText` are truthy. - Use `Clipboard.writeText()` to write the given value, `str`, to the clipboard. - Return the result of `Clipboard.writeText()`, which is a promise that resolves when the clipboard's contents have been updated. - In case that the Clipboard API is not available, use `Promise.reject()` to reject with an appropriate message. - **Note:** If you need to support older browsers, you might want to use `Document.execCommand('copy')` instead. You can find out more about it in the [copyToClipboard snippet](/js/s/copy-to-clipboard)." b
+const copyToClipboardAsync = str => {
+  if (navigator && navigator.clipboard && navigator.clipboard.writeText)
+    return navigator.clipboard.writeText(str);
+  return Promise.reject('The Clipboard API is not available.');
 };
 endsnippet
 
