@@ -1810,6 +1810,28 @@
     ]
   },
   {
+    "code": "const generateUntil = function* (seed, condition, next) {\n  let val = seed;\n  let nextSeed = null;\n  while (!condition(val)) {\n    nextSeed = yield val;\n    val = next(val, nextSeed);\n  }\n  return val;\n};",
+    "description": "Creates a generator, that keeps producing new values until the given condition is met.\n\n- Initialize the current `val` using the `seed` value.\n- Use a `while` loop to iterate while the `condition` function called with the current `val` returns `false`.\n- Use `yield` to return the current `val` and optionally receive a new seed value, `nextSeed`.\n- Use the `next` function to calculate the next value from the current `val` and the `nextSeed`.",
+    "example": "[...generateUntil(1, v => v > 5, v => ++v)]; // [1, 2, 3, 4, 5]",
+    "id": "generateUntil",
+    "tags": [
+      "function",
+      "generator",
+      "advanced"
+    ]
+  },
+  {
+    "code": "const generateWhile = function* (seed, condition, next) {\n  let val = seed;\n  let nextSeed = null;\n  while (condition(val)) {\n    nextSeed = yield val;\n    val = next(val, nextSeed);\n  }\n  return val;\n};",
+    "description": "Creates a generator, that keeps producing new values as long as the given condition is met.\n\n- Initialize the current `val` using the `seed` value.\n- Use a `while` loop to iterate while the `condition` function called with the current `val` returns `true`.\n- Use `yield` to return the current `val` and optionally receive a new seed value, `nextSeed`.\n- Use the `next` function to calculate the next value from the current `val` and the `nextSeed`.",
+    "example": "[...generateWhile(1, v => v <= 5, v => ++v)]; // [1, 2, 3, 4, 5]",
+    "id": "generateWhile",
+    "tags": [
+      "function",
+      "generator",
+      "advanced"
+    ]
+  },
+  {
     "code": "const generatorToArray = gen => [...gen];",
     "description": "Converts the output of a generator function to an array.\n\n- Use the spread operator (`...`) to convert the output of the generator function to an array.",
     "example": "const s = new Set([1, 2, 1, 3, 1, 4]);\ngeneratorToArray(s.entries()); // [[ 1, 1 ], [ 2, 2 ], [ 3, 3 ], [ 4, 4 ]]",
