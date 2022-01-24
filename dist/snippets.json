@@ -5485,7 +5485,7 @@
   },
   {
     "code": "const unzipWith = (arr, fn) =>\n  arr\n    .reduce(\n      (acc, val) => (val.forEach((v, i) => acc[i].push(v)), acc),\n      Array.from({\n        length: Math.max(...arr.map(x => x.length))\n      }).map(x => [])\n    )\n    .map(val => fn(...val));",
-    "description": "Creates an array of elements, ungrouping the elements in an array produced by [zip](/js/s/zip) and applying the provided function.\n\n- Use `Math.max()`, `Function.prototype.apply()` to get the longest subarray in the array, `Array.prototype.map()` to make each element an array.\n- Use `Array.prototype.reduce()` and `Array.prototype.forEach()` to map grouped values to individual arrays.\n- Use `Array.prototype.map()` and the spread operator (`...`) to apply `fn` to each individual group of elements.",
+    "description": "Creates an array of elements, ungrouping the elements in an array produced by [zip](/js/s/zip) and applying the provided function.\n\n- Use `Math.max()` and the spread operator (`...`) to get the longest subarray in the array, `Array.prototype.map()` to make each element an array.\n- Use `Array.prototype.reduce()` and `Array.prototype.forEach()` to map grouped values to individual arrays.\n- Use `Array.prototype.map()` and the spread operator (`...`) to apply `fn` to each individual group of elements.",
     "example": "unzipWith(\n  [\n    [1, 10, 100],\n    [2, 20, 200],\n  ],\n  (...args) => args.reduce((acc, v) => acc + v, 0)\n);\n// [3, 30, 300]",
     "id": "unzipWith",
     "tags": [
