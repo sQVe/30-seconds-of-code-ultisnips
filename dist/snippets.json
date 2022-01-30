@@ -367,7 +367,7 @@
   },
   {
     "code": "const attempt = (fn, ...args) => {\n  try {\n    return fn(...args);\n  } catch (e) {\n    return e instanceof Error ? e : new Error(e);\n  }\n};",
-    "description": "Attempts to invoke a function with the provided arguments, returning either the result or the caught error object.\n\n- Use a `try... catch` block to return either the result of the function or an appropriate error.\n- If the caught object is not an `Error`, use it to create a new `Error`.",
+    "description": "Attempts to invoke a function with the provided arguments, returning either the result or the caught error object.\n\n- Use a `try...catch` block to return either the result of the function or an appropriate error.\n- If the caught object is not an `Error`, use it to create a new `Error`.",
     "example": "var elements = attempt(function(selector) {\n  return document.querySelectorAll(selector);\n}, '>_>');\nif (elements instanceof Error) elements = []; // elements = []",
     "id": "attempt",
     "tags": [
@@ -527,7 +527,7 @@
   },
   {
     "code": "const bucketSort = (arr, size = 5) => {\n  const min = Math.min(...arr);\n  const max = Math.max(...arr);\n  const buckets = Array.from(\n    { length: Math.floor((max - min) / size) + 1 },\n    () => []\n  );\n  arr.forEach(val => {\n    buckets[Math.floor((val - min) / size)].push(val);\n  });\n  return buckets.reduce((acc, b) => [...acc, ...b.sort((a, b) => a - b)], []);\n};",
-    "description": "Sorts an array of numbers, using the bucket sort algorithm.\n\n- Use `Math.min(),` `Math.max()` and the spread operator (`...`) to find the minimum and maximum values of the given array.\n- Use `Array.from()` and `Math.floor()` to create the appropriate number of `buckets` (empty arrays).\n- Use `Array.prototype.forEach()` to populate each bucket with the appropriate elements from the array.\n- Use `Array.prototype.reduce()`, the spread operator (`...`) and `Array.prototype.sort()` to sort each bucket and append it to the result.",
+    "description": "Sorts an array of numbers, using the bucket sort algorithm.\n\n- Use `Math.min()`, `Math.max()` and the spread operator (`...`) to find the minimum and maximum values of the given array.\n- Use `Array.from()` and `Math.floor()` to create the appropriate number of `buckets` (empty arrays).\n- Use `Array.prototype.forEach()` to populate each bucket with the appropriate elements from the array.\n- Use `Array.prototype.reduce()`, the spread operator (`...`) and `Array.prototype.sort()` to sort each bucket and append it to the result.",
     "example": "bucketSort([6, 3, 4, 1]); // [1, 3, 4, 6]",
     "id": "bucketSort",
     "tags": [
@@ -856,7 +856,7 @@
   },
   {
     "code": "const copyToClipboard = str => {\n  const el = document.createElement('textarea');\n  el.value = str;\n  el.setAttribute('readonly', '');\n  el.style.position = 'absolute';\n  el.style.left = '-9999px';\n  document.body.appendChild(el);\n  const selected =\n    document.getSelection().rangeCount > 0\n      ? document.getSelection().getRangeAt(0)\n      : false;\n  el.select();\n  document.execCommand('copy');\n  document.body.removeChild(el);\n  if (selected) {\n    document.getSelection().removeAllRanges();\n    document.getSelection().addRange(selected);\n  }\n};",
-    "description": "Copies a string to the clipboard.\nOnly works as a result of user action (i.e. inside a `click` event listener).\n\n- Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document.\n- Use `Selection.getRangeAt()`to store the selected range (if any).\n- Use `Document.execCommand('copy')` to copy to the clipboard.\n- Remove the `<textarea>` element from the HTML document.\n- Finally, use `Selection().addRange()` to recover the original selected range (if any).\n- **Note:** You can use the asynchronous [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) in most current browsers. You can find out more about it in the [copyToClipboardAsync snippet](/js/s/copy-to-clipboard-async).",
+    "description": "Copies a string to the clipboard.\nOnly works as a result of user action (i.e. inside a `click` event listener).\n\n- Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document.\n- Use `Selection.getRangeAt()`to store the selected range (if any).\n- Use `Document.execCommand('copy')` to copy to the clipboard.\n- Remove the `<textarea>` element from the HTML document.\n- Finally, use `Selection.addRange()` to recover the original selected range (if any).\n- **Note:** You can use the asynchronous [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) in most current browsers. You can find out more about it in the [copyToClipboardAsync snippet](/js/s/copy-to-clipboard-async).",
     "example": "copyToClipboard('Lorem ipsum'); // 'Lorem ipsum' copied to clipboard.",
     "id": "copyToClipboard",
     "tags": [
@@ -1067,7 +1067,7 @@
   },
   {
     "code": "const debouncePromise = (fn, ms = 0) => {\n  let timeoutId;\n  const pending = [];\n  return (...args) =>\n    new Promise((res, rej) => {\n      clearTimeout(timeoutId);\n      timeoutId = setTimeout(() => {\n        const currentPending = [...pending];\n        pending.length = 0;\n        Promise.resolve(fn.apply(this, args)).then(\n          data => {\n            currentPending.forEach(({ resolve }) => resolve(data));\n          },\n          error => {\n            currentPending.forEach(({ reject }) => reject(error));\n          }\n        );\n      }, ms);\n      pending.push({ resolve: res, reject: rej });\n    });\n};",
-    "description": "Creates a debounced function that returns a promise, but delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked. \nAll promises returned during this time will return the same data.\n\n- Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed.\n- Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments.\n- Create a new `Promise` and add its `resolve` and `reject` callbacks to the `pending` promises stack.\n- When `setTimeout` is called, copy the current stack (as it can change between the provided function call and its resolution), clear it and call the provided function.\n- When the provided function resolves/rejects, resolve/reject all promises in the stack (copied when the function was called) with the returned data.\n- Omit the second argument, `ms`, to set the timeout at a default of `0` ms.",
+    "description": "Creates a debounced function that returns a promise, but delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked.\nAll promises returned during this time will return the same data.\n\n- Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed.\n- Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments.\n- Create a new `Promise` and add its `resolve` and `reject` callbacks to the `pending` promises stack.\n- When `setTimeout()` is called, copy the current stack (as it can change between the provided function call and its resolution), clear it and call the provided function.\n- When the provided function resolves/rejects, resolve/reject all promises in the stack (copied when the function was called) with the returned data.\n- Omit the second argument, `ms`, to set the timeout at a default of `0` ms.",
     "example": "const fn = arg => new Promise(resolve => {\n  setTimeout(resolve, 1000, ['resolved', arg]);\n});\nconst debounced = debouncePromise(fn, 200);\ndebounced('foo').then(console.log);\ndebounced('bar').then(console.log);\n// Will log ['resolved', 'bar'] both times",
     "id": "debouncePromise",
     "tags": [
@@ -1193,7 +1193,7 @@
   },
   {
     "code": "const detectDeviceType = () =>\n  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(\n    navigator.userAgent\n  )\n    ? 'Mobile'\n    : 'Desktop';",
-    "description": "Detects whether the page is being viewed on a mobile device or a desktop.\n\n- Use a regular expression to test the `navigator.userAgent` property to figure out if the device is a mobile device or a desktop.",
+    "description": "Detects whether the page is being viewed on a mobile device or a desktop.\n\n- Use a regular expression to test the `Navigator.userAgent` property to figure out if the device is a mobile device or a desktop.",
     "example": "detectDeviceType(); // 'Mobile' or 'Desktop'",
     "id": "detectDeviceType",
     "tags": [
@@ -1203,8 +1203,8 @@
     ]
   },
   {
-    "code": "const detectLanguage = (defaultLang = 'en-US') => \n  navigator.language ||\n  (Array.isArray(navigator.languages) && navigator.languages[0]) ||\n  defaultLang;",
-    "description": "Detects the preferred language of the current user.\n\n- Use `NavigationLanguage.language` or the first `NavigationLanguage.languages` if available, otherwise return `defaultLang`.\n- Omit the second argument, `defaultLang`, to use `'en-US'` as the default language code.",
+    "code": "const detectLanguage = (defaultLang = 'en-US') =>\n  navigator.language ||\n  (Array.isArray(navigator.languages) && navigator.languages[0]) ||\n  defaultLang;",
+    "description": "Detects the preferred language of the current user.\n\n- Use `Navigator.language` or the first value of `Navigator.languages` if available, otherwise return `defaultLang`.\n- Omit the second argument, `defaultLang`, to use `'en-US'` as the default language code.",
     "example": "detectLanguage(); // 'nl-NL'",
     "id": "detectLanguage",
     "tags": [
@@ -1538,7 +1538,7 @@
   },
   {
     "code": "const findFirstN = (arr, matcher, n = 1) => {\n  let res = [];\n  for (let i in arr) {\n    const el = arr[i];\n    const match = matcher(el, i, arr);\n    if (match) res.push(el);\n    if (res.length === n) return res;\n  }\n  return res;\n};",
-    "description": "Finds the first `n` elements for which the provided function returns a truthy value.\n\n- Use a `for..in` loop to execute the provided `matcher` for each element of `arr`.\n- Use `Array.prototype.push()` to append elements to the results array and return them if its `length` is equal to `n`.",
+    "description": "Finds the first `n` elements for which the provided function returns a truthy value.\n\n- Use a `for...in` loop to execute the provided `matcher` for each element of `arr`.\n- Use `Array.prototype.push()` to append elements to the results array and return them if its `length` is equal to `n`.",
     "example": "findFirstN([1, 2, 4, 6], n => n % 2 === 0, 2); // [2, 4]\nfindFirstN([1, 2, 4, 6], n => n % 2 === 0, 5); // [2, 4, 6]",
     "id": "findFirstN",
     "tags": [
@@ -2116,7 +2116,7 @@
   },
   {
     "code": "const hasDuplicates = arr => new Set(arr).size !== arr.length;",
-    "description": "Checks if there are duplicate values in a flat array.\n\n- Use `Set()` to get the unique values in the array.\n- Use `Set.prototype.size` and `Array.prototype.length` to check if the count of the unique values is the same as elements in the original array.",
+    "description": "Checks if there are duplicate values in a flat array.\n\n- Use `Set` to get the unique values in the array.\n- Use `Set.prototype.size` and `Array.prototype.length` to check if the count of the unique values is the same as elements in the original array.",
     "example": "hasDuplicates([0, 1, 1, 2]); // true\nhasDuplicates([0, 1, 2, 3]); // false",
     "id": "hasDuplicates",
     "tags": [
@@ -2292,7 +2292,7 @@
   },
   {
     "code": "const hz = (fn, iterations = 100) => {\n  const before = performance.now();\n  for (let i = 0; i < iterations; i++) fn();\n  return (1000 * iterations) / (performance.now() - before);\n};",
-    "description": "Measures the number of times a function is executed per second (`hz`/`hertz`).\n\n- Use `performance.now()` to get the difference in milliseconds before and after the iteration loop to calculate the time elapsed executing the function `iterations` times.\n- Return the number of cycles per second by converting milliseconds to seconds and dividing it by the time elapsed.\n- Omit the second argument, `iterations`, to use the default of 100 iterations.",
+    "description": "Measures the number of times a function is executed per second (hz/hertz).\n\n- Use `performance.now()` to get the difference in milliseconds before and after the iteration loop to calculate the time elapsed executing the function `iterations` times.\n- Return the number of cycles per second by converting milliseconds to seconds and dividing it by the time elapsed.\n- Omit the second argument, `iterations`, to use the default of 100 iterations.",
     "example": "const numbers = Array(10000).fill().map((_, i) => i);\n\nconst sumReduce = () => numbers.reduce((acc, n) => acc + n, 0);\nconst sumForLoop = () => {\n  let sum = 0;\n  for (let i = 0; i < numbers.length; i++) sum += numbers[i];\n  return sum;\n};\n\nMath.round(hz(sumReduce)); // 572\nMath.round(hz(sumForLoop)); // 4784",
     "id": "hz",
     "tags": [
@@ -2416,7 +2416,7 @@
   },
   {
     "code": "const initializeArrayWithRangeRight = (end, start = 0, step = 1) =>\n  Array.from({ length: Math.ceil((end + 1 - start) / step) }).map(\n    (v, i, arr) => (arr.length - i - 1) * step + start\n  );",
-    "description": "Initializes an array containing the numbers in the specified range (in reverse) where `start` and `end` are inclusive with their common difference `step`.\n\n- Use `Array.from(Math.ceil((end+1-start)/step))` to create an array of the desired length(the amounts of elements is equal to `(end-start)/step` or `(end+1-start)/step` for inclusive end), `Array.prototype.map()` to fill with the desired values in a range.\n- Omit the second argument, `start`, to use a default value of `0`.\n- Omit the last argument, `step`, to use a default value of `1`.",
+    "description": "Initializes an array containing the numbers in the specified range (in reverse) where `start` and `end` are inclusive with their common difference `step`.\n\n- Use `Array.from()` to create an array of the desired length, `(end - start + 1)/step`.\n- Use `Array.prototype.map()` to fill the array with the desired values in the given range.\n- Omit the second argument, `start`, to use a default value of `0`.\n- Omit the last argument, `step`, to use a default value of `1`.",
     "example": "initializeArrayWithRangeRight(5); // [5, 4, 3, 2, 1, 0]\ninitializeArrayWithRangeRight(7, 3); // [7, 6, 5, 4, 3]\ninitializeArrayWithRangeRight(9, 0, 2); // [8, 6, 4, 2, 0]",
     "id": "initializeArrayWithRangeRight",
     "tags": [
@@ -4264,7 +4264,7 @@
   },
   {
     "code": "const fs = require('fs');\n\nconst readFileLines = filename =>\n  fs\n    .readFileSync(filename)\n    .toString('UTF8')\n    .split('\\n');",
-    "description": "Returns an array of lines from the specified file.\n\n- Use `fs.readFileSync()` to create a `Buffer` from a file.\n- Convert buffer to string using `buf.toString(encoding)` function.\n- Use `String.prototype.split(\\n)` to create an array of lines from the contents of the file.",
+    "description": "Returns an array of lines from the specified file.\n\n- Use `fs.readFileSync()` to create a `Buffer` from a file.\n- Convert buffer to string using `Buffer.toString(encoding)` function.\n- Use `String.prototype.split('\\n')` to create an array of lines from the contents of the file.",
     "example": "/*\ncontents of test.txt :\n  line1\n  line2\n  line3\n  ___________________________\n*/\nlet arr = readFileLines('test.txt');\nconsole.log(arr); // ['line1', 'line2', 'line3']",
     "id": "readFileLines",
     "tags": [
@@ -4451,7 +4451,7 @@
   },
   {
     "code": "const replaceLast = (str, pattern, replacement) => {\n  const match =\n    typeof pattern === 'string'\n      ? pattern\n      : (str.match(new RegExp(pattern.source, 'g')) || []).slice(-1)[0];\n  if (!match) return str;\n  const last = str.lastIndexOf(match);\n  return last !== -1\n    ? \\`\\${str.slice(0, last)}\\${replacement}\\${str.slice(last + match.length)}\\`\n    : str;\n};",
-    "description": "Replaces the last occurence of a pattern in a string.\n\n- Use `typeof` to determine if `pattern` is a string or a regular expression.\n- If the `pattern` is a string, use it as the `match`.\n- Otherwise, use the `RegeExp` constructor to create a new regular expression using the `RegExp.source` of the `pattern` and adding the `'g'` flag to it. Use `String.prototype.match()` and `Array.prototype.slice()` to get the last match, if any.\n- Use `String.prototype.lastIndexOf()` to find the last occurence of the match in the string.\n- If a match is found, use `String.prototype.slice()` and a template literal to replace the matching substring with the given `replacement`.\n- If no match is found, return the original string.",
+    "description": "Replaces the last occurence of a pattern in a string.\n\n- Use `typeof` to determine if `pattern` is a string or a regular expression.\n- If the `pattern` is a string, use it as the `match`.\n- Otherwise, use the `RegeExp` constructor to create a new regular expression using the `RegExp.prototype.source` of the `pattern` and adding the `'g'` flag to it. Use `String.prototype.match()` and `Array.prototype.slice()` to get the last match, if any.\n- Use `String.prototype.lastIndexOf()` to find the last occurence of the match in the string.\n- If a match is found, use `String.prototype.slice()` and a template literal to replace the matching substring with the given `replacement`.\n- If no match is found, return the original string.",
     "example": "replaceLast('abcabdef', 'ab', 'gg'); // 'abcggdef'\nreplaceLast('abcabdef', /ab/, 'gg'); // 'abcggdef'\nreplaceLast('abcabdef', 'ad', 'gg'); // 'abcabdef'\nreplaceLast('abcabdef', /ad/, 'gg'); // 'abcabdef'",
     "id": "replaceLast",
     "tags": [
@@ -4677,7 +4677,7 @@
   },
   {
     "code": "const size = val =>\n  Array.isArray(val)\n    ? val.length\n    : val && typeof val === 'object'\n      ? val.size || val.length || Object.keys(val).length\n      : typeof val === 'string'\n        ? new Blob([val]).size\n        : 0;",
-    "description": "Gets the size of an array, object or string.\n\n- Get type of `val` (`array`, `object` or `string`).\n- Use `Array.prototype.length` property for arrays.\n- Use `length` or `size` value if available or number of keys for objects.\n- Use `size` of a [`Blob` object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) created from `val` for strings.\n- Split strings into array of characters with `split('')` and return its length.",
+    "description": "Gets the size of an array, object or string.\n\n- Get type of `val` (`array`, `object` or `string`).\n- Use `Array.prototype.length` property for arrays.\n- Use `length` or `size` value if available or number of keys for objects.\n- Use `size` of a [`Blob` object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) created from `val` for strings.\n- Split strings into array of characters with `String.prototype.split('')` and return its length.",
     "example": "size([1, 2, 3, 4, 5]); // 5\nsize('size'); // 4\nsize({ one: 1, two: 2, three: 3 }); // 3",
     "id": "size",
     "tags": [
@@ -5051,7 +5051,7 @@
   },
   {
     "code": "const timeTaken = callback => {\n  console.time('timeTaken');\n  const r = callback();\n  console.timeEnd('timeTaken');\n  return r;\n};",
-    "description": "Measures the time it takes for a function to execute.\n\n- Use `Console.time()` and `Console.timeEnd()` to measure the difference between the start and end times to determine how long the callback took to execute.",
+    "description": "Measures the time it takes for a function to execute.\n\n- Use `console.time()` and `console.timeEnd()` to measure the difference between the start and end times to determine how long the callback took to execute.",
     "example": "timeTaken(() => Math.pow(2, 10)); // 1024, (logged): timeTaken: 0.02099609375ms",
     "id": "timeTaken",
     "tags": [
@@ -5147,7 +5147,7 @@
   },
   {
     "code": "const toISOStringWithTimezone = date => {\n  const tzOffset = -date.getTimezoneOffset();\n  const diff = tzOffset >= 0 ? '+' : '-';\n  const pad = n => \\`\\${Math.floor(Math.abs(n))}\\`.padStart(2, '0');\n  return date.getFullYear() +\n    '-' + pad(date.getMonth() + 1) +\n    '-' + pad(date.getDate()) +\n    'T' + pad(date.getHours()) +\n    ':' + pad(date.getMinutes()) +\n    ':' + pad(date.getSeconds()) +\n    diff + pad(tzOffset / 60) +\n    ':' + pad(tzOffset % 60);\n};",
-    "description": "Converts a date to extended ISO format (ISO 8601), including timezone offset.\n\n- Use `Date.prototype.getTimezoneOffset()` to get the timezone offset and reverse it. Store its sign in `diff`.\n- Define a helper function, `pad`, that normalizes any passed number to an integer using `Math.floor()` and `Math.abs()` and pads it to `2` digits, using `String.prototype.padStart()`.\n- Use `pad()` and the built-in methods in the `Date` prototype to build the ISO 8601 string with timezone offset.",
+    "description": "Converts a date to extended ISO format (ISO 8601), including timezone offset.\n\n- Use `Date.prototype.getTimezoneOffset()` to get the timezone offset and reverse it. Store its sign in `diff`.\n- Define a helper function, `pad()`, that normalizes any passed number to an integer using `Math.floor()` and `Math.abs()` and pads it to `2` digits, using `String.prototype.padStart()`.\n- Use `pad()` and the built-in methods in the `Date` prototype to build the ISO 8601 string with timezone offset.",
     "example": "toISOStringWithTimezone(new Date()); // '2020-10-06T20:43:33-04:00'",
     "id": "toISOStringWithTimezone",
     "tags": [
@@ -5634,7 +5634,7 @@
   },
   {
     "code": "const yesNo = (val, def = false) =>\n  /^(y|yes)$/i.test(val) ? true : /^(n|no)$/i.test(val) ? false : def;",
-    "description": "Returns `true` if the string is `y`/`yes` or `false` if the string is `n`/`no`.\n\n- Use `RegExp.prototype.test()` to check if the string evaluates to `y/yes` or `n/no`.\n- Omit the second argument, `def` to set the default answer as `no`.",
+    "description": "Returns `true` if the string is `'y'`/`'yes'` or `false` if the string is `'n'`/`'no'`.\n\n- Use `RegExp.prototype.test()` to check if the string evaluates to `'y'`/`'yes'` or `'n'`/`'no'`.\n- Omit the second argument, `def` to set the default answer as `'no'`.",
     "example": "yesNo('Y'); // true\nyesNo('yes'); // true\nyesNo('No'); // false\nyesNo('Foo', true); // true",
     "id": "yesNo",
     "tags": [

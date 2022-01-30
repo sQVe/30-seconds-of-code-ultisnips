@@ -272,7 +272,7 @@ snippet atob "Decodes a string of data which has been encoded using base-64 enco
 const atob = str => Buffer.from(str, 'base64').toString('binary');
 endsnippet
 
-snippet attempt "Attempts to invoke a function with the provided arguments, returning either the result or the caught error object.  - Use a `try... catch` block to return either the result of the function or an appropriate error. - If the caught object is not an `Error`, use it to create a new `Error`." b
+snippet attempt "Attempts to invoke a function with the provided arguments, returning either the result or the caught error object.  - Use a `try...catch` block to return either the result of the function or an appropriate error. - If the caught object is not an `Error`, use it to create a new `Error`." b
 const attempt = (fn, ...args) => {
   try {
     return fn(...args);
@@ -397,7 +397,7 @@ const bubbleSort = arr => {
 };
 endsnippet
 
-snippet bucketSort "Sorts an array of numbers, using the bucket sort algorithm.  - Use `Math.min(),` `Math.max()` and the spread operator (`...`) to find the minimum and maximum values of the given array. - Use `Array.from()` and `Math.floor()` to create the appropriate number of `buckets` (empty arrays). - Use `Array.prototype.forEach()` to populate each bucket with the appropriate elements from the array. - Use `Array.prototype.reduce()`, the spread operator (`...`) and `Array.prototype.sort()` to sort each bucket and append it to the result." b
+snippet bucketSort "Sorts an array of numbers, using the bucket sort algorithm.  - Use `Math.min()`, `Math.max()` and the spread operator (`...`) to find the minimum and maximum values of the given array. - Use `Array.from()` and `Math.floor()` to create the appropriate number of `buckets` (empty arrays). - Use `Array.prototype.forEach()` to populate each bucket with the appropriate elements from the array. - Use `Array.prototype.reduce()`, the spread operator (`...`) and `Array.prototype.sort()` to sort each bucket and append it to the result." b
 const bucketSort = (arr, size = 5) => {
   const min = Math.min(...arr);
   const max = Math.max(...arr);
@@ -625,7 +625,7 @@ snippet copySign "Returns the absolute value of the first number, but the sign o
 const copySign = (x, y) => Math.sign(x) === Math.sign(y) ? x : -x;
 endsnippet
 
-snippet copyToClipboard "Copies a string to the clipboard. Only works as a result of user action (i.e. inside a `click` event listener).  - Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document. - Use `Selection.getRangeAt()`to store the selected range (if any). - Use `Document.execCommand('copy')` to copy to the clipboard. - Remove the `<textarea>` element from the HTML document. - Finally, use `Selection().addRange()` to recover the original selected range (if any). - **Note:** You can use the asynchronous [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) in most current browsers. You can find out more about it in the [copyToClipboardAsync snippet](/js/s/copy-to-clipboard-async)." b
+snippet copyToClipboard "Copies a string to the clipboard. Only works as a result of user action (i.e. inside a `click` event listener).  - Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document. - Use `Selection.getRangeAt()`to store the selected range (if any). - Use `Document.execCommand('copy')` to copy to the clipboard. - Remove the `<textarea>` element from the HTML document. - Finally, use `Selection.addRange()` to recover the original selected range (if any). - **Note:** You can use the asynchronous [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) in most current browsers. You can find out more about it in the [copyToClipboardAsync snippet](/js/s/copy-to-clipboard-async)." b
 const copyToClipboard = str => {
   const el = document.createElement('textarea');
   el.value = str;
@@ -806,7 +806,7 @@ const debounce = (fn, ms = 0) => {
 };
 endsnippet
 
-snippet debouncePromise "Creates a debounced function that returns a promise, but delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked.  All promises returned during this time will return the same data.  - Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed. - Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments. - Create a new `Promise` and add its `resolve` and `reject` callbacks to the `pending` promises stack. - When `setTimeout` is called, copy the current stack (as it can change between the provided function call and its resolution), clear it and call the provided function. - When the provided function resolves/rejects, resolve/reject all promises in the stack (copied when the function was called) with the returned data. - Omit the second argument, `ms`, to set the timeout at a default of `0` ms." b
+snippet debouncePromise "Creates a debounced function that returns a promise, but delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked. All promises returned during this time will return the same data.  - Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed. - Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments. - Create a new `Promise` and add its `resolve` and `reject` callbacks to the `pending` promises stack. - When `setTimeout()` is called, copy the current stack (as it can change between the provided function call and its resolution), clear it and call the provided function. - When the provided function resolves/rejects, resolve/reject all promises in the stack (copied when the function was called) with the returned data. - Omit the second argument, `ms`, to set the timeout at a default of `0` ms." b
 const debouncePromise = (fn, ms = 0) => {
   let timeoutId;
   const pending = [];
@@ -915,7 +915,7 @@ snippet delay "Invokes the provided function after `ms` milliseconds.  - Use `se
 const delay = (fn, ms, ...args) => setTimeout(fn, ms, ...args);
 endsnippet
 
-snippet detectDeviceType "Detects whether the page is being viewed on a mobile device or a desktop.  - Use a regular expression to test the `navigator.userAgent` property to figure out if the device is a mobile device or a desktop." b
+snippet detectDeviceType "Detects whether the page is being viewed on a mobile device or a desktop.  - Use a regular expression to test the `Navigator.userAgent` property to figure out if the device is a mobile device or a desktop." b
 const detectDeviceType = () =>
   /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
     navigator.userAgent
@@ -924,8 +924,8 @@ const detectDeviceType = () =>
     : 'Desktop';
 endsnippet
 
-snippet detectLanguage "Detects the preferred language of the current user.  - Use `NavigationLanguage.language` or the first `NavigationLanguage.languages` if available, otherwise return `defaultLang`. - Omit the second argument, `defaultLang`, to use `'en-US'` as the default language code." b
-const detectLanguage = (defaultLang = 'en-US') => 
+snippet detectLanguage "Detects the preferred language of the current user.  - Use `Navigator.language` or the first value of `Navigator.languages` if available, otherwise return `defaultLang`. - Omit the second argument, `defaultLang`, to use `'en-US'` as the default language code." b
+const detectLanguage = (defaultLang = 'en-US') =>
   navigator.language ||
   (Array.isArray(navigator.languages) && navigator.languages[0]) ||
   defaultLang;
@@ -1140,7 +1140,7 @@ const findClosestMatchingNode = (node, selector) => {
 };
 endsnippet
 
-snippet findFirstN "Finds the first `n` elements for which the provided function returns a truthy value.  - Use a `for..in` loop to execute the provided `matcher` for each element of `arr`. - Use `Array.prototype.push()` to append elements to the results array and return them if its `length` is equal to `n`." b
+snippet findFirstN "Finds the first `n` elements for which the provided function returns a truthy value.  - Use a `for...in` loop to execute the provided `matcher` for each element of `arr`. - Use `Array.prototype.push()` to append elements to the results array and return them if its `length` is equal to `n`." b
 const findFirstN = (arr, matcher, n = 1) => {
   let res = [];
   for (let i in arr) {
@@ -1562,7 +1562,7 @@ snippet hasClass "Checks if the given element has the specified class.  - Use `E
 const hasClass = (el, className) => el.classList.contains(className);
 endsnippet
 
-snippet hasDuplicates "Checks if there are duplicate values in a flat array.  - Use `Set()` to get the unique values in the array. - Use `Set.prototype.size` and `Array.prototype.length` to check if the count of the unique values is the same as elements in the original array." b
+snippet hasDuplicates "Checks if there are duplicate values in a flat array.  - Use `Set` to get the unique values in the array. - Use `Set.prototype.size` and `Array.prototype.length` to check if the count of the unique values is the same as elements in the original array." b
 const hasDuplicates = arr => new Set(arr).size !== arr.length;
 endsnippet
 
@@ -1734,7 +1734,7 @@ const httpsRedirect = () => {
 };
 endsnippet
 
-snippet hz "Measures the number of times a function is executed per second (`hz`/`hertz`).  - Use `performance.now()` to get the difference in milliseconds before and after the iteration loop to calculate the time elapsed executing the function `iterations` times. - Return the number of cycles per second by converting milliseconds to seconds and dividing it by the time elapsed. - Omit the second argument, `iterations`, to use the default of 100 iterations." b
+snippet hz "Measures the number of times a function is executed per second (hz/hertz).  - Use `performance.now()` to get the difference in milliseconds before and after the iteration loop to calculate the time elapsed executing the function `iterations` times. - Return the number of cycles per second by converting milliseconds to seconds and dividing it by the time elapsed. - Omit the second argument, `iterations`, to use the default of 100 iterations." b
 const hz = (fn, iterations = 100) => {
   const before = performance.now();
   for (let i = 0; i < iterations; i++) fn();
@@ -1814,7 +1814,7 @@ const initializeArrayWithRange = (end, start = 0, step = 1) =>
   );
 endsnippet
 
-snippet initializeArrayWithRangeRight "Initializes an array containing the numbers in the specified range (in reverse) where `start` and `end` are inclusive with their common difference `step`.  - Use `Array.from(Math.ceil((end+1-start)/step))` to create an array of the desired length(the amounts of elements is equal to `(end-start)/step` or `(end+1-start)/step` for inclusive end), `Array.prototype.map()` to fill with the desired values in a range. - Omit the second argument, `start`, to use a default value of `0`. - Omit the last argument, `step`, to use a default value of `1`." b
+snippet initializeArrayWithRangeRight "Initializes an array containing the numbers in the specified range (in reverse) where `start` and `end` are inclusive with their common difference `step`.  - Use `Array.from()` to create an array of the desired length, `(end - start + 1)/step`. - Use `Array.prototype.map()` to fill the array with the desired values in the given range. - Omit the second argument, `start`, to use a default value of `0`. - Omit the last argument, `step`, to use a default value of `1`." b
 const initializeArrayWithRangeRight = (end, start = 0, step = 1) =>
   Array.from({ length: Math.ceil((end + 1 - start) / step) }).map(
     (v, i, arr) => (arr.length - i - 1) * step + start
@@ -3162,7 +3162,7 @@ const rangeGenerator = function* (start, end, step = 1) {
 };
 endsnippet
 
-snippet readFileLines "Returns an array of lines from the specified file.  - Use `fs.readFileSync()` to create a `Buffer` from a file. - Convert buffer to string using `buf.toString(encoding)` function. - Use `String.prototype.split(\n)` to create an array of lines from the contents of the file." b
+snippet readFileLines "Returns an array of lines from the specified file.  - Use `fs.readFileSync()` to create a `Buffer` from a file. - Convert buffer to string using `Buffer.toString(encoding)` function. - Use `String.prototype.split('\n')` to create an array of lines from the contents of the file." b
 const fs = require('fs');
 
 const readFileLines = filename =>
@@ -3324,7 +3324,7 @@ const repeatGenerator = function* (val) {
 };
 endsnippet
 
-snippet replaceLast "Replaces the last occurence of a pattern in a string.  - Use `typeof` to determine if `pattern` is a string or a regular expression. - If the `pattern` is a string, use it as the `match`. - Otherwise, use the `RegeExp` constructor to create a new regular expression using the `RegExp.source` of the `pattern` and adding the `'g'` flag to it. Use `String.prototype.match()` and `Array.prototype.slice()` to get the last match, if any. - Use `String.prototype.lastIndexOf()` to find the last occurence of the match in the string. - If a match is found, use `String.prototype.slice()` and a template literal to replace the matching substring with the given `replacement`. - If no match is found, return the original string." b
+snippet replaceLast "Replaces the last occurence of a pattern in a string.  - Use `typeof` to determine if `pattern` is a string or a regular expression. - If the `pattern` is a string, use it as the `match`. - Otherwise, use the `RegeExp` constructor to create a new regular expression using the `RegExp.prototype.source` of the `pattern` and adding the `'g'` flag to it. Use `String.prototype.match()` and `Array.prototype.slice()` to get the last match, if any. - Use `String.prototype.lastIndexOf()` to find the last occurence of the match in the string. - If a match is found, use `String.prototype.slice()` and a template literal to replace the matching substring with the given `replacement`. - If no match is found, return the original string." b
 const replaceLast = (str, pattern, replacement) => {
   const match =
     typeof pattern === 'string'
@@ -3489,7 +3489,7 @@ snippet similarity "Returns an array of elements that appear in both arrays.  - 
 const similarity = (arr, values) => arr.filter(v => values.includes(v));
 endsnippet
 
-snippet size "Gets the size of an array, object or string.  - Get type of `val` (`array`, `object` or `string`). - Use `Array.prototype.length` property for arrays. - Use `length` or `size` value if available or number of keys for objects. - Use `size` of a [`Blob` object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) created from `val` for strings. - Split strings into array of characters with `split('')` and return its length." b
+snippet size "Gets the size of an array, object or string.  - Get type of `val` (`array`, `object` or `string`). - Use `Array.prototype.length` property for arrays. - Use `length` or `size` value if available or number of keys for objects. - Use `size` of a [`Blob` object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) created from `val` for strings. - Split strings into array of characters with `String.prototype.split('')` and return its length." b
 const size = val =>
   Array.isArray(val)
     ? val.length
@@ -3774,7 +3774,7 @@ const throttle = (fn, wait) => {
 };
 endsnippet
 
-snippet timeTaken "Measures the time it takes for a function to execute.  - Use `Console.time()` and `Console.timeEnd()` to measure the difference between the start and end times to determine how long the callback took to execute." b
+snippet timeTaken "Measures the time it takes for a function to execute.  - Use `console.time()` and `console.timeEnd()` to measure the difference between the start and end times to determine how long the callback took to execute." b
 const timeTaken = callback => {
   console.time('timeTaken');
   const r = callback();
@@ -3840,7 +3840,7 @@ const toHash = (object, key) =>
   );
 endsnippet
 
-snippet toISOStringWithTimezone "Converts a date to extended ISO format (ISO 8601), including timezone offset.  - Use `Date.prototype.getTimezoneOffset()` to get the timezone offset and reverse it. Store its sign in `diff`. - Define a helper function, `pad`, that normalizes any passed number to an integer using `Math.floor()` and `Math.abs()` and pads it to `2` digits, using `String.prototype.padStart()`. - Use `pad()` and the built-in methods in the `Date` prototype to build the ISO 8601 string with timezone offset." b
+snippet toISOStringWithTimezone "Converts a date to extended ISO format (ISO 8601), including timezone offset.  - Use `Date.prototype.getTimezoneOffset()` to get the timezone offset and reverse it. Store its sign in `diff`. - Define a helper function, `pad()`, that normalizes any passed number to an integer using `Math.floor()` and `Math.abs()` and pads it to `2` digits, using `String.prototype.padStart()`. - Use `pad()` and the built-in methods in the `Date` prototype to build the ISO 8601 string with timezone offset." b
 const toISOStringWithTimezone = date => {
   const tzOffset = -date.getTimezoneOffset();
   const diff = tzOffset >= 0 ? '+' : '-';
@@ -4216,7 +4216,7 @@ snippet xor "Checks if only one of the arguments is `true`.  - Use the logical o
 const xor = (a, b) => (( a || b ) && !( a && b ));
 endsnippet
 
-snippet yesNo "Returns `true` if the string is `y`/`yes` or `false` if the string is `n`/`no`.  - Use `RegExp.prototype.test()` to check if the string evaluates to `y/yes` or `n/no`. - Omit the second argument, `def` to set the default answer as `no`." b
+snippet yesNo "Returns `true` if the string is `'y'`/`'yes'` or `false` if the string is `'n'`/`'no'`.  - Use `RegExp.prototype.test()` to check if the string evaluates to `'y'`/`'yes'` or `'n'`/`'no'`. - Omit the second argument, `def` to set the default answer as `'no'`." b
 const yesNo = (val, def = false) =>
   /^(y|yes)$/i.test(val) ? true : /^(n|no)$/i.test(val) ? false : def;
 endsnippet
