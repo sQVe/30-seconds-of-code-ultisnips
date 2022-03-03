@@ -6,8 +6,7 @@
     "id": "CSV to array",
     "tags": [
       "string",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -17,8 +16,7 @@
     "id": "CSV to JSON",
     "tags": [
       "string",
-      "object",
-      "advanced"
+      "object"
     ]
   },
   {
@@ -27,8 +25,7 @@
     "example": "HSBToRGB(18, 81, 99); // [252.45, 109.31084999999996, 47.965499999999984]",
     "id": "HSB to RGB",
     "tags": [
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -37,8 +34,7 @@
     "example": "HSLToRGB(13, 100, 11); // [56.1, 12.155, 0]",
     "id": "HSL to RGB",
     "tags": [
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -47,8 +43,7 @@
     "example": "JSONToFile({ test: 'is passed' }, 'testJsonFile');\n// writes the object to 'testJsonFile.json'",
     "id": "JSON to file",
     "tags": [
-      "node",
-      "intermediate"
+      "node"
     ]
   },
   {
@@ -59,8 +54,7 @@
     "tags": [
       "array",
       "string",
-      "object",
-      "advanced"
+      "object"
     ]
   },
   {
@@ -69,8 +63,7 @@
     "example": "RGBToHSB(252, 111, 48);\n// [18.529411764705856, 80.95238095238095, 98.82352941176471]",
     "id": "RGB to HSB",
     "tags": [
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -79,8 +72,7 @@
     "example": "RGBToHSL(45, 23, 11); // [21.17647, 60.71428, 10.98039]",
     "id": "RGB to HSL",
     "tags": [
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -90,8 +82,7 @@
     "id": "RGB to hex",
     "tags": [
       "string",
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -101,8 +92,7 @@
     "id": "Join URL segments",
     "tags": [
       "string",
-      "regexp",
-      "advanced"
+      "regexp"
     ]
   },
   {
@@ -112,8 +102,7 @@
     "id": "Generate UUID (browser)",
     "tags": [
       "browser",
-      "random",
-      "intermediate"
+      "random"
     ]
   },
   {
@@ -123,8 +112,7 @@
     "id": "Generate UUID (Node.js)",
     "tags": [
       "node",
-      "random",
-      "intermediate"
+      "random"
     ]
   },
   {
@@ -134,8 +122,7 @@
     "id": "Partial sum array",
     "tags": [
       "math",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -144,8 +131,7 @@
     "example": "addClass(document.querySelector('p'), 'special');\n// The paragraph will now have the 'special' class",
     "id": "Add class to HTML element",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -154,8 +140,7 @@
     "example": "addDaysToDate('2020-10-15', 10); // '2020-10-25'\naddDaysToDate('2020-10-15', -10); // '2020-10-05'",
     "id": "Add days to date",
     "tags": [
-      "date",
-      "intermediate"
+      "date"
     ]
   },
   {
@@ -165,8 +150,7 @@
     "id": "Add event listener to all targets",
     "tags": [
       "browser",
-      "event",
-      "intermediate"
+      "event"
     ]
   },
   {
@@ -175,8 +159,7 @@
     "example": "addMinutesToDate('2020-10-19 12:00:00', 10); // '2020-10-19 12:10:00'\naddMinutesToDate('2020-10-19', -10); // '2020-10-18 23:50:00'",
     "id": "Add minutes to date",
     "tags": [
-      "date",
-      "intermediate"
+      "date"
     ]
   },
   {
@@ -186,8 +169,7 @@
     "id": "Add multiple listeners",
     "tags": [
       "browser",
-      "event",
-      "intermediate"
+      "event"
     ]
   },
   {
@@ -196,8 +178,7 @@
     "example": "addStyles(document.getElementById('my-element'), {\n  background: 'red',\n  color: '#ffff00',\n  fontSize: '3rem'\n});",
     "id": "Add styles to HTML element",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -206,8 +187,7 @@
     "example": "addWeekDays(new Date('Oct 09, 2020'), 5); // 'Oct 16, 2020'\naddWeekDays(new Date('Oct 12, 2020'), 5); // 'Oct 19, 2020'",
     "id": "Add weekdays to date",
     "tags": [
-      "date",
-      "intermediate"
+      "date"
     ]
   },
   {
@@ -216,8 +196,7 @@
     "example": "all([4, 2, 3], x => x > 1); // true\nall([1, 2, 3]); // true",
     "id": "Test if all array elements are truthy",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -226,8 +205,7 @@
     "example": "allEqual([1, 2, 3, 4, 5, 6]); // false\nallEqual([1, 1, 1, 1]); // true",
     "id": "Check if array elements are equal",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -236,8 +214,7 @@
     "example": "allEqualBy([1.1, 1.2, 1.3], Math.round); // true\nallEqualBy([1.1, 1.3, 1.6], Math.round); // false",
     "id": "Check if array elements are equal based on function",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -246,8 +223,7 @@
     "example": "allUnique([1, 2, 3, 4]); // true\nallUnique([1, 1, 2, 3]); // false",
     "id": "Check if all array elements are unique",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -256,8 +232,7 @@
     "example": "allUniqueBy([1.2, 2.4, 2.9], Math.round); // true\nallUniqueBy([1.2, 2.3, 2.4], Math.round); // false",
     "id": "Check if all array elements are unique based on function",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -267,8 +242,7 @@
     "id": "Logical and",
     "tags": [
       "math",
-      "logic",
-      "beginner"
+      "logic"
     ]
   },
   {
@@ -277,8 +251,7 @@
     "example": "any([0, 1, 2, 0], x => x >= 2); // true\nany([0, 0, 1, 0]); // true",
     "id": "Test if any array element is truthy",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -287,8 +260,7 @@
     "example": "aperture(2, [1, 2, 3, 4]); // [[1, 2], [2, 3], [3, 4]]\naperture(3, [1, 2, 3, 4]); // [[1, 2, 3], [2, 3, 4]]\naperture(5, [1, 2, 3, 4]); // []",
     "id": "Consecutive element subarrays",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -297,8 +269,7 @@
     "example": "approximatelyEqual(Math.PI / 2.0, 1.5708); // true",
     "id": "Approximately number equality",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -308,8 +279,7 @@
     "id": "Arithmetic progression",
     "tags": [
       "math",
-      "algorithm",
-      "beginner"
+      "algorithm"
     ]
   },
   {
@@ -319,8 +289,7 @@
     "id": "Array to CSV",
     "tags": [
       "array",
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -330,8 +299,7 @@
     "id": "Array to HTML list",
     "tags": [
       "browser",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -340,8 +308,7 @@
     "example": "const firstTwoMax = ary(Math.max, 2);\n[[2, 6, 'a'], [6, 4, 8], [10]].map(x => firstTwoMax(...x)); // [6, 6, 10]",
     "id": "Function arity",
     "tags": [
-      "function",
-      "advanced"
+      "function"
     ]
   },
   {
@@ -350,8 +317,7 @@
     "example": "assertValidKeys({ id: 10, name: 'apple' }, ['id', 'name']); // true\nassertValidKeys({ id: 10, name: 'apple' }, ['id', 'type']); // false",
     "id": "Assert object keys are valid",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -361,8 +327,7 @@
     "id": "Decode Base64 encoded string",
     "tags": [
       "node",
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -371,8 +336,7 @@
     "example": "var elements = attempt(function(selector) {\n  return document.querySelectorAll(selector);\n}, '>_>');\nif (elements instanceof Error) elements = []; // elements = []",
     "id": "Attempt invoking a function",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -382,8 +346,7 @@
     "id": "Average of numbers",
     "tags": [
       "math",
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -393,8 +356,7 @@
     "id": "Mapped array average",
     "tags": [
       "math",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -403,8 +365,7 @@
     "example": "bifurcate(['beep', 'boop', 'foo', 'bar'], [true, true, false, true]);\n// [ ['beep', 'boop', 'bar'], ['foo'] ]",
     "id": "Bifurcate array based on values",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -413,8 +374,7 @@
     "example": "bifurcateBy(['beep', 'boop', 'foo', 'bar'], x => x[0] === 'b');\n// [ ['beep', 'boop', 'bar'], ['foo'] ]",
     "id": "Bifurcate array based on function",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -423,8 +383,7 @@
     "example": "['2', '1', '0'].map(binary(Math.max)); // [2, 1, 2]",
     "id": "Binary function arity",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -434,8 +393,7 @@
     "id": "Binary search",
     "tags": [
       "algorithm",
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -445,8 +403,7 @@
     "id": "Bind function context",
     "tags": [
       "function",
-      "object",
-      "advanced"
+      "object"
     ]
   },
   {
@@ -456,8 +413,7 @@
     "id": "Bind all object methods",
     "tags": [
       "object",
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -467,8 +423,7 @@
     "id": "Bind object method",
     "tags": [
       "function",
-      "object",
-      "advanced"
+      "object"
     ]
   },
   {
@@ -478,8 +433,7 @@
     "id": "Binomial coefficient",
     "tags": [
       "math",
-      "algorithm",
-      "beginner"
+      "algorithm"
     ]
   },
   {
@@ -489,8 +443,7 @@
     "id": "Logical and for functions",
     "tags": [
       "function",
-      "logic",
-      "beginner"
+      "logic"
     ]
   },
   {
@@ -499,8 +452,7 @@
     "example": "bottomVisible(); // true",
     "id": "Check if bottom of page is visible",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -510,8 +462,7 @@
     "id": "Encode string to Base64",
     "tags": [
       "node",
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -521,8 +472,7 @@
     "id": "Bubble sort",
     "tags": [
       "algorithm",
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -532,8 +482,7 @@
     "id": "Bucket sort",
     "tags": [
       "algorithm",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -542,8 +491,7 @@
     "example": "byteSize('😀'); // 4\nbyteSize('Hello World'); // 11",
     "id": "Byte size of string",
     "tags": [
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -553,8 +501,7 @@
     "id": "Caesar cipher",
     "tags": [
       "algorithm",
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -563,8 +510,7 @@
     "example": "Promise.resolve([1, 2, 3])\n  .then(call('map', x => 2 * x))\n  .then(console.log); // [ 2, 4, 6 ]\nconst map = call.bind(null, 'map');\nPromise.resolve([1, 2, 3])\n  .then(map(x => 2 * x))\n  .then(console.log); // [ 2, 4, 6 ]",
     "id": "Call functions with context",
     "tags": [
-      "function",
-      "advanced"
+      "function"
     ]
   },
   {
@@ -573,8 +519,7 @@
     "example": "capitalize('fooBar'); // 'FooBar'\ncapitalize('fooBar', true); // 'Foobar'",
     "id": "Capitalize string",
     "tags": [
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -584,8 +529,7 @@
     "id": "Capitalize every word",
     "tags": [
       "string",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -595,8 +539,7 @@
     "id": "Cartesian product",
     "tags": [
       "math",
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -606,8 +549,7 @@
     "id": "Cast to array",
     "tags": [
       "type",
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -616,8 +558,7 @@
     "example": "celsiusToFahrenheit(33); // 91.4",
     "id": "Celsius to Fahrenheit",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -626,8 +567,7 @@
     "example": "chainAsync([\n  next => {\n    console.log('0 seconds');\n    setTimeout(next, 1000);\n  },\n  next => {\n    console.log('1 second');\n    setTimeout(next, 1000);\n  },\n  () => {\n    console.log('2 second');\n  }\n]);",
     "id": "Chain async functions",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -638,8 +578,7 @@
     "tags": [
       "string",
       "browser",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -649,8 +588,7 @@
     "id": "Check property",
     "tags": [
       "function",
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -659,8 +597,7 @@
     "example": "chunk([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]",
     "id": "Split into chunks",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -669,8 +606,7 @@
     "example": "chunkIntoN([1, 2, 3, 4, 5, 6, 7], 4); // [[1, 2], [3, 4], [5, 6], [7]]",
     "id": "Split array into n chunks",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -681,8 +617,7 @@
     "tags": [
       "function",
       "generator",
-      "array",
-      "advanced"
+      "array"
     ]
   },
   {
@@ -691,8 +626,7 @@
     "example": "clampNumber(2, 3, 5); // 3\nclampNumber(1, -1, -5); // -1",
     "id": "Clamp number",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -701,8 +635,7 @@
     "example": "const regExp = /lorem ipsum/gi;\nconst regExp2 = cloneRegExp(regExp); // regExp !== regExp2",
     "id": "Clone RegExp",
     "tags": [
-      "type",
-      "intermediate"
+      "type"
     ]
   },
   {
@@ -711,8 +644,7 @@
     "example": "coalesce(null, undefined, '', NaN, 'Waldo'); // ''",
     "id": "Argument coalescing",
     "tags": [
-      "type",
-      "beginner"
+      "type"
     ]
   },
   {
@@ -722,8 +654,7 @@
     "id": "Argument coalescing factory",
     "tags": [
       "function",
-      "type",
-      "intermediate"
+      "type"
     ]
   },
   {
@@ -733,8 +664,7 @@
     "id": "Convert function to variadic",
     "tags": [
       "function",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -744,8 +674,7 @@
     "id": "Colorize text",
     "tags": [
       "node",
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -755,8 +684,7 @@
     "id": "Combine object arrays",
     "tags": [
       "array",
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -765,8 +693,7 @@
     "example": "compact([0, 1, false, 2, '', 3, 'a', 'e' * 23, NaN, 's', 34]);\n// [ 1, 2, 3, 'a', 's', 34 ]",
     "id": "Compact array",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -777,8 +704,7 @@
     "tags": [
       "object",
       "array",
-      "recursion",
-      "advanced"
+      "recursion"
     ]
   },
   {
@@ -788,8 +714,7 @@
     "id": "Compact whitespaces",
     "tags": [
       "string",
-      "regexp",
-      "beginner"
+      "regexp"
     ]
   },
   {
@@ -799,8 +724,7 @@
     "id": "Logical complement",
     "tags": [
       "function",
-      "logic",
-      "beginner"
+      "logic"
     ]
   },
   {
@@ -809,8 +733,7 @@
     "example": "const add5 = x => x + 5;\nconst multiply = (x, y) => x * y;\nconst multiplyAndAdd5 = compose(\n  add5,\n  multiply\n);\nmultiplyAndAdd5(5, 2); // 15",
     "id": "Compose functions",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -819,8 +742,7 @@
     "example": "const add = (x, y) => x + y;\nconst square = x => x * x;\nconst addAndSquare = composeRight(add, square);\naddAndSquare(1, 2); // 9",
     "id": "Reverse compose functions",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -830,8 +752,7 @@
     "id": "Check if string contains whitespace",
     "tags": [
       "string",
-      "regexp",
-      "beginner"
+      "regexp"
     ]
   },
   {
@@ -840,8 +761,7 @@
     "example": "const average = converge((a, b) => a / b, [\n  arr => arr.reduce((a, v) => a + v, 0),\n  arr => arr.length\n]);\naverage([1, 2, 3, 4, 5, 6, 7]); // 4",
     "id": "Converge branching functions",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -850,8 +770,7 @@
     "example": "copySign(2, 3); // 2\ncopySign(2, -3); // -2\ncopySign(-2, 3); // 2\ncopySign(-2, -3); // -2",
     "id": "Copy sign to number",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -862,8 +781,7 @@
     "tags": [
       "browser",
       "string",
-      "event",
-      "advanced"
+      "event"
     ]
   },
   {
@@ -874,8 +792,7 @@
     "tags": [
       "browser",
       "string",
-      "promise",
-      "advanced"
+      "promise"
     ]
   },
   {
@@ -885,8 +802,7 @@
     "id": "Count grouped elements",
     "tags": [
       "array",
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -895,8 +811,7 @@
     "example": "countOccurrences([1, 1, 2, 1, 2, 3], 1); // 3",
     "id": "Count occurrences",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -906,8 +821,7 @@
     "id": "Count substrings of string",
     "tags": [
       "string",
-      "algorithm",
-      "beginner"
+      "algorithm"
     ]
   },
   {
@@ -916,8 +830,7 @@
     "example": "countWeekDaysBetween(new Date('Oct 05, 2020'), new Date('Oct 06, 2020')); // 1\ncountWeekDaysBetween(new Date('Oct 05, 2020'), new Date('Oct 14, 2020')); // 7",
     "id": "Count weekdays between two dates",
     "tags": [
-      "date",
-      "intermediate"
+      "date"
     ]
   },
   {
@@ -926,8 +839,7 @@
     "example": "counter('#my-id', 1, 1000, 5, 2000);\n// Creates a 2-second timer for the element with id=\"my-id\"",
     "id": "Counter",
     "tags": [
-      "browser",
-      "advanced"
+      "browser"
     ]
   },
   {
@@ -936,8 +848,7 @@
     "example": "createDirIfNotExists('test');\n// creates the directory 'test', if it doesn't exist",
     "id": "Create directory if not exists",
     "tags": [
-      "node",
-      "beginner"
+      "node"
     ]
   },
   {
@@ -946,8 +857,7 @@
     "example": "const el = createElement(\n  `<div class=\"container\">\n    <p>Hello!</p>\n  </div>`\n);\nconsole.log(el.className); // 'container'",
     "id": "Create HTML element",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -957,8 +867,7 @@
     "id": "Create event hub",
     "tags": [
       "browser",
-      "event",
-      "advanced"
+      "event"
     ]
   },
   {
@@ -967,8 +876,7 @@
     "example": "currentURL(); // 'https://www.google.com/'",
     "id": "Current URL",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -978,8 +886,7 @@
     "id": "Curry function",
     "tags": [
       "function",
-      "recursion",
-      "advanced"
+      "recursion"
     ]
   },
   {
@@ -989,8 +896,7 @@
     "id": "Cycle generator",
     "tags": [
       "function",
-      "generator",
-      "advanced"
+      "generator"
     ]
   },
   {
@@ -1001,8 +907,7 @@
     "tags": [
       "date",
       "function",
-      "generator",
-      "advanced"
+      "generator"
     ]
   },
   {
@@ -1011,8 +916,7 @@
     "example": "dayName(new Date()); // 'Saturday'\ndayName(new Date('09/23/2020'), 'de-DE'); // 'Samstag'",
     "id": "Day name",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -1021,8 +925,7 @@
     "example": "dayOfYear(new Date()); // 272",
     "id": "Day of year",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -1031,8 +934,7 @@
     "example": "daysAgo(20); // 2020-09-16 (if current date is 2020-10-06)",
     "id": "Days ago",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -1041,8 +943,7 @@
     "example": "daysFromNow(5); // 2020-10-13 (if current date is 2020-10-08)",
     "id": "Days from now",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -1051,8 +952,7 @@
     "example": "daysInMonth(2020, 12)); // 31\ndaysInMonth(2024, 2)); // 29",
     "id": "Number of days in month",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -1061,8 +961,7 @@
     "example": "window.addEventListener(\n  'resize',\n  debounce(() => {\n    console.log(window.innerWidth);\n    console.log(window.innerHeight);\n  }, 250)\n); // Will log the window dimensions at most every 250ms",
     "id": "Debounce function",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -1072,8 +971,7 @@
     "id": "Debounce promise",
     "tags": [
       "function",
-      "promise",
-      "advanced"
+      "promise"
     ]
   },
   {
@@ -1082,8 +980,7 @@
     "example": "decapitalize('FooBar'); // 'fooBar'\ndecapitalize('FooBar', true); // 'fOOBAR'",
     "id": "Decapitalize string",
     "tags": [
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -1093,8 +990,7 @@
     "id": "Deep clone object",
     "tags": [
       "object",
-      "recursion",
-      "advanced"
+      "recursion"
     ]
   },
   {
@@ -1104,8 +1000,7 @@
     "id": "Deep flatten array",
     "tags": [
       "array",
-      "recursion",
-      "intermediate"
+      "recursion"
     ]
   },
   {
@@ -1115,8 +1010,7 @@
     "id": "Deep freeze object",
     "tags": [
       "object",
-      "recursion",
-      "intermediate"
+      "recursion"
     ]
   },
   {
@@ -1125,8 +1019,7 @@
     "example": "let index = 2;\nconst data = {\n  foo: {\n    foz: [1, 2, 3],\n    bar: {\n      baz: ['a', 'b', 'c']\n    }\n  }\n};\ndeepGet(data, ['foo', 'foz', index]); // get 3\ndeepGet(data, ['foo', 'bar', 'baz', 8, 'foz']); // null",
     "id": "Get nested value in object based on array of keys",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -1136,8 +1029,7 @@
     "id": "Deep map object keys",
     "tags": [
       "object",
-      "recursion",
-      "advanced"
+      "recursion"
     ]
   },
   {
@@ -1147,8 +1039,7 @@
     "id": "Deep merge objects",
     "tags": [
       "object",
-      "function",
-      "advanced"
+      "function"
     ]
   },
   {
@@ -1157,8 +1048,7 @@
     "example": "defaults({ a: 1 }, { b: 2 }, { b: 6 }, { a: 3 }); // { a: 1, b: 2 }",
     "id": "Assign default values for object properties",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -1167,8 +1057,7 @@
     "example": "// Example A:\ndefer(console.log, 'a'), console.log('b'); // logs 'b' then 'a'\n\n// Example B:\ndocument.querySelector('#someElement').innerHTML = 'Hello';\nlongRunningFunction();\n// Browser will not update the HTML until this has finished\ndefer(longRunningFunction);\n// Browser will update the HTML then run the function",
     "id": "Defer function invocation",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -1177,8 +1066,7 @@
     "example": "degreesToRads(90.0); // ~1.5708",
     "id": "Degrees to radians",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -1187,8 +1075,7 @@
     "example": "delay(\n  function(text) {\n    console.log(text);\n  },\n  1000,\n  'later'\n); // Logs 'later' after one second.",
     "id": "Delay function execution",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -1198,8 +1085,7 @@
     "id": "Detect device type",
     "tags": [
       "browser",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -1208,8 +1094,7 @@
     "example": "detectLanguage(); // 'nl-NL'",
     "id": "Detect language",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -1218,8 +1103,7 @@
     "example": "difference([1, 2, 3, 3], [1, 2, 4]); // [3, 3]",
     "id": "Array difference",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -1228,8 +1112,7 @@
     "example": "differenceBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [1]\ndifferenceBy([{ x: 2 }, { x: 1 }], [{ x: 1 }], v => v.x); // [2]",
     "id": "Mapped array difference",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -1238,8 +1121,7 @@
     "example": "differenceWith(\n  [1, 1.2, 1.5, 3, 0],\n  [1.9, 3, 0],\n  (a, b) => Math.round(a) === Math.round(b)\n); // [1, 1.2]\ndifferenceWith([1, 1.2, 1.3], [1, 1.3, 1.5]); // [1.2]",
     "id": "Array difference based on function",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -1249,8 +1131,7 @@
     "id": "Get nested value in object",
     "tags": [
       "object",
-      "recursion",
-      "intermediate"
+      "recursion"
     ]
   },
   {
@@ -1259,8 +1140,7 @@
     "example": "digitize(123); // [1, 2, 3]\ndigitize(-123); // [1, 2, 3]",
     "id": "Digitize number",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -1270,8 +1150,7 @@
     "id": "Distance between two points",
     "tags": [
       "math",
-      "algorithm",
-      "beginner"
+      "algorithm"
     ]
   },
   {
@@ -1280,8 +1159,7 @@
     "example": "divmod(8, 3); // [2, 2]\ndivmod(3, 8); // [0, 3]\ndivmod(5, 5); // [1, 0]",
     "id": "Quotient and module of division",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -1290,8 +1168,7 @@
     "example": "drop([1, 2, 3]); // [2, 3]\ndrop([1, 2, 3], 2); // [3]\ndrop([1, 2, 3], 42); // []",
     "id": "Drop list elements from the left",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -1300,8 +1177,7 @@
     "example": "dropRight([1, 2, 3]); // [1, 2]\ndropRight([1, 2, 3], 2); // [1]\ndropRight([1, 2, 3], 42); // []",
     "id": "Drop list elements from the right",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -1310,8 +1186,7 @@
     "example": "dropRightWhile([1, 2, 3, 4], n => n < 3); // [1, 2]",
     "id": "Drop list elements from the right based on function",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -1320,8 +1195,7 @@
     "example": "dropWhile([1, 2, 3, 4], n => n >= 3); // [3, 4]",
     "id": "Drop list elements from the left based on function",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -1331,8 +1205,7 @@
     "id": "Logical or for functions",
     "tags": [
       "function",
-      "logic",
-      "beginner"
+      "logic"
     ]
   },
   {
@@ -1341,8 +1214,7 @@
     "example": "elementContains(\n  document.querySelector('head'),\n  document.querySelector('title')\n);\n// true\nelementContains(document.querySelector('body'), document.querySelector('body'));\n// false",
     "id": "Element contains another element",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -1351,8 +1223,7 @@
     "example": "elementIsFocused(el); // true if the element is focused",
     "id": "Element is focused",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -1361,8 +1232,7 @@
     "example": "// e.g. 100x100 viewport and a 10x10px element at position {top: -1, left: 0, bottom: 9, right: 10}\nelementIsVisibleInViewport(el); // false - (not fully visible)\nelementIsVisibleInViewport(el, true); // true - (partially visible)",
     "id": "Element is visible in viewport",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -1374,8 +1244,7 @@
       "object",
       "array",
       "type",
-      "recursion",
-      "advanced"
+      "recursion"
     ]
   },
   {
@@ -1386,8 +1255,7 @@
     "tags": [
       "string",
       "browser",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -1397,8 +1265,7 @@
     "id": "Escape RegExp",
     "tags": [
       "string",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -1408,8 +1275,7 @@
     "id": "Euclidean distance",
     "tags": [
       "math",
-      "algorithm",
-      "intermediate"
+      "algorithm"
     ]
   },
   {
@@ -1418,8 +1284,7 @@
     "example": "everyNth([1, 2, 3, 4, 5, 6], 2); // [ 2, 4, 6 ]",
     "id": "Every nth element",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -1429,8 +1294,7 @@
     "id": "Expand tabs into spaces",
     "tags": [
       "string",
-      "regexp",
-      "beginner"
+      "regexp"
     ]
   },
   {
@@ -1439,8 +1303,7 @@
     "example": "extendHex('#03f'); // '#0033ff'\nextendHex('05a'); // '#0055aa'",
     "id": "Extend hex value",
     "tags": [
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -1451,8 +1314,7 @@
     "tags": [
       "math",
       "algorithm",
-      "recursion",
-      "beginner"
+      "recursion"
     ]
   },
   {
@@ -1461,8 +1323,7 @@
     "example": "fahrenheitToCelsius(32); // 0",
     "id": "Fahrenheit to Celsius",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -1472,8 +1333,7 @@
     "id": "Fibonacci",
     "tags": [
       "math",
-      "algorithm",
-      "intermediate"
+      "algorithm"
     ]
   },
   {
@@ -1482,8 +1342,7 @@
     "example": "filterNonUnique([1, 2, 2, 3, 4, 4, 5]); // [1, 3, 5]",
     "id": "Filter non-unique array values",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -1492,8 +1351,7 @@
     "example": "filterNonUniqueBy(\n  [\n    { id: 0, value: 'a' },\n    { id: 1, value: 'b' },\n    { id: 2, value: 'c' },\n    { id: 1, value: 'd' },\n    { id: 0, value: 'e' }\n  ],\n  (a, b) => a.id === b.id\n); // [ { id: 2, value: 'c' } ]",
     "id": "Filter non-unique array values based on function",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -1502,8 +1360,7 @@
     "example": "filterUnique([1, 2, 2, 3, 4, 4, 5]); // [2, 4]",
     "id": "Filter unique array values",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -1512,8 +1369,7 @@
     "example": "filterUniqueBy(\n  [\n    { id: 0, value: 'a' },\n    { id: 1, value: 'b' },\n    { id: 2, value: 'c' },\n    { id: 3, value: 'd' },\n    { id: 0, value: 'e' }\n  ],\n  (a, b) => a.id == b.id\n); // [ { id: 0, value: 'a' }, { id: 0, value: 'e' } ]",
     "id": "Filter unique array values based on function",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -1522,8 +1378,7 @@
     "example": "findClosestAnchor(document.querySelector('a > span')); // a",
     "id": "Find closest anchor",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -1532,8 +1387,7 @@
     "example": "findClosestMatchingNode(document.querySelector('span'), 'body'); // body",
     "id": "Find closest matching node",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -1542,8 +1396,7 @@
     "example": "findFirstN([1, 2, 4, 6], n => n % 2 === 0, 2); // [2, 4]\nfindFirstN([1, 2, 4, 6], n => n % 2 === 0, 5); // [2, 4, 6]",
     "id": "Find first n matches",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -1552,8 +1405,7 @@
     "example": "findKey(\n  {\n    barney: { age: 36, active: true },\n    fred: { age: 40, active: false },\n    pebbles: { age: 1, active: true }\n  },\n  x => x['active']\n); // 'barney'",
     "id": "Find first matching key",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -1562,8 +1414,7 @@
     "example": "const ages = {\n  Leo: 20,\n  Zoey: 21,\n  Jane: 20,\n};\nfindKeys(ages, 20); // [ 'Leo', 'Jane' ]",
     "id": "Find matching keys",
     "tags": [
-      "object",
-      "beginner"
+      "object"
     ]
   },
   {
@@ -1572,8 +1423,7 @@
     "example": "findLast([1, 2, 3, 4], n => n % 2 === 1); // 3",
     "id": "Find last matching value",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -1582,8 +1432,7 @@
     "example": "findLastIndex([1, 2, 3, 4], n => n % 2 === 1); // 2 (index of the value 3)\nfindLastIndex([1, 2, 3, 4], n => n === 5); // -1 (default value when not found)",
     "id": "Find last matching index",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -1592,8 +1441,7 @@
     "example": "findLastKey(\n  {\n    barney: { age: 36, active: true },\n    fred: { age: 40, active: false },\n    pebbles: { age: 1, active: true }\n  },\n  x => x['active']\n); // 'pebbles'",
     "id": "Find last matching key",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -1602,8 +1450,7 @@
     "example": "findLastN([1, 2, 4, 6], n => n % 2 === 0, 2); // [4, 6]\nfindLastN([1, 2, 4, 6], n => n % 2 === 0, 5); // [2, 4, 6]",
     "id": "Find last n matches",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -1613,8 +1460,7 @@
     "id": "Flatten array",
     "tags": [
       "array",
-      "recursion",
-      "intermediate"
+      "recursion"
     ]
   },
   {
@@ -1624,8 +1470,7 @@
     "id": "Flatten object",
     "tags": [
       "object",
-      "recursion",
-      "advanced"
+      "recursion"
     ]
   },
   {
@@ -1634,8 +1479,7 @@
     "example": "let a = { name: 'John Smith' };\nlet b = {};\nconst mergeFrom = flip(Object.assign);\nlet mergePerson = mergeFrom.bind(null, a);\nmergePerson(b); // == b\nb = {};\nObject.assign(b, a); // == b",
     "id": "Flip function arguments",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -1644,8 +1488,7 @@
     "example": "forEachRight([1, 2, 3, 4], val => console.log(val)); // '4', '3', '2', '1'",
     "id": "Execute function for each array element in reverse",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -1654,8 +1497,7 @@
     "example": "forOwn({ foo: 'bar', a: 1 }, v => console.log(v)); // 'bar', 1",
     "id": "Iterate over object's own properties",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -1664,8 +1506,7 @@
     "example": "forOwnRight({ foo: 'bar', a: 1 }, v => console.log(v)); // 1, 'bar'",
     "id": "Iterate over object's own properties in reverse",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -1675,8 +1516,7 @@
     "id": "Form to object",
     "tags": [
       "browser",
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -1687,8 +1527,7 @@
     "tags": [
       "date",
       "math",
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -1698,8 +1537,7 @@
     "id": "Format number",
     "tags": [
       "string",
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -1710,8 +1548,7 @@
     "tags": [
       "date",
       "math",
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -1721,8 +1558,7 @@
     "id": "Value frequencies",
     "tags": [
       "array",
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -1731,8 +1567,7 @@
     "example": "fromCamelCase('someDatabaseFieldName', ' '); // 'some database field name'\nfromCamelCase('someLabelThatNeedsToBeDecamelized', '-');\n// 'some-label-that-needs-to-be-decamelized'\nfromCamelCase('someJavascriptProperty', '_'); // 'some_javascript_property'\nfromCamelCase('JSONToCSV', '.'); // 'json.to.csv'",
     "id": "String from camelcase",
     "tags": [
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -1741,8 +1576,7 @@
     "example": "fromTimestamp(1602162242); // 2020-10-08T13:04:02.000Z",
     "id": "Date from Unix timestamp",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -1751,8 +1585,7 @@
     "example": "frozenSet([1, 2, 3, 1, 2]);\n// Set { 1, 2, 3, add: undefined, delete: undefined, clear: undefined }",
     "id": "Freeze Set object",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -1761,8 +1594,7 @@
     "example": "fullscreen(); // Opens `body` in fullscreen mode\nfullscreen(false); // Exits fullscreen mode",
     "id": "Toggle fullscreen mode",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -1771,8 +1603,7 @@
     "example": "let m = functionName(Math.max)(5, 6);\n// max (logged in debug channel of console)\n// m = 6",
     "id": "Get function name",
     "tags": [
-      "function",
-      "beginner"
+      "function"
     ]
   },
   {
@@ -1782,8 +1613,7 @@
     "id": "Function property names",
     "tags": [
       "object",
-      "function",
-      "advanced"
+      "function"
     ]
   },
   {
@@ -1794,8 +1624,7 @@
     "tags": [
       "math",
       "algorithm",
-      "recursion",
-      "intermediate"
+      "recursion"
     ]
   },
   {
@@ -1805,8 +1634,7 @@
     "id": "Generate items",
     "tags": [
       "array",
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -1816,8 +1644,7 @@
     "id": "Generate until condition is met",
     "tags": [
       "function",
-      "generator",
-      "advanced"
+      "generator"
     ]
   },
   {
@@ -1827,8 +1654,7 @@
     "id": "Generate while condition is met",
     "tags": [
       "function",
-      "generator",
-      "advanced"
+      "generator"
     ]
   },
   {
@@ -1839,8 +1665,7 @@
     "tags": [
       "function",
       "array",
-      "generator",
-      "beginner"
+      "generator"
     ]
   },
   {
@@ -1850,8 +1675,7 @@
     "id": "Geometric progression",
     "tags": [
       "math",
-      "algorithm",
-      "intermediate"
+      "algorithm"
     ]
   },
   {
@@ -1861,8 +1685,7 @@
     "id": "Get nested object property from path string",
     "tags": [
       "object",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -1871,8 +1694,7 @@
     "example": "getAncestors(document.querySelector('nav'));\n// [document, html, body, header, nav]",
     "id": "Get element ancestors",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -1883,8 +1705,7 @@
     "tags": [
       "string",
       "browser",
-      "regexp",
-      "beginner"
+      "regexp"
     ]
   },
   {
@@ -1894,8 +1715,7 @@
     "id": "Get colon time from date",
     "tags": [
       "date",
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -1904,8 +1724,7 @@
     "example": "getDaysDiffBetweenDates(new Date('2017-12-13'), new Date('2017-12-22')); // 9",
     "id": "Date difference in days",
     "tags": [
-      "date",
-      "intermediate"
+      "date"
     ]
   },
   {
@@ -1914,8 +1733,7 @@
     "example": "getElementsBiggerThanViewport(); // <div id=\"ultra-wide-item\" />",
     "id": "Get elements bigger than viewport",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -1924,8 +1742,7 @@
     "example": "getHoursDiffBetweenDates(\n  new Date('2021-04-24 10:25:00'),\n  new Date('2021-04-25 10:25:00')\n); // 24",
     "id": "Date difference in hours",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -1934,8 +1751,7 @@
     "example": "getImages(document, true); // ['image1.jpg', 'image2.png', 'image1.png', '...']\ngetImages(document, false); // ['image1.jpg', 'image2.png', '...']",
     "id": "Get all images in element",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -1944,8 +1760,7 @@
     "example": "getMeridiemSuffixOfInteger(0); // '12am'\ngetMeridiemSuffixOfInteger(11); // '11am'\ngetMeridiemSuffixOfInteger(13); // '1pm'\ngetMeridiemSuffixOfInteger(25); // '1pm'",
     "id": "Get meridiem suffix of integer",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -1954,8 +1769,7 @@
     "example": "getMinutesDiffBetweenDates(\n  new Date('2021-04-24 01:00:15'),\n  new Date('2021-04-24 02:00:15')\n); // 60",
     "id": "Date difference in minutes",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -1964,8 +1778,7 @@
     "example": "getMonthsDiffBetweenDates(new Date('2017-12-13'), new Date('2018-04-29')); // 4",
     "id": "Date difference in months",
     "tags": [
-      "date",
-      "intermediate"
+      "date"
     ]
   },
   {
@@ -1974,8 +1787,7 @@
     "example": "getParentsUntil(document.querySelector('#home-link'), 'header');\n// [header, nav, ul, li]",
     "id": "Get parents until element matches selector",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -1984,8 +1796,7 @@
     "example": "getProtocol(); // 'https:'",
     "id": "Current page protocol",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -1994,8 +1805,7 @@
     "example": "getScrollPosition(); // {x: 0, y: 200}",
     "id": "Scroll position",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -2004,8 +1814,7 @@
     "example": "getSecondsDiffBetweenDates(\n  new Date('2020-12-24 00:00:15'),\n  new Date('2020-12-24 00:00:17')\n); // 2",
     "id": "Date difference in seconds",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -2014,8 +1823,7 @@
     "example": "getSelectedText(); // 'Lorem ipsum'",
     "id": "Get selected text",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -2024,8 +1832,7 @@
     "example": "getSiblings(document.querySelector('head')); // ['body']",
     "id": "Array of element's siblings",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -2035,8 +1842,7 @@
     "id": "Get style for element",
     "tags": [
       "browser",
-      "css",
-      "beginner"
+      "css"
     ]
   },
   {
@@ -2045,8 +1851,7 @@
     "example": "getTimestamp(); // 1602162242",
     "id": "Unix timestamp from date",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -2055,8 +1860,7 @@
     "example": "getType(new Set([1, 2, 3])); // 'Set'",
     "id": "Type of value",
     "tags": [
-      "type",
-      "beginner"
+      "type"
     ]
   },
   {
@@ -2067,8 +1871,7 @@
     "tags": [
       "browser",
       "string",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -2077,8 +1880,7 @@
     "example": "getVerticalOffset('.my-element'); // 120",
     "id": "Vertical offset of element",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -2088,8 +1890,7 @@
     "id": "Group array elements",
     "tags": [
       "array",
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -2099,8 +1900,7 @@
     "id": "Hamming distance",
     "tags": [
       "math",
-      "algorithm",
-      "intermediate"
+      "algorithm"
     ]
   },
   {
@@ -2110,8 +1910,7 @@
     "id": "Check if HTML element has class",
     "tags": [
       "browser",
-      "css",
-      "beginner"
+      "css"
     ]
   },
   {
@@ -2120,8 +1919,7 @@
     "example": "hasDuplicates([0, 1, 1, 2]); // true\nhasDuplicates([0, 1, 2, 3]); // false",
     "id": "Check if array has duplicates",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -2130,8 +1928,7 @@
     "example": "// node myScript.js -s --test --cool=true\nhasFlags('-s'); // true\nhasFlags('--test', 'cool=true', '-s'); // true\nhasFlags('special'); // false",
     "id": "Check if process arguments contain flags",
     "tags": [
-      "node",
-      "intermediate"
+      "node"
     ]
   },
   {
@@ -2140,8 +1937,7 @@
     "example": "let obj = {\n  a: 1,\n  b: { c: 4 },\n  'b.d': 5\n};\nhasKey(obj, ['a']); // true\nhasKey(obj, ['b']); // true\nhasKey(obj, ['b', 'c']); // true\nhasKey(obj, ['b.d']); // true\nhasKey(obj, ['d']); // false\nhasKey(obj, ['c']); // false\nhasKey(obj, ['b', 'f']); // false",
     "id": "Check if object has key",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -2150,8 +1946,7 @@
     "example": "hasMany([1, 3], x => x % 2); // true\nhasMany([1, 2], x => x % 2); // false",
     "id": "Check if array has many matches",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -2160,8 +1955,7 @@
     "example": "hasOne([1, 2], x => x % 2); // true\nhasOne([1, 3], x => x % 2); // false",
     "id": "Check if array has only one match",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -2171,8 +1965,7 @@
     "id": "Calculate SHA-256 hash (browser)",
     "tags": [
       "browser",
-      "promise",
-      "advanced"
+      "promise"
     ]
   },
   {
@@ -2182,8 +1975,7 @@
     "id": "Calculate SHA-256 hash (Node.js)",
     "tags": [
       "node",
-      "promise",
-      "advanced"
+      "promise"
     ]
   },
   {
@@ -2192,8 +1984,7 @@
     "example": "haveSameContents([1, 2, 4], [2, 4, 1]); // true",
     "id": "Check if arrays have same contents",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -2202,8 +1993,7 @@
     "example": "head([1, 2, 3]); // 1\nhead([]); // undefined\nhead(null); // undefined\nhead(undefined); // undefined",
     "id": "Head of array",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -2214,8 +2004,7 @@
     "tags": [
       "algorithm",
       "array",
-      "recursion",
-      "advanced"
+      "recursion"
     ]
   },
   {
@@ -2225,8 +2014,7 @@
     "id": "Hex to RGB",
     "tags": [
       "string",
-      "math",
-      "advanced"
+      "math"
     ]
   },
   {
@@ -2236,8 +2024,7 @@
     "id": "Hide elements",
     "tags": [
       "browser",
-      "css",
-      "beginner"
+      "css"
     ]
   },
   {
@@ -2246,8 +2033,7 @@
     "example": "httpDelete('https://jsonplaceholder.typicode.com/posts/1', request => {\n  console.log(request.responseText);\n}); // Logs: {}",
     "id": "HTTP delete",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -2256,8 +2042,7 @@
     "example": "httpGet(\n  'https://jsonplaceholder.typicode.com/posts/1',\n  console.log\n); /*\nLogs: {\n  \"userId\": 1,\n  \"id\": 1,\n  \"title\": \"sunt aut facere repellat provident occaecati excepturi optio reprehenderit\",\n  \"body\": \"quia et suscipit\\nsuscipit recusandae consequuntur expedita et cum\\nreprehenderit molestiae ut ut quas totam\\nnostrum rerum est autem sunt rem eveniet architecto\"\n}\n*/",
     "id": "HTTP get",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -2266,8 +2051,7 @@
     "example": "const newPost = {\n  userId: 1,\n  id: 1337,\n  title: 'Foo',\n  body: 'bar bar bar'\n};\nconst data = JSON.stringify(newPost);\nhttpPost(\n  'https://jsonplaceholder.typicode.com/posts',\n  data,\n  console.log\n); /*\nLogs: {\n  \"userId\": 1,\n  \"id\": 1337,\n  \"title\": \"Foo\",\n  \"body\": \"bar bar bar\"\n}\n*/\nhttpPost(\n  'https://jsonplaceholder.typicode.com/posts',\n  null, // does not send a body\n  console.log\n); /*\nLogs: {\n  \"id\": 101\n}\n*/",
     "id": "HTTP post",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -2276,8 +2060,7 @@
     "example": "const password = 'fooBaz';\nconst data = JSON.stringify({\n  id: 1,\n  title: 'foo',\n  body: 'bar',\n  userId: 1\n});\nhttpPut('https://jsonplaceholder.typicode.com/posts/1', data, request => {\n  console.log(request.responseText);\n}); /*\nLogs: {\n  id: 1,\n  title: 'foo',\n  body: 'bar',\n  userId: 1\n}\n*/",
     "id": "HTTP put",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -2286,8 +2069,7 @@
     "example": "httpsRedirect();\n// If you are on http://mydomain.com, you are redirected to https://mydomain.com",
     "id": "Redirect to HTTPS",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -2296,8 +2078,7 @@
     "example": "const numbers = Array(10000).fill().map((_, i) => i);\n\nconst sumReduce = () => numbers.reduce((acc, n) => acc + n, 0);\nconst sumForLoop = () => {\n  let sum = 0;\n  for (let i = 0; i < numbers.length; i++) sum += numbers[i];\n  return sum;\n};\n\nMath.round(hz(sumReduce)); // 572\nMath.round(hz(sumForLoop)); // 4784",
     "id": "Hertz frequency of function",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -2306,8 +2087,7 @@
     "example": "inRange(3, 2, 5); // true\ninRange(3, 4); // true\ninRange(2, 3, 5); // false\ninRange(3, 2); // false",
     "id": "Number in range",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -2316,8 +2096,7 @@
     "example": "includesAll([1, 2, 3, 4], [1, 4]); // true\nincludesAll([1, 2, 3, 4], [1, 5]); // false",
     "id": "Check if array includes all values",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -2326,8 +2105,7 @@
     "example": "includesAny([1, 2, 3, 4], [2, 9]); // true\nincludesAny([1, 2, 3, 4], [8, 9]); // false",
     "id": "Check if array includes any values",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -2336,8 +2114,7 @@
     "example": "indentString('Lorem\\nIpsum', 2); // '  Lorem\\n  Ipsum'\nindentString('Lorem\\nIpsum', 2, '_'); // '__Lorem\\n__Ipsum'",
     "id": "Indent string",
     "tags": [
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -2347,8 +2124,7 @@
     "id": "Index array based on function",
     "tags": [
       "array",
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -2357,8 +2133,7 @@
     "example": "indexOfAll([1, 2, 3, 1, 2, 3], 1); // [0, 3]\nindexOfAll([1, 2, 3], 4); // []",
     "id": "Index of all matches",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -2369,8 +2144,7 @@
     "tags": [
       "string",
       "algorithm",
-      "generator",
-      "intermediate"
+      "generator"
     ]
   },
   {
@@ -2380,8 +2154,7 @@
     "id": "Array to object based on key",
     "tags": [
       "array",
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -2390,8 +2163,7 @@
     "example": "initial([1, 2, 3]); // [1, 2]",
     "id": "Array without last element",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -2400,8 +2172,7 @@
     "example": "initialize2DArray(2, 2, 0); // [[0, 0], [0, 0]]",
     "id": "Initialize 2D array",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -2410,8 +2181,7 @@
     "example": "initializeArrayWithRange(5); // [0, 1, 2, 3, 4, 5]\ninitializeArrayWithRange(7, 3); // [3, 4, 5, 6, 7]\ninitializeArrayWithRange(9, 0, 2); // [0, 2, 4, 6, 8]",
     "id": "Initialize array with range",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -2420,8 +2190,7 @@
     "example": "initializeArrayWithRangeRight(5); // [5, 4, 3, 2, 1, 0]\ninitializeArrayWithRangeRight(7, 3); // [7, 6, 5, 4, 3]\ninitializeArrayWithRangeRight(9, 0, 2); // [8, 6, 4, 2, 0]",
     "id": "Initialize array with reversed range",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -2430,8 +2199,7 @@
     "example": "initializeArrayWithValues(5, 2); // [2, 2, 2, 2, 2]",
     "id": "Initialize array with values",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -2441,8 +2209,7 @@
     "id": "Initialize n-dimensional array",
     "tags": [
       "array",
-      "recursion",
-      "intermediate"
+      "recursion"
     ]
   },
   {
@@ -2452,8 +2219,7 @@
     "id": "Inject CSS",
     "tags": [
       "browser",
-      "css",
-      "intermediate"
+      "css"
     ]
   },
   {
@@ -2462,8 +2228,7 @@
     "example": "insertAfter(document.getElementById('myId'), '<p>after</p>');\n// <div id=\"myId\">...</div> <p>after</p>",
     "id": "Insert HTML string after element",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -2472,8 +2237,7 @@
     "example": "let myArray = [1, 2, 3, 4];\ninsertAt(myArray, 2, 5); // myArray = [1, 2, 3, 5, 4]\n\nlet otherArray = [2, 10];\ninsertAt(otherArray, 0, 4, 6, 8); // otherArray = [2, 4, 6, 8, 10]",
     "id": "Insert value at array index",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -2482,8 +2246,7 @@
     "example": "insertBefore(document.getElementById('myId'), '<p>before</p>');\n// <p>before</p> <div id=\"myId\">...</div>",
     "id": "Insert HTML string before element",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -2493,8 +2256,7 @@
     "id": "Insertion sort",
     "tags": [
       "algorithm",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -2503,8 +2265,7 @@
     "example": "intersection([1, 2, 3], [4, 3, 2]); // [2, 3]",
     "id": "Array intersection",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -2513,8 +2274,7 @@
     "example": "intersectionBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [2.1]\nintersectionBy(\n  [{ title: 'Apple' }, { title: 'Orange' }],\n  [{ title: 'Orange' }, { title: 'Melon' }],\n  x => x.title\n); // [{ title: 'Orange' }]",
     "id": "Array intersection based on function",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -2523,8 +2283,7 @@
     "example": "intersectionWith(\n  [1, 1.2, 1.5, 3, 0],\n  [1.9, 3, 0, 3.9],\n  (a, b) => Math.round(a) === Math.round(b)\n); // [1.5, 3, 0]",
     "id": "Array intersection based on function",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -2533,8 +2292,7 @@
     "example": "invertKeyValues({ a: 1, b: 2, c: 1 }); // { 1: [ 'a', 'c' ], 2: [ 'b' ] }\ninvertKeyValues({ a: 1, b: 2, c: 1 }, value => 'group' + value);\n// { group1: [ 'a', 'c' ], group2: [ 'b' ] }",
     "id": "Invert object",
     "tags": [
-      "object",
-      "advanced"
+      "object"
     ]
   },
   {
@@ -2544,8 +2302,7 @@
     "id": "Check if value is of type",
     "tags": [
       "type",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -2556,8 +2313,7 @@
     "tags": [
       "string",
       "browser",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -2566,8 +2322,7 @@
     "example": "isAfterDate(new Date(2010, 10, 21), new Date(2010, 10, 20)); // true",
     "id": "Check if date is after another date",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -2577,8 +2332,7 @@
     "id": "String is alpha",
     "tags": [
       "string",
-      "regexp",
-      "beginner"
+      "regexp"
     ]
   },
   {
@@ -2588,8 +2342,7 @@
     "id": "String is alphanumeric",
     "tags": [
       "string",
-      "regexp",
-      "beginner"
+      "regexp"
     ]
   },
   {
@@ -2599,8 +2352,7 @@
     "id": "String is anagram",
     "tags": [
       "string",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -2610,8 +2362,7 @@
     "id": "Value is array-like",
     "tags": [
       "type",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -2621,8 +2372,7 @@
     "id": "Value is async function",
     "tags": [
       "type",
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -2631,8 +2381,7 @@
     "example": "isBeforeDate(new Date(2010, 10, 20), new Date(2010, 10, 21)); // true",
     "id": "Check if date is before another date",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -2641,8 +2390,7 @@
     "example": "isBetweenDates(\n  new Date(2010, 11, 20),\n  new Date(2010, 11, 30),\n  new Date(2010, 11, 19)\n); // false\nisBetweenDates(\n  new Date(2010, 11, 20),\n  new Date(2010, 11, 30),\n  new Date(2010, 11, 25)\n); // true",
     "id": "Check if date is between two dates",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -2651,8 +2399,7 @@
     "example": "isBoolean(null); // false\nisBoolean(false); // true",
     "id": "Value is boolean",
     "tags": [
-      "type",
-      "beginner"
+      "type"
     ]
   },
   {
@@ -2662,8 +2409,7 @@
     "id": "Environment is browser",
     "tags": [
       "browser",
-      "node",
-      "intermediate"
+      "node"
     ]
   },
   {
@@ -2672,8 +2418,7 @@
     "example": "isBrowserTabFocused(); // true",
     "id": "Check if browser tab is focused",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -2682,8 +2427,7 @@
     "example": "isContainedIn([1, 4], [2, 4, 1]); // true",
     "id": "Array is contained in other array",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -2692,8 +2436,7 @@
     "example": "isDateValid('December 17, 1995 03:24:00'); // true\nisDateValid('1995-12-17T03:24:00'); // true\nisDateValid('1995-12-17 T03:24:00'); // false\nisDateValid('Duck'); // false\nisDateValid(1995, 11, 17); // true\nisDateValid(1995, 11, 17, 'Duck'); // false\nisDateValid({}); // false",
     "id": "Check if date is valid",
     "tags": [
-      "date",
-      "intermediate"
+      "date"
     ]
   },
   {
@@ -2703,8 +2446,7 @@
     "id": "Check if object is deep frozen",
     "tags": [
       "object",
-      "recursion",
-      "intermediate"
+      "recursion"
     ]
   },
   {
@@ -2713,8 +2455,7 @@
     "example": "isDisjoint(new Set([1, 2]), new Set([3, 4])); // true\nisDisjoint(new Set([1, 2]), new Set([1, 3])); // false",
     "id": "Disjointed iterables",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -2723,8 +2464,7 @@
     "example": "isDivisible(6, 3); // true",
     "id": "Number is divisible",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -2734,8 +2474,7 @@
     "id": "Stream is duplex",
     "tags": [
       "node",
-      "type",
-      "intermediate"
+      "type"
     ]
   },
   {
@@ -2747,8 +2486,7 @@
       "type",
       "array",
       "object",
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -2757,8 +2495,7 @@
     "example": "isEven(3); // false",
     "id": "Number is even",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -2768,8 +2505,7 @@
     "id": "Value is function",
     "tags": [
       "type",
-      "function",
-      "beginner"
+      "function"
     ]
   },
   {
@@ -2779,8 +2515,7 @@
     "id": "Value is generator function",
     "tags": [
       "type",
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -2789,8 +2524,7 @@
     "example": "isISOString('2020-10-12T10:10:10.000Z'); // true\nisISOString('2020-10-12'); // false",
     "id": "String is ISO formatted date",
     "tags": [
-      "date",
-      "intermediate"
+      "date"
     ]
   },
   {
@@ -2799,8 +2533,7 @@
     "example": "isLeapYear(2019); // false\nisLeapYear(2020); // true",
     "id": "Check for leap year",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -2809,8 +2542,7 @@
     "example": "isLocalStorageEnabled(); // true, if localStorage is accessible",
     "id": "Check if localStorage is enabled",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -2819,8 +2551,7 @@
     "example": "isLowerCase('abc'); // true\nisLowerCase('a3@$'); // true\nisLowerCase('Ab4'); // false",
     "id": "String is lowercase",
     "tags": [
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -2829,8 +2560,7 @@
     "example": "isNegativeZero(-0); // true\nisNegativeZero(0); // false",
     "id": "Number is negative zero",
     "tags": [
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -2839,8 +2569,7 @@
     "example": "isNil(null); // true\nisNil(undefined); // true\nisNil(''); // false",
     "id": "Value is nil",
     "tags": [
-      "type",
-      "beginner"
+      "type"
     ]
   },
   {
@@ -2850,8 +2579,7 @@
     "id": "Environment is Node.js",
     "tags": [
       "node",
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -2860,8 +2588,7 @@
     "example": "isNull(null); // true",
     "id": "Value is null",
     "tags": [
-      "type",
-      "beginner"
+      "type"
     ]
   },
   {
@@ -2871,8 +2598,7 @@
     "id": "Value is number",
     "tags": [
       "type",
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -2882,8 +2608,7 @@
     "id": "Value is object",
     "tags": [
       "type",
-      "object",
-      "beginner"
+      "object"
     ]
   },
   {
@@ -2893,8 +2618,7 @@
     "id": "Value is object-like",
     "tags": [
       "type",
-      "object",
-      "beginner"
+      "object"
     ]
   },
   {
@@ -2903,8 +2627,7 @@
     "example": "isOdd(3); // true",
     "id": "Number is odd",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -2914,8 +2637,7 @@
     "id": "Value is plain object",
     "tags": [
       "type",
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -2924,8 +2646,7 @@
     "example": "isPowerOfTen(1); // true\nisPowerOfTen(10); // true\nisPowerOfTen(20); // false",
     "id": "Number is power of ten",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -2934,8 +2655,7 @@
     "example": "isPowerOfTwo(0); // false\nisPowerOfTwo(1); // true\nisPowerOfTwo(8); // true",
     "id": "Number is power of two",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -2945,8 +2665,7 @@
     "id": "Number is prime",
     "tags": [
       "math",
-      "algorithm",
-      "beginner"
+      "algorithm"
     ]
   },
   {
@@ -2955,8 +2674,7 @@
     "example": "isPrimitive(null); // true\nisPrimitive(undefined); // true\nisPrimitive(50); // true\nisPrimitive('Hello!'); // true\nisPrimitive(false); // true\nisPrimitive(Symbol()); // true\nisPrimitive([]); // false\nisPrimitive({}); // false",
     "id": "Number is primitive",
     "tags": [
-      "type",
-      "intermediate"
+      "type"
     ]
   },
   {
@@ -2967,8 +2685,7 @@
     "tags": [
       "type",
       "function",
-      "promise",
-      "intermediate"
+      "promise"
     ]
   },
   {
@@ -2978,8 +2695,7 @@
     "id": "Stream is readable",
     "tags": [
       "node",
-      "type",
-      "intermediate"
+      "type"
     ]
   },
   {
@@ -2988,8 +2704,7 @@
     "example": "isSameDate(new Date(2010, 10, 20), new Date(2010, 10, 20)); // true",
     "id": "Date is same as another date",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -2998,8 +2713,7 @@
     "example": "const origin = new URL('https://www.30secondsofcode.org/about');\nconst destination = new URL('https://www.30secondsofcode.org/contact');\nisSameOrigin(origin, destination); // true\nconst other = new URL('https://developer.mozilla.org);\nisSameOrigin(origin, other); // false",
     "id": "Same-origin URLs",
     "tags": [
-      "object",
-      "beginner"
+      "object"
     ]
   },
   {
@@ -3008,8 +2722,7 @@
     "example": "isSessionStorageEnabled(); // true, if sessionStorage is accessible",
     "id": "Check if sessionStorage is enabled",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -3018,8 +2731,7 @@
     "example": "isSorted([0, 1, 2, 2]); // 1\nisSorted([4, 3, 2]); // -1\nisSorted([4, 3, 5]); // 0\nisSorted([4]); // 0",
     "id": "Array is sorted",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -3029,8 +2741,7 @@
     "id": "Value is stream",
     "tags": [
       "node",
-      "type",
-      "intermediate"
+      "type"
     ]
   },
   {
@@ -3040,8 +2751,7 @@
     "id": "Value is string",
     "tags": [
       "type",
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -3050,8 +2760,7 @@
     "example": "isSymbol(Symbol('x')); // true",
     "id": "Value is symbol",
     "tags": [
-      "type",
-      "beginner"
+      "type"
     ]
   },
   {
@@ -3060,8 +2769,7 @@
     "example": "isTravisCI(); // true (if code is running on Travis CI)",
     "id": "Environment is Travis CI",
     "tags": [
-      "node",
-      "intermediate"
+      "node"
     ]
   },
   {
@@ -3070,8 +2778,7 @@
     "example": "isUndefined(undefined); // true",
     "id": "Value is undefined",
     "tags": [
-      "type",
-      "beginner"
+      "type"
     ]
   },
   {
@@ -3080,8 +2787,7 @@
     "example": "isUpperCase('ABC'); // true\nisUpperCase('A3@$'); // true\nisUpperCase('aB4'); // false",
     "id": "String is uppercase",
     "tags": [
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -3090,8 +2796,7 @@
     "example": "isValidJSON('{\"name\":\"Adam\",\"age\":20}'); // true\nisValidJSON('{\"name\":\"Adam\",age:\"20\"}'); // false\nisValidJSON(null); // true",
     "id": "String is valid JSON",
     "tags": [
-      "type",
-      "intermediate"
+      "type"
     ]
   },
   {
@@ -3100,8 +2805,7 @@
     "example": "isWeekday(); // true (if current date is 2019-07-19)",
     "id": "Date is weekday",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -3110,8 +2814,7 @@
     "example": "isWeekend(); // 2018-10-19 (if current date is 2018-10-18)",
     "id": "Date is weekend",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -3121,8 +2824,7 @@
     "id": "Stream is writable",
     "tags": [
       "node",
-      "type",
-      "intermediate"
+      "type"
     ]
   },
   {
@@ -3131,8 +2833,7 @@
     "example": "join(['pen', 'pineapple', 'apple', 'pen'],',','&'); // 'pen,pineapple,apple&pen'\njoin(['pen', 'pineapple', 'apple', 'pen'], ','); // 'pen,pineapple,apple,pen'\njoin(['pen', 'pineapple', 'apple', 'pen']); // 'pen,pineapple,apple,pen'",
     "id": "Join array into string",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -3141,8 +2842,7 @@
     "example": "juxt(\n  x => x + 1,\n  x => x - 1,\n  x => x * 10\n)(1, 2, 3); // [[2, 3, 4], [0, 1, 2], [10, 20, 30]]\njuxt(\n  s => s.length,\n  s => s.split(' ').join('-')\n)('30 seconds of code'); // [[18], ['30-seconds-of-code']]",
     "id": "Juxtapose functions",
     "tags": [
-      "function",
-      "advanced"
+      "function"
     ]
   },
   {
@@ -3152,8 +2852,7 @@
     "id": "K-means clustering",
     "tags": [
       "algorithm",
-      "array",
-      "advanced"
+      "array"
     ]
   },
   {
@@ -3163,8 +2862,7 @@
     "id": "K-nearest neighbors",
     "tags": [
       "algorithm",
-      "array",
-      "advanced"
+      "array"
     ]
   },
   {
@@ -3173,8 +2871,7 @@
     "example": "kmToMiles(8.1) // 5.0331051",
     "id": "Km to miles",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -3183,8 +2880,7 @@
     "example": "last([1, 2, 3]); // 3\nlast([]); // undefined\nlast(null); // undefined\nlast(undefined); // undefined",
     "id": "Last array element",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -3193,8 +2889,7 @@
     "example": "lastDateOfMonth(new Date('2015-08-11')); // '2015-08-30'",
     "id": "Last date of month",
     "tags": [
-      "date",
-      "intermediate"
+      "date"
     ]
   },
   {
@@ -3205,8 +2900,7 @@
     "tags": [
       "math",
       "algorithm",
-      "recursion",
-      "intermediate"
+      "recursion"
     ]
   },
   {
@@ -3216,8 +2910,7 @@
     "id": "Levenshtein distance",
     "tags": [
       "string",
-      "algorithm",
-      "intermediate"
+      "algorithm"
     ]
   },
   {
@@ -3227,8 +2920,7 @@
     "id": "Linear search",
     "tags": [
       "algorithm",
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -3238,8 +2930,7 @@
     "id": "Listen for an event only once",
     "tags": [
       "browser",
-      "event",
-      "beginner"
+      "event"
     ]
   },
   {
@@ -3248,8 +2939,7 @@
     "example": "logBase(10, 10); // 1\nlogBase(100, 10); // 2",
     "id": "Logarithm in specific base",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -3258,8 +2948,7 @@
     "example": "longestItem('this', 'is', 'a', 'testcase'); // 'testcase'\nlongestItem(...['a', 'ab', 'abc']); // 'abc'\nlongestItem(...['a', 'ab', 'abc'], 'abcd'); // 'abcd'\nlongestItem([1, 2, 3], [1, 2], [1, 2, 3, 4, 5]); // [1, 2, 3, 4, 5]\nlongestItem([1, 2, 3], 'foobar'); // 'foobar'",
     "id": "Longest item in array",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -3268,8 +2957,7 @@
     "example": "const myObj = { Name: 'Adam', sUrnAME: 'Smith' };\nconst myObjLower = lowercaseKeys(myObj); // {name: 'Adam', surname: 'Smith'};",
     "id": "Lowercase object keys",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -3279,8 +2967,7 @@
     "id": "Luhn check",
     "tags": [
       "math",
-      "algorithm",
-      "advanced"
+      "algorithm"
     ]
   },
   {
@@ -3289,8 +2976,7 @@
     "example": "mapConsecutive([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3, x => x.join('-'));\n// ['1-2-3', '2-3-4', '3-4-5', '4-5-6', '5-6-7', '6-7-8', '7-8-9', '8-9-10'];",
     "id": "Map consecutive elements",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -3299,8 +2985,7 @@
     "example": "mapKeys({ a: 1, b: 2 }, (val, key) => key + val); // { a1: 1, b2: 2 }",
     "id": "Map object keys",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -3309,8 +2994,7 @@
     "example": "mapNumRange(5, 0, 10, 0, 100); // 50",
     "id": "Map number to range",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -3320,8 +3004,7 @@
     "id": "Map array to object",
     "tags": [
       "array",
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -3330,8 +3013,7 @@
     "example": "mapString('lorem ipsum', c => c.toUpperCase()); // 'LOREM IPSUM'",
     "id": "Map string",
     "tags": [
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -3340,8 +3022,7 @@
     "example": "const users = {\n  fred: { user: 'fred', age: 40 },\n  pebbles: { user: 'pebbles', age: 1 }\n};\nmapValues(users, u => u.age); // { fred: 40, pebbles: 1 }",
     "id": "Map object values",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -3350,8 +3031,7 @@
     "example": "mask(1234567890); // '******7890'\nmask(1234567890, 3); // '*******890'\nmask(1234567890, -4, '$'); // '$$$$567890'",
     "id": "Mask a value",
     "tags": [
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -3360,8 +3040,7 @@
     "example": "matches({ age: 25, hair: 'long', beard: true }, { hair: 'long', beard: true });\n// true\nmatches({ hair: 'long', beard: true }, { age: 25, hair: 'long', beard: true });\n// false",
     "id": "Match object properties",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -3370,8 +3049,7 @@
     "example": "const isGreeting = val => /^h(?:i|ello)$/.test(val);\nmatchesWith(\n  { greeting: 'hello' },\n  { greeting: 'hi' },\n  (oV, sV) => isGreeting(oV) && isGreeting(sV)\n); // true",
     "id": "Matches object properties based on function",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -3381,8 +3059,7 @@
     "id": "Max array value based on function",
     "tags": [
       "math",
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -3391,8 +3068,7 @@
     "example": "const dates = [\n  new Date(2017, 4, 13),\n  new Date(2018, 2, 12),\n  new Date(2016, 0, 10),\n  new Date(2016, 0, 9)\n];\nmaxDate(...dates); // 2018-03-11T22:00:00.000Z",
     "id": "Max date",
     "tags": [
-      "date",
-      "intermediate"
+      "date"
     ]
   },
   {
@@ -3402,8 +3078,7 @@
     "id": "N max elements",
     "tags": [
       "array",
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -3413,8 +3088,7 @@
     "id": "Median",
     "tags": [
       "math",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -3423,8 +3097,7 @@
     "example": "// See the `anagrams` snippet.\nconst anagramsCached = memoize(anagrams);\nanagramsCached('javascript'); // takes a long time\nanagramsCached('javascript'); // returns virtually instantly since it's cached\nconsole.log(anagramsCached.cache); // The cached anagrams map",
     "id": "Memoize function",
     "tags": [
-      "function",
-      "advanced"
+      "function"
     ]
   },
   {
@@ -3434,8 +3107,7 @@
     "id": "Merge objects",
     "tags": [
       "object",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -3446,8 +3118,7 @@
     "tags": [
       "algorithm",
       "array",
-      "recursion",
-      "advanced"
+      "recursion"
     ]
   },
   {
@@ -3456,8 +3127,7 @@
     "example": "mergeSortedArrays([1, 4, 5], [2, 3, 6]); // [1, 2, 3, 4, 5, 6]",
     "id": "Merge sorted arrays",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -3466,8 +3136,7 @@
     "example": "midpoint([2, 2], [4, 4]); // [3, 3]\nmidpoint([4, 4], [6, 6]); // [5, 5]\nmidpoint([1, 3], [2, 4]); // [1.5, 3.5]",
     "id": "Midpoint",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -3476,8 +3145,7 @@
     "example": "milesToKm(5); // ~8.04672",
     "id": "Miles to km",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -3487,8 +3155,7 @@
     "id": "Min array value based on function",
     "tags": [
       "math",
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -3497,8 +3164,7 @@
     "example": "const dates = [\n  new Date(2017, 4, 13),\n  new Date(2018, 2, 12),\n  new Date(2016, 0, 10),\n  new Date(2016, 0, 9)\n];\nminDate(...dates); // 2016-01-08T22:00:00.000Z",
     "id": "Min date",
     "tags": [
-      "date",
-      "intermediate"
+      "date"
     ]
   },
   {
@@ -3508,8 +3174,7 @@
     "id": "N min elements",
     "tags": [
       "array",
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -3518,8 +3183,7 @@
     "example": "mostFrequent(['a', 'b', 'a', 'c', 'a', 'a', 'b']); // 'a'",
     "id": "Most frequent element in array",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -3528,8 +3192,7 @@
     "example": "mostPerformant([\n  () => {\n    // Loops through the entire array before returning `false`\n    [1, 2, 3, 4, 5, 6, 7, 8, 9, '10'].every(el => typeof el === 'number');\n  },\n  () => {\n    // Only needs to reach index `1` before returning `false`\n    [1, '2', 3, 4, 5, 6, 7, 8, 9, 10].every(el => typeof el === 'number');\n  }\n]); // 1",
     "id": "Most performant function",
     "tags": [
-      "function",
-      "advanced"
+      "function"
     ]
   },
   {
@@ -3538,8 +3201,7 @@
     "example": "[1, 2, 3, 4, 5, 6].filter(negate(n => n % 2 === 0)); // [ 1, 3, 5 ]",
     "id": "Negate predicate",
     "tags": [
-      "function",
-      "beginner"
+      "function"
     ]
   },
   {
@@ -3549,8 +3211,7 @@
     "id": "Nest objects",
     "tags": [
       "object",
-      "recursion",
-      "intermediate"
+      "recursion"
     ]
   },
   {
@@ -3560,8 +3221,7 @@
     "id": "NodeList to array",
     "tags": [
       "browser",
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -3570,8 +3230,7 @@
     "example": "none([0, 1, 3, 0], x => x == 2); // true\nnone([0, 0, 0]); // true",
     "id": "Test if all array elements are falsy",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -3581,8 +3240,7 @@
     "id": "Logical nor",
     "tags": [
       "math",
-      "logic",
-      "beginner"
+      "logic"
     ]
   },
   {
@@ -3592,8 +3250,7 @@
     "id": "Normalize line endings",
     "tags": [
       "string",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -3603,8 +3260,7 @@
     "id": "Logical not",
     "tags": [
       "math",
-      "logic",
-      "beginner"
+      "logic"
     ]
   },
   {
@@ -3613,8 +3269,7 @@
     "example": "const third = nthArg(2);\nthird(1, 2, 3); // 3\nthird(1, 2); // undefined\nconst last = nthArg(-1);\nlast(1, 2, 3, 4, 5); // 5",
     "id": "Nth argument",
     "tags": [
-      "function",
-      "beginner"
+      "function"
     ]
   },
   {
@@ -3623,8 +3278,7 @@
     "example": "nthElement(['a', 'b', 'c'], 1); // 'b'\nnthElement(['a', 'b', 'b'], -3); // 'a'",
     "id": "Nth element",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -3633,8 +3287,7 @@
     "example": "nthRoot(32, 5); // 2",
     "id": "Nth root of number",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -3644,8 +3297,7 @@
     "id": "Object from pairs",
     "tags": [
       "object",
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -3655,8 +3307,7 @@
     "id": "Object to entries",
     "tags": [
       "object",
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -3666,8 +3317,7 @@
     "id": "Object to pairs",
     "tags": [
       "object",
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -3676,8 +3326,7 @@
     "example": "objectToQueryString({ page: '1', size: '2kg', key: undefined });\n// '?page=1&size=2kg'",
     "id": "Object to query string",
     "tags": [
-      "object",
-      "advanced"
+      "object"
     ]
   },
   {
@@ -3687,8 +3336,7 @@
     "id": "Observe element mutations",
     "tags": [
       "browser",
-      "event",
-      "advanced"
+      "event"
     ]
   },
   {
@@ -3698,8 +3346,7 @@
     "id": "Remove event listener from element",
     "tags": [
       "browser",
-      "event",
-      "intermediate"
+      "event"
     ]
   },
   {
@@ -3708,8 +3355,7 @@
     "example": "offset([1, 2, 3, 4, 5], 2); // [3, 4, 5, 1, 2]\noffset([1, 2, 3, 4, 5], -2); // [4, 5, 1, 2, 3]",
     "id": "Offset array elements",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -3718,8 +3364,7 @@
     "example": "omit({ a: 1, b: '2', c: 3 }, ['b']); // { 'a': 1, 'c': 3 }",
     "id": "Omit object properties",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -3728,8 +3373,7 @@
     "example": "omitBy({ a: 1, b: '2', c: 3 }, x => typeof x === 'number'); // { b: '2' }",
     "id": "Omit object properties based on function",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -3739,8 +3383,7 @@
     "id": "Add event listener to element",
     "tags": [
       "browser",
-      "event",
-      "intermediate"
+      "event"
     ]
   },
   {
@@ -3750,8 +3393,7 @@
     "id": "Handle click outside",
     "tags": [
       "browser",
-      "event",
-      "intermediate"
+      "event"
     ]
   },
   {
@@ -3761,8 +3403,7 @@
     "id": "Handle scroll stop",
     "tags": [
       "browser",
-      "event",
-      "intermediate"
+      "event"
     ]
   },
   {
@@ -3772,8 +3413,7 @@
     "id": "Handle user input change",
     "tags": [
       "browser",
-      "event",
-      "advanced"
+      "event"
     ]
   },
   {
@@ -3782,8 +3422,7 @@
     "example": "const startApp = function(event) {\n  console.log(this, event); // document.body, MouseEvent\n};\ndocument.body.addEventListener('click', once(startApp));\n// only runs `startApp` once upon click",
     "id": "Call function once",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -3793,8 +3432,7 @@
     "id": "Logical or",
     "tags": [
       "math",
-      "logic",
-      "beginner"
+      "logic"
     ]
   },
   {
@@ -3804,8 +3442,7 @@
     "id": "Order array of objects",
     "tags": [
       "object",
-      "array",
-      "advanced"
+      "array"
     ]
   },
   {
@@ -3815,8 +3452,7 @@
     "id": "Order array of objects based on property order",
     "tags": [
       "array",
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -3825,8 +3461,7 @@
     "example": "const minMax = over(Math.min, Math.max);\nminMax(1, 2, 3, 4, 5); // [1, 5]",
     "id": "Invoke functions on arguments",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -3835,8 +3470,7 @@
     "example": "const square = n => n * n;\nconst double = n => n * 2;\nconst fn = overArgs((x, y) => [x, y], [square, double]);\nfn(9, 3); // [81, 6]",
     "id": "Transform function arguments",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -3845,8 +3479,7 @@
     "example": "pad('cat', 8); // '  cat   '\npad(String(42), 6, '0'); // '004200'\npad('foobar', 3); // 'foobar'",
     "id": "Pad string",
     "tags": [
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -3856,8 +3489,7 @@
     "id": "Pad number",
     "tags": [
       "string",
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -3866,8 +3498,7 @@
     "example": "palindrome('taco cat'); // true",
     "id": "Palindrome",
     "tags": [
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -3877,8 +3508,7 @@
     "id": "Parse cookie",
     "tags": [
       "browser",
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -3887,8 +3517,7 @@
     "example": "const greet = (greeting, name) => greeting + ' ' + name + '!';\nconst greetHello = partial(greet, 'Hello');\ngreetHello('John'); // 'Hello John!'",
     "id": "Prepend function arguments",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -3897,8 +3526,7 @@
     "example": "const greet = (greeting, name) => greeting + ' ' + name + '!';\nconst greetJohn = partialRight(greet, 'John');\ngreetJohn('Hello'); // 'Hello John!'",
     "id": "Append function arguments",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -3908,8 +3536,7 @@
     "id": "Partition array in two",
     "tags": [
       "array",
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -3919,8 +3546,7 @@
     "id": "Partition array",
     "tags": [
       "array",
-      "object",
-      "advanced"
+      "object"
     ]
   },
   {
@@ -3929,8 +3555,7 @@
     "example": "percentile([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 6); // 55",
     "id": "Percentile of matches",
     "tags": [
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -3941,8 +3566,7 @@
     "tags": [
       "array",
       "algorithm",
-      "recursion",
-      "advanced"
+      "recursion"
     ]
   },
   {
@@ -3951,8 +3575,7 @@
     "example": "pick({ a: 1, b: '2', c: 3 }, ['a', 'c']); // { 'a': 1, 'c': 3 }",
     "id": "Pick object keys",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -3961,8 +3584,7 @@
     "example": "pickBy({ a: 1, b: '2', c: 3 }, x => typeof x === 'number');\n// { 'a': 1, 'c': 3 }",
     "id": "Pick matching object keys",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -3972,8 +3594,7 @@
     "id": "Pipe async functions",
     "tags": [
       "function",
-      "promise",
-      "intermediate"
+      "promise"
     ]
   },
   {
@@ -3982,8 +3603,7 @@
     "example": "const add5 = x => x + 5;\nconst multiply = (x, y) => x * y;\nconst multiplyAndAdd5 = pipeFunctions(multiply, add5);\nmultiplyAndAdd5(5, 2); // 15",
     "id": "Pipe functions",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -3993,8 +3613,7 @@
     "id": "Pluck values from array of objects",
     "tags": [
       "array",
-      "object",
-      "beginner"
+      "object"
     ]
   },
   {
@@ -4003,8 +3622,7 @@
     "example": "pluralize(0, 'apple'); // 'apples'\npluralize(1, 'apple'); // 'apple'\npluralize(2, 'apple'); // 'apples'\npluralize(2, 'person', 'people'); // 'people'\n\nconst PLURALS = {\n  person: 'people',\n  radius: 'radii'\n};\nconst autoPluralize = pluralize(PLURALS);\nautoPluralize(2, 'person'); // 'people'",
     "id": "Pluralize string",
     "tags": [
-      "string",
-      "advanced"
+      "string"
     ]
   },
   {
@@ -4014,8 +3632,7 @@
     "id": "Powerset",
     "tags": [
       "math",
-      "algorithm",
-      "beginner"
+      "algorithm"
     ]
   },
   {
@@ -4024,8 +3641,7 @@
     "example": "prefersDarkColorScheme(); // true",
     "id": "User prefers dark color scheme",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -4034,8 +3650,7 @@
     "example": "prefersLightColorScheme(); // true",
     "id": "User prefers light color scheme",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -4044,8 +3659,7 @@
     "example": "prefix('appearance');\n// 'appearance' on a supported browser, otherwise 'webkitAppearance', 'mozAppearance', 'msAppearance' or 'oAppearance'",
     "id": "Prefix CSS property",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -4055,8 +3669,7 @@
     "id": "Pretty-print number of bytes",
     "tags": [
       "string",
-      "math",
-      "advanced"
+      "math"
     ]
   },
   {
@@ -4066,8 +3679,7 @@
     "id": "Prime factors of number",
     "tags": [
       "math",
-      "algorithm",
-      "beginner"
+      "algorithm"
     ]
   },
   {
@@ -4077,8 +3689,7 @@
     "id": "Primes up to given number",
     "tags": [
       "math",
-      "algorithm",
-      "intermediate"
+      "algorithm"
     ]
   },
   {
@@ -4088,8 +3699,7 @@
     "id": "Product of numeric values",
     "tags": [
       "math",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4099,8 +3709,7 @@
     "id": "Promisify function",
     "tags": [
       "function",
-      "promise",
-      "intermediate"
+      "promise"
     ]
   },
   {
@@ -4109,8 +3718,7 @@
     "example": "let myArray = ['a', 'b', 'c', 'a', 'b', 'c'];\npull(myArray, 'a', 'c'); // myArray = [ 'b', 'b' ]",
     "id": "Pull values from array",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4119,8 +3727,7 @@
     "example": "let myArray = ['a', 'b', 'c', 'd'];\nlet pulled = pullAtIndex(myArray, [1, 3]);\n// myArray = [ 'a', 'c' ] , pulled = [ 'b', 'd' ]",
     "id": "Pull values from array at index",
     "tags": [
-      "array",
-      "advanced"
+      "array"
     ]
   },
   {
@@ -4129,8 +3736,7 @@
     "example": "let myArray = ['a', 'b', 'c', 'd'];\nlet pulled = pullAtValue(myArray, ['b', 'd']);\n// myArray = [ 'a', 'c' ] , pulled = [ 'b', 'd' ]",
     "id": "Pull matching values from array",
     "tags": [
-      "array",
-      "advanced"
+      "array"
     ]
   },
   {
@@ -4139,8 +3745,7 @@
     "example": "var myArray = [{ x: 1 }, { x: 2 }, { x: 3 }, { x: 1 }];\npullBy(myArray, [{ x: 1 }, { x: 3 }], o => o.x); // myArray = [{ x: 2 }]",
     "id": "Pull values from array based on function",
     "tags": [
-      "array",
-      "advanced"
+      "array"
     ]
   },
   {
@@ -4149,8 +3754,7 @@
     "example": "quarterOfYear(new Date('07/10/2018')); // [ 3, 2018 ]\nquarterOfYear(); // [ 4, 2020 ]",
     "id": "Quarter of year",
     "tags": [
-      "date",
-      "beginner"
+      "date"
     ]
   },
   {
@@ -4159,8 +3763,7 @@
     "example": "queryStringToObject('https://google.com?page=1&count=10');\n// {page: '1', count: '10'}",
     "id": "Query string to object",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -4171,8 +3774,7 @@
     "tags": [
       "algorithm",
       "array",
-      "recursion",
-      "advanced"
+      "recursion"
     ]
   },
   {
@@ -4181,8 +3783,7 @@
     "example": "radsToDegrees(Math.PI / 2); // 90",
     "id": "Radians to degrees",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -4192,8 +3793,7 @@
     "id": "Random alphanumeric string",
     "tags": [
       "string",
-      "random",
-      "advanced"
+      "random"
     ]
   },
   {
@@ -4203,8 +3803,7 @@
     "id": "Random boolean value",
     "tags": [
       "math",
-      "random",
-      "beginner"
+      "random"
     ]
   },
   {
@@ -4214,8 +3813,7 @@
     "id": "Random hex color code",
     "tags": [
       "math",
-      "random",
-      "beginner"
+      "random"
     ]
   },
   {
@@ -4225,8 +3823,7 @@
     "id": "Random integer array in range",
     "tags": [
       "math",
-      "random",
-      "intermediate"
+      "random"
     ]
   },
   {
@@ -4236,8 +3833,7 @@
     "id": "Random integer in range",
     "tags": [
       "math",
-      "random",
-      "beginner"
+      "random"
     ]
   },
   {
@@ -4247,8 +3843,7 @@
     "id": "Random number in range",
     "tags": [
       "math",
-      "random",
-      "beginner"
+      "random"
     ]
   },
   {
@@ -4258,8 +3853,7 @@
     "id": "Range generator",
     "tags": [
       "function",
-      "generator",
-      "advanced"
+      "generator"
     ]
   },
   {
@@ -4269,8 +3863,7 @@
     "id": "Read file lines",
     "tags": [
       "node",
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -4279,8 +3872,7 @@
     "example": "var rearged = rearg(\n  function(a, b, c) {\n    return [a, b, c];\n  },\n  [2, 0, 1]\n);\nrearged('b', 'c', 'a'); // ['a', 'b', 'c']",
     "id": "Rearrange function arguments",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -4290,8 +3882,7 @@
     "id": "Record animation frames",
     "tags": [
       "browser",
-      "recursion",
-      "intermediate"
+      "recursion"
     ]
   },
   {
@@ -4300,8 +3891,7 @@
     "example": "redirect('https://google.com');",
     "id": "Redirect to URL",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -4310,8 +3900,7 @@
     "example": "reduceSuccessive([1, 2, 3, 4, 5, 6], (acc, val) => acc + val, 0);\n// [0, 1, 3, 6, 10, 15, 21]",
     "id": "Array of successive values",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4320,8 +3909,7 @@
     "example": "reduceWhich([1, 3, 2]); // 1\nreduceWhich([1, 3, 2], (a, b) => b - a); // 3\nreduceWhich(\n  [\n    { name: 'Tom', age: 12 },\n    { name: 'Jack', age: 18 },\n    { name: 'Lucy', age: 9 }\n  ],\n  (a, b) => a.age - b.age\n); // {name: 'Lucy', age: 9}",
     "id": "Min and max of array based on provided function",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4330,8 +3918,7 @@
     "example": "const data = [\n  {\n    id: 1,\n    name: 'john',\n    age: 24\n  },\n  {\n    id: 2,\n    name: 'mike',\n    age: 50\n  }\n];\nreducedFilter(data, ['id', 'name'], item => item.age > 24);\n// [{ id: 2, name: 'mike'}]",
     "id": "Filter matching and unspecified values",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4340,8 +3927,7 @@
     "example": "reject(x => x % 2 === 0, [1, 2, 3, 4, 5]); // [1, 3, 5]\nreject(word => word.length > 4, ['Apple', 'Pear', 'Kiwi', 'Banana']);\n// ['Pear', 'Kiwi']",
     "id": "Reject non-matching values",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -4350,8 +3936,7 @@
     "example": "remove([1, 2, 3, 4], n => n % 2 === 0); // [2, 4]",
     "id": "Remove matching elements from array",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4360,8 +3945,7 @@
     "example": "removeAccents('Antoine de Saint-Exupéry'); // 'Antoine de Saint-Exupery'",
     "id": "Remove accents",
     "tags": [
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -4370,8 +3954,7 @@
     "example": "removeClass(document.querySelector('p.special'), 'special');\n// The paragraph will not have the 'special' class anymore",
     "id": "Remove class from HTML element",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -4380,8 +3963,7 @@
     "example": "removeElement(document.querySelector('#my-element'));\n// Removes #my-element from the DOM",
     "id": "Remove DOM element",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -4391,8 +3973,7 @@
     "id": "Remove event listeners from target",
     "tags": [
       "browser",
-      "event",
-      "intermediate"
+      "event"
     ]
   },
   {
@@ -4402,8 +3983,7 @@
     "id": "Remove non ASCII characters",
     "tags": [
       "string",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -4413,8 +3993,7 @@
     "id": "Remove whitespaces",
     "tags": [
       "string",
-      "regexp",
-      "beginner"
+      "regexp"
     ]
   },
   {
@@ -4423,8 +4002,7 @@
     "example": "const obj = { name: 'Bobo', job: 'Front-End Master', shoeSize: 100 };\nrenameKeys({ name: 'firstName', job: 'passion' }, obj);\n// { firstName: 'Bobo', passion: 'Front-End Master', shoeSize: 100 }",
     "id": "Rename object keys",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -4434,8 +4012,7 @@
     "id": "Render DOM element",
     "tags": [
       "browser",
-      "recursion",
-      "advanced"
+      "recursion"
     ]
   },
   {
@@ -4445,8 +4022,7 @@
     "id": "Repeat generator",
     "tags": [
       "function",
-      "generator",
-      "advanced"
+      "generator"
     ]
   },
   {
@@ -4456,8 +4032,7 @@
     "id": "Replace last occuerence in string",
     "tags": [
       "string",
-      "regexp",
-      "advanced"
+      "regexp"
     ]
   },
   {
@@ -4466,8 +4041,7 @@
     "example": "const fs = requireUncached('fs'); // 'fs' will be loaded fresh every time",
     "id": "Uncached module require",
     "tags": [
-      "node",
-      "advanced"
+      "node"
     ]
   },
   {
@@ -4477,8 +4051,7 @@
     "id": "Resolve promise after given amount of time",
     "tags": [
       "function",
-      "promise",
-      "intermediate"
+      "promise"
     ]
   },
   {
@@ -4488,8 +4061,7 @@
     "id": "Reverse number",
     "tags": [
       "math",
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -4498,8 +4070,7 @@
     "example": "reverseString('foobar'); // 'raboof'",
     "id": "Reverse string",
     "tags": [
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -4508,8 +4079,7 @@
     "example": "round(1.005, 2); // 1.01",
     "id": "Round number to given precision",
     "tags": [
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -4520,8 +4090,7 @@
     "tags": [
       "browser",
       "function",
-      "promise",
-      "advanced"
+      "promise"
     ]
   },
   {
@@ -4531,8 +4100,7 @@
     "id": "Run promises in series",
     "tags": [
       "function",
-      "promise",
-      "intermediate"
+      "promise"
     ]
   },
   {
@@ -4543,8 +4111,7 @@
     "tags": [
       "array",
       "string",
-      "random",
-      "beginner"
+      "random"
     ]
   },
   {
@@ -4554,8 +4121,7 @@
     "id": "N random elements in array",
     "tags": [
       "array",
-      "random",
-      "intermediate"
+      "random"
     ]
   },
   {
@@ -4564,8 +4130,7 @@
     "example": "scrollToTop(); // Smooth-scrolls to the top of the page",
     "id": "Scroll page to top",
     "tags": [
-      "browser",
-      "intermediate"
+      "browser"
     ]
   },
   {
@@ -4574,8 +4139,7 @@
     "example": "sdbm('name'); // -3521204949",
     "id": "Hash string into number",
     "tags": [
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -4585,8 +4149,7 @@
     "id": "Selection sort",
     "tags": [
       "algorithm",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4596,8 +4159,7 @@
     "id": "Serialize cookie",
     "tags": [
       "browser",
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -4607,8 +4169,7 @@
     "id": "Serialize form",
     "tags": [
       "browser",
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -4617,8 +4178,7 @@
     "example": "setStyle(document.querySelector('p'), 'font-size', '20px');\n// The first <p> element on the page will have a font-size of 20px",
     "id": "Set style for element",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -4627,8 +4187,7 @@
     "example": "const a = { x: true, y: 1 };\nconst b = shallowClone(a); // a !== b",
     "id": "Shallow clone object",
     "tags": [
-      "object",
-      "beginner"
+      "object"
     ]
   },
   {
@@ -4637,8 +4196,7 @@
     "example": "const names = ['alpha', 'bravo', 'charlie'];\nconst namesAndDelta = shank(names, 1, 0, 'delta');\n// [ 'alpha', 'delta', 'bravo', 'charlie' ]\nconst namesNoBravo = shank(names, 1, 1); // [ 'alpha', 'charlie' ]\nconsole.log(names); // ['alpha', 'bravo', 'charlie']",
     "id": "Remove elements from array",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4648,8 +4206,7 @@
     "id": "Show elements",
     "tags": [
       "browser",
-      "css",
-      "beginner"
+      "css"
     ]
   },
   {
@@ -4660,8 +4217,7 @@
     "tags": [
       "array",
       "random",
-      "algorithm",
-      "intermediate"
+      "algorithm"
     ]
   },
   {
@@ -4671,8 +4227,7 @@
     "id": "Array similarity",
     "tags": [
       "array",
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -4683,8 +4238,7 @@
     "tags": [
       "object",
       "array",
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -4694,8 +4248,7 @@
     "id": "Delay async function execution",
     "tags": [
       "function",
-      "promise",
-      "intermediate"
+      "promise"
     ]
   },
   {
@@ -4705,8 +4258,7 @@
     "id": "String to slug",
     "tags": [
       "string",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -4716,8 +4268,7 @@
     "id": "Smooth scroll element into view",
     "tags": [
       "browser",
-      "css",
-      "intermediate"
+      "css"
     ]
   },
   {
@@ -4726,8 +4277,7 @@
     "example": "sortCharactersInString('cabbage'); // 'aabbceg'",
     "id": "Sort characters in string",
     "tags": [
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -4737,8 +4287,7 @@
     "id": "Insertion index in sorted array",
     "tags": [
       "array",
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -4748,8 +4297,7 @@
     "id": "Insertion index in sorted array based on function",
     "tags": [
       "array",
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -4758,8 +4306,7 @@
     "example": "sortedLastIndex([10, 20, 30, 30, 40], 30); // 4",
     "id": "Last insertion index in sorted array",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4768,8 +4315,7 @@
     "example": "sortedLastIndexBy([{ x: 4 }, { x: 5 }], { x: 4 }, o => o.x); // 1",
     "id": "Last insertion index in sorted array based on function",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4779,8 +4325,7 @@
     "id": "Split into lines",
     "tags": [
       "string",
-      "regexp",
-      "beginner"
+      "regexp"
     ]
   },
   {
@@ -4789,8 +4334,7 @@
     "example": "const arrayMax = spreadOver(Math.max);\narrayMax([1, 2, 3]); // 3",
     "id": "Convert function from variadic",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -4799,8 +4343,7 @@
     "example": "const arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\nconst stable = stableSort(arr, () => 0); // [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]",
     "id": "Stable sort",
     "tags": [
-      "array",
-      "advanced"
+      "array"
     ]
   },
   {
@@ -4810,8 +4353,7 @@
     "id": "Standard deviation",
     "tags": [
       "math",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4821,8 +4363,7 @@
     "id": "String permutations",
     "tags": [
       "string",
-      "recursion",
-      "advanced"
+      "recursion"
     ]
   },
   {
@@ -4831,8 +4372,7 @@
     "example": "const obj = { n: 42 };\nobj.obj = obj;\nstringifyCircularJSON(obj); // '{\"n\": 42}'",
     "id": "Stringify circular JSON",
     "tags": [
-      "object",
-      "advanced"
+      "object"
     ]
   },
   {
@@ -4842,8 +4382,7 @@
     "id": "Strip HTML tags",
     "tags": [
       "string",
-      "regexp",
-      "beginner"
+      "regexp"
     ]
   },
   {
@@ -4852,8 +4391,7 @@
     "example": "subSet(new Set([1, 2]), new Set([1, 2, 3, 4])); // true\nsubSet(new Set([1, 5]), new Set([1, 2, 3, 4])); // false",
     "id": "Subset of iterable",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4863,8 +4401,7 @@
     "id": "Array sum",
     "tags": [
       "math",
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -4874,8 +4411,7 @@
     "id": "Mapped array sum",
     "tags": [
       "math",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4884,8 +4420,7 @@
     "example": "sumN(100); // 5050",
     "id": "Sum of numbers until n",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -4894,8 +4429,7 @@
     "example": "sumPower(10); // 385\nsumPower(10, 3); // 3025\nsumPower(10, 3, 5); // 2925",
     "id": "Sum of powers in range",
     "tags": [
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -4904,8 +4438,7 @@
     "example": "superSet(new Set([1, 2, 3, 4]), new Set([1, 2])); // true\nsuperSet(new Set([1, 2, 3, 4]), new Set([1, 5])); // false",
     "id": "Superset of iterable",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4914,8 +4447,7 @@
     "example": "supportsTouchEvents(); // true",
     "id": "Device supports touch events",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -4924,8 +4456,7 @@
     "example": "swapCase('Hello world!'); // 'hELLO WORLD!'",
     "id": "Swapcase string",
     "tags": [
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -4934,8 +4465,7 @@
     "example": "symbolizeKeys({ id: 10, name: 'apple' });\n// { [Symbol(id)]: 10, [Symbol(name)]: 'apple' }",
     "id": "Symbolize object keys",
     "tags": [
-      "object",
-      "advanced"
+      "object"
     ]
   },
   {
@@ -4945,8 +4475,7 @@
     "id": "Array symmetric difference",
     "tags": [
       "array",
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -4955,8 +4484,7 @@
     "example": "symmetricDifferenceBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [ 1.2, 3.4 ]\nsymmetricDifferenceBy(\n  [{ id: 1 }, { id: 2 }, { id: 3 }],\n  [{ id: 1 }, { id: 2 }, { id: 4 }],\n  i => i.id\n);\n// [{ id: 3 }, { id: 4 }]",
     "id": "Mapped array symmetric difference",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4965,8 +4493,7 @@
     "example": "symmetricDifferenceWith(\n  [1, 1.2, 1.5, 3, 0],\n  [1.9, 3, 0, 3.9],\n  (a, b) => Math.round(a) === Math.round(b)\n); // [1, 1.2, 3.9]",
     "id": "Array symmetric difference",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -4975,8 +4502,7 @@
     "example": "tail([1, 2, 3]); // [2, 3]\ntail([1]); // [1]",
     "id": "Array tail",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -4985,8 +4511,7 @@
     "example": "take([1, 2, 3], 5); // [1, 2, 3]\ntake([1, 2, 3], 0); // []",
     "id": "Remove list elements",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -4995,8 +4520,7 @@
     "example": "takeRight([1, 2, 3], 2); // [ 2, 3 ]\ntakeRight([1, 2, 3]); // [3]",
     "id": "Remove list elements from the end",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -5005,8 +4529,7 @@
     "example": "takeRightUntil([1, 2, 3, 4], n => n < 3); // [3, 4]",
     "id": "Remove list elements from the end until condition is met",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -5015,8 +4538,7 @@
     "example": "takeRightWhile([1, 2, 3, 4], n => n >= 3); // [3, 4]",
     "id": "Remove list elements from the end while condition is met",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -5025,8 +4547,7 @@
     "example": "takeUntil([1, 2, 3, 4], n => n >= 3); // [1, 2]",
     "id": "Remove list elements until condition is met",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -5035,8 +4556,7 @@
     "example": "takeWhile([1, 2, 3, 4], n => n < 3); // [1, 2]",
     "id": "Remove list elements while condition is met",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -5045,8 +4565,7 @@
     "example": "window.addEventListener(\n  'resize',\n  throttle(function(evt) {\n    console.log(window.innerWidth);\n    console.log(window.innerHeight);\n  }, 250)\n); // Will log the window dimensions at most every 250ms",
     "id": "Throttle function",
     "tags": [
-      "function",
-      "advanced"
+      "function"
     ]
   },
   {
@@ -5055,8 +4574,7 @@
     "example": "timeTaken(() => Math.pow(2, 10)); // 1024, (logged): timeTaken: 0.02099609375ms",
     "id": "Time taken by function",
     "tags": [
-      "function",
-      "beginner"
+      "function"
     ]
   },
   {
@@ -5065,8 +4583,7 @@
     "example": "var output = '';\ntimes(5, i => (output += i));\nconsole.log(output); // 01234",
     "id": "Iterate n times",
     "tags": [
-      "function",
-      "intermediate"
+      "function"
     ]
   },
   {
@@ -5076,8 +4593,7 @@
     "id": "Camelcase string",
     "tags": [
       "string",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -5086,8 +4602,7 @@
     "example": "toCharArray('hello'); // ['h', 'e', 'l', 'l', 'o']",
     "id": "String to character array",
     "tags": [
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -5097,8 +4612,7 @@
     "id": "Number to currency string",
     "tags": [
       "math",
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -5107,8 +4621,7 @@
     "example": "toDecimalMark(12305030388.9087); // '12,305,030,388.909'",
     "id": "Number to decimal mark",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -5119,8 +4632,7 @@
     "tags": [
       "string",
       "browser",
-      "regexp",
-      "beginner"
+      "regexp"
     ]
   },
   {
@@ -5131,8 +4643,7 @@
     "tags": [
       "string",
       "browser",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -5141,8 +4652,7 @@
     "example": "toHash([4, 3, 2, 1]); // { 0: 4, 1: 3, 2: 2, 3: 1 }\ntoHash([{ a: 'label' }], 'a'); // { label: { a: 'label' } }",
     "id": "Iterable to hash",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -5151,8 +4661,7 @@
     "example": "toISOStringWithTimezone(new Date()); // '2020-10-06T20:43:33-04:00'",
     "id": "Date to ISO format with timezone",
     "tags": [
-      "date",
-      "intermediate"
+      "date"
     ]
   },
   {
@@ -5162,8 +4671,7 @@
     "id": "Kebabcase string",
     "tags": [
       "string",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -5172,8 +4680,7 @@
     "example": "toOrdinalSuffix('123'); // '123rd'",
     "id": "Number to ordinal suffix",
     "tags": [
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -5183,8 +4690,7 @@
     "id": "Object to pairs",
     "tags": [
       "object",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -5194,8 +4700,7 @@
     "id": "Pascalcase string\r",
     "tags": [
       "string",
-      "regexp",
-      "intermediate\r"
+      "regexp\r"
     ]
   },
   {
@@ -5206,8 +4711,7 @@
     "tags": [
       "string",
       "browser",
-      "regexp",
-      "beginner"
+      "regexp"
     ]
   },
   {
@@ -5218,8 +4722,7 @@
     "tags": [
       "string",
       "browser",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -5229,8 +4732,7 @@
     "id": "Integer to roman numeral",
     "tags": [
       "math",
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -5239,8 +4741,7 @@
     "example": "toSafeInteger('3.2'); // 3\ntoSafeInteger(Infinity); // 9007199254740991",
     "id": "Value to safe integer",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -5250,8 +4751,7 @@
     "id": "Snakecase string",
     "tags": [
       "string",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -5261,8 +4761,7 @@
     "id": "Titlecase string",
     "tags": [
       "string",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -5271,8 +4770,7 @@
     "example": "toggleClass(document.querySelector('p.special'), 'special');\n// The paragraph will not have the 'special' class anymore",
     "id": "Toggle class of HTML element",
     "tags": [
-      "browser",
-      "beginner"
+      "browser"
     ]
   },
   {
@@ -5281,8 +4779,7 @@
     "example": "tomorrow(); // 2018-10-19 (if current date is 2018-10-18)",
     "id": "Date of tomorrow",
     "tags": [
-      "date",
-      "intermediate"
+      "date"
     ]
   },
   {
@@ -5291,8 +4788,7 @@
     "example": "transform(\n  { a: 1, b: 2, c: 1 },\n  (r, v, k) => {\n    (r[v] || (r[v] = [])).push(k);\n    return r;\n  },\n  {}\n); // { '1': ['a', 'c'], '2': ['b'] }",
     "id": "Transform object",
     "tags": [
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -5302,8 +4798,7 @@
     "id": "Trigger event on HTML element",
     "tags": [
       "browser",
-      "event",
-      "intermediate"
+      "event"
     ]
   },
   {
@@ -5312,8 +4807,7 @@
     "example": "truncateString('boomerang', 7); // 'boom...'",
     "id": "Truncate string",
     "tags": [
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -5322,8 +4816,7 @@
     "example": "truncateStringAtWhitespace('short', 10); // 'short'\ntruncateStringAtWhitespace('not so short', 10); // 'not so...'\ntruncateStringAtWhitespace('trying a thing', 10); // 'trying...'\ntruncateStringAtWhitespace('javascripting', 10); // 'javascr...'",
     "id": "Truncate string at whitespace",
     "tags": [
-      "string",
-      "intermediate"
+      "string"
     ]
   },
   {
@@ -5334,8 +4827,7 @@
     "tags": [
       "object",
       "logic",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -5344,8 +4836,7 @@
     "example": "['6', '8', '10'].map(unary(parseInt)); // [6, 8, 10]",
     "id": "Unary function arity",
     "tags": [
-      "function",
-      "beginner"
+      "function"
     ]
   },
   {
@@ -5354,8 +4845,7 @@
     "example": "const add = x => y => z => x + y + z;\nconst uncurriedAdd = uncurry(add, 3);\nuncurriedAdd(1, 2, 3); // 6",
     "id": "Uncurry function",
     "tags": [
-      "function",
-      "advanced"
+      "function"
     ]
   },
   {
@@ -5366,8 +4856,7 @@
     "tags": [
       "string",
       "browser",
-      "regexp",
-      "beginner"
+      "regexp"
     ]
   },
   {
@@ -5376,8 +4865,7 @@
     "example": "unflattenObject({ 'a.b.c': 1, d: 1 }); // { a: { b: { c: 1 } }, d: 1 }\nunflattenObject({ 'a.b': 1, 'a.c': 2, d: 3 }); // { a: { b: 1, c: 2 }, d: 3 }\nunflattenObject({ 'a.b.0': 8, d: 3 }); // { a: { b: [ 8 ] }, d: 3 }",
     "id": "Unflatten object",
     "tags": [
-      "object",
-      "advanced"
+      "object"
     ]
   },
   {
@@ -5387,8 +4875,7 @@
     "id": "Unfold array",
     "tags": [
       "function",
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -5397,8 +4884,7 @@
     "example": "union([1, 2, 3], [4, 3, 2]); // [1, 2, 3, 4]",
     "id": "Array union",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -5407,8 +4893,7 @@
     "example": "unionBy([2.1], [1.2, 2.3], Math.floor); // [2.1, 1.2]\nunionBy([{ id: 1 }, { id: 2 }], [{ id: 2 }, { id: 3 }], x => x.id)\n// [{ id: 1 }, { id: 2 }, { id: 3 }]",
     "id": "Mapped array union",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -5417,8 +4902,7 @@
     "example": "unionWith(\n  [1, 1.2, 1.5, 3, 0],\n  [1.9, 3, 0, 3.9],\n  (a, b) => Math.round(a) === Math.round(b)\n);\n// [1, 1.2, 1.5, 3, 0, 3.9]",
     "id": "Array union based on function",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -5427,8 +4911,7 @@
     "example": "uniqueElements([1, 2, 2, 3, 4, 4, 5]); // [1, 2, 3, 4, 5]",
     "id": "Unique values in array",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -5437,8 +4920,7 @@
     "example": "uniqueElementsBy(\n  [\n    { id: 0, value: 'a' },\n    { id: 1, value: 'b' },\n    { id: 2, value: 'c' },\n    { id: 1, value: 'd' },\n    { id: 0, value: 'e' }\n  ],\n  (a, b) => a.id == b.id\n); // [ { id: 0, value: 'a' }, { id: 1, value: 'b' }, { id: 2, value: 'c' } ]",
     "id": "Unique values in array based on function",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -5447,8 +4929,7 @@
     "example": "uniqueElementsByRight(\n  [\n    { id: 0, value: 'a' },\n    { id: 1, value: 'b' },\n    { id: 2, value: 'c' },\n    { id: 1, value: 'd' },\n    { id: 0, value: 'e' }\n  ],\n  (a, b) => a.id == b.id\n); // [ { id: 0, value: 'e' }, { id: 1, value: 'd' }, { id: 2, value: 'c' } ]",
     "id": "Reversed unique values in array based on function",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -5458,8 +4939,7 @@
     "id": "Array unique symmetric difference",
     "tags": [
       "array",
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -5469,8 +4949,7 @@
     "id": "Convert to absolute path",
     "tags": [
       "node",
-      "string",
-      "beginner"
+      "string"
     ]
   },
   {
@@ -5479,8 +4958,7 @@
     "example": "unzip([['a', 1, true], ['b', 2, false]]); // [['a', 'b'], [1, 2], [true, false]]\nunzip([['a', 1, true], ['b', 2]]); // [['a', 'b'], [1, 2], [true]]",
     "id": "Ungroup array elements",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -5489,8 +4967,7 @@
     "example": "unzipWith(\n  [\n    [1, 10, 100],\n    [2, 20, 200],\n  ],\n  (...args) => args.reduce((acc, v) => acc + v, 0)\n);\n// [3, 30, 300]",
     "id": "Ungroup array elements based on function",
     "tags": [
-      "array",
-      "advanced"
+      "array"
     ]
   },
   {
@@ -5499,8 +4976,7 @@
     "example": "validateNumber('10'); // true\nvalidateNumber('a'); // false",
     "id": "Validate number",
     "tags": [
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -5509,8 +4985,7 @@
     "example": "vectorAngle([3, 4], [4, 3]); // 0.283794109208328",
     "id": "Vector angle",
     "tags": [
-      "math",
-      "beginner"
+      "math"
     ]
   },
   {
@@ -5520,8 +4995,7 @@
     "id": "Vector distance",
     "tags": [
       "math",
-      "algorithm",
-      "beginner"
+      "algorithm"
     ]
   },
   {
@@ -5532,8 +5006,7 @@
     "tags": [
       "object",
       "recursion",
-      "generator",
-      "advanced"
+      "generator"
     ]
   },
   {
@@ -5542,8 +5015,7 @@
     "example": "weekOfYear(new Date('2021-06-18')); // 23",
     "id": "Week of year",
     "tags": [
-      "date",
-      "advanced"
+      "date"
     ]
   },
   {
@@ -5552,8 +5024,7 @@
     "example": "weightedAverage([1, 2, 3], [0.6, 0.2, 0.3]); // 1.72727",
     "id": "Weighted average",
     "tags": [
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -5563,8 +5034,7 @@
     "id": "Weighted sample",
     "tags": [
       "array",
-      "random",
-      "advanced"
+      "random"
     ]
   },
   {
@@ -5574,8 +5044,7 @@
     "id": "Apply function when condition is met",
     "tags": [
       "function",
-      "logic",
-      "beginner"
+      "logic"
     ]
   },
   {
@@ -5584,8 +5053,7 @@
     "example": "without([2, 1, 2, 3], 1, 2); // [3]",
     "id": "Filter out matching array elements",
     "tags": [
-      "array",
-      "beginner"
+      "array"
     ]
   },
   {
@@ -5595,8 +5063,7 @@
     "id": "Word wrap string",
     "tags": [
       "string",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -5606,8 +5073,7 @@
     "id": "String to words",
     "tags": [
       "string",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -5617,8 +5083,7 @@
     "id": "Cross product of arrays",
     "tags": [
       "array",
-      "math",
-      "intermediate"
+      "math"
     ]
   },
   {
@@ -5628,8 +5093,7 @@
     "id": "Logical xor",
     "tags": [
       "math",
-      "logic",
-      "beginner"
+      "logic"
     ]
   },
   {
@@ -5639,8 +5103,7 @@
     "id": "Check yes/no string",
     "tags": [
       "string",
-      "regexp",
-      "intermediate"
+      "regexp"
     ]
   },
   {
@@ -5649,8 +5112,7 @@
     "example": "yesterday(); // 2018-10-17 (if current date is 2018-10-18)",
     "id": "Date of yesterday",
     "tags": [
-      "date",
-      "intermediate"
+      "date"
     ]
   },
   {
@@ -5659,8 +5121,7 @@
     "example": "zip(['a', 'b'], [1, 2], [true, false]); // [['a', 1, true], ['b', 2, false]]\nzip(['a'], [1, 2], [true, false]); // [['a', 1, true], [undefined, 2, false]]",
     "id": "Group array elements",
     "tags": [
-      "array",
-      "intermediate"
+      "array"
     ]
   },
   {
@@ -5670,8 +5131,7 @@
     "id": "Group array into object",
     "tags": [
       "array",
-      "object",
-      "intermediate"
+      "object"
     ]
   },
   {
@@ -5680,8 +5140,7 @@
     "example": "zipWith([1, 2], [10, 20], [100, 200], (a, b, c) => a + b + c); // [111, 222]\nzipWith(\n  [1, 2, 3],\n  [10, 20],\n  [100, 200],\n  (a, b, c) =>\n    (a != null ? a : 'a') + (b != null ? b : 'b') + (c != null ? c : 'c')\n); // [111, 222, '3bc']",
     "id": "Group array elements based on function",
     "tags": [
-      "array",
-      "advanced"
+      "array"
     ]
   }
 ]
