@@ -1454,6 +1454,17 @@
     ]
   },
   {
+    "code": "const flatIterator = function* (itr) {\n  for (let item of itr) {\n    if (item[Symbol.iterator]) yield* flatIterator(item);\n    else yield item;\n  }\n};",
+    "description": "Creates a generator that iterates over an iterable, flattening nested iterables.\n\n- Use recursion.\n- Use a `for...of` loop to iterate over the values of the given iterable.\n- Use `Symbol.iterator` to check if each value is an iterable. If it is, use the `yield*` expression to recursively delegate to the same generator function. Otherwise, `yield` the current value.",
+    "example": "const arr = [1, 2, [3, 4], [5, [6, [7], 8]], 9, new Set([10, 11])];\n[...flatIterator(arr)]; // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11",
+    "id": "Flat iterator",
+    "tags": [
+      "array",
+      "iterator",
+      "generator"
+    ]
+  },
+  {
     "code": "const flatten = (arr, depth = 1) =>\n  arr.reduce(\n    (a, v) =>\n      a.concat(depth > 1 && Array.isArray(v) ? flatten(v, depth - 1) : v),\n    []\n  );",
     "description": "Flattens an array up to the specified depth.\n\n- Use recursion, decrementing `depth` by `1` for each level of depth.\n- Use `Array.prototype.reduce()` and `Array.prototype.concat()` to merge elements or arrays.\n- Base case, for `depth` equal to `1` stops recursion.\n- Omit the second argument, `depth`, to flatten only to a depth of `1` (single flatten).",
     "example": "flatten([1, [2], 3, 4]); // [1, 2, 3, 4]\nflatten([1, [2, [3, [4, 5], 6], 7], 8], 2); // [1, 2, 3, [4, 5], 6, 7, 8]",

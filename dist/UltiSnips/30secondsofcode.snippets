@@ -1195,6 +1195,15 @@ const findLastN = (arr, matcher, n = 1) => {
 };
 endsnippet
 
+snippet Flat iterator "Creates a generator that iterates over an iterable, flattening nested iterables.  - Use recursion. - Use a `for...of` loop to iterate over the values of the given iterable. - Use `Symbol.iterator` to check if each value is an iterable. If it is, use the `yield*` expression to recursively delegate to the same generator function. Otherwise, `yield` the current value." b
+const flatIterator = function* (itr) {
+  for (let item of itr) {
+    if (item[Symbol.iterator]) yield* flatIterator(item);
+    else yield item;
+  }
+};
+endsnippet
+
 snippet Flatten array "Flattens an array up to the specified depth.  - Use recursion, decrementing `depth` by `1` for each level of depth. - Use `Array.prototype.reduce()` and `Array.prototype.concat()` to merge elements or arrays. - Base case, for `depth` equal to `1` stops recursion. - Omit the second argument, `depth`, to flatten only to a depth of `1` (single flatten)." b
 const flatten = (arr, depth = 1) =>
   arr.reduce(
