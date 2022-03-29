@@ -529,6 +529,11 @@ snippet Clone RegExp "Clones a regular expression.  - Use the `RegExp` construct
 const cloneRegExp = regExp => new RegExp(regExp.source, regExp.flags);
 endsnippet
 
+snippet Closest numeric match "Finds the closest number from an array.  - Use `Array.prototype.reduce()` to scan all elements of the array. - Use `Math.abs()` to compare each element's distance from the target value, storing the closest match." b
+const closest = (arr, n) =>
+  arr.reduce((acc, num) => (Math.abs(num - n) < Math.abs(acc - n) ? num : acc));
+endsnippet
+
 snippet Argument coalescing "Returns the first defined, non-null argument.  - Use `Array.prototype.find()` and `Array.prototype.includes()` to find the first value that is not equal to `undefined` or `null`." b
 const coalesce = (...args) => args.find(v => ![undefined, null].includes(v));
 endsnippet
@@ -1138,6 +1143,11 @@ const findClosestMatchingNode = (node, selector) => {
     if (n.matches && n.matches(selector)) return n;
   return null;
 };
+endsnippet
+
+snippet Arrays of consecutive elements "Finds all arrays of consecutive elements.  - Use `Array.prototype.slice()` to create an array with `n - 1` elements removed from the start. - Use `Array.prototype.map()` and `Array.prototype.slice()` to map each element to an array of `n` consecutive elements." b
+const findConsecutive = (arr, n) =>
+  arr.slice(n - 1).map((v, i) => arr.slice(i, i + n));
 endsnippet
 
 snippet Find first n matches "Finds the first `n` elements for which the provided function returns a truthy value.  - Use a `for...in` loop to execute the provided `matcher` for each element of `arr`. - Use `Array.prototype.push()` to append elements to the results array and return them if its `length` is equal to `n`." b
@@ -3171,6 +3181,11 @@ const rangeGenerator = function* (start, end, step = 1) {
 };
 endsnippet
 
+snippet Array ranking "Calculates the ranking of an array based on a comparator function.  - Use `Array.prototype.map()` and `Array.prototype.filter()` to map each element to a rank using the provided comparator function." b
+const ranking = (arr, compFn) =>
+  arr.map(a => arr.filter(b => compFn(a, b)).length + 1);
+endsnippet
+
 snippet Read file lines "Returns an array of lines from the specified file.  - Use `fs.readFileSync()` to create a `Buffer` from a file. - Use `Buffer.prototype.toString()` to covert the buffer to a string. - Use `String.prototype.split()` to create an array of lines from the contents of the file." b
 const fs = require('fs');
 
@@ -3976,6 +3991,10 @@ endsnippet
 snippet Transform object "Applies a function against an accumulator and each key in the object (from left to right).  - Use `Object.keys()` to iterate over each key in the object. - Use `Array.prototype.reduce()` to apply the specified function against the given accumulator." b
 const transform = (obj, fn, acc) =>
   Object.keys(obj).reduce((a, k) => fn(a, obj[k], k, obj), acc);
+endsnippet
+
+snippet Transpose matrix "Transposes a two-dimensional array.  - Use `Array.prototype.map()` to create the transpose of the given two-dimensional array." b
+const transpose = arr => arr[0].map((col, i) => arr.map(row => row[i]));
 endsnippet
 
 snippet Trigger event on HTML element "Triggers a specific event on a given element, optionally passing custom data.  - Use the `CustomEvent` constructor to create an event from the specified `eventType` and details. - Use `EventTarget.dispatchEvent()` to trigger the newly created event on the given element. - Omit the third argument, `detail`, if you do not want to pass custom data to the triggered event." b
