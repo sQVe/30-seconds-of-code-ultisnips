@@ -437,6 +437,11 @@ snippet Call functions with context "Given a key and a set of arguments, call th
 const call = (key, ...args) => context => context[key](...args);
 endsnippet
 
+snippet Call or return "Calls the argument if it's a function, otherwise returns it.  - Use the `typeof` operator to check if the given argument is a function. - If it is, use the spread operator (`...`) to call it with the rest of the given arguments. Otherwise, return it." b
+const callOrReturn = (fn, ...args) =>
+  typeof fn === 'function' ? fn(...args) : fn;
+endsnippet
+
 snippet Capitalize string "Capitalizes the first letter of a string.  - Use array destructuring and `String.prototype.toUpperCase()` to capitalize the first letter of the string. - Use `Array.prototype.join()` to combine the capitalized `first` with the `...rest` of the characters. - Omit the `lowerRest` argument to keep the rest of the string intact, or set it to `true` to convert to lowercase." b
 const capitalize = ([first, ...rest], lowerRest = false) =>
   first.toUpperCase() +
@@ -580,8 +585,17 @@ const combine = (a, b, prop) =>
   );
 endsnippet
 
+snippet Common keys "Finds the common keys between two objects.  - Use `Object.keys()` to get the keys of the first object. - Use `Object.prototype.hasOwnProperty()` to check if the second object has a key that's in the first object. - Use `Array.prototype.filter()` to filter out keys that aren't in both objects." b
+const commonKeys = (obj1, obj2) =>
+  Object.keys(obj1).filter(key => obj2.hasOwnProperty(key));
+endsnippet
+
 snippet Compact array "Removes falsy values from an array.  - Use `Array.prototype.filter()` to filter out falsy values (`false`, `null`, `0`, ``, `undefined`, and `NaN`)." b
 const compact = arr => arr.filter(Boolean);
+endsnippet
+
+snippet Compact and join array "Removes falsy values from an array and combines the remaining values into a string.  - Use `Array.prototype.filter()` to filter out falsy values (`false`, `null`, `0`, ``, `undefined`, and `NaN`). - Use `Array.prototype.join()` to join the remaining values into a string." b
+const compactJoin = (arr, delim = ',') => arr.filter(Boolean).join(delim);
 endsnippet
 
 snippet Compact object "Deeply removes all falsy values from an object or array.  - Use recursion. - Initialize the iterable data, using `Array.isArray()`, `Array.prototype.filter()` and `Boolean` for arrays in order to avoid sparse arrays. - Use `Object.keys()` and `Array.prototype.reduce()` to iterate over each key with an appropriate initial value. - Use `Boolean` to determine the truthiness of each key's value and add it to the accumulator if it's truthy. - Use `typeof` to determine if a given value is an `object` and call the function again to deeply compact it." b
@@ -1205,6 +1219,10 @@ const findLastN = (arr, matcher, n = 1) => {
 };
 endsnippet
 
+snippet Array to flags object "Converts an array of strings into an object mapping to true.  - Use `Array.prototype.reduce()` to convert the array into an object, where each array value is used as a key whose value is set to `true`." b
+const flags = arr => arr.reduce((acc, str) => ({...acc, [str]: true }), {});
+endsnippet
+
 snippet Flat iterator "Creates a generator that iterates over an iterable, flattening nested iterables.  - Use recursion. - Use a `for...of` loop to iterate over the values of the given iterable. - Use `Symbol.iterator` to check if each value is an iterable. If it is, use the `yield*` expression to recursively delegate to the same generator function. Otherwise, `yield` the current value." b
 const flatIterator = function* (itr) {
   for (let item of itr) {
@@ -1429,6 +1447,10 @@ endsnippet
 
 snippet Get base URL "Gets the current URL without any parameters or fragment identifiers.  - Use `String.prototype.replace()` with an appropriate regular expression to remove everything after either `'?'` or `'#'`, if found." b
 const getBaseURL = url => url.replace(/[?#].*$/, '');
+endsnippet
+
+snippet Command-line arguments "Gets the command-line arguments passed to a Node.js script.  - Use `process.argv` to get an array of all command-line arguments. - Use `Array.prototype.slice()` to remove the first two elements (path of the Node.js executable and the file being executed)." b
+const getCmdArgs = () => process.argv.slice(2);
 endsnippet
 
 snippet Get colon time from date "Returns a string of the form `HH:MM:SS` from a `Date` object.  - Use `Date.prototype.toTimeString()` and `String.prototype.slice()` to get the `HH:MM:SS` part of a given `Date` object." b
@@ -3980,6 +4002,11 @@ snippet Toggle class of HTML element "Toggles a class for an HTML element.  - Us
 const toggleClass = (el, className) => el.classList.toggle(className);
 endsnippet
 
+snippet Toggle element in array "Removes an element from an array if it's included in the array, or pushes it to the array if it isn't.  - Use `Array.prototype.includes()` to check if the given element is in the array. - Use `Array.prototype.filter()` to remove the element if it's in the array. - Use the spread operator (`...`) to push the element if it's not in the array." b
+const toggleElement = (arr, val) =>
+  arr.includes(val) ? arr.filter(el => el !== val) : [...arr, val];
+endsnippet
+
 snippet Date of tomorrow "Results in a string representation of tomorrow's date.  - Use the `Date` constructor to get the current date. - Increment it by one using `Date.prototype.getDate()` and set the value to the result using `Date.prototype.setDate()`. - Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format." b
 const tomorrow = () => {
   let d = new Date();
@@ -4123,6 +4150,13 @@ endsnippet
 snippet Convert to absolute path "Converts a tilde path to an absolute path.  - Use `String.prototype.replace()` with a regular expression and `os.homedir()` to replace the `~` in the start of the path with the home directory." b
 const untildify = str =>
   str.replace(/^~($|\/|\\)/, \`\${require('os').homedir()}$1\`);
+endsnippet
+
+snippet Unwind object "Produces an array of objects from an object and one of its array-valued properties.  - Use object destructuring to exclude the key-value pair for the specified `key` from the object. - Use `Array.prototype.map()` for the values of the given `key` to create an array of objects. - Each object contains the original object's values, except for `key` which is mapped to its individual values." b
+const unwind = (key, obj) => {
+  const { [key]: _, ...rest } = obj;
+  return obj[key].map(val => ({ ...rest, [key]: val }));
+};
 endsnippet
 
 snippet Ungroup array elements "Creates an array of arrays, ungrouping the elements in an array produced by [zip](/js/s/zip).  - Use `Math.max()`, `Function.prototype.apply()` to get the longest subarray in the array, `Array.prototype.map()` to make each element an array. - Use `Array.prototype.reduce()` and `Array.prototype.forEach()` to map grouped values to individual arrays." b

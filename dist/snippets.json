@@ -514,6 +514,15 @@
     ]
   },
   {
+    "code": "const callOrReturn = (fn, ...args) =>\n  typeof fn === 'function' ? fn(...args) : fn;",
+    "description": "Calls the argument if it's a function, otherwise returns it.\n\n- Use the `typeof` operator to check if the given argument is a function.\n- If it is, use the spread operator (`...`) to call it with the rest of the given arguments. Otherwise, return it.",
+    "example": "callOrReturn(x => x + 1, 1); // 2\ncallOrReturn(1, 1); // 1",
+    "id": "Call or return",
+    "tags": [
+      "function"
+    ]
+  },
+  {
     "code": "const capitalize = ([first, ...rest], lowerRest = false) =>\n  first.toUpperCase() +\n  (lowerRest ? rest.join('').toLowerCase() : rest.join(''));",
     "description": "Capitalizes the first letter of a string.\n\n- Use array destructuring and `String.prototype.toUpperCase()` to capitalize the first letter of the string.\n- Use `Array.prototype.join()` to combine the capitalized `first` with the `...rest` of the characters.\n- Omit the `lowerRest` argument to keep the rest of the string intact, or set it to `true` to convert to lowercase.",
     "example": "capitalize('fooBar'); // 'FooBar'\ncapitalize('fooBar', true); // 'Foobar'",
@@ -698,10 +707,28 @@
     ]
   },
   {
+    "code": "const commonKeys = (obj1, obj2) =>\n  Object.keys(obj1).filter(key => obj2.hasOwnProperty(key));",
+    "description": "Finds the common keys between two objects.\n\n- Use `Object.keys()` to get the keys of the first object.\n- Use `Object.prototype.hasOwnProperty()` to check if the second object has a key that's in the first object.\n- Use `Array.prototype.filter()` to filter out keys that aren't in both objects.",
+    "example": "commonKeys({ a: 1, b: 2 }, { a: 2, c: 1 }); // ['a']",
+    "id": "Common keys",
+    "tags": [
+      "object"
+    ]
+  },
+  {
     "code": "const compact = arr => arr.filter(Boolean);",
     "description": "Removes falsy values from an array.\n\n- Use `Array.prototype.filter()` to filter out falsy values (`false`, `null`, `0`, `\"\"`, `undefined`, and `NaN`).",
     "example": "compact([0, 1, false, 2, '', 3, 'a', 'e' * 23, NaN, 's', 34]);\n// [ 1, 2, 3, 'a', 's', 34 ]",
     "id": "Compact array",
+    "tags": [
+      "array"
+    ]
+  },
+  {
+    "code": "const compactJoin = (arr, delim = ',') => arr.filter(Boolean).join(delim);",
+    "description": "Removes falsy values from an array and combines the remaining values into a string.\n\n- Use `Array.prototype.filter()` to filter out falsy values (`false`, `null`, `0`, `\"\"`, `undefined`, and `NaN`).\n- Use `Array.prototype.join()` to join the remaining values into a string.",
+    "example": "compactJoin(['a', '', 'b', 'c']); // 'a,b,c'",
+    "id": "Compact and join array",
     "tags": [
       "array"
     ]
@@ -1473,6 +1500,16 @@
     ]
   },
   {
+    "code": "const flags = arr => arr.reduce((acc, str) => ({...acc, [str]: true }), {});",
+    "description": "Converts an array of strings into an object mapping to true.\n\n- Use `Array.prototype.reduce()` to convert the array into an object, where each array value is used as a key whose value is set to `true`.",
+    "example": "flags(['red', 'green']); // { red: true, green: true }",
+    "id": "Array to flags object",
+    "tags": [
+      "array",
+      "object"
+    ]
+  },
+  {
     "code": "const flatIterator = function* (itr) {\n  for (let item of itr) {\n    if (item[Symbol.iterator]) yield* flatIterator(item);\n    else yield item;\n  }\n};",
     "description": "Creates a generator that iterates over an iterable, flattening nested iterables.\n\n- Use recursion.\n- Use a `for...of` loop to iterate over the values of the given iterable.\n- Use `Symbol.iterator` to check if each value is an iterable. If it is, use the `yield*` expression to recursively delegate to the same generator function. Otherwise, `yield` the current value.",
     "example": "const arr = [1, 2, [3, 4], [5, [6, [7], 8]], 9, new Set([10, 11])];\n[...flatIterator(arr)]; // 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11",
@@ -1736,6 +1773,15 @@
       "string",
       "browser",
       "regexp"
+    ]
+  },
+  {
+    "code": "const getCmdArgs = () => process.argv.slice(2);",
+    "description": "Gets the command-line arguments passed to a Node.js script.\n\n- Use `process.argv` to get an array of all command-line arguments.\n- Use `Array.prototype.slice()` to remove the first two elements (path of the Node.js executable and the file being executed).",
+    "example": "// node my-script.js --name=John --age=30\ngetCmdArgs(); // ['--name=John', '--age=30']",
+    "id": "Command-line arguments",
+    "tags": [
+      "node"
     ]
   },
   {
@@ -4814,6 +4860,15 @@
     ]
   },
   {
+    "code": "const toggleElement = (arr, val) =>\n  arr.includes(val) ? arr.filter(el => el !== val) : [...arr, val];",
+    "description": "Removes an element from an array if it's included in the array, or pushes it to the array if it isn't.\n\n- Use `Array.prototype.includes()` to check if the given element is in the array.\n- Use `Array.prototype.filter()` to remove the element if it's in the array.\n- Use the spread operator (`...`) to push the element if it's not in the array.",
+    "example": "toggleElement([1, 2, 3], 2); // [1, 3]\ntoggleElement([1, 2, 3], 4); // [1, 2, 3, 4]",
+    "id": "Toggle element in array",
+    "tags": [
+      "array"
+    ]
+  },
+  {
     "code": "const tomorrow = () => {\n  let d = new Date();\n  d.setDate(d.getDate() + 1);\n  return d.toISOString().split('T')[0];\n};",
     "description": "Results in a string representation of tomorrow's date.\n\n- Use the `Date` constructor to get the current date.\n- Increment it by one using `Date.prototype.getDate()` and set the value to the result using `Date.prototype.setDate()`.\n- Use `Date.prototype.toISOString()` to return a string in `yyyy-mm-dd` format.",
     "example": "tomorrow(); // 2018-10-19 (if current date is 2018-10-18)",
@@ -4999,6 +5054,15 @@
     "tags": [
       "node",
       "string"
+    ]
+  },
+  {
+    "code": "const unwind = (key, obj) => {\n  const { [key]: _, ...rest } = obj;\n  return obj[key].map(val => ({ ...rest, [key]: val }));\n};",
+    "description": "Produces an array of objects from an object and one of its array-valued properties.\n\n- Use object destructuring to exclude the key-value pair for the specified `key` from the object.\n- Use `Array.prototype.map()` for the values of the given `key` to create an array of objects.\n- Each object contains the original object's values, except for `key` which is mapped to its individual values.",
+    "example": "unwind('b', { a: true, b: [1, 2] }); // [{ a: true, b: 1 }, { a: true, b: 2 }]",
+    "id": "Unwind object",
+    "tags": [
+      "object"
     ]
   },
   {
