@@ -1990,6 +1990,15 @@
     ]
   },
   {
+    "code": "const hasDecimals = num => num % 1 !== 0;",
+    "description": "Checks if a number has any decimals digits\n\n- Use the modulo (`%`) operator to check if the number is divisible by `1` and return the result.",
+    "example": "hasDecimals(1); // false\nhasDecimals(1.001); // true",
+    "id": "Number has decimal digits",
+    "tags": [
+      "math"
+    ]
+  },
+  {
     "code": "const hasDuplicates = arr => new Set(arr).size !== arr.length;",
     "description": "Checks if there are duplicate values in a flat array.\n\n- Use `Set` to get the unique values in the array.\n- Use `Set.prototype.size` and `Array.prototype.length` to check if the count of the unique values is the same as elements in the original array.",
     "example": "hasDuplicates([0, 1, 1, 2]); // true\nhasDuplicates([0, 1, 2, 3]); // false",
@@ -4758,6 +4767,16 @@
     "tags": [
       "string",
       "regexp"
+    ]
+  },
+  {
+    "code": "const toOptionalFixed = (num, digits) =>\n  \\`\\${Number.parseFloat(num.toFixed(digits))}\\`;",
+    "description": "Formats a number using fixed-point notation, if it has decimals.\n\n- Use `Number.prototype.toFixed()` to convert the number to a fixed-point notation string.\n- Use `Number.parseFloat()` to convert the fixed-point notation string to a number, removing trailing zeros.\n- Use a template literal to convert the number to a string.",
+    "example": "toOptionalFixed(1, 2); // '1'\ntoOptionalFixed(1.001, 2); // '1'\ntoOptionalFixed(1.500, 2); // '1.5'",
+    "id": "Number to fixed-point notation without trailing zeros",
+    "tags": [
+      "math",
+      "string"
     ]
   },
   {

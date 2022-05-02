@@ -1603,6 +1603,10 @@ snippet Check if HTML element has class "Checks if the given element has the spe
 const hasClass = (el, className) => el.classList.contains(className);
 endsnippet
 
+snippet Number has decimal digits "Checks if a number has any decimals digits  - Use the modulo (`%`) operator to check if the number is divisible by `1` and return the result." b
+const hasDecimals = num => num % 1 !== 0;
+endsnippet
+
 snippet Check if array has duplicates "Checks if there are duplicate values in a flat array.  - Use `Set` to get the unique values in the array. - Use `Set.prototype.size` and `Array.prototype.length` to check if the count of the unique values is the same as elements in the original array." b
 const hasDuplicates = arr => new Set(arr).size !== arr.length;
 endsnippet
@@ -3908,6 +3912,11 @@ const toKebabCase = str =>
     .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
     .map(x => x.toLowerCase())
     .join('-');
+endsnippet
+
+snippet Number to fixed-point notation without trailing zeros "Formats a number using fixed-point notation, if it has decimals.  - Use `Number.prototype.toFixed()` to convert the number to a fixed-point notation string. - Use `Number.parseFloat()` to convert the fixed-point notation string to a number, removing trailing zeros. - Use a template literal to convert the number to a string." b
+const toOptionalFixed = (num, digits) =>
+  \`\${Number.parseFloat(num.toFixed(digits))}\`;
 endsnippet
 
 snippet Number to ordinal suffix "Takes a number and returns it as a string with the correct ordinal indicator suffix.  - Use the modulo operator (`%`) to find values of single and tens digits. - Find which ordinal pattern digits match. - If digit is found in teens pattern, use teens ordinal." b
