@@ -880,7 +880,7 @@
     ]
   },
   {
-    "code": "const fs = require('fs');\n\nconst createDirIfNotExists = dir => (!fs.existsSync(dir) ? fs.mkdirSync(dir) : undefined);",
+    "code": "const fs = require('fs');\n\nconst createDirIfNotExists = dir =>\n  !fs.existsSync(dir) ? fs.mkdirSync(dir) : undefined;",
     "description": "Creates a directory, if it does not exist.\n\n- Use `fs.existsSync()` to check if the directory exists, `fs.mkdirSync()` to create it.",
     "example": "createDirIfNotExists('test');\n// creates the directory 'test', if it doesn't exist",
     "id": "Create directory if not exists",
