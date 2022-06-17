@@ -3102,6 +3102,15 @@
     ]
   },
   {
+    "code": "const mapToObject = map => Object.fromEntries(map.entries());",
+    "description": "Converts a `Map` to an object.\n\n- Use `Map.prototype.entries()` to convert the `Map` to an array of key-value pairs.\n- Use `Object.fromEntries()` to convert the array to an object.",
+    "example": "mapToObject(new Map([['a', 1], ['b', 2]])); // {a: 1, b: 2}",
+    "id": "Convert Map to object",
+    "tags": [
+      "shortTitle: Map to object"
+    ]
+  },
+  {
     "code": "const mapValues = (obj, fn) =>\n  Object.keys(obj).reduce((acc, k) => {\n    acc[k] = fn(obj[k], k, obj);\n    return acc;\n  }, {});",
     "description": "Maps the values of an object using the provided function, generating a new object with the same keys.\n\n- Use `Object.keys()` to iterate over the object's keys.\n- Use `Array.prototype.reduce()` to create a new object with the same keys and mapped values using `fn`.",
     "example": "const users = {\n  fred: { user: 'fred', age: 40 },\n  pebbles: { user: 'pebbles', age: 1 }\n};\nmapValues(users, u => u.age); // { fred: 40, pebbles: 1 }",
@@ -3393,6 +3402,15 @@
     "tags": [
       "object",
       "array"
+    ]
+  },
+  {
+    "code": "const objectToMap = obj => new Map(Object.entries(obj));",
+    "description": "Converts an object to a `Map`.\n\n- Use `Object.entries` to convert the object to an array of key-value pairs.\n- Use the `Map` constructor to convert the array to a `Map`.",
+    "example": "objectToMap({a: 1, b: 2}); // Map {'a' => 1, 'b' => 2}",
+    "id": "Convert object to Map",
+    "tags": [
+      "shortTitle: Object to Map"
     ]
   },
   {
@@ -4122,7 +4140,7 @@
   },
   {
     "code": "const replaceLast = (str, pattern, replacement) => {\n  const match =\n    typeof pattern === 'string'\n      ? pattern\n      : (str.match(new RegExp(pattern.source, 'g')) || []).slice(-1)[0];\n  if (!match) return str;\n  const last = str.lastIndexOf(match);\n  return last !== -1\n    ? \\`\\${str.slice(0, last)}\\${replacement}\\${str.slice(last + match.length)}\\`\n    : str;\n};",
-    "description": "Replaces the last occurence of a pattern in a string.\n\n- Use `typeof` to determine if `pattern` is a string or a regular expression.\n- If the `pattern` is a string, use it as the `match`.\n- Otherwise, use the `RegeExp` constructor to create a new regular expression using the `RegExp.prototype.source` of the `pattern` and adding the `'g'` flag to it. Use `String.prototype.match()` and `Array.prototype.slice()` to get the last match, if any.\n- Use `String.prototype.lastIndexOf()` to find the last occurence of the match in the string.\n- If a match is found, use `String.prototype.slice()` and a template literal to replace the matching substring with the given `replacement`.\n- If no match is found, return the original string.",
+    "description": "Replaces the last occurrence of a pattern in a string.\n\n- Use `typeof` to determine if `pattern` is a string or a regular expression.\n- If the `pattern` is a string, use it as the `match`.\n- Otherwise, use the `RegeExp` constructor to create a new regular expression using the `RegExp.prototype.source` of the `pattern` and adding the `'g'` flag to it. Use `String.prototype.match()` and `Array.prototype.slice()` to get the last match, if any.\n- Use `String.prototype.lastIndexOf()` to find the last occurrence of the match in the string.\n- If a match is found, use `String.prototype.slice()` and a template literal to replace the matching substring with the given `replacement`.\n- If no match is found, return the original string.",
     "example": "replaceLast('abcabdef', 'ab', 'gg'); // 'abcggdef'\nreplaceLast('abcabdef', /ab/, 'gg'); // 'abcggdef'\nreplaceLast('abcabdef', 'ad', 'gg'); // 'abcabdef'\nreplaceLast('abcabdef', /ad/, 'gg'); // 'abcabdef'",
     "id": "Replace last occuerence in string",
     "tags": [

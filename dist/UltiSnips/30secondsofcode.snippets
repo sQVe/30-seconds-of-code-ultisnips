@@ -2491,6 +2491,10 @@ const mapString = (str, fn) =>
     .join('');
 endsnippet
 
+snippet Convert Map to object "Converts a `Map` to an object.  - Use `Map.prototype.entries()` to convert the `Map` to an array of key-value pairs. - Use `Object.fromEntries()` to convert the array to an object." b
+const mapToObject = map => Object.fromEntries(map.entries());
+endsnippet
+
 snippet Map object values "Maps the values of an object using the provided function, generating a new object with the same keys.  - Use `Object.keys()` to iterate over the object's keys. - Use `Array.prototype.reduce()` to create a new object with the same keys and mapped values using `fn`." b
 const mapValues = (obj, fn) =>
   Object.keys(obj).reduce((acc, k) => {
@@ -2688,6 +2692,10 @@ endsnippet
 
 snippet Object to entries "Creates an array of key-value pair arrays from an object.  - Use `Object.keys()` and `Array.prototype.map()` to iterate over the object's keys and produce an array with key-value pairs. - [`Object.entries()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries) provides similar functionality." b
 const objectToEntries = obj => Object.keys(obj).map(k => [k, obj[k]]);
+endsnippet
+
+snippet Convert object to Map "Converts an object to a `Map`.  - Use `Object.entries` to convert the object to an array of key-value pairs. - Use the `Map` constructor to convert the array to a `Map`." b
+const objectToMap = obj => new Map(Object.entries(obj));
 endsnippet
 
 snippet Object to pairs "Creates an array of key-value pair arrays from an object.  - Use `Object.entries()` to get an array of key-value pair arrays from the given object." b
@@ -3375,7 +3383,7 @@ const repeatGenerator = function* (val) {
 };
 endsnippet
 
-snippet Replace last occuerence in string "Replaces the last occurence of a pattern in a string.  - Use `typeof` to determine if `pattern` is a string or a regular expression. - If the `pattern` is a string, use it as the `match`. - Otherwise, use the `RegeExp` constructor to create a new regular expression using the `RegExp.prototype.source` of the `pattern` and adding the `'g'` flag to it. Use `String.prototype.match()` and `Array.prototype.slice()` to get the last match, if any. - Use `String.prototype.lastIndexOf()` to find the last occurence of the match in the string. - If a match is found, use `String.prototype.slice()` and a template literal to replace the matching substring with the given `replacement`. - If no match is found, return the original string." b
+snippet Replace last occuerence in string "Replaces the last occurrence of a pattern in a string.  - Use `typeof` to determine if `pattern` is a string or a regular expression. - If the `pattern` is a string, use it as the `match`. - Otherwise, use the `RegeExp` constructor to create a new regular expression using the `RegExp.prototype.source` of the `pattern` and adding the `'g'` flag to it. Use `String.prototype.match()` and `Array.prototype.slice()` to get the last match, if any. - Use `String.prototype.lastIndexOf()` to find the last occurrence of the match in the string. - If a match is found, use `String.prototype.slice()` and a template literal to replace the matching substring with the given `replacement`. - If no match is found, return the original string." b
 const replaceLast = (str, pattern, replacement) => {
   const match =
     typeof pattern === 'string'
