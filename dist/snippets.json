@@ -87,7 +87,7 @@
   },
   {
     "code": "const URLJoin = (...args) =>\n  args\n    .join('/')\n    .replace(/[\\/]+/g, '/')\n    .replace(/^(.+):\\//, '$1://')\n    .replace(/^file:/, 'file:/')\n    .replace(/\\/(\\?|&|#[^!])/g, '$1')\n    .replace(/\\?/g, '&')\n    .replace('&', '?');",
-    "description": "Joins all given URL segments together, then normalizes the resulting URL.\n\n- Use `String.prototype.join()` to combine URL segments.\n- Use a series of `String.prototype.replace()` calls with various regexps to normalize the resulting URL (remove double slashes, add proper slashes for protocol, remove slashes before parameters, combine parameters with `'&'` and normalize first parameter delimiter).",
+    "description": "Joins all given URL segments together, then normalizes the resulting URL.\n\n- Use `String.prototype.join()` to combine URL segments.\n- Use a series of `String.prototype.replace()` calls with various regular expressions to normalize the resulting URL (remove double slashes, add proper slashes for protocol, remove slashes before parameters, combine parameters with `'&'` and normalize first parameter delimiter).",
     "example": "URLJoin('http://www.google.com', 'a', '/b/cd', '?foo=123', '?bar=foo');\n// 'http://www.google.com/a/b/cd?foo=123&bar=foo'",
     "id": "Join URL segments",
     "tags": [
@@ -1273,6 +1273,15 @@
     ]
   },
   {
+    "code": "const endsWithSubstring = (text, word) => {\n  for (let i in word) {\n    const substr = word.slice(0, i + 1);\n    if (text.endsWith(substr)) return substr;\n  }\n  return undefined;\n};",
+    "description": "Checks if a given string ends with a substring of another string.\n\n- Use a `for...in` loop and `String.prototype.slice()` to get each substring of the given `word`, starting at the end.\n- Use `String.prototype.endsWith()` to check the current substring against the `text`.\n- Return the matching substring, if found. Otherwise, return `undefined`.",
+    "example": "endsWithSubstring('Lorem ipsum dolor sit amet<br /', '<br />'); // '<br /'",
+    "id": "String ends with substring",
+    "tags": [
+      "shortTitle: Ends with substring"
+    ]
+  },
+  {
     "code": "const equals = (a, b) => {\n  if (a === b) return true;\n\n  if (a instanceof Date && b instanceof Date)\n    return a.getTime() === b.getTime();\n\n  if (!a || !b || (typeof a !== 'object' && typeof b !== 'object'))\n    return a === b;\n\n  if (a.prototype !== b.prototype) return false;\n\n  const keys = Object.keys(a);\n  if (keys.length !== Object.keys(b).length) return false;\n\n  return keys.every(k => equals(a[k], b[k]));\n};",
     "description": "Performs a deep comparison between two values to determine if they are equivalent.\n\n- Check if the two values are identical.\n- Check if both values are `Date` objects with the same time, using `Date.prototype.getTime()`.\n- Check if both values are non-object values with an equivalent value (strict comparison).\n- Check if only one value is `null` or `undefined` or if their prototypes differ.\n- If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys.\n- Use `Array.prototype.every()` to check if every key in `a` exists in `b` and if they are equivalent by calling `equals()` recursively.",
     "example": "equals(\n  { a: [2, { e: 3 }], b: [4], c: 'foo' },\n  { a: [2, { e: 3 }], b: [4], c: 'foo' }\n); // true\nequals([1, 2, 3], { 0: 1, 1: 2, 2: 3 }); // true",
@@ -1880,6 +1889,15 @@
     "description": "Returns the scroll position of the current page.\n\n- Use `Window.pageXOffset` and `Window.pageYOffset` if they are defined, otherwise `Element.scrollLeft` and `Element.scrollTop`.\n- Omit the single argument, `el`, to use the global `Window` object.",
     "example": "getScrollPosition(); // {x: 0, y: 200}",
     "id": "Scroll position",
+    "tags": [
+      "browser"
+    ]
+  },
+  {
+    "code": "const getScrollbarWidth = () =>\n  window.innerWidth - document.documentElement.clientWidth;",
+    "description": "Calculates the width of the window's vertical scrollbar.\n\n\n- Use `Window.innerWidth` to get the interior width of the window.\n- Use `Element.clientWidth` to get the inner width of the `Document` element.\n- Subtract the two values to get the width of the vertical scrollbar.",
+    "example": "getScrollbarWidth(); // 15",
+    "id": "Scrollbar width",
     "tags": [
       "browser"
     ]
@@ -2989,6 +3007,16 @@
     ]
   },
   {
+    "code": "const leftSubstrGenerator = function* (str) {\n  if (!str.length) return;\n  for (let i in str) yield str.slice(0, i + 1);\n};",
+    "description": "Generates all left substrings of a given string.\n\n- Use `String.prototype.length` to terminate early if the string is empty.\n- Use a `for...in` loop and `String.prototype.slice()` to `yield` each substring of the given string, starting at the beginning.",
+    "example": "[...leftSubstrGenerator('hello')];\n// [ 'h', 'he', 'hel', 'hell', 'hello' ]",
+    "id": "Left substring generator",
+    "tags": [
+      "string",
+      "generator"
+    ]
+  },
+  {
     "code": "const levenshteinDistance = (s, t) => {\n  if (!s.length) return t.length;\n  if (!t.length) return s.length;\n  const arr = [];\n  for (let i = 0; i <= t.length; i++) {\n    arr[i] = [i];\n    for (let j = 1; j <= s.length; j++) {\n      arr[i][j] =\n        i === 0\n          ? j\n          : Math.min(\n              arr[i - 1][j] + 1,\n              arr[i][j - 1] + 1,\n              arr[i - 1][j - 1] + (s[j - 1] === t[i - 1] ? 0 : 1)\n            );\n    }\n  }\n  return arr[t.length][s.length];\n};",
     "description": "Calculates the difference between two strings, using the [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) algorithm.\n\n- If either of the two strings has a `length` of zero, return the `length` of the other one.\n- Use a `for` loop to iterate over the letters of the target string and a nested `for` loop to iterate over the letters of the source string.\n- Calculate the cost of substituting the letters corresponding to `i - 1` and `j - 1` in the target and source respectively (`0` if they are the same, `1` otherwise).\n- Use `Math.min()` to populate each element in the 2D array with the minimum of the cell above incremented by one, the cell to the left incremented by one or the cell to the top left incremented by the previously calculated cost.\n- Return the last element of the last row of the produced array.",
     "example": "levenshteinDistance('duck', 'dark'); // 2",
@@ -3057,7 +3085,7 @@
   },
   {
     "code": "const mapConsecutive = (arr, n, fn) =>\n  arr.slice(n - 1).map((v, i) => fn(arr.slice(i, i + n)));",
-    "description": "Maps each block of `n` consencutive elements using the given function, `fn`.\n\n- Use `Array.prototype.slice()` to get `arr` with `n` elements removed from the left.\n- Use `Array.prototype.map()` and `Array.prototype.slice()` to apply `fn` to each block of `n` consecutive elements in `arr`.",
+    "description": "Maps each block of `n` consecutive elements using the given function, `fn`.\n\n- Use `Array.prototype.slice()` to get `arr` with `n` elements removed from the left.\n- Use `Array.prototype.map()` and `Array.prototype.slice()` to apply `fn` to each block of `n` consecutive elements in `arr`.",
     "example": "mapConsecutive([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 3, x => x.join('-'));\n// ['1-2-3', '2-3-4', '3-4-5', '4-5-6', '5-6-7', '6-7-8', '7-8-9', '8-9-10'];",
     "id": "Map consecutive elements",
     "tags": [
@@ -3871,7 +3899,7 @@
   },
   {
     "code": "const quickSort = arr => {\n  const a = [...arr];\n  if (a.length < 2) return a;\n  const pivotIndex = Math.floor(arr.length / 2);\n  const pivot = a[pivotIndex];\n  const [lo, hi] = a.reduce(\n    (acc, val, i) => {\n      if (val < pivot || (val === pivot && i != pivotIndex)) {\n        acc[0].push(val);\n      } else if (val > pivot) {\n        acc[1].push(val);\n      }\n      return acc;\n    },\n    [[], []]\n  );\n  return [...quickSort(lo), pivot, ...quickSort(hi)];\n};",
-    "description": "Sorts an array of numbers, using the quicksort algorithm.\n\n- Use recursion.\n- Use the spread operator (`...`) to clone the original array, `arr`.\n- If the `length` of the array is less than `2`, return the cloned array.\n- Use `Math.floor()` to calculate the index of the pivot element.\n- Use `Array.prototype.reduce()` and `Array.prototype.push()` to split the array into two subarrays. The first one contains elements smaller than or equal to `pivot` and the second on elements greather than it. Destructure the result into two arrays.\n- Recursively call `quickSort()` on the created subarrays.",
+    "description": "Sorts an array of numbers, using the quicksort algorithm.\n\n- Use recursion.\n- Use the spread operator (`...`) to clone the original array, `arr`.\n- If the `length` of the array is less than `2`, return the cloned array.\n- Use `Math.floor()` to calculate the index of the pivot element.\n- Use `Array.prototype.reduce()` and `Array.prototype.push()` to split the array into two subarrays. The first one contains elements smaller than or equal to `pivot` and the second on elements greater than it. Destructure the result into two arrays.\n- Recursively call `quickSort()` on the created subarrays.",
     "example": "quickSort([1, 6, 1, 5, 3, 2, 1, 4]); // [1, 1, 1, 2, 3, 4, 5, 6]",
     "id": "Quick sort",
     "tags": [
@@ -4062,6 +4090,15 @@
     ]
   },
   {
+    "code": "const removeAttributes = element =>\n  Object.values(element.attributes).forEach(({ name }) =>\n    element.removeAttribute(name)\n  );",
+    "description": "Removes all attributes from an HTML element.\n\n- Use `Element.attributes` and `Object.values()` to get all the attributes of the element.\n- Use `Array.prototype.forEach()` and object destructuring to get the name of each attribute and `Element.removeAttribute()` to remove it from the element.",
+    "example": "removeAttributes(document.querySelector('p.special'));\n// The paragraph will not have the 'special' class anymore",
+    "id": "Remove attributes",
+    "tags": [
+      "browser"
+    ]
+  },
+  {
     "code": "const removeClass = (el, className) => el.classList.remove(className);",
     "description": "Removes a class from an HTML element.\n\n- Use `Element.classList` and `DOMTokenList.remove()` to remove the specified class from the element.",
     "example": "removeClass(document.querySelector('p.special'), 'special');\n// The paragraph will not have the 'special' class anymore",
@@ -4184,6 +4221,16 @@
     "id": "Reverse string",
     "tags": [
       "string"
+    ]
+  },
+  {
+    "code": "const rightSubstrGenerator = function* (str) {\n  if (!str.length) return;\n  for (let i in str) yield str.slice(-i - 1);\n};",
+    "description": "Generates all right substrings of a given string.\n\n- Use `String.prototype.length` to terminate early if the string is empty.\n- Use a `for...in` loop and `String.prototype.slice()` to `yield` each substring of the given string, starting at the end.",
+    "example": "[...rightSubstrGenerator('hello')];\n// [ 'o', 'lo', 'llo', 'ello', 'hello' ]",
+    "id": "Right substring generator",
+    "tags": [
+      "string",
+      "generator"
     ]
   },
   {
@@ -4467,6 +4514,15 @@
     "tags": [
       "math",
       "array"
+    ]
+  },
+  {
+    "code": "const startsWithSubstring = (text, word) => {\n  for (let i in word) {\n    const substr = word.slice(-i - 1);\n    if (text.startsWith(substr)) return substr;\n  }\n  return undefined;\n};",
+    "description": "Checks if a given string starts with a substring of another string.\n\n- Use a `for...in` loop and `String.prototype.slice()` to get each substring of the given `word`, starting at the beginning.\n- Use `String.prototype.startsWith()` to check the current substring against the `text`.\n- Return the matching substring, if found. Otherwise, return `undefined`.",
+    "example": "startsWithSubstring('/>Lorem ipsum dolor sit amet', '<br />'); // '/>'",
+    "id": "String starts with substring",
+    "tags": [
+      "shortTitle: Starts with substring"
     ]
   },
   {

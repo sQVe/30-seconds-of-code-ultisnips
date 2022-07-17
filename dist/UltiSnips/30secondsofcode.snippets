@@ -109,7 +109,7 @@ const RGBToHex = (r, g, b) =>
   ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
 endsnippet
 
-snippet Join URL segments "Joins all given URL segments together, then normalizes the resulting URL.  - Use `String.prototype.join()` to combine URL segments. - Use a series of `String.prototype.replace()` calls with various regexps to normalize the resulting URL (remove double slashes, add proper slashes for protocol, remove slashes before parameters, combine parameters with `'&'` and normalize first parameter delimiter)." b
+snippet Join URL segments "Joins all given URL segments together, then normalizes the resulting URL.  - Use `String.prototype.join()` to combine URL segments. - Use a series of `String.prototype.replace()` calls with various regular expressions to normalize the resulting URL (remove double slashes, add proper slashes for protocol, remove slashes before parameters, combine parameters with `'&'` and normalize first parameter delimiter)." b
 const URLJoin = (...args) =>
   args
     .join('/')
@@ -1040,6 +1040,16 @@ const elementIsVisibleInViewport = (el, partiallyVisible = false) => {
 };
 endsnippet
 
+snippet String ends with substring "Checks if a given string ends with a substring of another string.  - Use a `for...in` loop and `String.prototype.slice()` to get each substring of the given `word`, starting at the end. - Use `String.prototype.endsWith()` to check the current substring against the `text`. - Return the matching substring, if found. Otherwise, return `undefined`." b
+const endsWithSubstring = (text, word) => {
+  for (let i in word) {
+    const substr = word.slice(0, i + 1);
+    if (text.endsWith(substr)) return substr;
+  }
+  return undefined;
+};
+endsnippet
+
 snippet Check object equality "Performs a deep comparison between two values to determine if they are equivalent.  - Check if the two values are identical. - Check if both values are `Date` objects with the same time, using `Date.prototype.getTime()`. - Check if both values are non-object values with an equivalent value (strict comparison). - Check if only one value is `null` or `undefined` or if their prototypes differ. - If none of the above conditions are met, use `Object.keys()` to check if both values have the same number of keys. - Use `Array.prototype.every()` to check if every key in `a` exists in `b` and if they are equivalent by calling `equals()` recursively." b
 const equals = (a, b) => {
   if (a === b) return true;
@@ -1534,6 +1544,11 @@ const getScrollPosition = (el = window) => ({
   x: el.pageXOffset !== undefined ? el.pageXOffset : el.scrollLeft,
   y: el.pageYOffset !== undefined ? el.pageYOffset : el.scrollTop
 });
+endsnippet
+
+snippet Scrollbar width "Calculates the width of the window's vertical scrollbar.   - Use `Window.innerWidth` to get the interior width of the window. - Use `Element.clientWidth` to get the inner width of the `Document` element. - Subtract the two values to get the width of the vertical scrollbar." b
+const getScrollbarWidth = () =>
+  window.innerWidth - document.documentElement.clientWidth;
 endsnippet
 
 snippet Date difference in seconds "Calculates the difference (in seconds) between two dates.  - Subtract the two `Date` objects and divide by the number of milliseconds in a second to get the difference (in seconds) between them." b
@@ -2388,6 +2403,13 @@ const lcm = (...arr) => {
 };
 endsnippet
 
+snippet Left substring generator "Generates all left substrings of a given string.  - Use `String.prototype.length` to terminate early if the string is empty. - Use a `for...in` loop and `String.prototype.slice()` to `yield` each substring of the given string, starting at the beginning." b
+const leftSubstrGenerator = function* (str) {
+  if (!str.length) return;
+  for (let i in str) yield str.slice(0, i + 1);
+};
+endsnippet
+
 snippet Levenshtein distance "Calculates the difference between two strings, using the [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) algorithm.  - If either of the two strings has a `length` of zero, return the `length` of the other one. - Use a `for` loop to iterate over the letters of the target string and a nested `for` loop to iterate over the letters of the source string. - Calculate the cost of substituting the letters corresponding to `i - 1` and `j - 1` in the target and source respectively (`0` if they are the same, `1` otherwise). - Use `Math.min()` to populate each element in the 2D array with the minimum of the cell above incremented by one, the cell to the left incremented by one or the cell to the top left incremented by the previously calculated cost. - Return the last element of the last row of the produced array." b
 const levenshteinDistance = (s, t) => {
   if (!s.length) return t.length;
@@ -2457,7 +2479,7 @@ const luhnCheck = num => {
 };
 endsnippet
 
-snippet Map consecutive elements "Maps each block of `n` consencutive elements using the given function, `fn`.  - Use `Array.prototype.slice()` to get `arr` with `n` elements removed from the left. - Use `Array.prototype.map()` and `Array.prototype.slice()` to apply `fn` to each block of `n` consecutive elements in `arr`." b
+snippet Map consecutive elements "Maps each block of `n` consecutive elements using the given function, `fn`.  - Use `Array.prototype.slice()` to get `arr` with `n` elements removed from the left. - Use `Array.prototype.map()` and `Array.prototype.slice()` to apply `fn` to each block of `n` consecutive elements in `arr`." b
 const mapConsecutive = (arr, n, fn) =>
   arr.slice(n - 1).map((v, i) => fn(arr.slice(i, i + n)));
 endsnippet
@@ -3142,7 +3164,7 @@ const queryStringToObject = url =>
   );
 endsnippet
 
-snippet Quick sort "Sorts an array of numbers, using the quicksort algorithm.  - Use recursion. - Use the spread operator (`...`) to clone the original array, `arr`. - If the `length` of the array is less than `2`, return the cloned array. - Use `Math.floor()` to calculate the index of the pivot element. - Use `Array.prototype.reduce()` and `Array.prototype.push()` to split the array into two subarrays. The first one contains elements smaller than or equal to `pivot` and the second on elements greather than it. Destructure the result into two arrays. - Recursively call `quickSort()` on the created subarrays." b
+snippet Quick sort "Sorts an array of numbers, using the quicksort algorithm.  - Use recursion. - Use the spread operator (`...`) to clone the original array, `arr`. - If the `length` of the array is less than `2`, return the cloned array. - Use `Math.floor()` to calculate the index of the pivot element. - Use `Array.prototype.reduce()` and `Array.prototype.push()` to split the array into two subarrays. The first one contains elements smaller than or equal to `pivot` and the second on elements greater than it. Destructure the result into two arrays. - Recursively call `quickSort()` on the created subarrays." b
 const quickSort = arr => {
   const a = [...arr];
   if (a.length < 2) return a;
@@ -3307,6 +3329,13 @@ const removeAccents = str =>
   str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 endsnippet
 
+snippet Remove attributes "Removes all attributes from an HTML element.  - Use `Element.attributes` and `Object.values()` to get all the attributes of the element. - Use `Array.prototype.forEach()` and object destructuring to get the name of each attribute and `Element.removeAttribute()` to remove it from the element." b
+const removeAttributes = element =>
+  Object.values(element.attributes).forEach(({ name }) =>
+    element.removeAttribute(name)
+  );
+endsnippet
+
 snippet Remove class from HTML element "Removes a class from an HTML element.  - Use `Element.classList` and `DOMTokenList.remove()` to remove the specified class from the element." b
 const removeClass = (el, className) => el.classList.remove(className);
 endsnippet
@@ -3418,6 +3447,13 @@ endsnippet
 
 snippet Reverse string "Reverses a string.  - Use the spread operator (`...`) and `Array.prototype.reverse()` to reverse the order of the characters in the string. - Combine characters to get a string using `String.prototype.join()`." b
 const reverseString = str => [...str].reverse().join('');
+endsnippet
+
+snippet Right substring generator "Generates all right substrings of a given string.  - Use `String.prototype.length` to terminate early if the string is empty. - Use a `for...in` loop and `String.prototype.slice()` to `yield` each substring of the given string, starting at the end." b
+const rightSubstrGenerator = function* (str) {
+  if (!str.length) return;
+  for (let i in str) yield str.slice(-i - 1);
+};
 endsnippet
 
 snippet Round number to given precision "Rounds a number to a specified amount of digits.  - Use `Math.round()` and template literals to round the number to the specified number of digits. - Omit the second argument, `decimals`, to round to an integer." b
@@ -3651,6 +3687,16 @@ const standardDeviation = (arr, usePopulation = false) => {
       .reduce((acc, val) => acc + val, 0) /
       (arr.length - (usePopulation ? 0 : 1))
   );
+};
+endsnippet
+
+snippet String starts with substring "Checks if a given string starts with a substring of another string.  - Use a `for...in` loop and `String.prototype.slice()` to get each substring of the given `word`, starting at the beginning. - Use `String.prototype.startsWith()` to check the current substring against the `text`. - Return the matching substring, if found. Otherwise, return `undefined`." b
+const startsWithSubstring = (text, word) => {
+  for (let i in word) {
+    const substr = word.slice(-i - 1);
+    if (text.startsWith(substr)) return substr;
+  }
+  return undefined;
 };
 endsnippet
 
