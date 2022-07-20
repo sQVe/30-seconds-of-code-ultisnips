@@ -1509,6 +1509,15 @@
     ]
   },
   {
+    "code": "const firstN = (arr, n) => arr.slice(0, n);",
+    "description": "Gets the first `n` elements of an array.\n\n- Use `Array.prototype.slice()` with a start value of `0` and an end value of `n` to get the first `n` elements of `arr`.",
+    "example": "firstN(['a', 'b', 'c', 'd'], 2); // ['a', 'b']",
+    "id": "First n elements",
+    "tags": [
+      "array"
+    ]
+  },
+  {
     "code": "const flags = arr => arr.reduce((acc, str) => ({...acc, [str]: true }), {});",
     "description": "Converts an array of strings into an object mapping to true.\n\n- Use `Array.prototype.reduce()` to convert the array into an object, where each array value is used as a key whose value is set to `true`.",
     "example": "flags(['red', 'green']); // { red: true, green: true }",
@@ -2993,6 +3002,15 @@
     "id": "Last date of month",
     "tags": [
       "date"
+    ]
+  },
+  {
+    "code": "const lastN = (arr, n) => arr.slice(-n);",
+    "description": "Gets the last `n` elements of an array.\n\n- Use `Array.prototype.slice()` with a start value of `-n` to get the last `n` elements of `arr`.",
+    "example": "lastN(['a', 'b', 'c', 'd'], 2); // ['c', 'd']",
+    "id": "Last n elements",
+    "tags": [
+      "array"
     ]
   },
   {

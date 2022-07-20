@@ -1230,6 +1230,10 @@ const findLastN = (arr, matcher, n = 1) => {
 };
 endsnippet
 
+snippet First n elements "Gets the first `n` elements of an array.  - Use `Array.prototype.slice()` with a start value of `0` and an end value of `n` to get the first `n` elements of `arr`." b
+const firstN = (arr, n) => arr.slice(0, n);
+endsnippet
+
 snippet Array to flags object "Converts an array of strings into an object mapping to true.  - Use `Array.prototype.reduce()` to convert the array into an object, where each array value is used as a key whose value is set to `true`." b
 const flags = arr => arr.reduce((acc, str) => ({...acc, [str]: true }), {});
 endsnippet
@@ -2393,6 +2397,10 @@ const lastDateOfMonth = (date = new Date()) => {
   let d = new Date(date.getFullYear(), date.getMonth() + 1, 0);
   return d.toISOString().split('T')[0];
 };
+endsnippet
+
+snippet Last n elements "Gets the last `n` elements of an array.  - Use `Array.prototype.slice()` with a start value of `-n` to get the last `n` elements of `arr`." b
+const lastN = (arr, n) => arr.slice(-n);
 endsnippet
 
 snippet Least common multiple "Calculates the least common multiple of two or more numbers.  - Use the greatest common divisor (GCD) formula and the fact that `lcm(x, y) = x * y / gcd(x, y)` to determine the least common multiple. - The GCD formula uses recursion." b
