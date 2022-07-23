@@ -1822,6 +1822,11 @@ snippet Check if array includes any values "Checks if at least one element of `v
 const includesAny = (arr, values) => values.some(v => arr.includes(v));
 endsnippet
 
+snippet Case-insensitive substring search "Checks if a string contains a substring, case-insensitive.  - Use the `RegExp` constructor with the `'i'` flag to create a regular expression, that matches the given `searchString`, ignoring the case. - Use `RegExp.prototype.test()` to check if the string contains the substring." b
+const includesCaseInsensitive = (str, searchString) =>
+  new RegExp(searchString, 'i').test(str);
+endsnippet
+
 snippet Indent string "Indents each line in the provided string.  - Use `String.prototype.replace()` and a regular expression to add the character specified by `indent` `count` times at the start of each line. - Omit the third argument, `indent`, to use a default indentation character of `' '`." b
 const indentString = (str, count, indent = ' ') =>
   str.replace(/^/gm, indent.repeat(count));
@@ -2086,7 +2091,7 @@ const isDuplexStream = val =>
   typeof val._writableState === 'object';
 endsnippet
 
-snippet Array is empty "Checks if the a value is an empty object/collection, has no enumerable properties or is any type that is not considered a collection.  - Check if the provided value is `null` or if its `length` is equal to `0`." b
+snippet Collection is empty "Checks if the a value is an empty object/collection, has no enumerable properties or is any type that is not considered a collection.  - Check if the provided value is `null` or if its `length` is equal to `0`." b
 const isEmpty = val => val == null || !(Object.keys(val) || val).length;
 endsnippet
 

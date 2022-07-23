@@ -2221,6 +2221,15 @@
     ]
   },
   {
+    "code": "const includesCaseInsensitive = (str, searchString) =>\n  new RegExp(searchString, 'i').test(str);",
+    "description": "Checks if a string contains a substring, case-insensitive.\n\n- Use the `RegExp` constructor with the `'i'` flag to create a regular expression, that matches the given `searchString`, ignoring the case.\n- Use `RegExp.prototype.test()` to check if the string contains the substring.",
+    "example": "includesCaseInsensitive('Blue Whale', 'blue'); // true",
+    "id": "Case-insensitive substring search",
+    "tags": [
+      "string"
+    ]
+  },
+  {
     "code": "const indentString = (str, count, indent = ' ') =>\n  str.replace(/^/gm, indent.repeat(count));",
     "description": "Indents each line in the provided string.\n\n- Use `String.prototype.replace()` and a regular expression to add the character specified by `indent` `count` times at the start of each line.\n- Omit the third argument, `indent`, to use a default indentation character of `' '`.",
     "example": "indentString('Lorem\\nIpsum', 2); // '  Lorem\\n  Ipsum'\nindentString('Lorem\\nIpsum', 2, '_'); // '__Lorem\\n__Ipsum'",
@@ -2593,7 +2602,7 @@
     "code": "const isEmpty = val => val == null || !(Object.keys(val) || val).length;",
     "description": "Checks if the a value is an empty object/collection, has no enumerable properties or is any type that is not considered a collection.\n\n- Check if the provided value is `null` or if its `length` is equal to `0`.",
     "example": "isEmpty([]); // true\nisEmpty({}); // true\nisEmpty(''); // true\nisEmpty([1, 2]); // false\nisEmpty({ a: 1, b: 2 }); // false\nisEmpty('text'); // false\nisEmpty(123); // true - type is not considered a collection\nisEmpty(true); // true - type is not considered a collection",
-    "id": "Array is empty",
+    "id": "Collection is empty",
     "tags": [
       "type",
       "array",
