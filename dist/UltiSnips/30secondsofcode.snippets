@@ -109,7 +109,7 @@ const RGBToHex = (r, g, b) =>
   ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
 endsnippet
 
-snippet Join URL segments "Joins all given URL segments together, then normalizes the resulting URL.  - Use `String.prototype.join()` to combine URL segments. - Use a series of `String.prototype.replace()` calls with various regular expressions to normalize the resulting URL (remove double slashes, add proper slashes for protocol, remove slashes before parameters, combine parameters with `'&'` and normalize first parameter delimiter)." b
+snippet Join URL segments "Joins all given URL segments together, then normalizes the resulting URL.  - Use `Array.prototype.join()` to combine URL segments. - Use a series of `String.prototype.replace()` calls with various regular expressions to normalize the resulting URL (remove double slashes, add proper slashes for protocol, remove slashes before parameters, combine parameters with `'&'` and normalize first parameter delimiter)." b
 const URLJoin = (...args) =>
   args
     .join('/')
@@ -181,7 +181,7 @@ const addMultipleListeners = (el, types, listener, options, useCapture) => {
 };
 endsnippet
 
-snippet Add styles to HTML element "Adds the provided styles to the given HTML element.  - Use `Object.assign()` and `ElementCSSInlineStyle.style` to merge the provided `styles` object into the style of the given element." b
+snippet Add styles to HTML element "Adds the provided styles to the given HTML element.  - Use `Object.assign()` and `HTMLElement.style` to merge the provided `styles` object into the style of the given element." b
 const addStyles = (el, styles) => Object.assign(el.style, styles);
 endsnippet
 
@@ -458,7 +458,7 @@ const cartesianProduct = (a, b) =>
   a.reduce((p, x) => [...p, ...b.map(y => [x, y])], []);
 endsnippet
 
-snippet Cast to array "Casts the provided value as an array if it's not one.  - Use `Array.prototype.isArray()` to determine if `val` is an array and return it as-is or encapsulated in an array accordingly." b
+snippet Cast to array "Casts the provided value as an array if it's not one.  - Use `Array.isArray()` to determine if `val` is an array and return it as-is or encapsulated in an array accordingly." b
 const castArray = val => (Array.isArray(val) ? val : [val]);
 endsnippet
 
@@ -1306,7 +1306,7 @@ const formToObject = form =>
   );
 endsnippet
 
-snippet Format duration "Returns the human-readable format of the given number of milliseconds.  - Divide `ms` with the appropriate values to obtain the appropriate values for `day`, `hour`, `minute`, `second` and `millisecond`. - Use `Object.entries()` with `Array.prototype.filter()` to keep only non-zero values. - Use `Array.prototype.map()` to create the string for each value, pluralizing appropriately. - Use `String.prototype.join()` to combine the values into a string." b
+snippet Format duration "Returns the human-readable format of the given number of milliseconds.  - Divide `ms` with the appropriate values to obtain the appropriate values for `day`, `hour`, `minute`, `second` and `millisecond`. - Use `Object.entries()` with `Array.prototype.filter()` to keep only non-zero values. - Use `Array.prototype.map()` to create the string for each value, pluralizing appropriately. - Use `Array.prototype.join()` to combine the values into a string." b
 const formatDuration = ms => {
   if (ms < 0) ms = -ms;
   const time = {
@@ -1327,7 +1327,7 @@ snippet Format number "Formats a number using the local number format order.  - 
 const formatNumber = num => num.toLocaleString();
 endsnippet
 
-snippet Number of seconds to ISO format "Returns the ISO format of the given number of seconds.  - Divide `s` with the appropriate values to obtain the appropriate values for `hour`, `minute` and `second`. - Store the `sign` in a variable to prepend it to the result. - Use `Array.prototype.map()` in combination with `Math.floor()` and `String.prototype.padStart()` to stringify and format each segment. - Use `String.prototype.join()` to combine the values into a string." b
+snippet Number of seconds to ISO format "Returns the ISO format of the given number of seconds.  - Divide `s` with the appropriate values to obtain the appropriate values for `hour`, `minute` and `second`. - Store the `sign` in a variable to prepend it to the result. - Use `Array.prototype.map()` in combination with `Math.floor()` and `String.prototype.padStart()` to stringify and format each segment. - Use `Array.prototype.join()` to combine the values into a string." b
 const formatSeconds = s => {
   const [hour, minute, second, sign] =
     s > 0
@@ -2393,7 +2393,7 @@ snippet Km to miles "Converts kilometers to miles.  - Follow the conversion form
 const kmToMiles = km => km * 0.621371;
 endsnippet
 
-snippet Last array element "Returns the last element in an array.  - Check if `arr` is truthy and has a `length` property. - Use `Array.prototype.length - 1` to compute the index of the last element of the given array and return it, otherwise return `undefined`." b
+snippet Last array element "Returns the last element in an array.  - Check if `arr` is truthy and has a `length` property. - Use `Array.prototype.length` to compute the index of the last element of the given array and return it, otherwise return `undefined`." b
 const last = arr => (arr && arr.length ? arr[arr.length - 1] : undefined);
 endsnippet
 
@@ -2538,7 +2538,7 @@ const mapValues = (obj, fn) =>
   }, {});
 endsnippet
 
-snippet Mask a value "Replaces all but the last `num` of characters with the specified mask character.  - Use `String.prototype.slice()` to grab the portion of the characters that will remain unmasked. - Use `String.padStart()` to fill the beginning of the string with the `mask` character up to the original length. - If `num` is negative, the unmasked characters will be at the start of the string. - Omit the second argument, `num`, to keep a default of `4` characters unmasked. - Omit the third argument, `mask`, to use a default character of `'*'` for the mask." b
+snippet Mask a value "Replaces all but the last `num` of characters with the specified mask character.  - Use `String.prototype.slice()` to grab the portion of the characters that will remain unmasked. - Use `String.prototype.padStart()` to fill the beginning of the string with the `mask` character up to the original length. - If `num` is negative, the unmasked characters will be at the start of the string. - Omit the second argument, `num`, to keep a default of `4` characters unmasked. - Omit the third argument, `mask`, to use a default character of `'*'` for the mask." b
 const mask = (cc, num = 4, mask = '*') =>
   \`\${cc}\`.slice(-num).padStart(\`\${cc}\`.length, mask);
 endsnippet
@@ -2729,7 +2729,7 @@ snippet Object to entries "Creates an array of key-value pair arrays from an obj
 const objectToEntries = obj => Object.keys(obj).map(k => [k, obj[k]]);
 endsnippet
 
-snippet Convert object to Map "Converts an object to a `Map`.  - Use `Object.entries` to convert the object to an array of key-value pairs. - Use the `Map` constructor to convert the array to a `Map`." b
+snippet Convert object to Map "Converts an object to a `Map`.  - Use `Object.entries()` to convert the object to an array of key-value pairs. - Use the `Map` constructor to convert the array to a `Map`." b
 const objectToMap = obj => new Map(Object.entries(obj));
 endsnippet
 
@@ -2920,7 +2920,7 @@ snippet Pad number "Pads a given number to the specified length.  - Use `String.
 const padNumber = (n, l) => \`\${n}\`.padStart(l, '0');
 endsnippet
 
-snippet Palindrome "Checks if the given string is a palindrome.  - Normalize the string to `String.prototype.toLowerCase()` and use `String.prototype.replace()` to remove non-alphanumeric characters from it. - Use the spread operator (`...`) to split the normalized string into individual characters. - Use `Array.prototype.reverse()`, `String.prototype.join()` and compare the result to the normalized string." b
+snippet Palindrome "Checks if the given string is a palindrome.  - Normalize the string to `String.prototype.toLowerCase()` and use `String.prototype.replace()` to remove non-alphanumeric characters from it. - Use the spread operator (`...`) to split the normalized string into individual characters. - Use `Array.prototype.reverse()`, `Array.prototype.join()` and compare the result to the normalized string." b
 const palindrome = str => {
   const s = str.toLowerCase().replace(/[\W_]/g, '');
   return s === [...s].reverse().join('');
@@ -3353,7 +3353,7 @@ snippet Remove class from HTML element "Removes a class from an HTML element.  -
 const removeClass = (el, className) => el.classList.remove(className);
 endsnippet
 
-snippet Remove DOM element "Removes an element from the DOM.  - Use `Element.parentNode` to get the given element's parent node. - Use `Element.removeChild()` to remove the given element from its parent node." b
+snippet Remove DOM element "Removes an element from the DOM.  - Use `Node.parentNode` to get the given element's parent node. - Use `Node.removeChild()` to remove the given element from its parent node." b
 const removeElement = el => el.parentNode.removeChild(el);
 endsnippet
 
@@ -3425,7 +3425,7 @@ const repeatGenerator = function* (val) {
 };
 endsnippet
 
-snippet Replace last occuerence in string "Replaces the last occurrence of a pattern in a string.  - Use `typeof` to determine if `pattern` is a string or a regular expression. - If the `pattern` is a string, use it as the `match`. - Otherwise, use the `RegeExp` constructor to create a new regular expression using the `RegExp.prototype.source` of the `pattern` and adding the `'g'` flag to it. Use `String.prototype.match()` and `Array.prototype.slice()` to get the last match, if any. - Use `String.prototype.lastIndexOf()` to find the last occurrence of the match in the string. - If a match is found, use `String.prototype.slice()` and a template literal to replace the matching substring with the given `replacement`. - If no match is found, return the original string." b
+snippet Replace last occuerence in string "Replaces the last occurrence of a pattern in a string.  - Use `typeof` to determine if `pattern` is a string or a regular expression. - If the `pattern` is a string, use it as the `match`. - Otherwise, use the `RegExp` constructor to create a new regular expression using the `RegExp.prototype.source` of the `pattern` and adding the `'g'` flag to it. Use `String.prototype.match()` and `Array.prototype.slice()` to get the last match, if any. - Use `String.prototype.lastIndexOf()` to find the last occurrence of the match in the string. - If a match is found, use `String.prototype.slice()` and a template literal to replace the matching substring with the given `replacement`. - If no match is found, return the original string." b
 const replaceLast = (str, pattern, replacement) => {
   const match =
     typeof pattern === 'string'
@@ -3453,12 +3453,12 @@ const resolveAfter = (value, delay) =>
   });
 endsnippet
 
-snippet Reverse number "Reverses a number.  - Use `Object.prototype.toString()` to convert `n` to a string. - Use `String.prototype.split()`, `Array.prototype.reverse()` and `String.prototype.join()` to get the reversed value of `n` as a string. - Use `parseFloat()` to convert the string to a number and `Math.sign()` to preserve its sign." b
+snippet Reverse number "Reverses a number.  - Use `Object.prototype.toString()` to convert `n` to a string. - Use `String.prototype.split()`, `Array.prototype.reverse()` and `Array.prototype.join()` to get the reversed value of `n` as a string. - Use `parseFloat()` to convert the string to a number and `Math.sign()` to preserve its sign." b
 const reverseNumber = n =>
   parseFloat(\`\${n}\`.split('').reverse().join('')) * Math.sign(n);
 endsnippet
 
-snippet Reverse string "Reverses a string.  - Use the spread operator (`...`) and `Array.prototype.reverse()` to reverse the order of the characters in the string. - Combine characters to get a string using `String.prototype.join()`." b
+snippet Reverse string "Reverses a string.  - Use the spread operator (`...`) and `Array.prototype.reverse()` to reverse the order of the characters in the string. - Combine characters to get a string using `Array.prototype.join()`." b
 const reverseString = str => [...str].reverse().join('');
 endsnippet
 
@@ -3562,7 +3562,7 @@ const serializeForm = form =>
   ).join('&');
 endsnippet
 
-snippet Set style for element "Sets the value of a CSS rule for the specified HTML element.  - Use `ElementCSSInlineStyle.style` to set the value of the CSS `rule` for the specified element to `val`." b
+snippet Set style for element "Sets the value of a CSS rule for the specified HTML element.  - Use `HTMLElement.style` to set the value of the CSS `rule` for the specified element to `val`." b
 const setStyle = (el, rule, val) => (el.style[rule] = val);
 endsnippet
 
@@ -3629,7 +3629,7 @@ const smoothScroll = element =>
   });
 endsnippet
 
-snippet Sort characters in string "Alphabetically sorts the characters in a string.  - Use the spread operator (`...`), `Array.prototype.sort()` and  `String.prototype.localeCompare()` to sort the characters in `str`. - Recombine using `String.prototype.join()`." b
+snippet Sort characters in string "Alphabetically sorts the characters in a string.  - Use the spread operator (`...`), `Array.prototype.sort()` and  `String.prototype.localeCompare()` to sort the characters in `str`. - Recombine using `Array.prototype.join()`." b
 const sortCharactersInString = str =>
   [...str].sort((a, b) => a.localeCompare(b)).join('');
 endsnippet
@@ -3796,7 +3796,7 @@ const swapCase = str =>
     .join('');
 endsnippet
 
-snippet Symbolize object keys "Creates a new object, converting each key to a `Symbol`.  - Use `Object.keys()` to get the keys of `obj`. - Use `Array.prototype.reduce()` and `Symbol()` to create a new object where each key is converted to a `Symbol`." b
+snippet Symbolize object keys "Creates a new object, converting each key to a `Symbol`.  - Use `Object.keys()` to get the keys of `obj`. - Use `Array.prototype.reduce()` and `Symbol` to create a new object where each key is converted to a `Symbol`." b
 const symbolizeKeys = obj =>
   Object.keys(obj).reduce(
     (acc, key) => ({ ...acc, [Symbol(key)]: obj[key] }),
@@ -4258,7 +4258,7 @@ const unzipWith = (arr, fn) =>
     .map(val => fn(...val));
 endsnippet
 
-snippet Validate number "Checks if the given value is a number.  - Use `parseFloat()` to try to convert `n` to a number. - Use `Number.isNaN()` and logical not (`!`) operator to check if `num` is a number. - Use `Number.isFinite()` to check if `num` is finite. - Use `Number()` and the loose equality operator (`==`) to check if the coercion holds." b
+snippet Validate number "Checks if the given value is a number.  - Use `parseFloat()` to try to convert `n` to a number. - Use `Number.isNaN()` and logical not (`!`) operator to check if `num` is a number. - Use `Number.isFinite()` to check if `num` is finite. - Use `Number` and the loose equality operator (`==`) to check if the coercion holds." b
 const validateNumber = n => {
   const num = parseFloat(n);
   return !Number.isNaN(num) && Number.isFinite(num) && Number(n) == n;

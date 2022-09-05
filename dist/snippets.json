@@ -87,7 +87,7 @@
   },
   {
     "code": "const URLJoin = (...args) =>\n  args\n    .join('/')\n    .replace(/[\\/]+/g, '/')\n    .replace(/^(.+):\\//, '$1://')\n    .replace(/^file:/, 'file:/')\n    .replace(/\\/(\\?|&|#[^!])/g, '$1')\n    .replace(/\\?/g, '&')\n    .replace('&', '?');",
-    "description": "Joins all given URL segments together, then normalizes the resulting URL.\n\n- Use `String.prototype.join()` to combine URL segments.\n- Use a series of `String.prototype.replace()` calls with various regular expressions to normalize the resulting URL (remove double slashes, add proper slashes for protocol, remove slashes before parameters, combine parameters with `'&'` and normalize first parameter delimiter).",
+    "description": "Joins all given URL segments together, then normalizes the resulting URL.\n\n- Use `Array.prototype.join()` to combine URL segments.\n- Use a series of `String.prototype.replace()` calls with various regular expressions to normalize the resulting URL (remove double slashes, add proper slashes for protocol, remove slashes before parameters, combine parameters with `'&'` and normalize first parameter delimiter).",
     "example": "URLJoin('http://www.google.com', 'a', '/b/cd', '?foo=123', '?bar=foo');\n// 'http://www.google.com/a/b/cd?foo=123&bar=foo'",
     "id": "Join URL segments",
     "tags": [
@@ -174,7 +174,7 @@
   },
   {
     "code": "const addStyles = (el, styles) => Object.assign(el.style, styles);",
-    "description": "Adds the provided styles to the given HTML element.\n\n- Use `Object.assign()` and `ElementCSSInlineStyle.style` to merge the provided `styles` object into the style of the given element.",
+    "description": "Adds the provided styles to the given HTML element.\n\n- Use `Object.assign()` and `HTMLElement.style` to merge the provided `styles` object into the style of the given element.",
     "example": "addStyles(document.getElementById('my-element'), {\n  background: 'red',\n  color: '#ffff00',\n  fontSize: '3rem'\n});",
     "id": "Add styles to HTML element",
     "tags": [
@@ -553,7 +553,7 @@
   },
   {
     "code": "const castArray = val => (Array.isArray(val) ? val : [val]);",
-    "description": "Casts the provided value as an array if it's not one.\n\n- Use `Array.prototype.isArray()` to determine if `val` is an array and return it as-is or encapsulated in an array accordingly.",
+    "description": "Casts the provided value as an array if it's not one.\n\n- Use `Array.isArray()` to determine if `val` is an array and return it as-is or encapsulated in an array accordingly.",
     "example": "castArray('foo'); // ['foo']\ncastArray([1]); // [1]",
     "id": "Cast to array",
     "tags": [
@@ -1606,7 +1606,7 @@
   },
   {
     "code": "const formatDuration = ms => {\n  if (ms < 0) ms = -ms;\n  const time = {\n    day: Math.floor(ms / 86400000),\n    hour: Math.floor(ms / 3600000) % 24,\n    minute: Math.floor(ms / 60000) % 60,\n    second: Math.floor(ms / 1000) % 60,\n    millisecond: Math.floor(ms) % 1000\n  };\n  return Object.entries(time)\n    .filter(val => val[1] !== 0)\n    .map(([key, val]) => \\`\\${val} \\${key}\\${val !== 1 ? 's' : ''}\\`)\n    .join(', ');\n};",
-    "description": "Returns the human-readable format of the given number of milliseconds.\n\n- Divide `ms` with the appropriate values to obtain the appropriate values for `day`, `hour`, `minute`, `second` and `millisecond`.\n- Use `Object.entries()` with `Array.prototype.filter()` to keep only non-zero values.\n- Use `Array.prototype.map()` to create the string for each value, pluralizing appropriately.\n- Use `String.prototype.join()` to combine the values into a string.",
+    "description": "Returns the human-readable format of the given number of milliseconds.\n\n- Divide `ms` with the appropriate values to obtain the appropriate values for `day`, `hour`, `minute`, `second` and `millisecond`.\n- Use `Object.entries()` with `Array.prototype.filter()` to keep only non-zero values.\n- Use `Array.prototype.map()` to create the string for each value, pluralizing appropriately.\n- Use `Array.prototype.join()` to combine the values into a string.",
     "example": "formatDuration(1001); // '1 second, 1 millisecond'\nformatDuration(34325055574);\n// '397 days, 6 hours, 44 minutes, 15 seconds, 574 milliseconds'",
     "id": "Format duration",
     "tags": [
@@ -1627,7 +1627,7 @@
   },
   {
     "code": "const formatSeconds = s => {\n  const [hour, minute, second, sign] =\n    s > 0\n      ? [s / 3600, (s / 60) % 60, s % 60, '']\n      : [-s / 3600, (-s / 60) % 60, -s % 60, '-'];\n\n  return (\n    sign +\n    [hour, minute, second]\n      .map(v => \\`\\${Math.floor(v)}\\`.padStart(2, '0'))\n      .join(':')\n  );\n};",
-    "description": "Returns the ISO format of the given number of seconds.\n\n- Divide `s` with the appropriate values to obtain the appropriate values for `hour`, `minute` and `second`.\n- Store the `sign` in a variable to prepend it to the result.\n- Use `Array.prototype.map()` in combination with `Math.floor()` and `String.prototype.padStart()` to stringify and format each segment.\n- Use `String.prototype.join()` to combine the values into a string.",
+    "description": "Returns the ISO format of the given number of seconds.\n\n- Divide `s` with the appropriate values to obtain the appropriate values for `hour`, `minute` and `second`.\n- Store the `sign` in a variable to prepend it to the result.\n- Use `Array.prototype.map()` in combination with `Math.floor()` and `String.prototype.padStart()` to stringify and format each segment.\n- Use `Array.prototype.join()` to combine the values into a string.",
     "example": "formatSeconds(200); // '00:03:20'\nformatSeconds(-200); // '-00:03:20'\nformatSeconds(99999); // '27:46:39'",
     "id": "Number of seconds to ISO format",
     "tags": [
@@ -2997,7 +2997,7 @@
   },
   {
     "code": "const last = arr => (arr && arr.length ? arr[arr.length - 1] : undefined);",
-    "description": "Returns the last element in an array.\n\n- Check if `arr` is truthy and has a `length` property.\n- Use `Array.prototype.length - 1` to compute the index of the last element of the given array and return it, otherwise return `undefined`.",
+    "description": "Returns the last element in an array.\n\n- Check if `arr` is truthy and has a `length` property.\n- Use `Array.prototype.length` to compute the index of the last element of the given array and return it, otherwise return `undefined`.",
     "example": "last([1, 2, 3]); // 3\nlast([]); // undefined\nlast(null); // undefined\nlast(undefined); // undefined",
     "id": "Last array element",
     "tags": [
@@ -3176,7 +3176,7 @@
   },
   {
     "code": "const mask = (cc, num = 4, mask = '*') =>\n  \\`\\${cc}\\`.slice(-num).padStart(\\`\\${cc}\\`.length, mask);",
-    "description": "Replaces all but the last `num` of characters with the specified mask character.\n\n- Use `String.prototype.slice()` to grab the portion of the characters that will remain unmasked.\n- Use `String.padStart()` to fill the beginning of the string with the `mask` character up to the original length.\n- If `num` is negative, the unmasked characters will be at the start of the string.\n- Omit the second argument, `num`, to keep a default of `4` characters unmasked.\n- Omit the third argument, `mask`, to use a default character of `'*'` for the mask.",
+    "description": "Replaces all but the last `num` of characters with the specified mask character.\n\n- Use `String.prototype.slice()` to grab the portion of the characters that will remain unmasked.\n- Use `String.prototype.padStart()` to fill the beginning of the string with the `mask` character up to the original length.\n- If `num` is negative, the unmasked characters will be at the start of the string.\n- Omit the second argument, `num`, to keep a default of `4` characters unmasked.\n- Omit the third argument, `mask`, to use a default character of `'*'` for the mask.",
     "example": "mask(1234567890); // '******7890'\nmask(1234567890, 3); // '*******890'\nmask(1234567890, -4, '$'); // '$$$$567890'",
     "id": "Mask a value",
     "tags": [
@@ -3461,7 +3461,7 @@
   },
   {
     "code": "const objectToMap = obj => new Map(Object.entries(obj));",
-    "description": "Converts an object to a `Map`.\n\n- Use `Object.entries` to convert the object to an array of key-value pairs.\n- Use the `Map` constructor to convert the array to a `Map`.",
+    "description": "Converts an object to a `Map`.\n\n- Use `Object.entries()` to convert the object to an array of key-value pairs.\n- Use the `Map` constructor to convert the array to a `Map`.",
     "example": "objectToMap({a: 1, b: 2}); // Map {'a' => 1, 'b' => 2}",
     "id": "Convert object to Map",
     "tags": [
@@ -3652,7 +3652,7 @@
   },
   {
     "code": "const palindrome = str => {\n  const s = str.toLowerCase().replace(/[\\W_]/g, '');\n  return s === [...s].reverse().join('');\n};",
-    "description": "Checks if the given string is a palindrome.\n\n- Normalize the string to `String.prototype.toLowerCase()` and use `String.prototype.replace()` to remove non-alphanumeric characters from it.\n- Use the spread operator (`...`) to split the normalized string into individual characters.\n- Use `Array.prototype.reverse()`, `String.prototype.join()` and compare the result to the normalized string.",
+    "description": "Checks if the given string is a palindrome.\n\n- Normalize the string to `String.prototype.toLowerCase()` and use `String.prototype.replace()` to remove non-alphanumeric characters from it.\n- Use the spread operator (`...`) to split the normalized string into individual characters.\n- Use `Array.prototype.reverse()`, `Array.prototype.join()` and compare the result to the normalized string.",
     "example": "palindrome('taco cat'); // true",
     "id": "Palindrome",
     "tags": [
@@ -4136,7 +4136,7 @@
   },
   {
     "code": "const removeElement = el => el.parentNode.removeChild(el);",
-    "description": "Removes an element from the DOM.\n\n- Use `Element.parentNode` to get the given element's parent node.\n- Use `Element.removeChild()` to remove the given element from its parent node.",
+    "description": "Removes an element from the DOM.\n\n- Use `Node.parentNode` to get the given element's parent node.\n- Use `Node.removeChild()` to remove the given element from its parent node.",
     "example": "removeElement(document.querySelector('#my-element'));\n// Removes #my-element from the DOM",
     "id": "Remove DOM element",
     "tags": [
@@ -4204,7 +4204,7 @@
   },
   {
     "code": "const replaceLast = (str, pattern, replacement) => {\n  const match =\n    typeof pattern === 'string'\n      ? pattern\n      : (str.match(new RegExp(pattern.source, 'g')) || []).slice(-1)[0];\n  if (!match) return str;\n  const last = str.lastIndexOf(match);\n  return last !== -1\n    ? \\`\\${str.slice(0, last)}\\${replacement}\\${str.slice(last + match.length)}\\`\n    : str;\n};",
-    "description": "Replaces the last occurrence of a pattern in a string.\n\n- Use `typeof` to determine if `pattern` is a string or a regular expression.\n- If the `pattern` is a string, use it as the `match`.\n- Otherwise, use the `RegeExp` constructor to create a new regular expression using the `RegExp.prototype.source` of the `pattern` and adding the `'g'` flag to it. Use `String.prototype.match()` and `Array.prototype.slice()` to get the last match, if any.\n- Use `String.prototype.lastIndexOf()` to find the last occurrence of the match in the string.\n- If a match is found, use `String.prototype.slice()` and a template literal to replace the matching substring with the given `replacement`.\n- If no match is found, return the original string.",
+    "description": "Replaces the last occurrence of a pattern in a string.\n\n- Use `typeof` to determine if `pattern` is a string or a regular expression.\n- If the `pattern` is a string, use it as the `match`.\n- Otherwise, use the `RegExp` constructor to create a new regular expression using the `RegExp.prototype.source` of the `pattern` and adding the `'g'` flag to it. Use `String.prototype.match()` and `Array.prototype.slice()` to get the last match, if any.\n- Use `String.prototype.lastIndexOf()` to find the last occurrence of the match in the string.\n- If a match is found, use `String.prototype.slice()` and a template literal to replace the matching substring with the given `replacement`.\n- If no match is found, return the original string.",
     "example": "replaceLast('abcabdef', 'ab', 'gg'); // 'abcggdef'\nreplaceLast('abcabdef', /ab/, 'gg'); // 'abcggdef'\nreplaceLast('abcabdef', 'ad', 'gg'); // 'abcabdef'\nreplaceLast('abcabdef', /ad/, 'gg'); // 'abcabdef'",
     "id": "Replace last occuerence in string",
     "tags": [
@@ -4233,7 +4233,7 @@
   },
   {
     "code": "const reverseNumber = n =>\n  parseFloat(\\`\\${n}\\`.split('').reverse().join('')) * Math.sign(n);",
-    "description": "Reverses a number.\n\n- Use `Object.prototype.toString()` to convert `n` to a string.\n- Use `String.prototype.split()`, `Array.prototype.reverse()` and `String.prototype.join()` to get the reversed value of `n` as a string.\n- Use `parseFloat()` to convert the string to a number and `Math.sign()` to preserve its sign.",
+    "description": "Reverses a number.\n\n- Use `Object.prototype.toString()` to convert `n` to a string.\n- Use `String.prototype.split()`, `Array.prototype.reverse()` and `Array.prototype.join()` to get the reversed value of `n` as a string.\n- Use `parseFloat()` to convert the string to a number and `Math.sign()` to preserve its sign.",
     "example": "reverseNumber(981); // 189\nreverseNumber(-500); // -5\nreverseNumber(73.6); // 6.37\nreverseNumber(-5.23); // -32.5",
     "id": "Reverse number",
     "tags": [
@@ -4243,7 +4243,7 @@
   },
   {
     "code": "const reverseString = str => [...str].reverse().join('');",
-    "description": "Reverses a string.\n\n- Use the spread operator (`...`) and `Array.prototype.reverse()` to reverse the order of the characters in the string.\n- Combine characters to get a string using `String.prototype.join()`.",
+    "description": "Reverses a string.\n\n- Use the spread operator (`...`) and `Array.prototype.reverse()` to reverse the order of the characters in the string.\n- Combine characters to get a string using `Array.prototype.join()`.",
     "example": "reverseString('foobar'); // 'raboof'",
     "id": "Reverse string",
     "tags": [
@@ -4361,7 +4361,7 @@
   },
   {
     "code": "const setStyle = (el, rule, val) => (el.style[rule] = val);",
-    "description": "Sets the value of a CSS rule for the specified HTML element.\n\n- Use `ElementCSSInlineStyle.style` to set the value of the CSS `rule` for the specified element to `val`.",
+    "description": "Sets the value of a CSS rule for the specified HTML element.\n\n- Use `HTMLElement.style` to set the value of the CSS `rule` for the specified element to `val`.",
     "example": "setStyle(document.querySelector('p'), 'font-size', '20px');\n// The first <p> element on the page will have a font-size of 20px",
     "id": "Set style for element",
     "tags": [
@@ -4460,7 +4460,7 @@
   },
   {
     "code": "const sortCharactersInString = str =>\n  [...str].sort((a, b) => a.localeCompare(b)).join('');",
-    "description": "Alphabetically sorts the characters in a string.\n\n- Use the spread operator (`...`), `Array.prototype.sort()` and  `String.prototype.localeCompare()` to sort the characters in `str`.\n- Recombine using `String.prototype.join()`.",
+    "description": "Alphabetically sorts the characters in a string.\n\n- Use the spread operator (`...`), `Array.prototype.sort()` and  `String.prototype.localeCompare()` to sort the characters in `str`.\n- Recombine using `Array.prototype.join()`.",
     "example": "sortCharactersInString('cabbage'); // 'aabbceg'",
     "id": "Sort characters in string",
     "tags": [
@@ -4657,7 +4657,7 @@
   },
   {
     "code": "const symbolizeKeys = obj =>\n  Object.keys(obj).reduce(\n    (acc, key) => ({ ...acc, [Symbol(key)]: obj[key] }),\n    {}\n  );",
-    "description": "Creates a new object, converting each key to a `Symbol`.\n\n- Use `Object.keys()` to get the keys of `obj`.\n- Use `Array.prototype.reduce()` and `Symbol()` to create a new object where each key is converted to a `Symbol`.",
+    "description": "Creates a new object, converting each key to a `Symbol`.\n\n- Use `Object.keys()` to get the keys of `obj`.\n- Use `Array.prototype.reduce()` and `Symbol` to create a new object where each key is converted to a `Symbol`.",
     "example": "symbolizeKeys({ id: 10, name: 'apple' });\n// { [Symbol(id)]: 10, [Symbol(name)]: 'apple' }",
     "id": "Symbolize object keys",
     "tags": [
@@ -5205,7 +5205,7 @@
   },
   {
     "code": "const validateNumber = n => {\n  const num = parseFloat(n);\n  return !Number.isNaN(num) && Number.isFinite(num) && Number(n) == n;\n}",
-    "description": "Checks if the given value is a number.\n\n- Use `parseFloat()` to try to convert `n` to a number.\n- Use `Number.isNaN()` and logical not (`!`) operator to check if `num` is a number.\n- Use `Number.isFinite()` to check if `num` is finite.\n- Use `Number()` and the loose equality operator (`==`) to check if the coercion holds.",
+    "description": "Checks if the given value is a number.\n\n- Use `parseFloat()` to try to convert `n` to a number.\n- Use `Number.isNaN()` and logical not (`!`) operator to check if `num` is a number.\n- Use `Number.isFinite()` to check if `num` is finite.\n- Use `Number` and the loose equality operator (`==`) to check if the coercion holds.",
     "example": "validateNumber('10'); // true\nvalidateNumber('a'); // false",
     "id": "Validate number",
     "tags": [
