@@ -4217,7 +4217,7 @@
     "code": "const replaceLast = (str, pattern, replacement) => {\n  const match =\n    typeof pattern === 'string'\n      ? pattern\n      : (str.match(new RegExp(pattern.source, 'g')) || []).slice(-1)[0];\n  if (!match) return str;\n  const last = str.lastIndexOf(match);\n  return last !== -1\n    ? \\`\\${str.slice(0, last)}\\${replacement}\\${str.slice(last + match.length)}\\`\n    : str;\n};",
     "description": "Replaces the last occurrence of a pattern in a string.\n\n- Use `typeof` to determine if `pattern` is a string or a regular expression.\n- If the `pattern` is a string, use it as the `match`.\n- Otherwise, use the `RegExp` constructor to create a new regular expression using the `RegExp.prototype.source` of the `pattern` and adding the `'g'` flag to it. Use `String.prototype.match()` and `Array.prototype.slice()` to get the last match, if any.\n- Use `String.prototype.lastIndexOf()` to find the last occurrence of the match in the string.\n- If a match is found, use `String.prototype.slice()` and a template literal to replace the matching substring with the given `replacement`.\n- If no match is found, return the original string.",
     "example": "replaceLast('abcabdef', 'ab', 'gg'); // 'abcggdef'\nreplaceLast('abcabdef', /ab/, 'gg'); // 'abcggdef'\nreplaceLast('abcabdef', 'ad', 'gg'); // 'abcabdef'\nreplaceLast('abcabdef', /ad/, 'gg'); // 'abcabdef'",
-    "id": "Replace last occuerence in string",
+    "id": "Replace last occurrence in string",
     "tags": [
       "string",
       "regexp"
