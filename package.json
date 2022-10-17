@@ -26,7 +26,7 @@
     "eslint-config-sqve": "^3.1.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-promise": "^6.1.0",
     "eslint-plugin-react": "^7.24.0",
     "prettier": "^2.3.2",
     "semantic-release": "^18.0.0"
