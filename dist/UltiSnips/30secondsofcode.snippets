@@ -218,6 +218,15 @@ snippet Check if all array elements are unique based on function "Checks if all 
 const allUniqueBy = (arr, fn) => arr.length === new Set(arr.map(fn)).size;
 endsnippet
 
+snippet Sort array alphabetically "Sorts an array of objects alphabetically based on a given property.  - Use `Array.prototype.sort()` to sort the array based on the given property. - Use `String.prototype.localeCompare()` to compare the values for the given property." b
+const alphabetical = (arr, getter, order = 'asc') =>
+  arr.sort(
+    order === 'desc'
+      ? (a, b) => getter(b).localeCompare(getter(a))
+      : (a, b) => getter(a).localeCompare(getter(b))
+  );
+endsnippet
+
 snippet Logical and "Checks if both arguments are `true`.  - Use the logical and (`&&`) operator on the two given values." b
 const and = (a, b) => a && b;
 endsnippet
@@ -1970,6 +1979,13 @@ const intersectionWith = (a, b, comp) =>
   a.filter(x => b.findIndex(y => comp(x, y)) !== -1);
 endsnippet
 
+snippet Check if two arrays intersect "Determines if two arrays have a common item.  - Create a `Set` from `b` to get the unique values in `b`. - Use `Array.prototype.some()` on `a` to check if any of its values are contained in `b`, using `Set.prototype.has()`." b
+const intersects = (a, b) => {
+  const s = new Set(b);
+  return [...new Set(a)].some(x => s.has(x));
+};
+endsnippet
+
 snippet Invert object "Inverts the key-value pairs of an object, without mutating it.  - Use `Object.keys()` and `Array.prototype.reduce()` to invert the key-value pairs of an object and apply the function provided (if any). - Omit the second argument, `fn`, to get the inverted keys without applying a function to them. - The corresponding inverted value of each inverted key is an array of keys responsible for generating the inverted value. If a function is supplied, it is applied to each inverted key." b
 const invertKeyValues = (obj, fn) =>
   Object.keys(obj).reduce((acc, key) => {
@@ -2459,6 +2475,14 @@ const listenOnce = (el, evt, fn) =>
   el.addEventListener(evt, fn, { once: true });
 endsnippet
 
+snippet Map an object to an array "Maps an object to an object array, using the provided mapping function.  - Use `Object.entries()` to get an array of the object's key-value pairs. - Use `Array.prototype.reduce()` to map the array to an object. - Use `mapFn` to map the keys and values of the object and `Array.prototype.push()` to add the mapped values to the array." b
+const listify = (obj, mapFn) =>
+  Object.entries(obj).reduce((acc, [key, value]) => {
+    acc.push(mapFn(key, value));
+    return acc;
+  }, []);
+endsnippet
+
 snippet Logarithm in specific base "Calculates the logarithm of the given number in the given base.  - Use `Math.log()` to get the logarithm from the value and the base and divide them." b
 const logBase = (n, base) => Math.log(n) / Math.log(base);
 endsnippet
@@ -2472,6 +2496,14 @@ snippet Lowercase object keys "Creates a new object from the specified object, w
 const lowercaseKeys = obj =>
   Object.keys(obj).reduce((acc, key) => {
     acc[key.toLowerCase()] = obj[key];
+    return acc;
+  }, {});
+endsnippet
+
+snippet Lowercase object keys "Converts all the keys of an object to lower case.  - Use `Object.keys()` to get an array of the object's keys. - Use `Array.prototype.reduce()` to map the array to an object, using `String.prototype.toLowerCase()` to lowercase the keys." b
+const lowerize = obj =>
+  Object.keys(obj).reduce((acc, k) => {
+    acc[k.toLowerCase()] = obj[k];
     return acc;
   }, {});
 endsnippet
@@ -2777,6 +2809,14 @@ const objectToQueryString = queryParameters => {
       )
     : '';
 };
+endsnippet
+
+snippet Map an array to an object "Maps an object array to an object, using the provided mapping functions.  - Use `Array.prototype.reduce()` to map the array to an object. - Use `mapKey` to map the keys of the object and `mapValue` to map the values." b
+const objectify = (arr, mapKey, mapValue = i => i) =>
+  arr.reduce((acc, item) => {
+    acc[mapKey(item)] = mapValue(item);
+    return acc;
+  }, {});
 endsnippet
 
 snippet Observe element mutations "Creates a new `MutationObserver` and runs the provided callback for each mutation on the specified element.  - Use a [`MutationObserver`](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) to observe mutations on the given element. - Use `Array.prototype.forEach()` to run the callback for each mutation that is observed. - Omit the third argument, `options`, to use the default [options](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver#MutationObserverInit) (all `true`)." b
@@ -3462,6 +3502,16 @@ const replaceLast = (str, pattern, replacement) => {
   return last !== -1
     ? \`\${str.slice(0, last)}\${replacement}\${str.slice(last + match.length)}\`
     : str;
+};
+endsnippet
+
+snippet Replace or append array value "Replaces an item in an array or appends it, if it doesn't exist.  - Use the spread operator (`...`) to create a shallow copy of the array. - Use `Array.prototype.findIndex()` to find the index of the first element that satisfies the provided comparison function, `compFn`. - If no such element is found, use `Array.prototype.push()` to append the new value to the array. - Otherwise, use `Array.prototype.splice()` to replace the value at the found index with the new value." b
+const replaceOrAppend = (arr, val, compFn) => {
+  const res = [...arr];
+  const i = arr.findIndex(v => compFn(v, val));
+  if (i === -1) res.push(val);
+  else res.splice(i, 1, val);
+  return res;
 };
 endsnippet
 
@@ -4282,6 +4332,14 @@ const unzipWith = (arr, fn) =>
       }).map(x => [])
     )
     .map(val => fn(...val));
+endsnippet
+
+snippet Uppercase object keys "Converts all the keys of an object to upper case.  - Use `Object.keys()` to get an array of the object's keys. - Use `Array.prototype.reduce()` to map the array to an object, using `String.prototype.toUpperCase()` to uppercase the keys." b
+const upperize = obj =>
+  Object.keys(obj).reduce((acc, k) => {
+    acc[k.toUpperCase()] = obj[k];
+    return acc;
+  }, {});
 endsnippet
 
 snippet Validate number "Checks if the given value is a number.  - Use `parseFloat()` to try to convert `n` to a number. - Use `Number.isNaN()` and logical not (`!`) operator to check if `num` is a number. - Use `Number.isFinite()` to check if `num` is finite. - Use `Number` and the loose equality operator (`==`) to check if the coercion holds." b

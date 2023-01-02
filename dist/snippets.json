@@ -236,6 +236,15 @@
     ]
   },
   {
+    "code": "const alphabetical = (arr, getter, order = 'asc') =>\n  arr.sort(\n    order === 'desc'\n      ? (a, b) => getter(b).localeCompare(getter(a))\n      : (a, b) => getter(a).localeCompare(getter(b))\n  );",
+    "description": "Sorts an array of objects alphabetically based on a given property.\n\n- Use `Array.prototype.sort()` to sort the array based on the given property.\n- Use `String.prototype.localeCompare()` to compare the values for the given property.",
+    "example": "const people = [ { name: 'John' }, { name: 'Adam' }, { name: 'Mary' } ];\nalphabetical(people, g => g.name);\n// [ { name: 'Adam' }, { name: 'John' }, { name: 'Mary' } ]\nalphabetical(people, g => g.name, 'desc');\n// [ { name: 'Mary' }, { name: 'John' }, { name: 'Adam' } ]",
+    "id": "Sort array alphabetically",
+    "tags": [
+      "array"
+    ]
+  },
+  {
     "code": "const and = (a, b) => a && b;",
     "description": "Checks if both arguments are `true`.\n\n- Use the logical and (`&&`) operator on the two given values.",
     "example": "and(true, true); // true\nand(true, false); // false\nand(false, false); // false",
@@ -2408,6 +2417,15 @@
     ]
   },
   {
+    "code": "const intersects = (a, b) => {\n  const s = new Set(b);\n  return [...new Set(a)].some(x => s.has(x));\n};",
+    "description": "Determines if two arrays have a common item.\n\n- Create a `Set` from `b` to get the unique values in `b`.\n- Use `Array.prototype.some()` on `a` to check if any of its values are contained in `b`, using `Set.prototype.has()`.",
+    "example": "intersects(['a', 'b'], ['b', 'c']); // true\nintersects(['a', 'b'], ['c', 'd']); // false",
+    "id": "Check if two arrays intersect",
+    "tags": [
+      "array"
+    ]
+  },
+  {
     "code": "const invertKeyValues = (obj, fn) =>\n  Object.keys(obj).reduce((acc, key) => {\n    const val = fn ? fn(obj[key]) : obj[key];\n    acc[val] = acc[val] || [];\n    acc[val].push(key);\n    return acc;\n  }, {});",
     "description": "Inverts the key-value pairs of an object, without mutating it.\n\n- Use `Object.keys()` and `Array.prototype.reduce()` to invert the key-value pairs of an object and apply the function provided (if any).\n- Omit the second argument, `fn`, to get the inverted keys without applying a function to them.\n- The corresponding inverted value of each inverted key is an array of keys responsible for generating the inverted value. If a function is supplied, it is applied to each inverted key.",
     "example": "invertKeyValues({ a: 1, b: 2, c: 1 }); // { 1: [ 'a', 'c' ], 2: [ 'b' ] }\ninvertKeyValues({ a: 1, b: 2, c: 1 }, value => 'group' + value);\n// { group1: [ 'a', 'c' ], group2: [ 'b' ] }",
@@ -3074,6 +3092,16 @@
     ]
   },
   {
+    "code": "const listify = (obj, mapFn) =>\n  Object.entries(obj).reduce((acc, [key, value]) => {\n    acc.push(mapFn(key, value));\n    return acc;\n  }, []);",
+    "description": "Maps an object to an object array, using the provided mapping function.\n\n- Use `Object.entries()` to get an array of the object's key-value pairs.\n- Use `Array.prototype.reduce()` to map the array to an object.\n- Use `mapFn` to map the keys and values of the object and `Array.prototype.push()` to add the mapped values to the array.",
+    "example": "const people = { John: { age: 42 }, Adam: { age: 39 } };\nlistify(people, (key, value) => ({ name: key, ...value }));\n// [ { name: 'John', age: 42 }, { name: 'Adam', age: 39 } ]",
+    "id": "Map an object to an array",
+    "tags": [
+      "object",
+      "array"
+    ]
+  },
+  {
     "code": "const logBase = (n, base) => Math.log(n) / Math.log(base);",
     "description": "Calculates the logarithm of the given number in the given base.\n\n- Use `Math.log()` to get the logarithm from the value and the base and divide them.",
     "example": "logBase(10, 10); // 1\nlogBase(100, 10); // 2",
@@ -3095,6 +3123,15 @@
     "code": "const lowercaseKeys = obj =>\n  Object.keys(obj).reduce((acc, key) => {\n    acc[key.toLowerCase()] = obj[key];\n    return acc;\n  }, {});",
     "description": "Creates a new object from the specified object, where all the keys are in lowercase.\n\n- Use `Object.keys()` and `Array.prototype.reduce()` to create a new object from the specified object.\n- Convert each key in the original object to lowercase, using `String.prototype.toLowerCase()`.",
     "example": "const myObj = { Name: 'Adam', sUrnAME: 'Smith' };\nconst myObjLower = lowercaseKeys(myObj); // {name: 'Adam', surname: 'Smith'};",
+    "id": "Lowercase object keys",
+    "tags": [
+      "object"
+    ]
+  },
+  {
+    "code": "const lowerize = obj =>\n  Object.keys(obj).reduce((acc, k) => {\n    acc[k.toLowerCase()] = obj[k];\n    return acc;\n  }, {});",
+    "description": "Converts all the keys of an object to lower case.\n\n- Use `Object.keys()` to get an array of the object's keys.\n- Use `Array.prototype.reduce()` to map the array to an object, using `String.prototype.toLowerCase()` to lowercase the keys.",
+    "example": "lowerize({ Name: 'John', Age: 22 }); // { name: 'John', age: 22 }",
     "id": "Lowercase object keys",
     "tags": [
       "object"
@@ -3495,6 +3532,16 @@
     "example": "objectToQueryString({ page: '1', size: '2kg', key: undefined });\n// '?page=1&size=2kg'",
     "id": "Object to query string",
     "tags": [
+      "object"
+    ]
+  },
+  {
+    "code": "const objectify = (arr, mapKey, mapValue = i => i) =>\n  arr.reduce((acc, item) => {\n    acc[mapKey(item)] = mapValue(item);\n    return acc;\n  }, {});",
+    "description": "Maps an object array to an object, using the provided mapping functions.\n\n- Use `Array.prototype.reduce()` to map the array to an object.\n- Use `mapKey` to map the keys of the object and `mapValue` to map the values.",
+    "example": "const people = [ { name: 'John', age: 42 }, { name: 'Adam', age: 39 } ];\nobjectify(people, p => p.name.toLowerCase());\n// { john: { name: 'John', age: 42 }, adam: { name: 'Adam', age: 39 } }\nobjectify(\n  people,\n  p => p.name.toLowerCase(),\n  p => p.age\n);\n// { john: 42, adam: 39 }",
+    "id": "Map an array to an object",
+    "tags": [
+      "array",
       "object"
     ]
   },
@@ -4221,6 +4268,15 @@
     "tags": [
       "string",
       "regexp"
+    ]
+  },
+  {
+    "code": "const replaceOrAppend = (arr, val, compFn) => {\n  const res = [...arr];\n  const i = arr.findIndex(v => compFn(v, val));\n  if (i === -1) res.push(val);\n  else res.splice(i, 1, val);\n  return res;\n};",
+    "description": "Replaces an item in an array or appends it, if it doesn't exist.\n\n- Use the spread operator (`...`) to create a shallow copy of the array.\n- Use `Array.prototype.findIndex()` to find the index of the first element that satisfies the provided comparison function, `compFn`.\n- If no such element is found, use `Array.prototype.push()` to append the new value to the array.\n- Otherwise, use `Array.prototype.splice()` to replace the value at the found index with the new value.",
+    "example": "const people = [ { name: 'John', age: 30 }, { name: 'Jane', age: 28 } ];\nconst jane = { name: 'Jane', age: 29 };\nconst jack = { name: 'Jack', age: 28 };\nreplaceOrAppend(people, jane, (a, b) => a.name === b.name);\n// [ { name: 'John', age: 30 }, { name: 'Jane', age: 29 } ]\nreplaceOrAppend(people, jack, (a, b) => a.name === b.name);\n// [\n//   { name: 'John', age: 30 },\n//   { name: 'Jane', age: 28 },\n//   { name: 'Jack', age: 28 }\n// ]",
+    "id": "Replace or append array value",
+    "tags": [
+      "array"
     ]
   },
   {
@@ -5212,6 +5268,15 @@
     "id": "Ungroup array elements based on function",
     "tags": [
       "array"
+    ]
+  },
+  {
+    "code": "const upperize = obj =>\n  Object.keys(obj).reduce((acc, k) => {\n    acc[k.toUpperCase()] = obj[k];\n    return acc;\n  }, {});",
+    "description": "Converts all the keys of an object to upper case.\n\n- Use `Object.keys()` to get an array of the object's keys.\n- Use `Array.prototype.reduce()` to map the array to an object, using `String.prototype.toUpperCase()` to uppercase the keys.",
+    "example": "upperize({ Name: 'John', Age: 22 }); // { NAME: 'John', AGE: 22 }",
+    "id": "Uppercase object keys",
+    "tags": [
+      "object"
     ]
   },
   {
