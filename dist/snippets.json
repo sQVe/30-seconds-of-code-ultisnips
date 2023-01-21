@@ -4486,7 +4486,7 @@
   },
   {
     "code": "const size = val =>\n  Array.isArray(val)\n    ? val.length\n    : val && typeof val === 'object'\n      ? val.size || val.length || Object.keys(val).length\n      : typeof val === 'string'\n        ? new Blob([val]).size\n        : 0;",
-    "description": "Gets the size of an array, object or string.\n\n- Get type of `val` (`array`, `object` or `string`).\n- Use `Array.prototype.length` property for arrays.\n- Use `length` or `size` value if available or number of keys for objects.\n- Use `size` of a [`Blob` object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) created from `val` for strings.\n- Split strings into array of characters with `String.prototype.split()` and return its length.",
+    "description": "Gets the size of an array, object or string.\n\n- Get type of `val` (`array`, `object` or `string`).\n- Use `Array.prototype.length` property for arrays.\n- Use `length` or `size` value if available or number of keys for objects.\n- Use `size` of a [`Blob` object](https://developer.mozilla.org/en-US/docs/Web/API/Blob) created from `val` for strings.",
     "example": "size([1, 2, 3, 4, 5]); // 5\nsize('size'); // 4\nsize({ one: 1, two: 2, three: 3 }); // 3",
     "id": "Size of array, object or string",
     "tags": [
