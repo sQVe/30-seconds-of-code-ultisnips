@@ -121,8 +121,7 @@
     "example": "accumulate(1, 2, 3, 4); // [1, 3, 6, 10]\naccumulate(...[1, 2, 3, 4]); // [1, 3, 6, 10]",
     "id": "Partial sum array",
     "tags": [
-      "math",
-      "array"
+      "math"
     ]
   },
   {
@@ -354,8 +353,7 @@
     "example": "average(...[1, 2, 3]); // 2\naverage(1, 2, 3); // 2",
     "id": "Average of numbers",
     "tags": [
-      "math",
-      "array"
+      "math"
     ]
   },
   {
@@ -364,8 +362,7 @@
     "example": "averageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], o => o.n); // 5\naverageBy([{ n: 4 }, { n: 2 }, { n: 8 }, { n: 6 }], 'n'); // 5",
     "id": "Mapped array average",
     "tags": [
-      "math",
-      "array"
+      "math"
     ]
   },
   {
@@ -556,8 +553,7 @@
     "example": "cartesianProduct(['x', 'y'], [1, 2]);\n// [['x', 1], ['x', 2], ['y', 1], ['y', 2]]",
     "id": "Cartesian product",
     "tags": [
-      "math",
-      "array"
+      "math"
     ]
   },
   {
@@ -662,8 +658,7 @@
     "example": "closest([6, 1, 3, 7, 9], 5); // 6",
     "id": "Closest numeric match",
     "tags": [
-      "math",
-      "array"
+      "math"
     ]
   },
   {
@@ -1309,7 +1304,6 @@
     "id": "Escape HTML",
     "tags": [
       "string",
-      "browser",
       "regexp"
     ]
   },
@@ -2440,8 +2434,7 @@
     "example": "is(Array, [1]); // true\nis(ArrayBuffer, new ArrayBuffer()); // true\nis(Map, new Map()); // true\nis(RegExp, /./g); // true\nis(Set, new Set()); // true\nis(WeakMap, new WeakMap()); // true\nis(WeakSet, new WeakSet()); // true\nis(String, ''); // true\nis(String, new String('')); // true\nis(Number, 1); // true\nis(Number, new Number(1)); // true\nis(Boolean, true); // true\nis(Boolean, new Boolean(true)); // true",
     "id": "Check if value is of type",
     "tags": [
-      "type",
-      "array"
+      "type"
     ]
   },
   {
@@ -2547,8 +2540,7 @@
     "example": "isBrowser(); // true (browser)\nisBrowser(); // false (Node)",
     "id": "Environment is browser",
     "tags": [
-      "browser",
-      "node"
+      "browser"
     ]
   },
   {
@@ -2717,8 +2709,7 @@
     "example": "isNode(); // true (Node)\nisNode(); // false (browser)",
     "id": "Environment is Node.js",
     "tags": [
-      "node",
-      "browser"
+      "node"
     ]
   },
   {
@@ -2852,7 +2843,7 @@
     "example": "const origin = new URL('https://www.30secondsofcode.org/about');\nconst destination = new URL('https://www.30secondsofcode.org/contact');\nisSameOrigin(origin, destination); // true\nconst other = new URL('https://developer.mozilla.org);\nisSameOrigin(origin, other); // false",
     "id": "Same-origin URLs",
     "tags": [
-      "object"
+      "browser"
     ]
   },
   {
@@ -3120,15 +3111,6 @@
     ]
   },
   {
-    "code": "const lowercaseKeys = obj =>\n  Object.keys(obj).reduce((acc, key) => {\n    acc[key.toLowerCase()] = obj[key];\n    return acc;\n  }, {});",
-    "description": "Creates a new object from the specified object, where all the keys are in lowercase.\n\n- Use `Object.keys()` and `Array.prototype.reduce()` to create a new object from the specified object.\n- Convert each key in the original object to lowercase, using `String.prototype.toLowerCase()`.",
-    "example": "const myObj = { Name: 'Adam', sUrnAME: 'Smith' };\nconst myObjLower = lowercaseKeys(myObj); // {name: 'Adam', surname: 'Smith'};",
-    "id": "Lowercase object keys",
-    "tags": [
-      "object"
-    ]
-  },
-  {
     "code": "const lowerize = obj =>\n  Object.keys(obj).reduce((acc, k) => {\n    acc[k.toLowerCase()] = obj[k];\n    return acc;\n  }, {});",
     "description": "Converts all the keys of an object to lower case.\n\n- Use `Object.keys()` to get an array of the object's keys.\n- Use `Array.prototype.reduce()` to map the array to an object, using `String.prototype.toLowerCase()` to lowercase the keys.",
     "example": "lowerize({ Name: 'John', Age: 22 }); // { name: 'John', age: 22 }",
@@ -3263,7 +3245,6 @@
     "example": "maxN([1, 2, 3]); // [3]\nmaxN([1, 2, 3], 2); // [3, 2]",
     "id": "N max elements",
     "tags": [
-      "array",
       "math"
     ]
   },
@@ -3284,8 +3265,7 @@
     "example": "median([5, 6, 50, 1, -5]); // 5",
     "id": "Median",
     "tags": [
-      "math",
-      "array"
+      "math"
     ]
   },
   {
@@ -3370,7 +3350,6 @@
     "example": "minN([1, 2, 3]); // [1]\nminN([1, 2, 3], 2); // [1, 2]",
     "id": "N min elements",
     "tags": [
-      "array",
       "math"
     ]
   },
@@ -3914,8 +3893,7 @@
     "example": "prod(1, 2, 3, 4); // 24\nprod(...[1, 2, 3, 4]); // 24",
     "id": "Product of numeric values",
     "tags": [
-      "math",
-      "array"
+      "math"
     ]
   },
   {
@@ -4088,8 +4066,7 @@
     "example": "/*\ncontents of test.txt :\n  line1\n  line2\n  line3\n  ___________________________\n*/\nlet arr = readFileLines('test.txt');\nconsole.log(arr); // ['line1', 'line2', 'line3']",
     "id": "Read file lines",
     "tags": [
-      "node",
-      "array"
+      "node"
     ]
   },
   {
@@ -4606,8 +4583,7 @@
     "example": "standardDeviation([10, 2, 38, 23, 38, 23, 21]); // 13.284434142114991 (sample)\nstandardDeviation([10, 2, 38, 23, 38, 23, 21], true);\n// 12.29899614287479 (population)",
     "id": "Standard deviation",
     "tags": [
-      "math",
-      "array"
+      "math"
     ]
   },
   {
@@ -4663,8 +4639,7 @@
     "example": "sum(1, 2, 3, 4); // 10\nsum(...[1, 2, 3, 4]); // 10",
     "id": "Array sum",
     "tags": [
-      "math",
-      "array"
+      "math"
     ]
   },
   {
@@ -4894,7 +4869,6 @@
     "id": "HSL to array",
     "tags": [
       "string",
-      "browser",
       "regexp"
     ]
   },
@@ -4905,7 +4879,6 @@
     "id": "HSL to object",
     "tags": [
       "string",
-      "browser",
       "regexp"
     ]
   },
@@ -4983,7 +4956,6 @@
     "id": "RGB to array",
     "tags": [
       "string",
-      "browser",
       "regexp"
     ]
   },
@@ -4994,7 +4966,6 @@
     "id": "RGB to object",
     "tags": [
       "string",
-      "browser",
       "regexp"
     ]
   },
@@ -5015,6 +4986,16 @@
     "id": "Value to safe integer",
     "tags": [
       "math"
+    ]
+  },
+  {
+    "code": "const toSentenceCase = str => {\n  const s =\n    str &&\n    str\n      .match(\n        /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g\n      )\n      .join(' ');\n  return s.slice(0, 1).toUpperCase() + s.slice(1);\n};",
+    "description": "Converts a string to sentence case.\n\n- Use `String.prototype.match()` to break the string into words using an appropriate regexp.\n- Use `Array.prototype.slice()`, `Array.prototype.join()` and `String.prototype.toUpperCase()` to combine them, capitalizing the first letter of the first word and adding a whitespace between them.",
+    "example": "toSentenceCase('some_database_field_name'); // 'Some database field name'\ntoSentenceCase('Some label that needs to be title-cased');\n// 'Some label that needs to be title cased'\ntoSentenceCase('some-package-name'); // 'Some package name'\ntoSentenceCase('some-mixed_string with spaces_underscores-and-hyphens');\n// 'Some mixed string with spaces underscores and hyphens'",
+    "id": "Sentencecase string",
+    "tags": [
+      "string",
+      "regexp"
     ]
   },
   {
@@ -5146,7 +5127,6 @@
     "id": "Unescape HTML",
     "tags": [
       "string",
-      "browser",
       "regexp"
     ]
   },
@@ -5391,8 +5371,8 @@
     "example": "xProd([1, 2], ['a', 'b']); // [[1, 'a'], [1, 'b'], [2, 'a'], [2, 'b']]",
     "id": "Cross product of arrays",
     "tags": [
-      "array",
-      "math"
+      "math",
+      "array"
     ]
   },
   {

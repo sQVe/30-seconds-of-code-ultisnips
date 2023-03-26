@@ -2492,14 +2492,6 @@ const longestItem = (...vals) =>
   vals.reduce((a, x) => (x.length > a.length ? x : a));
 endsnippet
 
-snippet Lowercase object keys "Creates a new object from the specified object, where all the keys are in lowercase.  - Use `Object.keys()` and `Array.prototype.reduce()` to create a new object from the specified object. - Convert each key in the original object to lowercase, using `String.prototype.toLowerCase()`." b
-const lowercaseKeys = obj =>
-  Object.keys(obj).reduce((acc, key) => {
-    acc[key.toLowerCase()] = obj[key];
-    return acc;
-  }, {});
-endsnippet
-
 snippet Lowercase object keys "Converts all the keys of an object to lower case.  - Use `Object.keys()` to get an array of the object's keys. - Use `Array.prototype.reduce()` to map the array to an object, using `String.prototype.toLowerCase()` to lowercase the keys." b
 const lowerize = obj =>
   Object.keys(obj).reduce((acc, k) => {
@@ -4132,6 +4124,19 @@ const toSafeInteger = num =>
   Math.round(
     Math.max(Math.min(num, Number.MAX_SAFE_INTEGER), Number.MIN_SAFE_INTEGER)
   );
+endsnippet
+
+snippet Sentencecase string "Converts a string to sentence case.  - Use `String.prototype.match()` to break the string into words using an appropriate regexp. - Use `Array.prototype.slice()`, `Array.prototype.join()` and `String.prototype.toUpperCase()` to combine them, capitalizing the first letter of the first word and adding a whitespace between them." b
+const toSentenceCase = str => {
+  const s =
+    str &&
+    str
+      .match(
+        /[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g
+      )
+      .join(' ');
+  return s.slice(0, 1).toUpperCase() + s.slice(1);
+};
 endsnippet
 
 snippet Snakecase string "Converts a string to snake case.  - Use `String.prototype.match()` to break the string into words using an appropriate regexp. - Use `Array.prototype.map()`, `Array.prototype.slice()`, `Array.prototype.join()` and `String.prototype.toLowerCase()` to combine them, adding `_` as a separator." b
