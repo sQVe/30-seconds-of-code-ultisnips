@@ -2396,7 +2396,7 @@
     "code": "const intersectionBy = (a, b, fn) => {\n  const s = new Set(b.map(fn));\n  return [...new Set(a)].filter(x => s.has(fn(x)));\n};",
     "description": "Returns the elements that exist in both arrays, after applying the provided function to each array element of both.\n\n- Create a `Set` by applying `fn` to all elements in `b`.\n- Use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them.",
     "example": "intersectionBy([2.1, 1.2], [2.3, 3.4], Math.floor); // [2.1]\nintersectionBy(\n  [{ title: 'Apple' }, { title: 'Orange' }],\n  [{ title: 'Orange' }, { title: 'Melon' }],\n  x => x.title\n); // [{ title: 'Orange' }]",
-    "id": "Array intersection based on function",
+    "id": "Mapped array intersection",
     "tags": [
       "array"
     ]
