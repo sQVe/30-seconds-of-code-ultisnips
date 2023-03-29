@@ -242,7 +242,7 @@ const aperture = (n, arr) =>
     : arr.slice(n - 1).map((v, i) => arr.slice(i, i + n));
 endsnippet
 
-snippet Approximately number equality "Checks if two numbers are approximately equal to each other.  - Use `Math.abs()` to compare the absolute difference of the two values to `epsilon`. - Omit the third argument, `epsilon`, to use a default value of `0.001`." b
+snippet Approximate number equality "Checks if two numbers are approximately equal to each other.  - Use `Math.abs()` to compare the absolute difference of the two values to `epsilon`. - Omit the third argument, `epsilon`, to use a default value of `0.001`." b
 const approximatelyEqual = (v1, v2, epsilon = 0.001) =>
   Math.abs(v1 - v2) < epsilon;
 endsnippet
@@ -2843,14 +2843,14 @@ snippet Offset array elements "Moves the specified amount of elements to the end
 const offset = (arr, offset) => [...arr.slice(offset), ...arr.slice(0, offset)];
 endsnippet
 
-snippet Omit object properties "Omits the key-value pairs corresponding to the given keys from an object.  - Use `Object.keys()`, `Array.prototype.filter()` and `Array.prototype.includes()` to remove the provided keys. - Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs." b
+snippet Omit object keys "Omits the key-value pairs corresponding to the given keys from an object.  - Use `Object.keys()`, `Array.prototype.filter()` and `Array.prototype.includes()` to remove the provided keys. - Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs." b
 const omit = (obj, arr) =>
   Object.keys(obj)
     .filter(k => !arr.includes(k))
     .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});
 endsnippet
 
-snippet Omit object properties based on function "Omits the key-value pairs corresponding to the keys of the object for which the given function returns falsy.  - Use `Object.keys()` and `Array.prototype.filter()` to remove the keys for which `fn` returns a truthy value. - Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs. - The callback function is invoked with two arguments: (value, key)." b
+snippet Omit matching object keys "Creates an object composed of the properties the given function returns falsy for.  - Use `Object.keys()` and `Array.prototype.filter()` to remove the keys for which `fn` returns a truthy value. - Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs. - The callback function is invoked with two arguments: (value, key)." b
 const omitBy = (obj, fn) =>
   Object.keys(obj)
     .filter(k => !fn(obj[k], k))

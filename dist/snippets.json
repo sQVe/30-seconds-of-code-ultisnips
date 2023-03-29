@@ -275,7 +275,7 @@
     "code": "const approximatelyEqual = (v1, v2, epsilon = 0.001) =>\n  Math.abs(v1 - v2) < epsilon;",
     "description": "Checks if two numbers are approximately equal to each other.\n\n- Use `Math.abs()` to compare the absolute difference of the two values to `epsilon`.\n- Omit the third argument, `epsilon`, to use a default value of `0.001`.",
     "example": "approximatelyEqual(Math.PI / 2.0, 1.5708); // true",
-    "id": "Approximately number equality",
+    "id": "Approximate number equality",
     "tags": [
       "math"
     ]
@@ -3557,16 +3557,16 @@
     "code": "const omit = (obj, arr) =>\n  Object.keys(obj)\n    .filter(k => !arr.includes(k))\n    .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});",
     "description": "Omits the key-value pairs corresponding to the given keys from an object.\n\n- Use `Object.keys()`, `Array.prototype.filter()` and `Array.prototype.includes()` to remove the provided keys.\n- Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.",
     "example": "omit({ a: 1, b: '2', c: 3 }, ['b']); // { 'a': 1, 'c': 3 }",
-    "id": "Omit object properties",
+    "id": "Omit object keys",
     "tags": [
       "object"
     ]
   },
   {
     "code": "const omitBy = (obj, fn) =>\n  Object.keys(obj)\n    .filter(k => !fn(obj[k], k))\n    .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});",
-    "description": "Omits the key-value pairs corresponding to the keys of the object for which the given function returns falsy.\n\n- Use `Object.keys()` and `Array.prototype.filter()` to remove the keys for which `fn` returns a truthy value.\n- Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.\n- The callback function is invoked with two arguments: (value, key).",
+    "description": "Creates an object composed of the properties the given function returns falsy for.\n\n- Use `Object.keys()` and `Array.prototype.filter()` to remove the keys for which `fn` returns a truthy value.\n- Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs.\n- The callback function is invoked with two arguments: (value, key).",
     "example": "omitBy({ a: 1, b: '2', c: 3 }, x => typeof x === 'number'); // { b: '2' }",
-    "id": "Omit object properties based on function",
+    "id": "Omit matching object keys",
     "tags": [
       "object"
     ]
