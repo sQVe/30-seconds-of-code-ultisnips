@@ -3275,6 +3275,14 @@ snippet Random boolean value "Generates a random boolean value.  - Use `Math.ran
 const randomBoolean = () => Math.random() >= 0.5;
 endsnippet
 
+snippet Generate Gaussian random numbers "Generates Gaussian (normally distributed) random numbers.  - Use the [Box-Muller transform](https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform) to generate random numbers with a Gaussian distribution." b
+const randomGauss = () => {
+  const theta = 2 * Math.PI * Math.random();
+  const rho = Math.sqrt(-2 * Math.log(1 - Math.random()));
+  return (rho * Math.cos(theta)) / 10.0 + 0.5;
+};
+endsnippet
+
 snippet Random hex color code "Generates a random hexadecimal color code.  - Use `Math.random()` to generate a random 24-bit (6 * 4bits) hexadecimal number. - Use bit shifting and then convert it to an hexadecimal string using `Number.prototype.toString()`." b
 const randomHexColorCode = () => {
   let n = (Math.random() * 0xfffff * 1000000).toString(16);

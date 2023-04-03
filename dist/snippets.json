@@ -4001,6 +4001,16 @@
     ]
   },
   {
+    "code": "const randomGauss = () => {\n  const theta = 2 * Math.PI * Math.random();\n  const rho = Math.sqrt(-2 * Math.log(1 - Math.random()));\n  return (rho * Math.cos(theta)) / 10.0 + 0.5;\n};",
+    "description": "Generates Gaussian (normally distributed) random numbers.\n\n- Use the [Box-Muller transform](https://en.wikipedia.org/wiki/Box%E2%80%93Muller_transform) to generate random numbers with a Gaussian distribution.",
+    "example": "randomGauss(); // 0.5",
+    "id": "Generate Gaussian random numbers",
+    "tags": [
+      "math",
+      "random"
+    ]
+  },
+  {
     "code": "const randomHexColorCode = () => {\n  let n = (Math.random() * 0xfffff * 1000000).toString(16);\n  return '#' + n.slice(0, 6);\n};",
     "description": "Generates a random hexadecimal color code.\n\n- Use `Math.random()` to generate a random 24-bit (6 * 4bits) hexadecimal number.\n- Use bit shifting and then convert it to an hexadecimal string using `Number.prototype.toString()`.",
     "example": "randomHexColorCode(); // '#e34155'",
