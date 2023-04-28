@@ -2,144 +2,6 @@
 # (https://github.com/sQVe/30-seconds-of-code-ultisnips/)
 # -------------------------------------------------------
 
-snippet CSV to array "Converts a comma-separated values (CSV) string to a 2D array.  - Use `Array.prototype.indexOf()` to find the first newline character (`\n`). - Use `Array.prototype.slice()` to remove the first row (title row) if `omitFirstRow` is `true`. - Use `String.prototype.split()` to create a string for each row. - Use `String.prototype.split()` to separate the values in each row, using the provided `delimiter`. - Omit the second argument, `delimiter`, to use a default delimiter of `','`. - Omit the third argument, `omitFirstRow`, to include the first row (title row) of the CSV string." b
-const CSVToArray = (data, delimiter = ',', omitFirstRow = false) =>
-  data
-    .slice(omitFirstRow ? data.indexOf('\n') + 1 : 0)
-    .split('\n')
-    .map(v => v.split(delimiter));
-endsnippet
-
-snippet CSV to JSON "Converts a comma-separated values (CSV) string to a 2D array of objects. The first row of the string is used as the title row.  - Use `Array.prototype.indexOf()` to find the first newline character (`\n`). - Use `Array.prototype.slice()` to remove the first row (title row) and `String.prototype.split()` to separate it into values, using the provided `delimiter`. - Use `String.prototype.split()` to create a string for each row. - Use `String.prototype.split()` to separate the values in each row, using the provided `delimiter`. - Use `Array.prototype.reduce()` to create an object for each row's values, with the keys parsed from the title row. - Omit the second argument, `delimiter`, to use a default delimiter of `,`." b
-const CSVToJSON = (data, delimiter = ',') => {
-  const titles = data.slice(0, data.indexOf('\n')).split(delimiter);
-  return data
-    .slice(data.indexOf('\n') + 1)
-    .split('\n')
-    .map(v => {
-      const values = v.split(delimiter);
-      return titles.reduce(
-        (obj, title, index) => ((obj[title] = values[index]), obj),
-        {}
-      );
-    });
-};
-endsnippet
-
-snippet HSB to RGB "Converts a HSB color tuple to RGB format.  - Use the [HSB to RGB conversion formula](https://en.wikipedia.org/wiki/HSL_and_HSV#HSV_to_RGB) to convert to the appropriate format. - The range of the input parameters is H: [0, 360], S: [0, 100], B: [0, 100]. - The range of all output values is [0, 255]." b
-const HSBToRGB = (h, s, b) => {
-  s /= 100;
-  b /= 100;
-  const k = (n) => (n + h / 60) % 6;
-  const f = (n) => b * (1 - s * Math.max(0, Math.min(k(n), 4 - k(n), 1)));
-  return [255 * f(5), 255 * f(3), 255 * f(1)];
-};
-endsnippet
-
-snippet HSL to RGB "Converts a HSL color tuple to RGB format.  - Use the [HSL to RGB conversion formula](https://en.wikipedia.org/wiki/HSL_and_HSV#HSL_to_RGB) to convert to the appropriate format. - The range of the input parameters is H: [0, 360], S: [0, 100], L: [0, 100]. - The range of all output values is [0, 255]." b
-const HSLToRGB = (h, s, l) => {
-  s /= 100;
-  l /= 100;
-  const k = n => (n + h / 30) % 12;
-  const a = s * Math.min(l, 1 - l);
-  const f = n =>
-    l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-  return [255 * f(0), 255 * f(8), 255 * f(4)];
-};
-endsnippet
-
-snippet JSON to file "Writes a JSON object to a file.  - Use `fs.writeFileSync()`, template literals and `JSON.stringify()` to write a `json` object to a `.json` file." b
-const fs = require('fs');
-
-const JSONToFile = (obj, filename) =>
-  fs.writeFileSync(\`\${filename}.json\`, JSON.stringify(obj, null, 2));
-endsnippet
-
-snippet JSON to CSV "Converts an array of objects to a comma-separated values (CSV) string that contains only the `columns` specified.  - Use `Array.prototype.join()` to combine all the names in `columns` to create the first row, using the provided `delimiter`. - Use `Array.prototype.map()` and `Array.prototype.reduce()` to create a row for each object. Substitute non-existent values with empty strings and only mapping values in `columns`. - Use `Array.prototype.join()` to combine all rows into a string, separating each row with a newline (`\n`). - Omit the third argument, `delimiter`, to use a default delimiter of `','`." b
-const JSONtoCSV = (arr, columns, delimiter = ',') =>
-  [
-    columns.join(delimiter),
-    ...arr.map(obj =>
-      columns.reduce(
-        (acc, key) =>
-          \`\${acc}\${!acc.length ? '' : delimiter}"\${!obj[key] ? '' : obj[key]}"\`,
-        ''
-      )
-    ),
-  ].join('\n');
-endsnippet
-
-snippet RGB to HSB "Converts a RGB color tuple to HSB format.  - Use the [RGB to HSB conversion formula](https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB) to convert to the appropriate format. - The range of all input parameters is [0, 255]. - The range of the resulting values is H: [0, 360], S: [0, 100], B: [0, 100]." b
-const RGBToHSB = (r, g, b) => {
-  r /= 255;
-  g /= 255;
-  b /= 255;
-  const v = Math.max(r, g, b),
-    n = v - Math.min(r, g, b);
-  const h =
-    n === 0 ? 0 : n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;
-  return [60 * (h < 0 ? h + 6 : h), v && (n / v) * 100, v * 100];
-};
-endsnippet
-
-snippet RGB to HSL "Converts a RGB color tuple to HSL format.  - Use the [RGB to HSL conversion formula](https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/) to convert to the appropriate format. - The range of all input parameters is [0, 255]. - The range of the resulting values is H: [0, 360], S: [0, 100], L: [0, 100]." b
-const RGBToHSL = (r, g, b) => {
-  r /= 255;
-  g /= 255;
-  b /= 255;
-  const l = Math.max(r, g, b);
-  const s = l - Math.min(r, g, b);
-  const h = s
-    ? l === r
-      ? (g - b) / s
-      : l === g
-      ? 2 + (b - r) / s
-      : 4 + (r - g) / s
-    : 0;
-  return [
-    60 * h < 0 ? 60 * h + 360 : 60 * h,
-    100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),
-    (100 * (2 * l - s)) / 2,
-  ];
-};
-endsnippet
-
-snippet RGB to hex "Converts the values of RGB components to a hexadecimal color code.  - Convert given RGB parameters to hexadecimal string using bitwise left-shift operator (`<<`) and `Number.prototype.toString()`. - Use `String.prototype.padStart()` to get a 6-digit hexadecimal value." b
-const RGBToHex = (r, g, b) =>
-  ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
-endsnippet
-
-snippet Join URL segments "Joins all given URL segments together, then normalizes the resulting URL.  - Use `Array.prototype.join()` to combine URL segments. - Use a series of `String.prototype.replace()` calls with various regular expressions to normalize the resulting URL (remove double slashes, add proper slashes for protocol, remove slashes before parameters, combine parameters with `'&'` and normalize first parameter delimiter)." b
-const URLJoin = (...args) =>
-  args
-    .join('/')
-    .replace(/[\/]+/g, '/')
-    .replace(/^(.+):\//, '$1://')
-    .replace(/^file:/, 'file:/')
-    .replace(/\/(\?|&|#[^!])/g, '$1')
-    .replace(/\?/g, '&')
-    .replace('&', '?');
-endsnippet
-
-snippet Generate UUID (browser) "Generates a UUID in a browser.  - Use `Crypto.getRandomValues()` to generate a UUID, compliant with [RFC4122](https://www.ietf.org/rfc/rfc4122.txt) version 4. - Use `Number.prototype.toString()` to convert it to a proper UUID (hexadecimal string)." b
-const UUIDGeneratorBrowser = () =>
-  ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-    (
-      c ^
-      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
-    ).toString(16)
-  );
-endsnippet
-
-snippet Generate UUID (Node.js) "Generates a UUID in Node.JS.  - Use `crypto.randomBytes()` to generate a UUID, compliant with [RFC4122](https://www.ietf.org/rfc/rfc4122.txt) version 4. - Use `Number.prototype.toString()` to convert it to a proper UUID (hexadecimal string). - [`crypto.randomUUID()`](https://nodejs.org/api/crypto.html#cryptorandomuuidoptions) provides similar functionality." b
-const crypto = require('crypto');
-
-const UUIDGeneratorNode = () =>
-  ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-    (c ^ (crypto.randomBytes(1)[0] & (15 >> (c / 4)))).toString(16)
-  );
-endsnippet
-
 snippet Partial sum array "Creates an array of partial sums.  - Use `Array.prototype.reduce()`, initialized with an empty array accumulator to iterate over `nums`. - Use `Array.prototype.slice()` to get the previous partial sum or `0` and add the current element to it. - Use the spread operator (`...`) to add the new partial sum to the accumulator array containing the previous sums." b
 const accumulate = (...nums) =>
   nums.reduce((acc, n) => [...acc, n + (acc.slice(-1)[0] || 0)], []);
@@ -195,14 +57,6 @@ const addWeekDays = (startDate, count) =>
   }, startDate);
 endsnippet
 
-snippet Test if all array elements are truthy "Checks if the provided predicate function returns `true` for all elements in a collection.  - Use `Array.prototype.every()` to test if all elements in the collection return `true` based on `fn`. - Omit the second argument, `fn`, to use `Boolean` as a default." b
-const all = (arr, fn = Boolean) => arr.every(fn);
-endsnippet
-
-snippet Check if array elements are equal "Checks if all elements in an array are equal.  - Use `Array.prototype.every()` to check if all the elements of the array are the same as the first one. - Elements in the array are compared using the strict comparison operator, which does not account for `NaN` self-inequality." b
-const allEqual = arr => arr.every(val => val === arr[0]);
-endsnippet
-
 snippet Check if array elements are equal based on function "Checks if all elements in an array are equal, based on the provided mapping function.  - Apply `fn` to the first element of `arr`. - Use `Array.prototype.every()` to check if `fn` returns the same value for all elements in the array as it did for the first one. - Elements in the array are compared using the strict comparison operator, which does not account for `NaN` self-inequality." b
 const allEqualBy = (arr, fn) => {
   const eql = fn(arr[0]);
@@ -210,12 +64,20 @@ const allEqualBy = (arr, fn) => {
 };
 endsnippet
 
-snippet Check if all array elements are unique "Checks if all elements in an array are unique.  - Create a new `Set` from the mapped values to keep only unique occurrences. - Use `Array.prototype.length` and `Set.prototype.size` to compare the length of the unique values to the original array." b
-const allUnique = arr => arr.length === new Set(arr).size;
+snippet Check if array elements are equal "Checks if all elements in an array are equal.  - Use `Array.prototype.every()` to check if all the elements of the array are the same as the first one. - Elements in the array are compared using the strict comparison operator, which does not account for `NaN` self-inequality." b
+const allEqual = arr => arr.every(val => val === arr[0]);
 endsnippet
 
 snippet Check if all array elements are unique based on function "Checks if all elements in an array are unique, based on the provided mapping function.  - Use `Array.prototype.map()` to apply `fn` to all elements in `arr`. - Create a new `Set` from the mapped values to keep only unique occurrences. - Use `Array.prototype.length` and `Set.prototype.size` to compare the length of the unique mapped values to the original array." b
 const allUniqueBy = (arr, fn) => arr.length === new Set(arr.map(fn)).size;
+endsnippet
+
+snippet Check if all array elements are unique "Checks if all elements in an array are unique.  - Create a new `Set` from the mapped values to keep only unique occurrences. - Use `Array.prototype.length` and `Set.prototype.size` to compare the length of the unique values to the original array." b
+const allUnique = arr => arr.length === new Set(arr).size;
+endsnippet
+
+snippet Test if all array elements are truthy "Checks if the provided predicate function returns `true` for all elements in a collection.  - Use `Array.prototype.every()` to test if all elements in the collection return `true` based on `fn`. - Omit the second argument, `fn`, to use `Boolean` as a default." b
+const all = (arr, fn = Boolean) => arr.every(fn);
 endsnippet
 
 snippet Sort array alphabetically "Sorts an array of objects alphabetically based on a given property.  - Use `Array.prototype.sort()` to sort the array based on the given property. - Use `String.prototype.localeCompare()` to compare the values for the given property." b
@@ -291,11 +153,6 @@ const attempt = (fn, ...args) => {
 };
 endsnippet
 
-snippet Average of numbers "Calculates the average of two or more numbers.  - Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`. - Divide the resulting array by its length." b
-const average = (...nums) =>
-  nums.reduce((acc, val) => acc + val, 0) / nums.length;
-endsnippet
-
 snippet Mapped array average "Calculates the average of an array, after mapping each element to a value using the provided function.  - Use `Array.prototype.map()` to map each element to the value returned by `fn`. - Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`. - Divide the resulting array by its length." b
 const averageBy = (arr, fn) =>
   arr
@@ -303,12 +160,9 @@ const averageBy = (arr, fn) =>
     .reduce((acc, val) => acc + val, 0) / arr.length;
 endsnippet
 
-snippet Bifurcate array based on values "Splits values into two groups, based on the result of the given `filter` array.  - Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on `filter`. - If `filter` has a truthy value for any element, add it to the first group, otherwise add it to the second group." b
-const bifurcate = (arr, filter) =>
-  arr.reduce((acc, val, i) => (acc[filter[i] ? 0 : 1].push(val), acc), [
-    [],
-    [],
-  ]);
+snippet Average of numbers "Calculates the average of two or more numbers.  - Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`. - Divide the resulting array by its length." b
+const average = (...nums) =>
+  nums.reduce((acc, val) => acc + val, 0) / nums.length;
 endsnippet
 
 snippet Bifurcate array based on function "Splits values into two groups, based on the result of the given filtering function.  - Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on the value returned by `fn` for each element. - If `fn` returns a truthy value for any element, add it to the first group, otherwise add it to the second group." b
@@ -319,8 +173,12 @@ const bifurcateBy = (arr, fn) =>
   ]);
 endsnippet
 
-snippet Binary function arity "Creates a function that accepts up to two arguments, ignoring any additional arguments.  - Call the provided function, `fn`, with the first two arguments given." b
-const binary = fn => (a, b) => fn(a, b);
+snippet Bifurcate array based on values "Splits values into two groups, based on the result of the given `filter` array.  - Use `Array.prototype.reduce()` and `Array.prototype.push()` to add elements to groups, based on `filter`. - If `filter` has a truthy value for any element, add it to the first group, otherwise add it to the second group." b
+const bifurcate = (arr, filter) =>
+  arr.reduce((acc, val, i) => (acc[filter[i] ? 0 : 1].push(val), acc), [
+    [],
+    [],
+  ]);
 endsnippet
 
 snippet Binary search "Finds the index of a given element in a sorted array using the binary search algorithm.  - Declare the left and right search boundaries, `l` and `r`, initialized to `0` and the `length` of the array respectively. - Use a `while` loop to repeatedly narrow down the search subarray, using `Math.floor()` to cut it in half. - Return the index of the element if found, otherwise return `-1`. - **Note:** Does not account for duplicate values in the array." b
@@ -338,9 +196,8 @@ const binarySearch = (arr, item) => {
 };
 endsnippet
 
-snippet Bind function context "Creates a function that invokes `fn` with a given context, optionally prepending any additional supplied parameters to the arguments.  - Return a `function` that uses `Function.prototype.apply()` to apply the given `context` to `fn`. - Use the spread operator (`...`) to prepend any additional supplied parameters to the arguments." b
-const bind = (fn, context, ...boundArgs) => (...args) =>
-  fn.apply(context, [...boundArgs, ...args]);
+snippet Binary function arity "Creates a function that accepts up to two arguments, ignoring any additional arguments.  - Call the provided function, `fn`, with the first two arguments given." b
+const binary = fn => (a, b) => fn(a, b);
 endsnippet
 
 snippet Bind all object methods "Binds methods of an object to the object itself, overwriting the existing method.  - Use `Array.prototype.forEach()` to iterate over the given `fns`. - Return a function for each one, using `Function.prototype.apply()` to apply the given context (`obj`) to `fn`." b
@@ -358,6 +215,11 @@ endsnippet
 snippet Bind object method "Creates a function that invokes the method at a given key of an object, optionally prepending any additional supplied parameters to the arguments.  - Return a `function` that uses `Function.prototype.apply()` to bind `context[fn]` to `context`. - Use the spread operator (`...`) to prepend any additional supplied parameters to the arguments." b
 const bindKey = (context, fn, ...boundArgs) => (...args) =>
   context[fn].apply(context, [...boundArgs, ...args]);
+endsnippet
+
+snippet Bind function context "Creates a function that invokes `fn` with a given context, optionally prepending any additional supplied parameters to the arguments.  - Return a `function` that uses `Function.prototype.apply()` to apply the given `context` to `fn`. - Use the spread operator (`...`) to prepend any additional supplied parameters to the arguments." b
+const bind = (fn, context, ...boundArgs) => (...args) =>
+  fn.apply(context, [...boundArgs, ...args]);
 endsnippet
 
 snippet Binomial coefficient "Calculates the number of ways to choose `k` items from `n` items without repetition and without order.  - Use `Number.isNaN()` to check if any of the two values is `NaN`. - Check if `k` is less than `0`, greater than or equal to `n`, equal to `1` or `n - 1` and return the appropriate result. - Check if `n - k` is less than `k` and switch their values accordingly. - Loop from `2` through `k` and calculate the binomial coefficient. - Use `Math.round()` to account for rounding errors in the calculation." b
@@ -442,24 +304,24 @@ const caesarCipher = (str, shift, decrypt = false) => {
 };
 endsnippet
 
+snippet Call or return "Calls the argument if it's a function, otherwise returns it.  - Use the `typeof` operator to check if the given argument is a function. - If it is, use the spread operator (`...`) to call it with the rest of the given arguments. Otherwise, return it." b
+const callOrReturn = (fn, ...args) =>
+  typeof fn === 'function' ? fn(...args) : fn;
+endsnippet
+
 snippet Call functions with context "Given a key and a set of arguments, call them when given a context.  - Use a closure to call `key` with `args` for the given `context`." b
 const call = (key, ...args) => context => context[key](...args);
 endsnippet
 
-snippet Call or return "Calls the argument if it's a function, otherwise returns it.  - Use the `typeof` operator to check if the given argument is a function. - If it is, use the spread operator (`...`) to call it with the rest of the given arguments. Otherwise, return it." b
-const callOrReturn = (fn, ...args) =>
-  typeof fn === 'function' ? fn(...args) : fn;
+snippet Capitalize every word "Capitalizes the first letter of every word in a string.  - Use `String.prototype.replace()` to match the first character of each word and `String.prototype.toUpperCase()` to capitalize it." b
+const capitalizeEveryWord = str =>
+  str.replace(/\b[a-z]/g, char => char.toUpperCase());
 endsnippet
 
 snippet Capitalize string "Capitalizes the first letter of a string.  - Use array destructuring and `String.prototype.toUpperCase()` to capitalize the first letter of the string. - Use `Array.prototype.join()` to combine the capitalized `first` with the `...rest` of the characters. - Omit the `lowerRest` argument to keep the rest of the string intact, or set it to `true` to convert to lowercase." b
 const capitalize = ([first, ...rest], lowerRest = false) =>
   first.toUpperCase() +
   (lowerRest ? rest.join('').toLowerCase() : rest.join(''));
-endsnippet
-
-snippet Capitalize every word "Capitalizes the first letter of every word in a string.  - Use `String.prototype.replace()` to match the first character of each word and `String.prototype.toUpperCase()` to capitalize it." b
-const capitalizeEveryWord = str =>
-  str.replace(/\b[a-z]/g, char => char.toUpperCase());
 endsnippet
 
 snippet Cartesian product "Calculates the cartesian product of two arrays.  - Use `Array.prototype.reduce()`, `Array.prototype.map()` and the spread operator (`...`) to generate all possible element pairs from the two arrays." b
@@ -504,13 +366,6 @@ snippet Check property "Creates a function that will invoke a predicate function
 const checkProp = (predicate, prop) => obj => !!predicate(obj[prop]);
 endsnippet
 
-snippet Split into chunks "Chunks an array into smaller arrays of a specified size.  - Use `Array.from()` to create a new array, that fits the number of chunks that will be produced. - Use `Array.prototype.slice()` to map each element of the new array to a chunk the length of `size`. - If the original array can't be split evenly, the final chunk will contain the remaining elements." b
-const chunk = (arr, size) =>
-  Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
-    arr.slice(i * size, i * size + size)
-  );
-endsnippet
-
 snippet Split array into n chunks "Chunks an array into `n` smaller arrays.  - Use `Math.ceil()` and `Array.prototype.length` to get the size of each chunk. - Use `Array.from()` to create a new array of size `n`. - Use `Array.prototype.slice()` to map each element of the new array to a chunk the length of `size`. - If the original array can't be split evenly, the final chunk will contain the remaining elements." b
 const chunkIntoN = (arr, n) => {
   const size = Math.ceil(arr.length / n);
@@ -518,6 +373,13 @@ const chunkIntoN = (arr, n) => {
     arr.slice(i * size, i * size + size)
   );
 }
+endsnippet
+
+snippet Split into chunks "Chunks an array into smaller arrays of a specified size.  - Use `Array.from()` to create a new array, that fits the number of chunks that will be produced. - Use `Array.prototype.slice()` to map each element of the new array to a chunk the length of `size`. - If the original array can't be split evenly, the final chunk will contain the remaining elements." b
+const chunk = (arr, size) =>
+  Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+    arr.slice(i * size, i * size + size)
+  );
 endsnippet
 
 snippet Chunk iterable "Chunks an iterable into smaller arrays of a specified size.  - Use a `for...of` loop over the given iterable, using `Array.prototype.push()` to add each new value to the current `chunk`. - Use `Array.prototype.length` to check if the current `chunk` is of the desired `size` and `yield` the value if it is. - Finally, use `Array.prototype.length` to check the final `chunk` and `yield` it if it's non-empty." b
@@ -548,12 +410,12 @@ const closest = (arr, n) =>
   arr.reduce((acc, num) => (Math.abs(num - n) < Math.abs(acc - n) ? num : acc));
 endsnippet
 
-snippet Argument coalescing "Returns the first defined, non-null argument.  - Use `Array.prototype.find()` and `Array.prototype.includes()` to find the first value that is not equal to `undefined` or `null`." b
-const coalesce = (...args) => args.find(v => ![undefined, null].includes(v));
-endsnippet
-
 snippet Argument coalescing factory "Customizes a coalesce function that returns the first argument which is `true` based on the given validator.  - Use `Array.prototype.find()` to return the first argument that returns `true` from the provided argument validation function, `valid`." b
 const coalesceFactory = valid => (...args) => args.find(valid);
+endsnippet
+
+snippet Argument coalescing "Returns the first defined, non-null argument.  - Use `Array.prototype.find()` and `Array.prototype.includes()` to find the first value that is not equal to `undefined` or `null`." b
+const coalesce = (...args) => args.find(v => ![undefined, null].includes(v));
 endsnippet
 
 snippet Convert function to variadic "Changes a function that accepts an array into a variadic function.  - Given a function, return a closure that collects all inputs into an array-accepting function." b
@@ -599,10 +461,6 @@ const commonKeys = (obj1, obj2) =>
   Object.keys(obj1).filter(key => obj2.hasOwnProperty(key));
 endsnippet
 
-snippet Compact array "Removes falsy values from an array.  - Use `Array.prototype.filter()` to filter out falsy values (`false`, `null`, `0`, ``, `undefined`, and `NaN`)." b
-const compact = arr => arr.filter(Boolean);
-endsnippet
-
 snippet Compact and join array "Removes falsy values from an array and combines the remaining values into a string.  - Use `Array.prototype.filter()` to filter out falsy values (`false`, `null`, `0`, ``, `undefined`, and `NaN`). - Use `Array.prototype.join()` to join the remaining values into a string." b
 const compactJoin = (arr, delim = ',') => arr.filter(Boolean).join(delim);
 endsnippet
@@ -626,18 +484,22 @@ snippet Compact whitespaces "Compacts whitespaces in a string.  - Use `String.pr
 const compactWhitespace = str => str.replace(/\s{2,}/g, ' ');
 endsnippet
 
-snippet Logical complement "Returns a function that is the logical complement of the given function, `fn`.  - Use the logical not (`!`) operator on the result of calling `fn` with any supplied `args`." b
-const complement = fn => (...args) => !fn(...args);
+snippet Compact array "Removes falsy values from an array.  - Use `Array.prototype.filter()` to filter out falsy values (`false`, `null`, `0`, ``, `undefined`, and `NaN`)." b
+const compact = arr => arr.filter(Boolean);
 endsnippet
 
-snippet Compose functions "Performs right-to-left function composition.  - Use `Array.prototype.reduce()` to perform right-to-left function composition. - The last (rightmost) function can accept one or more arguments; the remaining functions must be unary." b
-const compose = (...fns) =>
-  fns.reduce((f, g) => (...args) => f(g(...args)));
+snippet Logical complement "Returns a function that is the logical complement of the given function, `fn`.  - Use the logical not (`!`) operator on the result of calling `fn` with any supplied `args`." b
+const complement = fn => (...args) => !fn(...args);
 endsnippet
 
 snippet Reverse compose functions "Performs left-to-right function composition.  - Use `Array.prototype.reduce()` to perform left-to-right function composition. - The first (leftmost) function can accept one or more arguments; the remaining functions must be unary." b
 const composeRight = (...fns) =>
   fns.reduce((f, g) => (...args) => g(f(...args)));
+endsnippet
+
+snippet Compose functions "Performs right-to-left function composition.  - Use `Array.prototype.reduce()` to perform right-to-left function composition. - The last (rightmost) function can accept one or more arguments; the remaining functions must be unary." b
+const compose = (...fns) =>
+  fns.reduce((f, g) => (...args) => f(g(...args)));
 endsnippet
 
 snippet Check if string contains whitespace "Checks if the given string contains any whitespace characters.  - Use `RegExp.prototype.test()` with an appropriate regular expression to check if the given string contains any whitespace characters." b
@@ -651,6 +513,14 @@ endsnippet
 
 snippet Copy sign to number "Returns the absolute value of the first number, but the sign of the second.  - Use `Math.sign()` to check if the two numbers have the same sign. - Return `x` if they do, `-x` otherwise." b
 const copySign = (x, y) => Math.sign(x) === Math.sign(y) ? x : -x;
+endsnippet
+
+snippet Copy to clipboard async "Copies a string to the clipboard, returning a promise that resolves when the clipboard's contents have been updated.  - Check if the [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) is available. Use an `if` statement to ensure `Navigator`, `Navigator.clipboard` and `Navigator.clipboard.writeText` are truthy. - Use `Clipboard.writeText()` to write the given value, `str`, to the clipboard. - Return the result of `Clipboard.writeText()`, which is a promise that resolves when the clipboard's contents have been updated. - In case that the Clipboard API is not available, use `Promise.reject()` to reject with an appropriate message. - **Note:** If you need to support older browsers, you might want to use `Document.execCommand()` instead. You can find out more about it in the [copyToClipboard snippet](/js/s/copy-to-clipboard)." b
+const copyToClipboardAsync = str => {
+  if (navigator && navigator.clipboard && navigator.clipboard.writeText)
+    return navigator.clipboard.writeText(str);
+  return Promise.reject('The Clipboard API is not available.');
+};
 endsnippet
 
 snippet Copy to clipboard "Copies a string to the clipboard. Only works as a result of user action (i.e. inside a `click` event listener).  - Create a new `<textarea>` element, fill it with the supplied data and add it to the HTML document. - Use `Selection.getRangeAt()`to store the selected range (if any). - Use `Document.execCommand()` to copy to the clipboard. - Remove the `<textarea>` element from the HTML document. - Finally, use `Selection.addRange()` to recover the original selected range (if any). - **Note:** You can use the asynchronous [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) in most current browsers. You can find out more about it in the [copyToClipboardAsync snippet](/js/s/copy-to-clipboard-async)." b
@@ -672,14 +542,6 @@ const copyToClipboard = str => {
     document.getSelection().removeAllRanges();
     document.getSelection().addRange(selected);
   }
-};
-endsnippet
-
-snippet Copy to clipboard async "Copies a string to the clipboard, returning a promise that resolves when the clipboard's contents have been updated.  - Check if the [Clipboard API](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard_API) is available. Use an `if` statement to ensure `Navigator`, `Navigator.clipboard` and `Navigator.clipboard.writeText` are truthy. - Use `Clipboard.writeText()` to write the given value, `str`, to the clipboard. - Return the result of `Clipboard.writeText()`, which is a promise that resolves when the clipboard's contents have been updated. - In case that the Clipboard API is not available, use `Promise.reject()` to reject with an appropriate message. - **Note:** If you need to support older browsers, you might want to use `Document.execCommand()` instead. You can find out more about it in the [copyToClipboard snippet](/js/s/copy-to-clipboard)." b
-const copyToClipboardAsync = str => {
-  if (navigator && navigator.clipboard && navigator.clipboard.writeText)
-    return navigator.clipboard.writeText(str);
-  return Promise.reject('The Clipboard API is not available.');
 };
 endsnippet
 
@@ -766,6 +628,30 @@ const createEventHub = () => ({
 });
 endsnippet
 
+snippet CSV to array "Converts a comma-separated values (CSV) string to a 2D array.  - Use `Array.prototype.indexOf()` to find the first newline character (`\n`). - Use `Array.prototype.slice()` to remove the first row (title row) if `omitFirstRow` is `true`. - Use `String.prototype.split()` to create a string for each row. - Use `String.prototype.split()` to separate the values in each row, using the provided `delimiter`. - Omit the second argument, `delimiter`, to use a default delimiter of `','`. - Omit the third argument, `omitFirstRow`, to include the first row (title row) of the CSV string." b
+const CSVToArray = (data, delimiter = ',', omitFirstRow = false) =>
+  data
+    .slice(omitFirstRow ? data.indexOf('\n') + 1 : 0)
+    .split('\n')
+    .map(v => v.split(delimiter));
+endsnippet
+
+snippet CSV to JSON "Converts a comma-separated values (CSV) string to a 2D array of objects. The first row of the string is used as the title row.  - Use `Array.prototype.indexOf()` to find the first newline character (`\n`). - Use `Array.prototype.slice()` to remove the first row (title row) and `String.prototype.split()` to separate it into values, using the provided `delimiter`. - Use `String.prototype.split()` to create a string for each row. - Use `String.prototype.split()` to separate the values in each row, using the provided `delimiter`. - Use `Array.prototype.reduce()` to create an object for each row's values, with the keys parsed from the title row. - Omit the second argument, `delimiter`, to use a default delimiter of `,`." b
+const CSVToJSON = (data, delimiter = ',') => {
+  const titles = data.slice(0, data.indexOf('\n')).split(delimiter);
+  return data
+    .slice(data.indexOf('\n') + 1)
+    .split('\n')
+    .map(v => {
+      const values = v.split(delimiter);
+      return titles.reduce(
+        (obj, title, index) => ((obj[title] = values[index]), obj),
+        {}
+      );
+    });
+};
+endsnippet
+
 snippet Current URL "Returns the current URL.  - Use `Window.location.href` to get the current URL." b
 const currentURL = () => window.location.href;
 endsnippet
@@ -825,16 +711,6 @@ snippet Number of days in month "Gets the number of days in the given `month` of
 const daysInMonth = (year, month) => new Date(year, month, 0).getDate();
 endsnippet
 
-snippet Debounce function "Creates a debounced function that delays invoking the provided function until at least `ms` milliseconds have elapsed since its last invocation.  - Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()`. Use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds have elapsed. - Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments. - Omit the second argument, `ms`, to set the timeout at a default of `0` ms." b
-const debounce = (fn, ms = 0) => {
-  let timeoutId;
-  return function(...args) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => fn.apply(this, args), ms);
-  };
-};
-endsnippet
-
 snippet Debounce promise "Creates a debounced function that returns a promise, but delays invoking the provided function until at least `ms` milliseconds have elapsed since the last time it was invoked. All promises returned during this time will return the same data.  - Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()` and use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds has elapsed. - Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments. - Create a new `Promise` and add its `resolve` and `reject` callbacks to the `pending` promises stack. - When `setTimeout()` is called, copy the current stack (as it can change between the provided function call and its resolution), clear it and call the provided function. - When the provided function resolves/rejects, resolve/reject all promises in the stack (copied when the function was called) with the returned data. - Omit the second argument, `ms`, to set the timeout at a default of `0` ms." b
 const debouncePromise = (fn, ms = 0) => {
   let timeoutId;
@@ -856,6 +732,16 @@ const debouncePromise = (fn, ms = 0) => {
       }, ms);
       pending.push({ resolve: res, reject: rej });
     });
+};
+endsnippet
+
+snippet Debounce function "Creates a debounced function that delays invoking the provided function until at least `ms` milliseconds have elapsed since its last invocation.  - Each time the debounced function is invoked, clear the current pending timeout with `clearTimeout()`. Use `setTimeout()` to create a new timeout that delays invoking the function until at least `ms` milliseconds have elapsed. - Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary arguments. - Omit the second argument, `ms`, to set the timeout at a default of `0` ms." b
+const debounce = (fn, ms = 0) => {
+  let timeoutId;
+  return function(...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), ms);
+  };
 };
 endsnippet
 
@@ -960,13 +846,6 @@ const detectLanguage = (defaultLang = 'en-US') =>
   defaultLang;
 endsnippet
 
-snippet Array difference "Calculates the difference between two arrays, without filtering duplicate values.  - Create a `Set` from `b` to get the unique values in `b`. - Use `Array.prototype.filter()` on `a` to only keep values not contained in `b`, using `Set.prototype.has()`." b
-const difference = (a, b) => {
-  const s = new Set(b);
-  return a.filter(x => !s.has(x));
-};
-endsnippet
-
 snippet Mapped array difference "Returns the difference between two arrays, after applying the provided function to each array element of both.  - Create a `Set` by applying `fn` to each element in `b`. - Use `Array.prototype.map()` to apply `fn` to each element in `a`. - Use `Array.prototype.filter()` in combination with `fn` on `a` to only keep values not contained in `b`, using `Set.prototype.has()`." b
 const differenceBy = (a, b, fn) => {
   const s = new Set(b.map(fn));
@@ -977,6 +856,13 @@ endsnippet
 snippet Array difference based on function "Filters out all values from an array for which the comparator function does not return `true`.  - Use `Array.prototype.filter()` and `Array.prototype.findIndex()` to find the appropriate values. - Omit the last argument, `comp`, to use a default strict equality comparator." b
 const differenceWith = (arr, val, comp = (a, b) => a === b) =>
   arr.filter(a => val.findIndex(b => comp(a, b)) === -1);
+endsnippet
+
+snippet Array difference "Calculates the difference between two arrays, without filtering duplicate values.  - Create a `Set` from `b` to get the unique values in `b`. - Use `Array.prototype.filter()` on `a` to only keep values not contained in `b`, using `Set.prototype.has()`." b
+const difference = (a, b) => {
+  const s = new Set(b);
+  return a.filter(x => !s.has(x));
+};
 endsnippet
 
 snippet Get nested value in object "Gets the target value in a nested JSON object, based on the given key.  - Use the `in` operator to check if `target` exists in `obj`. - If found, return the value of `obj[target]`. - Otherwise use `Object.values()` and `Array.prototype.reduce()` to recursively call `dig` on each nested object until the first matching key/value pair is found." b
@@ -1001,14 +887,6 @@ snippet Quotient and module of division "Returns an array consisting of the quot
 const divmod = (x, y) => [Math.floor(x / y), x % y];
 endsnippet
 
-snippet Drop list elements from the left "Creates a new array with `n` elements removed from the left.  - Use `Array.prototype.slice()` to remove the specified number of elements from the left. - Omit the last argument, `n`, to use a default value of `1`." b
-const drop = (arr, n = 1) => arr.slice(n);
-endsnippet
-
-snippet Drop list elements from the right "Creates a new array with `n` elements removed from the right.  - Use `Array.prototype.slice()` to remove the specified number of elements from the right. - Omit the last argument, `n`, to use a default value of `1`." b
-const dropRight = (arr, n = 1) => arr.slice(0, -n);
-endsnippet
-
 snippet Drop list elements from the right based on function "Removes elements from the end of an array until the passed function returns `true`. Returns the remaining elements in the array.  - Loop through the array, using `Array.prototype.slice()` to drop the last element of the array until the value returned from `func` is `true`. - Return the remaining elements." b
 const dropRightWhile = (arr, func) => {
   let rightIndex = arr.length;
@@ -1017,11 +895,19 @@ const dropRightWhile = (arr, func) => {
 };
 endsnippet
 
+snippet Drop list elements from the right "Creates a new array with `n` elements removed from the right.  - Use `Array.prototype.slice()` to remove the specified number of elements from the right. - Omit the last argument, `n`, to use a default value of `1`." b
+const dropRight = (arr, n = 1) => arr.slice(0, -n);
+endsnippet
+
 snippet Drop list elements from the left based on function "Removes elements in an array until the passed function returns `true`. Returns the remaining elements in the array.  - Loop through the array, using `Array.prototype.slice()` to drop the first element of the array until the value returned from `func` is `true`. - Return the remaining elements." b
 const dropWhile = (arr, func) => {
   while (arr.length > 0 && !func(arr[0])) arr = arr.slice(1);
   return arr;
 };
+endsnippet
+
+snippet Drop list elements from the left "Creates a new array with `n` elements removed from the left.  - Use `Array.prototype.slice()` to remove the specified number of elements from the left. - Omit the last argument, `n`, to use a default value of `1`." b
+const drop = (arr, n = 1) => arr.slice(n);
 endsnippet
 
 snippet Logical or for functions "Checks if at least one function returns `true` for a given set of arguments.  - Use the logical or (`||`) operator on the result of calling the two functions with the supplied `args`." b
@@ -1143,24 +1029,24 @@ const fibonacci = n =>
   );
 endsnippet
 
-snippet Filter non-unique array values "Creates an array with the non-unique values filtered out.  - Use the `Set` constructor and the spread operator (`...`) to create an array of the unique values in `arr`. - Use `Array.prototype.filter()` to create an array containing only the unique values." b
-const filterNonUnique = arr =>
-  [...new Set(arr)].filter(i => arr.indexOf(i) === arr.lastIndexOf(i));
-endsnippet
-
 snippet Filter non-unique array values based on function "Creates an array with the non-unique values filtered out, based on a provided comparator function.  - Use `Array.prototype.filter()` and `Array.prototype.every()` to create an array containing only the unique values, based on the comparator function, `fn`. - The comparator function takes four arguments: the values of the two elements being compared and their indexes." b
 const filterNonUniqueBy = (arr, fn) =>
   arr.filter((v, i) => arr.every((x, j) => (i === j) === fn(v, x, i, j)));
 endsnippet
 
-snippet Filter unique array values "Creates an array with the unique values filtered out.  - Use the `Set` constructor and the spread operator (`...`) to create an array of the unique values in `arr`. - Use `Array.prototype.filter()` to create an array containing only the non-unique values." b
-const filterUnique = arr =>
-  [...new Set(arr)].filter(i => arr.indexOf(i) !== arr.lastIndexOf(i));
+snippet Filter non-unique array values "Creates an array with the non-unique values filtered out.  - Use the `Set` constructor and the spread operator (`...`) to create an array of the unique values in `arr`. - Use `Array.prototype.filter()` to create an array containing only the unique values." b
+const filterNonUnique = arr =>
+  [...new Set(arr)].filter(i => arr.indexOf(i) === arr.lastIndexOf(i));
 endsnippet
 
 snippet Filter unique array values based on function "Creates an array with the unique values filtered out, based on a provided comparator function.  - Use `Array.prototype.filter()` and `Array.prototype.every()` to create an array containing only the non-unique values, based on the comparator function, `fn`. - The comparator function takes four arguments: the values of the two elements being compared and their indexes." b
 const filterUniqueBy = (arr, fn) =>
   arr.filter((v, i) => arr.some((x, j) => (i !== j) === fn(v, x, i, j)));
+endsnippet
+
+snippet Filter unique array values "Creates an array with the unique values filtered out.  - Use the `Set` constructor and the spread operator (`...`) to create an array of the unique values in `arr`. - Use `Array.prototype.filter()` to create an array containing only the non-unique values." b
+const filterUnique = arr =>
+  [...new Set(arr)].filter(i => arr.indexOf(i) !== arr.lastIndexOf(i));
 endsnippet
 
 snippet Find closest anchor "Finds the anchor node closest to the given `node`, if any.  - Use a `for` loop and `Node.parentNode` to traverse the node tree upwards from the given `node`. - Use `Node.nodeName` and `String.prototype.toLowerCase()` to check if any given node is an anchor (`'a'`). - If no matching node is found, return `null`." b
@@ -1207,10 +1093,6 @@ const findKeys = (obj, val) =>
   Object.keys(obj).filter(key => obj[key] === val);
 endsnippet
 
-snippet Find last matching value "Finds the last element for which the provided function returns a truthy value.  - Use `Array.prototype.filter()` to remove elements for which `fn` returns falsy values. - Use `Array.prototype.pop()` to get the last element in the filtered array." b
-const findLast = (arr, fn) => arr.filter(fn).pop();
-endsnippet
-
 snippet Find last matching index "Finds the index of the last element for which the provided function returns a truthy value.  - Use `Array.prototype.map()` to map each element to an array with its index and value. - Use `Array.prototype.filter()` to remove elements for which `fn` returns falsy values - Use `Array.prototype.pop()` to get the last element in the filtered array. - Return `-1` if there are no matching elements." b
 const findLastIndex = (arr, fn) =>
   (arr
@@ -1239,6 +1121,10 @@ const findLastN = (arr, matcher, n = 1) => {
 };
 endsnippet
 
+snippet Find last matching value "Finds the last element for which the provided function returns a truthy value.  - Use `Array.prototype.filter()` to remove elements for which `fn` returns falsy values. - Use `Array.prototype.pop()` to get the last element in the filtered array." b
+const findLast = (arr, fn) => arr.filter(fn).pop();
+endsnippet
+
 snippet First n elements "Gets the first `n` elements of an array.  - Use `Array.prototype.slice()` with a start value of `0` and an end value of `n` to get the first `n` elements of `arr`." b
 const firstN = (arr, n) => arr.slice(0, n);
 endsnippet
@@ -1256,15 +1142,6 @@ const flatIterator = function* (itr) {
 };
 endsnippet
 
-snippet Flatten array "Flattens an array up to the specified depth.  - Use recursion, decrementing `depth` by `1` for each level of depth. - Use `Array.prototype.reduce()` and `Array.prototype.concat()` to merge elements or arrays. - Base case, for `depth` equal to `1` stops recursion. - Omit the second argument, `depth`, to flatten only to a depth of `1` (single flatten)." b
-const flatten = (arr, depth = 1) =>
-  arr.reduce(
-    (a, v) =>
-      a.concat(depth > 1 && Array.isArray(v) ? flatten(v, depth - 1) : v),
-    []
-  );
-endsnippet
-
 snippet Flatten object "Flattens an object with the paths for keys.  - Use recursion. - Use `Object.keys()` combined with `Array.prototype.reduce()` to convert every leaf node to a flattened path node. - If the value of a key is an object, the function calls itself with the appropriate `prefix` to create the path using `Object.assign()`. - Otherwise, it adds the appropriate prefixed key-value pair to the accumulator object. - You should always omit the second argument, `prefix`, unless you want every key to have a prefix." b
 const flattenObject = (obj, prefix = '') =>
   Object.keys(obj).reduce((acc, k) => {
@@ -1280,6 +1157,15 @@ const flattenObject = (obj, prefix = '') =>
   }, {});
 endsnippet
 
+snippet Flatten array "Flattens an array up to the specified depth.  - Use recursion, decrementing `depth` by `1` for each level of depth. - Use `Array.prototype.reduce()` and `Array.prototype.concat()` to merge elements or arrays. - Base case, for `depth` equal to `1` stops recursion. - Omit the second argument, `depth`, to flatten only to a depth of `1` (single flatten)." b
+const flatten = (arr, depth = 1) =>
+  arr.reduce(
+    (a, v) =>
+      a.concat(depth > 1 && Array.isArray(v) ? flatten(v, depth - 1) : v),
+    []
+  );
+endsnippet
+
 snippet Flip function arguments "Takes a function as an argument, then makes the first argument the last.  - Use argument destructuring and a closure with variadic arguments. - Splice the first argument, using the spread operator (`...`), to make it the last before applying the rest." b
 const flip = fn => (first, ...rest) => fn(...rest, first);
 endsnippet
@@ -1292,16 +1178,16 @@ const forEachRight = (arr, callback) =>
     .forEach(callback);
 endsnippet
 
-snippet Iterate over object's own properties "Iterates over all own properties of an object, running a callback for each one.  - Use `Object.keys()` to get all the properties of the object. - Use `Array.prototype.forEach()` to run the provided function for each key-value pair. - The callback receives three arguments - the value, the key and the object." b
-const forOwn = (obj, fn) =>
-  Object.keys(obj).forEach(key => fn(obj[key], key, obj));
-endsnippet
-
 snippet Iterate over object's own properties in reverse "Iterates over all own properties of an object in reverse, running a callback for each one.  - Use `Object.keys()` to get all the properties of the object, `Array.prototype.reverse()` to reverse their order. - Use `Array.prototype.forEach()` to run the provided function for each key-value pair. - The callback receives three arguments - the value, the key and the object." b
 const forOwnRight = (obj, fn) =>
   Object.keys(obj)
     .reverse()
     .forEach(key => fn(obj[key], key, obj));
+endsnippet
+
+snippet Iterate over object's own properties "Iterates over all own properties of an object, running a callback for each one.  - Use `Object.keys()` to get all the properties of the object. - Use `Array.prototype.forEach()` to run the provided function for each key-value pair. - The callback receives three arguments - the value, the key and the object." b
+const forOwn = (obj, fn) =>
+  Object.keys(obj).forEach(key => fn(obj[key], key, obj));
 endsnippet
 
 snippet Form to object "Encodes a set of form elements as an `object`.  - Use the `FormData` constructor to convert the HTML `form` to `FormData` and `Array.from()` to convert to an array. - Collect the object from the array using `Array.prototype.reduce()`." b
@@ -1445,17 +1331,6 @@ const geometricProgression = (end, start = 1, step = 2) =>
   Array.from({
     length: Math.floor(Math.log(end / start) / Math.log(step)) + 1,
   }).map((_, i) => start * step ** i);
-endsnippet
-
-snippet Get nested object property from path string "Retrieves a set of properties indicated by the given selectors from an object.  - Use `Array.prototype.map()` for each selector, `String.prototype.replace()` to replace square brackets with dots. - Use `String.prototype.split()` to split each selector. - Use `Array.prototype.filter()` to remove empty values and `Array.prototype.reduce()` to get the value indicated by each selector." b
-const get = (from, ...selectors) =>
-  [...selectors].map(s =>
-    s
-      .replace(/\[([^\[\]]*)\]/g, '.$1.')
-      .split('.')
-      .filter(t => t !== '')
-      .reduce((prev, cur) => prev && prev[cur], from)
-  );
 endsnippet
 
 snippet Get element ancestors "Returns all the ancestors of an element from the document root to the given element.  - Use `Node.parentNode` and a `while` loop to move up the ancestor tree of the element. - Use `Array.prototype.unshift()` to add each new ancestor to the start of the array." b
@@ -1613,6 +1488,17 @@ const getVerticalOffset = el => {
 };
 endsnippet
 
+snippet Get nested object property from path string "Retrieves a set of properties indicated by the given selectors from an object.  - Use `Array.prototype.map()` for each selector, `String.prototype.replace()` to replace square brackets with dots. - Use `String.prototype.split()` to split each selector. - Use `Array.prototype.filter()` to remove empty values and `Array.prototype.reduce()` to get the value indicated by each selector." b
+const get = (from, ...selectors) =>
+  [...selectors].map(s =>
+    s
+      .replace(/\[([^\[\]]*)\]/g, '.$1.')
+      .split('.')
+      .filter(t => t !== '')
+      .reduce((prev, cur) => prev && prev[cur], from)
+  );
+endsnippet
+
 snippet Group array elements "Groups the elements of an array based on the given function.  - Use `Array.prototype.map()` to map the values of the array to a function or property name. - Use `Array.prototype.reduce()` to create an object, where the keys are produced from the mapped results." b
 const groupBy = (arr, fn) =>
   arr
@@ -1763,6 +1649,28 @@ snippet Hide elements "Hides all the elements specified.  - Use the spread opera
 const hide = (...el) => [...el].forEach(e => (e.style.display = 'none'));
 endsnippet
 
+snippet HSB to RGB "Converts a HSB color tuple to RGB format.  - Use the [HSB to RGB conversion formula](https://en.wikipedia.org/wiki/HSL_and_HSV#HSV_to_RGB) to convert to the appropriate format. - The range of the input parameters is H: [0, 360], S: [0, 100], B: [0, 100]. - The range of all output values is [0, 255]." b
+const HSBToRGB = (h, s, b) => {
+  s /= 100;
+  b /= 100;
+  const k = (n) => (n + h / 60) % 6;
+  const f = (n) => b * (1 - s * Math.max(0, Math.min(k(n), 4 - k(n), 1)));
+  return [255 * f(5), 255 * f(3), 255 * f(1)];
+};
+endsnippet
+
+snippet HSL to RGB "Converts a HSL color tuple to RGB format.  - Use the [HSL to RGB conversion formula](https://en.wikipedia.org/wiki/HSL_and_HSV#HSL_to_RGB) to convert to the appropriate format. - The range of the input parameters is H: [0, 360], S: [0, 100], L: [0, 100]. - The range of all output values is [0, 255]." b
+const HSLToRGB = (h, s, l) => {
+  s /= 100;
+  l /= 100;
+  const k = n => (n + h / 30) % 12;
+  const a = s * Math.min(l, 1 - l);
+  const f = n =>
+    l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+  return [255 * f(0), 255 * f(8), 255 * f(4)];
+};
+endsnippet
+
 snippet HTTP delete "Makes a `DELETE` request to the passed URL.  - Use the `XMLHttpRequest` web API to make a `DELETE` request to the given `url`. - Handle the `onload` event, by running the provided `callback` function. - Handle the `onerror` event, by running the provided `err` function. - Omit the third argument, `err` to log the request to the console's error stream by default." b
 const httpDelete = (url, callback, err = console.error) => {
   const request = new XMLHttpRequest();
@@ -1884,9 +1792,11 @@ snippet Array without last element "Returns all the elements of an array except 
 const initial = arr => arr.slice(0, -1);
 endsnippet
 
-snippet Initialize 2D array "Initializes a 2D array of given width and height and value.  - Use `Array.from()` and `Array.prototype.map()` to generate `h` rows where each is a new array of size `w`. - Use `Array.prototype.fill()` to initialize all items with value `val`. - Omit the last argument, `val`, to use a default value of `null`." b
-const initialize2DArray = (w, h, val = null) =>
-  Array.from({ length: h }).map(() => Array.from({ length: w }).fill(val));
+snippet Initialize array with reversed range "Initializes an array containing the numbers in the specified range (in reverse) where `start` and `end` are inclusive with their common difference `step`.  - Use `Array.from()` to create an array of the desired length, `(end - start + 1) / step`. - Use `Array.prototype.map()` to fill the array with the desired values in the given range. - Omit the second argument, `start`, to use a default value of `0`. - Omit the last argument, `step`, to use a default value of `1`." b
+const initializeArrayWithRangeRight = (end, start = 0, step = 1) =>
+  Array.from({ length: Math.ceil((end + 1 - start) / step) }).map(
+    (v, i, arr) => (arr.length - i - 1) * step + start
+  );
 endsnippet
 
 snippet Initialize array with range "Initializes an array containing the numbers in the specified range where `start` and `end` are inclusive with their common difference `step`.  - Use `Array.from()` to create an array of the desired length. - Use `(end - start + 1) / step` and a map function to fill the array with the desired values in the given range. - Omit the second argument, `start`, to use a default value of `0`. - Omit the last argument, `step`, to use a default value of `1`." b
@@ -1894,13 +1804,6 @@ const initializeArrayWithRange = (end, start = 0, step = 1) =>
   Array.from(
     { length: Math.ceil((end - start + 1) / step) },
     (_, i) => i * step + start
-  );
-endsnippet
-
-snippet Initialize array with reversed range "Initializes an array containing the numbers in the specified range (in reverse) where `start` and `end` are inclusive with their common difference `step`.  - Use `Array.from()` to create an array of the desired length, `(end - start + 1) / step`. - Use `Array.prototype.map()` to fill the array with the desired values in the given range. - Omit the second argument, `start`, to use a default value of `0`. - Omit the last argument, `step`, to use a default value of `1`." b
-const initializeArrayWithRangeRight = (end, start = 0, step = 1) =>
-  Array.from({ length: Math.ceil((end + 1 - start) / step) }).map(
-    (v, i, arr) => (arr.length - i - 1) * step + start
   );
 endsnippet
 
@@ -1916,6 +1819,11 @@ const initializeNDArray = (val, ...args) =>
     : Array.from({ length: args[0] }).map(() =>
         initializeNDArray(val, ...args.slice(1))
       );
+endsnippet
+
+snippet Initialize 2D array "Initializes a 2D array of given width and height and value.  - Use `Array.from()` and `Array.prototype.map()` to generate `h` rows where each is a new array of size `w`. - Use `Array.prototype.fill()` to initialize all items with value `val`. - Omit the last argument, `val`, to use a default value of `null`." b
+const initialize2DArray = (w, h, val = null) =>
+  Array.from({ length: h }).map(() => Array.from({ length: w }).fill(val));
 endsnippet
 
 snippet Inject CSS "Injects the given CSS code into the current document  - Use `Document.createElement()` to create a new `style` element and set its type to `text/css`. - Use `Element.innerText` to set the value to the given CSS string. - Use `Document.head` and `Element.appendChild()` to append the new element to the document head. - Return the newly created `style` element." b
@@ -1964,13 +1872,6 @@ const insertionSort = arr =>
   }, []);
 endsnippet
 
-snippet Array intersection "Returns the elements that exist in both arrays, filtering duplicate values.  - Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`." b
-const intersection = (a, b) => {
-  const s = new Set(b);
-  return [...new Set(a)].filter(x => s.has(x));
-};
-endsnippet
-
 snippet Mapped array intersection "Returns the elements that exist in both arrays, after applying the provided function to each array element of both.  - Create a `Set` by applying `fn` to all elements in `b`. - Use `Array.prototype.filter()` on `a` to only keep elements, which produce values contained in `b` when `fn` is applied to them." b
 const intersectionBy = (a, b, fn) => {
   const s = new Set(b.map(fn));
@@ -1981,6 +1882,13 @@ endsnippet
 snippet Array intersection based on function "Returns the elements that exist in both arrays, using a provided comparator function.  - Use `Array.prototype.filter()` and `Array.prototype.findIndex()` in combination with the provided comparator to determine intersecting values." b
 const intersectionWith = (a, b, comp) =>
   a.filter(x => b.findIndex(y => comp(x, y)) !== -1);
+endsnippet
+
+snippet Array intersection "Returns the elements that exist in both arrays, filtering duplicate values.  - Create a `Set` from `b`, then use `Array.prototype.filter()` on `a` to only keep values contained in `b`." b
+const intersection = (a, b) => {
+  const s = new Set(b);
+  return [...new Set(a)].filter(x => s.has(x));
+};
 endsnippet
 
 snippet Check if two arrays intersect "Determines if two arrays have a common item.  - Create a `Set` from `b` to get the unique values in `b`. - Use `Array.prototype.some()` on `a` to check if any of its values are contained in `b`, using `Set.prototype.has()`." b
@@ -2000,10 +1908,6 @@ const invertKeyValues = (obj, fn) =>
   }, {});
 endsnippet
 
-snippet Check if value is of type "Checks if the provided value is of the specified type.  - Ensure the value is not `undefined` or `null` using `Array.prototype.includes()`. - Use `Object.prototype.constructor` to compare the constructor property on the value with `type` to check if the provided value is of the specified `type`." b
-const is = (type, val) => ![, null].includes(val) && val.constructor === type;
-endsnippet
-
 snippet Check if absolute URL "Checks if the given string is an absolute URL.  - Use `RegExp.prototype.test()` to test if the string is an absolute URL." b
 const isAbsoluteURL = str => /^[a-z][a-z0-9+.-]*:/.test(str);
 endsnippet
@@ -2012,12 +1916,12 @@ snippet Check if date is after another date "Checks if a date is after another d
 const isAfterDate = (dateA, dateB) => dateA > dateB;
 endsnippet
 
-snippet String is alpha "Checks if a string contains only alpha characters.  - Use `RegExp.prototype.test()` to check if the given string matches against the alphabetic regexp pattern." b
-const isAlpha = str => /^[a-zA-Z]*$/.test(str);
-endsnippet
-
 snippet String is alphanumeric "Checks if a string contains only alphanumeric characters.  - Use `RegExp.prototype.test()` to check if the input string matches against the alphanumeric regexp pattern." b
 const isAlphaNumeric = str => /^[a-z0-9]+$/gi.test(str);
+endsnippet
+
+snippet String is alpha "Checks if a string contains only alpha characters.  - Use `RegExp.prototype.test()` to check if the given string matches against the alphabetic regexp pattern." b
+const isAlpha = str => /^[a-zA-Z]*$/.test(str);
 endsnippet
 
 snippet String is anagram "Checks if a string is an anagram of another string (case-insensitive, ignores spaces, punctuation and special characters).  - Use `String.prototype.toLowerCase()` and `String.prototype.replace()` with an appropriate regular expression to remove unnecessary characters. - Use `String.prototype.split()`, `Array.prototype.sort()` and `Array.prototype.join()` on both strings to normalize them, then check if their normalized forms are equal." b
@@ -2056,12 +1960,12 @@ snippet Value is boolean "Checks if the given argument is a native boolean eleme
 const isBoolean = val => typeof val === 'boolean';
 endsnippet
 
-snippet Environment is browser "Determines if the current runtime environment is a browser so that front-end modules can run on the server (Node) without throwing errors.  - Use `Array.prototype.includes()` on the `typeof` values of both `Window` and `Document` (globals usually only available in a browser environment unless they were explicitly defined), which will return `true` if one of them is `undefined`. - `typeof` allows globals to be checked for existence without throwing a `ReferenceError`. - If both of them are not `undefined`, then the current environment is assumed to be a browser." b
-const isBrowser = () => ![typeof window, typeof document].includes('undefined');
-endsnippet
-
 snippet Check if browser tab is focused "Checks if the browser tab of the page is focused.  - Use the `Document.hidden` property, introduced by the [Page Visibility API](https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API) to check if the browser tab of the page is visible or hidden." b
 const isBrowserTabFocused = () => !document.hidden;
+endsnippet
+
+snippet Environment is browser "Determines if the current runtime environment is a browser so that front-end modules can run on the server (Node) without throwing errors.  - Use `Array.prototype.includes()` on the `typeof` values of both `Window` and `Document` (globals usually only available in a browser environment unless they were explicitly defined), which will return `true` if one of them is `undefined`. - `typeof` allows globals to be checked for existence without throwing a `ReferenceError`. - If both of them are not `undefined`, then the current environment is assumed to be a browser." b
+const isBrowser = () => ![typeof window, typeof document].includes('undefined');
 endsnippet
 
 snippet Array is contained in other array "Checks if the elements of the first array are contained in the second one regardless of order.  - Use a `for...of` loop over a `Set` created from the first array. - Use `Array.prototype.some()` to check if all distinct values are contained in the second array. - Use `Array.prototype.filter()` to compare the number of occurrences of each distinct value in both arrays. - Return `false` if the count of any element is greater in the first array than the second one, `true` otherwise." b
@@ -2179,12 +2083,12 @@ snippet Value is number "Checks if the given argument is a number.  - Use `typeo
 const isNumber = val => typeof val === 'number' && val === val;
 endsnippet
 
-snippet Value is object "Checks if the passed value is an object or not.  - Uses the `Object` constructor to create an object wrapper for the given value. - If the value is `null` or `undefined`, create and return an empty object. - Otherwise, return an object of a type that corresponds to the given value." b
-const isObject = obj => obj === Object(obj);
-endsnippet
-
 snippet Value is object-like "Checks if a value is object-like.  - Check if the provided value is not `null` and its `typeof` is equal to `'object'`." b
 const isObjectLike = val => val !== null && typeof val === 'object';
+endsnippet
+
+snippet Value is object "Checks if the passed value is an object or not.  - Uses the `Object` constructor to create an object wrapper for the given value. - If the value is `null` or `undefined`, create and return an empty object. - Otherwise, return an object of a type that corresponds to the given value." b
+const isObject = obj => obj === Object(obj);
 endsnippet
 
 snippet Number is odd "Checks if the given number is odd.  - Check whether a number is odd or even using the modulo (`%`) operator. - Return `true` if the number is odd, `false` if the number is even." b
@@ -2319,6 +2223,10 @@ const isWritableStream = val =>
   typeof val._writableState === 'object';
 endsnippet
 
+snippet Check if value is of type "Checks if the provided value is of the specified type.  - Ensure the value is not `undefined` or `null` using `Array.prototype.includes()`. - Use `Object.prototype.constructor` to compare the constructor property on the value with `type` to check if the provided value is of the specified `type`." b
+const is = (type, val) => ![, null].includes(val) && val.constructor === type;
+endsnippet
+
 snippet Join array into string "Joins all elements of an array into a string and returns this string. Uses a separator and an end separator.  - Use `Array.prototype.reduce()` to combine elements into a string. - Omit the second argument, `separator`, to use a default separator of `','`. - Omit the third argument, `end`, to use the same value as `separator` by default." b
 const join = (arr, separator = ',', end = separator) =>
   arr.reduce(
@@ -2330,6 +2238,27 @@ const join = (arr, separator = ',', end = separator) =>
           : acc + val + separator,
     ''
   );
+endsnippet
+
+snippet JSON to CSV "Converts an array of objects to a comma-separated values (CSV) string that contains only the `columns` specified.  - Use `Array.prototype.join()` to combine all the names in `columns` to create the first row, using the provided `delimiter`. - Use `Array.prototype.map()` and `Array.prototype.reduce()` to create a row for each object. Substitute non-existent values with empty strings and only mapping values in `columns`. - Use `Array.prototype.join()` to combine all rows into a string, separating each row with a newline (`\n`). - Omit the third argument, `delimiter`, to use a default delimiter of `','`." b
+const JSONtoCSV = (arr, columns, delimiter = ',') =>
+  [
+    columns.join(delimiter),
+    ...arr.map(obj =>
+      columns.reduce(
+        (acc, key) =>
+          \`\${acc}\${!acc.length ? '' : delimiter}"\${!obj[key] ? '' : obj[key]}"\`,
+        ''
+      )
+    ),
+  ].join('\n');
+endsnippet
+
+snippet JSON to file "Writes a JSON object to a file.  - Use `fs.writeFileSync()`, template literals and `JSON.stringify()` to write a `json` object to a `.json` file." b
+const fs = require('fs');
+
+const JSONToFile = (obj, filename) =>
+  fs.writeFileSync(\`\${filename}.json\`, JSON.stringify(obj, null, 2));
 endsnippet
 
 snippet Juxtapose functions "Takes several functions as argument and returns a function that is the juxtaposition of those functions.  - Use `Array.prototype.map()` to return a `fn` that can take a variable number of `args`. - When `fn` is called, return an array containing the result of applying each `fn` to the `args`." b
@@ -2413,10 +2342,6 @@ snippet Km to miles "Converts kilometers to miles.  - Follow the conversion form
 const kmToMiles = km => km * 0.621371;
 endsnippet
 
-snippet Last array element "Returns the last element in an array.  - Check if `arr` is truthy and has a `length` property. - Use `Array.prototype.length` to compute the index of the last element of the given array and return it, otherwise return `undefined`." b
-const last = arr => (arr && arr.length ? arr[arr.length - 1] : undefined);
-endsnippet
-
 snippet Last date of month "Returns the string representation of the last date in the given date's month.  - Use `Date.prototype.getFullYear()`, `Date.prototype.getMonth()` to get the current year and month from the given date. - Use the `Date` constructor to create a new date with the given year and month incremented by `1`, and the day set to `0` (last day of previous month). - Omit the argument, `date`, to use the current date by default." b
 const lastDateOfMonth = (date = new Date()) => {
   let d = new Date(date.getFullYear(), date.getMonth() + 1, 0);
@@ -2426,6 +2351,10 @@ endsnippet
 
 snippet Last n elements "Gets the last `n` elements of an array.  - Use `Array.prototype.slice()` with a start value of `-n` to get the last `n` elements of `arr`." b
 const lastN = (arr, n) => arr.slice(-n);
+endsnippet
+
+snippet Last array element "Returns the last element in an array.  - Check if `arr` is truthy and has a `length` property. - Use `Array.prototype.length` to compute the index of the last element of the given array and return it, otherwise return `undefined`." b
+const last = arr => (arr && arr.length ? arr[arr.length - 1] : undefined);
 endsnippet
 
 snippet Least common multiple "Calculates the least common multiple of two or more numbers.  - Use the greatest common divisor (GCD) formula and the fact that `lcm(x, y) = x * y / gcd(x, y)` to determine the least common multiple. - The GCD formula uses recursion." b
@@ -2571,19 +2500,19 @@ const mask = (cc, num = 4, mask = '*') =>
   \`\${cc}\`.slice(-num).padStart(\`\${cc}\`.length, mask);
 endsnippet
 
-snippet Match object properties "Compares two objects to determine if the first one contains equivalent property values to the second one.  - Use `Object.keys()` to get all the keys of the second object. - Use `Array.prototype.every()`, `Object.prototype.hasOwnProperty()` and strict comparison to determine if all keys exist in the first object and have the same values." b
-const matches = (obj, source) =>
-  Object.keys(source).every(
-    key => obj.hasOwnProperty(key) && obj[key] === source[key]
-  );
-endsnippet
-
 snippet Matches object properties based on function "Compares two objects to determine if the first one contains equivalent property values to the second one, based on a provided function.  - Use `Object.keys()` to get all the keys of the second object. - Use `Array.prototype.every()`, `Object.prototype.hasOwnProperty()` and the provided function to determine if all keys exist in the first object and have equivalent values. - If no function is provided, the values will be compared using the equality operator." b
 const matchesWith = (obj, source, fn) =>
   Object.keys(source).every(key =>
     obj.hasOwnProperty(key) && fn
       ? fn(obj[key], source[key], key, obj, source)
       : obj[key] == source[key]
+  );
+endsnippet
+
+snippet Match object properties "Compares two objects to determine if the first one contains equivalent property values to the second one.  - Use `Object.keys()` to get all the keys of the second object. - Use `Array.prototype.every()`, `Object.prototype.hasOwnProperty()` and strict comparison to determine if all keys exist in the first object and have the same values." b
+const matches = (obj, source) =>
+  Object.keys(source).every(
+    key => obj.hasOwnProperty(key) && obj[key] === source[key]
   );
 endsnippet
 
@@ -2647,20 +2576,6 @@ const memoize = fn => {
 };
 endsnippet
 
-snippet Merge objects "Creates a new object from the combination of two or more objects.  - Use `Array.prototype.reduce()` combined with `Object.keys()` to iterate over all objects and keys. - Use `Object.prototype.hasOwnProperty()` and `Array.prototype.concat()` to append values for keys existing in multiple objects." b
-const merge = (...objs) =>
-  [...objs].reduce(
-    (acc, obj) =>
-      Object.keys(obj).reduce((a, k) => {
-        acc[k] = acc.hasOwnProperty(k)
-          ? [].concat(acc[k]).concat(obj[k])
-          : obj[k];
-        return acc;
-      }, {}),
-    {}
-  );
-endsnippet
-
 snippet Merge sort "Sorts an array of numbers, using the merge sort algorithm.  - Use recursion. - If the `length` of the array is less than `2`, return the array. - Use `Math.floor()` to calculate the middle point of the array. - Use `Array.prototype.slice()` to slice the array in two and recursively call `mergeSort()` on the created subarrays. - Finally, use `Array.from()` and `Array.prototype.shift()` to combine the two sorted subarrays into one." b
 const mergeSort = arr => {
   if (arr.length < 2) return arr;
@@ -2685,6 +2600,20 @@ const mergeSortedArrays = (a, b) => {
     else return _a[0] > _b[0] ? _b.shift() : _a.shift();
   });
 };
+endsnippet
+
+snippet Merge objects "Creates a new object from the combination of two or more objects.  - Use `Array.prototype.reduce()` combined with `Object.keys()` to iterate over all objects and keys. - Use `Object.prototype.hasOwnProperty()` and `Array.prototype.concat()` to append values for keys existing in multiple objects." b
+const merge = (...objs) =>
+  [...objs].reduce(
+    (acc, obj) =>
+      Object.keys(obj).reduce((a, k) => {
+        acc[k] = acc.hasOwnProperty(k)
+          ? [].concat(acc[k]).concat(obj[k])
+          : obj[k];
+        return acc;
+      }, {}),
+    {}
+  );
 endsnippet
 
 snippet Midpoint "Calculates the midpoint between two pairs of (x,y) points.  - Destructure the array to get `x1`, `y1`, `x2` and `y2`. - Calculate the midpoint for each dimension by dividing the sum of the two endpoints by `2`." b
@@ -2847,13 +2776,6 @@ snippet Offset array elements "Moves the specified amount of elements to the end
 const offset = (arr, offset) => [...arr.slice(offset), ...arr.slice(0, offset)];
 endsnippet
 
-snippet Omit object keys "Omits the key-value pairs corresponding to the given keys from an object.  - Use `Object.keys()`, `Array.prototype.filter()` and `Array.prototype.includes()` to remove the provided keys. - Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs." b
-const omit = (obj, arr) =>
-  Object.keys(obj)
-    .filter(k => !arr.includes(k))
-    .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});
-endsnippet
-
 snippet Omit matching object keys "Creates an object composed of the properties the given function returns falsy for.  - Use `Object.keys()` and `Array.prototype.filter()` to remove the keys for which `fn` returns a truthy value. - Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs. - The callback function is invoked with two arguments: (value, key)." b
 const omitBy = (obj, fn) =>
   Object.keys(obj)
@@ -2861,17 +2783,11 @@ const omitBy = (obj, fn) =>
     .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});
 endsnippet
 
-snippet Add event listener to element "Adds an event listener to an element with the ability to use event delegation.  - Use `EventTarget.addEventListener()` to add an event listener to an element. - If there is a `target` property supplied to the options object, ensure the event target matches the target specified and then invoke the callback by supplying the correct `this` context. - Omit `opts` to default to non-delegation behavior and event bubbling. - Returns a reference to the custom delegator function, in order to be possible to use with [`off`](/js/s/off)." b
-const on = (el, evt, fn, opts = {}) => {
-  const delegatorFn = e =>
-    e.target.matches(opts.target) && fn.call(e.target, e);
-  el.addEventListener(
-    evt,
-    opts.target ? delegatorFn : fn,
-    opts.options || false
-  );
-  if (opts.target) return delegatorFn;
-};
+snippet Omit object keys "Omits the key-value pairs corresponding to the given keys from an object.  - Use `Object.keys()`, `Array.prototype.filter()` and `Array.prototype.includes()` to remove the provided keys. - Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs." b
+const omit = (obj, arr) =>
+  Object.keys(obj)
+    .filter(k => !arr.includes(k))
+    .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});
 endsnippet
 
 snippet Handle click outside "Runs the callback whenever the user clicks outside of the specified element.  - Use `EventTarget.addEventListener()` to listen for `'click'` events. - Use `Node.contains()` to check if `Event.target` is a descendant of `element` and run `callback` if not." b
@@ -2916,6 +2832,19 @@ const onUserInputChange = callback => {
       callback(type),
       document.addEventListener('mousemove', mousemoveHandler);
   });
+};
+endsnippet
+
+snippet Add event listener to element "Adds an event listener to an element with the ability to use event delegation.  - Use `EventTarget.addEventListener()` to add an event listener to an element. - If there is a `target` property supplied to the options object, ensure the event target matches the target specified and then invoke the callback by supplying the correct `this` context. - Omit `opts` to default to non-delegation behavior and event bubbling. - Returns a reference to the custom delegator function, in order to be possible to use with [`off`](/js/s/off)." b
+const on = (el, evt, fn, opts = {}) => {
+  const delegatorFn = e =>
+    e.target.matches(opts.target) && fn.call(e.target, e);
+  el.addEventListener(
+    evt,
+    opts.target ? delegatorFn : fn,
+    opts.options || false
+  );
+  if (opts.target) return delegatorFn;
 };
 endsnippet
 
@@ -2964,22 +2893,22 @@ const orderWith = (arr, prop, order) => {
 };
 endsnippet
 
-snippet Invoke functions on arguments "Creates a function that invokes each provided function with the arguments it receives and returns the results.  - Use `Array.prototype.map()` and `Function.prototype.apply()` to apply each function to the given arguments." b
-const over = (...fns) => (...args) => fns.map(fn => fn.apply(null, args));
-endsnippet
-
 snippet Transform function arguments "Creates a function that invokes the provided function with its arguments transformed.  - Use `Array.prototype.map()` to apply `transforms` to `args` in combination with the spread operator (`...`) to pass the transformed arguments to `fn`." b
 const overArgs = (fn, transforms) =>
   (...args) => fn(...args.map((val, i) => transforms[i](val)));
 endsnippet
 
-snippet Pad string "Pads a string on both sides with the specified character, if it's shorter than the specified `length`.  - Use `String.prototype.padStart()` and `String.prototype.padEnd()` to pad both sides of the given string. - Omit the third argument, `char`, to use the whitespace character as the default padding character." b
-const pad = (str, length, char = ' ') =>
-  str.padStart((str.length + length) / 2, char).padEnd(length, char);
+snippet Invoke functions on arguments "Creates a function that invokes each provided function with the arguments it receives and returns the results.  - Use `Array.prototype.map()` and `Function.prototype.apply()` to apply each function to the given arguments." b
+const over = (...fns) => (...args) => fns.map(fn => fn.apply(null, args));
 endsnippet
 
 snippet Pad number "Pads a given number to the specified length.  - Use `String.prototype.padStart()` to pad the number to specified length, after converting it to a string." b
 const padNumber = (n, l) => \`\${n}\`.padStart(l, '0');
+endsnippet
+
+snippet Pad string "Pads a string on both sides with the specified character, if it's shorter than the specified `length`.  - Use `String.prototype.padStart()` and `String.prototype.padEnd()` to pad both sides of the given string. - Omit the third argument, `char`, to use the whitespace character as the default padding character." b
+const pad = (str, length, char = ' ') =>
+  str.padStart((str.length + length) / 2, char).padEnd(length, char);
 endsnippet
 
 snippet Palindrome "Checks if the given string is a palindrome.  - Normalize the string to `String.prototype.toLowerCase()` and use `String.prototype.replace()` to remove non-alphanumeric characters from it. - Use the spread operator (`...`) to split the normalized string into individual characters. - Use `Array.prototype.reverse()`, `Array.prototype.join()` and compare the result to the normalized string." b
@@ -3000,23 +2929,12 @@ const parseCookie = str =>
     }, {});
 endsnippet
 
-snippet Prepend function arguments "Creates a function that invokes `fn` with `partials` prepended to the arguments it receives.  - Use the spread operator (`...`) to prepend `partials` to the list of arguments of `fn`." b
-const partial = (fn, ...partials) => (...args) => fn(...partials, ...args);
-endsnippet
-
 snippet Append function arguments "Creates a function that invokes `fn` with `partials` appended to the arguments it receives.  - Use the spread operator (`...`) to append `partials` to the list of arguments of `fn`." b
 const partialRight = (fn, ...partials) => (...args) => fn(...args, ...partials);
 endsnippet
 
-snippet Partition array in two "Groups the elements into two arrays, depending on the provided function's truthiness for each element.  - Use `Array.prototype.reduce()` to create an array of two arrays. - Use `Array.prototype.push()` to add elements for which `fn` returns `true` to the first array and elements for which `fn` returns `false` to the second one." b
-const partition = (arr, fn) =>
-  arr.reduce(
-    (acc, val, i, arr) => {
-      acc[fn(val, i, arr) ? 0 : 1].push(val);
-      return acc;
-    },
-    [[], []]
-  );
+snippet Prepend function arguments "Creates a function that invokes `fn` with `partials` prepended to the arguments it receives.  - Use the spread operator (`...`) to prepend `partials` to the list of arguments of `fn`." b
+const partial = (fn, ...partials) => (...args) => fn(...partials, ...args);
 endsnippet
 
 snippet Partition array "Applies `fn` to each value in `arr`, splitting it each time the provided function returns a new value.  - Use `Array.prototype.reduce()` with an accumulator object that will hold the resulting array and the last value returned from `fn`. - Use `Array.prototype.push()` to add each value in `arr` to the appropriate partition in the accumulator array." b
@@ -3030,6 +2948,17 @@ const partitionBy = (arr, fn) =>
     },
     { res: [] }
   ).res;
+endsnippet
+
+snippet Partition array in two "Groups the elements into two arrays, depending on the provided function's truthiness for each element.  - Use `Array.prototype.reduce()` to create an array of two arrays. - Use `Array.prototype.push()` to add elements for which `fn` returns `true` to the first array and elements for which `fn` returns `false` to the second one." b
+const partition = (arr, fn) =>
+  arr.reduce(
+    (acc, val, i, arr) => {
+      acc[fn(val, i, arr) ? 0 : 1].push(val);
+      return acc;
+    },
+    [[], []]
+  );
 endsnippet
 
 snippet Percentile of matches "Calculates the percentage of numbers in the given array that are less or equal to the given value.  - Use `Array.prototype.reduce()` to calculate how many numbers are below the value and how many are the same value and apply the percentile formula." b
@@ -3058,16 +2987,16 @@ const permutations = arr => {
 };
 endsnippet
 
-snippet Pick object keys "Picks the key-value pairs corresponding to the given keys from an object.  - Use `Array.prototype.reduce()` to convert the filtered/picked keys back to an object with the corresponding key-value pairs if the key exists in the object." b
-const pick = (obj, arr) =>
-  arr.reduce((acc, curr) => (curr in obj && (acc[curr] = obj[curr]), acc), {});
-endsnippet
-
 snippet Pick matching object keys "Creates an object composed of the properties the given function returns truthy for.  - Use `Object.keys()` and `Array.prototype.filter()`to remove the keys for which `fn` returns a falsy value. - Use `Array.prototype.reduce()` to convert the filtered keys back to an object with the corresponding key-value pairs. - The callback function is invoked with two arguments: (value, key)." b
 const pickBy = (obj, fn) =>
   Object.keys(obj)
     .filter(k => fn(obj[k], k))
     .reduce((acc, key) => ((acc[key] = obj[key]), acc), {});
+endsnippet
+
+snippet Pick object keys "Picks the key-value pairs corresponding to the given keys from an object.  - Use `Array.prototype.reduce()` to convert the filtered/picked keys back to an object with the corresponding key-value pairs if the key exists in the object." b
+const pick = (obj, arr) =>
+  arr.reduce((acc, curr) => (curr in obj && (acc[curr] = obj[curr]), acc), {});
 endsnippet
 
 snippet Pipe async functions "Performs left-to-right function composition for asynchronous functions.  - Use `Array.prototype.reduce()` and the spread operator (`...`) to perform function composition using `Promise.prototype.then()`. - The functions can return a combination of normal values, `Promise`s or be `async`, returning through `await`. - All functions must accept a single argument." b
@@ -3178,15 +3107,6 @@ const promisify = func => (...args) =>
   );
 endsnippet
 
-snippet Pull values from array "Mutates the original array to filter out the values specified.  - Use `Array.prototype.filter()` and `Array.prototype.includes()` to pull out the values that are not needed. - Set `Array.prototype.length` to mutate the passed in an array by resetting its length to `0`. - Use `Array.prototype.push()` to re-populate it with only the pulled values." b
-const pull = (arr, ...args) => {
-  let argState = Array.isArray(args[0]) ? args[0] : args;
-  let pulled = arr.filter(v => !argState.includes(v));
-  arr.length = 0;
-  pulled.forEach(v => arr.push(v));
-};
-endsnippet
-
 snippet Pull values from array at index "Mutates the original array to filter out the values at the specified indexes. Returns the removed elements.  - Use `Array.prototype.filter()` and `Array.prototype.includes()` to pull out the values that are not needed. - Set `Array.prototype.length` to mutate the passed in an array by resetting its length to `0`. - Use `Array.prototype.push()` to re-populate it with only the pulled values. - Use `Array.prototype.push()` to keep track of pulled values." b
 const pullAtIndex = (arr, pullArr) => {
   let removed = [];
@@ -3219,6 +3139,15 @@ const pullBy = (arr, ...args) => {
   fn = typeof fn == 'function' ? (args.pop(), fn) : undefined;
   let argState = (Array.isArray(args[0]) ? args[0] : args).map(val => fn(val));
   let pulled = arr.filter((v, i) => !argState.includes(fn(v)));
+  arr.length = 0;
+  pulled.forEach(v => arr.push(v));
+};
+endsnippet
+
+snippet Pull values from array "Mutates the original array to filter out the values specified.  - Use `Array.prototype.filter()` and `Array.prototype.includes()` to pull out the values that are not needed. - Set `Array.prototype.length` to mutate the passed in an array by resetting its length to `0`. - Use `Array.prototype.push()` to re-populate it with only the pulled values." b
+const pull = (arr, ...args) => {
+  let argState = Array.isArray(args[0]) ? args[0] : args;
+  let pulled = arr.filter(v => !argState.includes(v));
   arr.length = 0;
   pulled.forEach(v => arr.push(v));
 };
@@ -3397,16 +3326,6 @@ snippet Reject non-matching values "Filters an array's values based on a predica
 const reject = (pred, array) => array.filter((...args) => !pred(...args));
 endsnippet
 
-snippet Remove matching elements from array "Mutates an array by removing elements for which the given function returns `false`.  - Use `Array.prototype.filter()` to find array elements that return truthy values. - Use `Array.prototype.reduce()` to remove elements using `Array.prototype.splice()`. - The callback function is invoked with three arguments (value, index, array)." b
-const remove = (arr, func) =>
-  Array.isArray(arr)
-    ? arr.filter(func).reduce((acc, val) => {
-      arr.splice(arr.indexOf(val), 1);
-      return acc.concat(val);
-    }, [])
-    : [];
-endsnippet
-
 snippet Remove accents "Removes accents from strings.  - Use `String.prototype.normalize()` to convert the string to a normalized Unicode format. - Use `String.prototype.replace()` to replace diacritical marks in the given Unicode range by empty strings." b
 const removeAccents = str =>
   str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -3447,6 +3366,16 @@ endsnippet
 
 snippet Remove whitespaces "Returns a string with whitespaces removed.  - Use `String.prototype.replace()` with a regular expression to replace all occurrences of whitespace characters with an empty string." b
 const removeWhitespace = str => str.replace(/\s+/g, '');
+endsnippet
+
+snippet Remove matching elements from array "Mutates an array by removing elements for which the given function returns `false`.  - Use `Array.prototype.filter()` to find array elements that return truthy values. - Use `Array.prototype.reduce()` to remove elements using `Array.prototype.splice()`. - The callback function is invoked with three arguments (value, index, array)." b
+const remove = (arr, func) =>
+  Array.isArray(arr)
+    ? arr.filter(func).reduce((acc, val) => {
+      arr.splice(arr.indexOf(val), 1);
+      return acc.concat(val);
+    }, [])
+    : [];
 endsnippet
 
 snippet Rename object keys "Replaces the names of multiple object keys with the values provided.  - Use `Object.keys()` in combination with `Array.prototype.reduce()` and the spread operator (`...`) to get the object's keys and rename them according to `keysMap`." b
@@ -3542,6 +3471,46 @@ snippet Reverse string "Reverses a string.  - Use the spread operator (`...`) an
 const reverseString = str => [...str].reverse().join('');
 endsnippet
 
+snippet RGB to hex "Converts the values of RGB components to a hexadecimal color code.  - Convert given RGB parameters to hexadecimal string using bitwise left-shift operator (`<<`) and `Number.prototype.toString()`. - Use `String.prototype.padStart()` to get a 6-digit hexadecimal value." b
+const RGBToHex = (r, g, b) =>
+  ((r << 16) + (g << 8) + b).toString(16).padStart(6, '0');
+endsnippet
+
+snippet RGB to HSB "Converts a RGB color tuple to HSB format.  - Use the [RGB to HSB conversion formula](https://en.wikipedia.org/wiki/HSL_and_HSV#From_RGB) to convert to the appropriate format. - The range of all input parameters is [0, 255]. - The range of the resulting values is H: [0, 360], S: [0, 100], B: [0, 100]." b
+const RGBToHSB = (r, g, b) => {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  const v = Math.max(r, g, b),
+    n = v - Math.min(r, g, b);
+  const h =
+    n === 0 ? 0 : n && v === r ? (g - b) / n : v === g ? 2 + (b - r) / n : 4 + (r - g) / n;
+  return [60 * (h < 0 ? h + 6 : h), v && (n / v) * 100, v * 100];
+};
+endsnippet
+
+snippet RGB to HSL "Converts a RGB color tuple to HSL format.  - Use the [RGB to HSL conversion formula](https://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/) to convert to the appropriate format. - The range of all input parameters is [0, 255]. - The range of the resulting values is H: [0, 360], S: [0, 100], L: [0, 100]." b
+const RGBToHSL = (r, g, b) => {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+  const l = Math.max(r, g, b);
+  const s = l - Math.min(r, g, b);
+  const h = s
+    ? l === r
+      ? (g - b) / s
+      : l === g
+      ? 2 + (b - r) / s
+      : 4 + (r - g) / s
+    : 0;
+  return [
+    60 * h < 0 ? 60 * h + 360 : 60 * h,
+    100 * (s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0),
+    (100 * (2 * l - s)) / 2,
+  ];
+};
+endsnippet
+
 snippet Right substring generator "Generates all right substrings of a given string.  - Use `String.prototype.length` to terminate early if the string is empty. - Use a `for...in` loop and `String.prototype.slice()` to `yield` each substring of the given string, starting at the end." b
 const rightSubstrGenerator = function* (str) {
   if (!str.length) return;
@@ -3577,10 +3546,6 @@ const runPromisesInSeries = ps =>
   ps.reduce((p, next) => p.then(next), Promise.resolve());
 endsnippet
 
-snippet Random element in array "Gets a random element from an array.  - Use `Math.random()` to generate a random number. - Multiply it by `Array.prototype.length` and round it off to the nearest whole number using `Math.floor()`. - This method also works with strings." b
-const sample = arr => arr[Math.floor(Math.random() * arr.length)];
-endsnippet
-
 snippet N random elements in array "Gets `n` random elements at unique keys from an array up to the size of the array.  - Shuffle the array using the [Fisher-Yates algorithm](https://github.com/30-seconds/30-seconds-of-code#shuffle). - Use `Array.prototype.slice()` to get the first `n` elements. - Omit the second argument, `n`, to get only one element at random from the array." b
 const sampleSize = ([...arr], n = 1) => {
   let m = arr.length;
@@ -3590,6 +3555,10 @@ const sampleSize = ([...arr], n = 1) => {
   }
   return arr.slice(0, n);
 };
+endsnippet
+
+snippet Random element in array "Gets a random element from an array.  - Use `Math.random()` to generate a random number. - Multiply it by `Array.prototype.length` and round it off to the nearest whole number using `Math.floor()`. - This method also works with strings." b
+const sample = arr => arr[Math.floor(Math.random() * arr.length)];
 endsnippet
 
 snippet Scroll page to top "Smooth-scrolls to the top of the page.  - Get distance from top using `Document.documentElement` or `Document.body` and `Element.scrollTop`. - Scroll by a fraction of the distance from the top. - Use `Window.requestAnimationFrame()` to animate the scrolling." b
@@ -3714,14 +3683,6 @@ const sortCharactersInString = str =>
   [...str].sort((a, b) => a.localeCompare(b)).join('');
 endsnippet
 
-snippet Insertion index in sorted array "Finds the lowest index at which a value should be inserted into an array in order to maintain its sorting order.  - Loosely check if the array is sorted in descending order. - Use `Array.prototype.findIndex()` to find the appropriate index where the element should be inserted." b
-const sortedIndex = (arr, n) => {
-  const isDescending = arr[0] > arr[arr.length - 1];
-  const index = arr.findIndex(el => (isDescending ? n >= el : n <= el));
-  return index === -1 ? arr.length : index;
-};
-endsnippet
-
 snippet Insertion index in sorted array based on function "Finds the lowest index at which a value should be inserted into an array in order to maintain its sorting order, based on the provided iterator function.  - Loosely check if the array is sorted in descending order. - Use `Array.prototype.findIndex()` to find the appropriate index where the element should be inserted, based on the iterator function `fn`." b
 const sortedIndexBy = (arr, n, fn) => {
   const isDescending = fn(arr[0]) > fn(arr[arr.length - 1]);
@@ -3733,13 +3694,11 @@ const sortedIndexBy = (arr, n, fn) => {
 };
 endsnippet
 
-snippet Last insertion index in sorted array "Finds the highest index at which a value should be inserted into an array in order to maintain its sort order.  - Loosely check if the array is sorted in descending order. - Use `Array.prototype.reverse()` and `Array.prototype.findIndex()` to find the appropriate last index where the element should be inserted." b
-const sortedLastIndex = (arr, n) => {
+snippet Insertion index in sorted array "Finds the lowest index at which a value should be inserted into an array in order to maintain its sorting order.  - Loosely check if the array is sorted in descending order. - Use `Array.prototype.findIndex()` to find the appropriate index where the element should be inserted." b
+const sortedIndex = (arr, n) => {
   const isDescending = arr[0] > arr[arr.length - 1];
-  const index = arr
-    .reverse()
-    .findIndex(el => (isDescending ? n <= el : n >= el));
-  return index === -1 ? 0 : arr.length - index;
+  const index = arr.findIndex(el => (isDescending ? n >= el : n <= el));
+  return index === -1 ? arr.length : index;
 };
 endsnippet
 
@@ -3751,6 +3710,16 @@ const sortedLastIndexBy = (arr, n, fn) => {
     .map(fn)
     .reverse()
     .findIndex(el => (isDescending ? val <= el : val >= el));
+  return index === -1 ? 0 : arr.length - index;
+};
+endsnippet
+
+snippet Last insertion index in sorted array "Finds the highest index at which a value should be inserted into an array in order to maintain its sort order.  - Loosely check if the array is sorted in descending order. - Use `Array.prototype.reverse()` and `Array.prototype.findIndex()` to find the appropriate last index where the element should be inserted." b
+const sortedLastIndex = (arr, n) => {
+  const isDescending = arr[0] > arr[arr.length - 1];
+  const index = arr
+    .reverse()
+    .findIndex(el => (isDescending ? n <= el : n >= el));
   return index === -1 ? 0 : arr.length - index;
 };
 endsnippet
@@ -3834,10 +3803,6 @@ const subSet = (a, b) => {
 };
 endsnippet
 
-snippet Array sum "Calculates the sum of two or more numbers/arrays.  - Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`." b
-const sum = (...arr) => [...arr].reduce((acc, val) => acc + val, 0);
-endsnippet
-
 snippet Mapped array sum "Calculates the sum of an array, after mapping each element to a value using the provided function.  - Use `Array.prototype.map()` to map each element to the value returned by `fn`. - Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`." b
 const sumBy = (arr, fn) =>
   arr
@@ -3855,6 +3820,10 @@ const sumPower = (end, power = 2, start = 1) =>
     .fill(0)
     .map((x, i) => (i + start) ** power)
     .reduce((a, b) => a + b, 0);
+endsnippet
+
+snippet Array sum "Calculates the sum of two or more numbers/arrays.  - Use `Array.prototype.reduce()` to add each value to an accumulator, initialized with a value of `0`." b
+const sum = (...arr) => [...arr].reduce((acc, val) => acc + val, 0);
 endsnippet
 
 snippet Superset of iterable "Checks if the first iterable is a superset of the second one, excluding duplicate values.  - Use the `Set` constructor to create a new `Set` object from each iterable. - Use `Array.prototype.every()` and `Set.prototype.has()` to check that each value in the second iterable is contained in the first one." b
@@ -3884,14 +3853,6 @@ const symbolizeKeys = obj =>
   );
 endsnippet
 
-snippet Array symmetric difference "Returns the symmetric difference between two arrays, without filtering out duplicate values.  - Create a `Set` from each array to get the unique values of each one. - Use `Array.prototype.filter()` on each of them to only keep values not contained in the other." b
-const symmetricDifference = (a, b) => {
-  const sA = new Set(a),
-    sB = new Set(b);
-  return [...a.filter(x => !sB.has(x)), ...b.filter(x => !sA.has(x))];
-};
-endsnippet
-
 snippet Mapped array symmetric difference "Returns the symmetric difference between two arrays, after applying the provided function to each array element of both.  - Create a `Set` from each array to get the unique values of each one after applying `fn` to them. - Use `Array.prototype.filter()` on each of them to only keep values not contained in the other." b
 const symmetricDifferenceBy = (a, b, fn) => {
   const sA = new Set(a.map(v => fn(v))),
@@ -3907,16 +3868,16 @@ const symmetricDifferenceWith = (arr, val, comp) => [
 ];
 endsnippet
 
+snippet Array symmetric difference "Returns the symmetric difference between two arrays, without filtering out duplicate values.  - Create a `Set` from each array to get the unique values of each one. - Use `Array.prototype.filter()` on each of them to only keep values not contained in the other." b
+const symmetricDifference = (a, b) => {
+  const sA = new Set(a),
+    sB = new Set(b);
+  return [...a.filter(x => !sB.has(x)), ...b.filter(x => !sA.has(x))];
+};
+endsnippet
+
 snippet Array tail "Returns all elements in an array except for the first one.  - Use `Array.prototype.slice()`to return the array without the first element if `Array.prototype.length` is more than `1`. - Otherwise, return the whole array." b
 const tail = arr => (arr.length > 1 ? arr.slice(1) : arr);
-endsnippet
-
-snippet Remove list elements "Creates an array with `n` elements removed from the beginning.  - Use `Array.prototype.slice()` to create a slice of the array with `n` elements taken from the beginning." b
-const take = (arr, n = 1) => arr.slice(0, n);
-endsnippet
-
-snippet Remove list elements from the end "Creates an array with `n` elements removed from the end.  - Use `Array.prototype.slice()` to create a slice of the array with `n` elements taken from the end." b
-const takeRight = (arr, n = 1) => arr.slice(arr.length - n, arr.length);
 endsnippet
 
 snippet Remove list elements from the end until condition is met "Removes elements from the end of an array until the passed function returns `true`. Returns the removed elements.  - Create a reversed copy of the array, using the spread operator (`...`) and `Array.prototype.reverse()`. - Loop through the reversed copy, using a `for...of` loop over `Array.prototype.entries()` until the returned value from the function is truthy. - Return the removed elements, using `Array.prototype.slice()`. - The callback function, `fn`, accepts a single argument which is the value of the element." b
@@ -3935,6 +3896,10 @@ const takeRightWhile = (arr, fn) => {
 };
 endsnippet
 
+snippet Remove list elements from the end "Creates an array with `n` elements removed from the end.  - Use `Array.prototype.slice()` to create a slice of the array with `n` elements taken from the end." b
+const takeRight = (arr, n = 1) => arr.slice(arr.length - n, arr.length);
+endsnippet
+
 snippet Remove list elements until condition is met "Removes elements in an array until the passed function returns `true`. Returns the removed elements.  - Loop through the array, using a `for...of` loop over `Array.prototype.entries()` until the returned value from the function is truthy. - Return the removed elements, using `Array.prototype.slice()`. - The callback function, `fn`, accepts a single argument which is the value of the element." b
 const takeUntil = (arr, fn) => {
   for (const [i, val] of arr.entries()) if (fn(val)) return arr.slice(0, i);
@@ -3947,6 +3912,10 @@ const takeWhile = (arr, fn) => {
   for (const [i, val] of arr.entries()) if (!fn(val)) return arr.slice(0, i);
   return arr;
 };
+endsnippet
+
+snippet Remove list elements "Creates an array with `n` elements removed from the beginning.  - Use `Array.prototype.slice()` to create a slice of the array with `n` elements taken from the beginning." b
+const take = (arr, n = 1) => arr.slice(0, n);
 endsnippet
 
 snippet Throttle function "Creates a throttled function that only invokes the provided function at most once per every `wait` milliseconds  - Use `setTimeout()` and `clearTimeout()` to throttle the given method, `fn`. - Use `Function.prototype.apply()` to apply the `this` context to the function and provide the necessary `arguments`. - Use `Date.now()` to keep track of the last time the throttled function was invoked. - Use a variable, `inThrottle`, to prevent a race condition between the first execution of `fn` and the next loop. - Omit the second argument, `wait`, to set the timeout at a default of `0` ms." b
@@ -4018,6 +3987,14 @@ snippet Number to decimal mark "Converts a number to a decimal mark formatted st
 const toDecimalMark = num => num.toLocaleString('en-US');
 endsnippet
 
+snippet Iterable to hash "Reduces a given iterable into a value hash (keyed data store).  - Use `Object.values()` to get the values of the iterable (object or array). - Use `Array.prototype.reduce()` to iterate over the values and create an object, keyed by the reference value." b
+const toHash = (object, key) =>
+  Object.values(object).reduce((acc, data, index) => {
+    acc[!key ? index : data[key]] = data;
+    return acc;
+  }, {});
+endsnippet
+
 snippet HSL to array "Converts an `hsl()` color string to an array of values.  - Use `String.prototype.match()` to get an array of 3 string with the numeric values. - Use `Array.prototype.map()` in combination with `Number` to convert them into an array of numeric values." b
 const toHSLArray = hslStr => hslStr.match(/\d+/g).map(Number);
 endsnippet
@@ -4029,12 +4006,8 @@ const toHSLObject = hslStr => {
 };
 endsnippet
 
-snippet Iterable to hash "Reduces a given iterable into a value hash (keyed data store).  - Use `Object.values()` to get the values of the iterable (object or array). - Use `Array.prototype.reduce()` to iterate over the values and create an object, keyed by the reference value." b
-const toHash = (object, key) =>
-  Object.values(object).reduce((acc, data, index) => {
-    acc[!key ? index : data[key]] = data;
-    return acc;
-  }, {});
+snippet Convert array to identity object "Converts an array of values into an object with the same values as keys and values.  - Use `Array.prototype.map()` to map each value to an array of key-value pairs. - Use `Object.fromEntries()` to convert the array of key-value pairs into an object." b
+const toIdentityObject = arr => Object.fromEntries(arr.map(v => [v, v]));
 endsnippet
 
 snippet Date to ISO format with timezone "Converts a date to extended ISO format (ISO 8601), including timezone offset.  - Use `Date.prototype.getTimezoneOffset()` to get the timezone offset and reverse it. Store its sign in `diff`. - Define a helper function, `pad()`, that normalizes any passed number to an integer using `Math.floor()` and `Math.abs()` and pads it to `2` digits, using `String.prototype.padStart()`. - Use `pad()` and the built-in methods in the `Date` prototype to build the ISO 8601 string with timezone offset." b
@@ -4051,10 +4024,6 @@ const toISOStringWithTimezone = date => {
     diff + pad(tzOffset / 60) +
     ':' + pad(tzOffset % 60);
 };
-endsnippet
-
-snippet Convert array to identity object "Converts an array of values into an object with the same values as keys and values.  - Use `Array.prototype.map()` to map each value to an array of key-value pairs. - Use `Object.fromEntries()` to convert the array of key-value pairs into an object." b
-const toIdentityObject = arr => Object.fromEntries(arr.map(v => [v, v]));
 endsnippet
 
 snippet Kebabcase string "Converts a string to kebab case.  - Use `String.prototype.match()` to break the string into words using an appropriate regexp. - Use `Array.prototype.map()`, `Array.prototype.join()` and `String.prototype.toLowerCase()` to combine them, adding `-` as a separator." b
@@ -4203,17 +4172,17 @@ const triggerEvent = (el, eventType, detail) =>
   el.dispatchEvent(new CustomEvent(eventType, { detail }));
 endsnippet
 
-snippet Truncate string "Truncates a string up to a specified length.  - Determine if `String.prototype.length` is greater than `num`. - Return the string truncated to the desired length, with `'...'` appended to the end or the original string." b
-const truncateString = (str, num) =>
-  str.length > num ? str.slice(0, num > 3 ? num - 3 : num) + '...' : str;
-endsnippet
-
 snippet Truncate string at whitespace "Truncates a string up to specified length, respecting whitespace when possible.  - Determine if `String.prototype.length` is greater or equal to `lim`. If not, return it as-is. - Use `String.prototype.slice()` and `String.prototype.lastIndexOf()` to find the index of the last space below the desired `lim`. - Use `String.prototype.slice()` to appropriately truncate `str` based on `lastSpace`, respecting whitespace if possible and appending `ending` at the end. - Omit the third argument, `ending`, to use the default ending of `'...'`." b
 const truncateStringAtWhitespace = (str, lim, ending = '...') => {
   if (str.length <= lim) return str;
   const lastSpace = str.slice(0, lim - ending.length + 1).lastIndexOf(' ');
   return str.slice(0, lastSpace > 0 ? lastSpace : lim - ending.length) + ending;
 };
+endsnippet
+
+snippet Truncate string "Truncates a string up to a specified length.  - Determine if `String.prototype.length` is greater than `num`. - Return the string truncated to the desired length, with `'...'` appended to the end or the original string." b
+const truncateString = (str, num) =>
+  str.length > num ? str.slice(0, num > 3 ? num - 3 : num) + '...' : str;
 endsnippet
 
 snippet Truth check collection "Checks if the predicate function is truthy for all elements of a collection.  - Use `Array.prototype.every()` to check if each passed object has the specified property and if it returns a truthy value." b
@@ -4274,10 +4243,6 @@ const unfold = (fn, seed) => {
 };
 endsnippet
 
-snippet Array union "Returns every element that exists in any of the two arrays at least once.  - Create a `Set` with all values of `a` and `b` and convert it to an array." b
-const union = (a, b) => Array.from(new Set([...a, ...b]));
-endsnippet
-
 snippet Mapped array union "Returns every element that exists in any of the two arrays at least once, after applying the provided function to each array element of both.  - Create a `Set` by applying all `fn` to all values of `a`. - Create a `Set` from `a` and all elements in `b` whose value, after applying `fn` does not match a value in the previously created set. - Return the last set converted to an array." b
 const unionBy = (a, b, fn) => {
   const s = new Set(a.map(fn));
@@ -4292,8 +4257,16 @@ const unionWith = (a, b, comp) =>
   );
 endsnippet
 
-snippet Unique values in array "Finds all unique values in an array.  - Create a `Set` from the given array to discard duplicated values. - Use the spread operator (`...`) to convert it back to an array." b
-const uniqueElements = arr => [...new Set(arr)];
+snippet Array union "Returns every element that exists in any of the two arrays at least once.  - Create a `Set` with all values of `a` and `b` and convert it to an array." b
+const union = (a, b) => Array.from(new Set([...a, ...b]));
+endsnippet
+
+snippet Reversed unique values in array based on function "Finds all unique values of an array, based on a provided comparator function, starting from the right.  - Use `Array.prototype.reduceRight()` and `Array.prototype.some()` to create an array containing only the last unique occurrence of each value, based on the comparator function, `fn`. - The comparator function takes two arguments: the values of the two elements being compared." b
+const uniqueElementsByRight = (arr, fn) =>
+  arr.reduceRight((acc, v) => {
+    if (!acc.some(x => fn(v, x))) acc.push(v);
+    return acc;
+  }, []);
 endsnippet
 
 snippet Unique values in array based on function "Finds all unique values of an array, based on a provided comparator function.  - Use `Array.prototype.reduce()` and `Array.prototype.some()` to create an array containing only the first unique occurrence of each value, based on the comparator function, `fn`. - The comparator function takes two arguments: the values of the two elements being compared." b
@@ -4304,12 +4277,8 @@ const uniqueElementsBy = (arr, fn) =>
   }, []);
 endsnippet
 
-snippet Reversed unique values in array based on function "Finds all unique values of an array, based on a provided comparator function, starting from the right.  - Use `Array.prototype.reduceRight()` and `Array.prototype.some()` to create an array containing only the last unique occurrence of each value, based on the comparator function, `fn`. - The comparator function takes two arguments: the values of the two elements being compared." b
-const uniqueElementsByRight = (arr, fn) =>
-  arr.reduceRight((acc, v) => {
-    if (!acc.some(x => fn(v, x))) acc.push(v);
-    return acc;
-  }, []);
+snippet Unique values in array "Finds all unique values in an array.  - Create a `Set` from the given array to discard duplicated values. - Use the spread operator (`...`) to convert it back to an array." b
+const uniqueElements = arr => [...new Set(arr)];
 endsnippet
 
 snippet Array unique symmetric difference "Returns the unique symmetric difference between two arrays, not containing duplicate values from either array.  - Use `Array.prototype.filter()` and `Array.prototype.includes()` on each array to remove values contained in the other. - Create a `Set` from the results, removing duplicate values." b
@@ -4333,16 +4302,6 @@ const unwind = (key, obj) => {
 };
 endsnippet
 
-snippet Ungroup array elements "Creates an array of arrays, ungrouping the elements in an array produced by [zip](/js/s/zip).  - Use `Math.max()`, `Function.prototype.apply()` to get the longest subarray in the array, `Array.prototype.map()` to make each element an array. - Use `Array.prototype.reduce()` and `Array.prototype.forEach()` to map grouped values to individual arrays." b
-const unzip = arr =>
-  arr.reduce(
-    (acc, val) => (val.forEach((v, i) => acc[i].push(v)), acc),
-    Array.from({
-      length: Math.max(...arr.map(x => x.length))
-    }).map(x => [])
-  );
-endsnippet
-
 snippet Ungroup array elements based on function "Creates an array of elements, ungrouping the elements in an array produced by [zip](/js/s/zip) and applying the provided function.  - Use `Math.max()` and the spread operator (`...`) to get the longest subarray in the array, `Array.prototype.map()` to make each element an array. - Use `Array.prototype.reduce()` and `Array.prototype.forEach()` to map grouped values to individual arrays. - Use `Array.prototype.map()` and the spread operator (`...`) to apply `fn` to each individual group of elements." b
 const unzipWith = (arr, fn) =>
   arr
@@ -4355,12 +4314,53 @@ const unzipWith = (arr, fn) =>
     .map(val => fn(...val));
 endsnippet
 
+snippet Ungroup array elements "Creates an array of arrays, ungrouping the elements in an array produced by [zip](/js/s/zip).  - Use `Math.max()`, `Function.prototype.apply()` to get the longest subarray in the array, `Array.prototype.map()` to make each element an array. - Use `Array.prototype.reduce()` and `Array.prototype.forEach()` to map grouped values to individual arrays." b
+const unzip = arr =>
+  arr.reduce(
+    (acc, val) => (val.forEach((v, i) => acc[i].push(v)), acc),
+    Array.from({
+      length: Math.max(...arr.map(x => x.length))
+    }).map(x => [])
+  );
+endsnippet
+
 snippet Uppercase object keys "Converts all the keys of an object to upper case.  - Use `Object.keys()` to get an array of the object's keys. - Use `Array.prototype.reduce()` to map the array to an object, using `String.prototype.toUpperCase()` to uppercase the keys." b
 const upperize = obj =>
   Object.keys(obj).reduce((acc, k) => {
     acc[k.toUpperCase()] = obj[k];
     return acc;
   }, {});
+endsnippet
+
+snippet Join URL segments "Joins all given URL segments together, then normalizes the resulting URL.  - Use `Array.prototype.join()` to combine URL segments. - Use a series of `String.prototype.replace()` calls with various regular expressions to normalize the resulting URL (remove double slashes, add proper slashes for protocol, remove slashes before parameters, combine parameters with `'&'` and normalize first parameter delimiter)." b
+const URLJoin = (...args) =>
+  args
+    .join('/')
+    .replace(/[\/]+/g, '/')
+    .replace(/^(.+):\//, '$1://')
+    .replace(/^file:/, 'file:/')
+    .replace(/\/(\?|&|#[^!])/g, '$1')
+    .replace(/\?/g, '&')
+    .replace('&', '?');
+endsnippet
+
+snippet Generate UUID (browser) "Generates a UUID in a browser.  - Use `Crypto.getRandomValues()` to generate a UUID, compliant with [RFC4122](https://www.ietf.org/rfc/rfc4122.txt) version 4. - Use `Number.prototype.toString()` to convert it to a proper UUID (hexadecimal string)." b
+const UUIDGeneratorBrowser = () =>
+  ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+    (
+      c ^
+      (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+    ).toString(16)
+  );
+endsnippet
+
+snippet Generate UUID (Node.js) "Generates a UUID in Node.JS.  - Use `crypto.randomBytes()` to generate a UUID, compliant with [RFC4122](https://www.ietf.org/rfc/rfc4122.txt) version 4. - Use `Number.prototype.toString()` to convert it to a proper UUID (hexadecimal string). - [`crypto.randomUUID()`](https://nodejs.org/api/crypto.html#cryptorandomuuidoptions) provides similar functionality." b
+const crypto = require('crypto');
+
+const UUIDGeneratorNode = () =>
+  ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+    (c ^ (crypto.randomBytes(1)[0] & (15 >> (c / 4)))).toString(16)
+  );
 endsnippet
 
 snippet Validate number "Checks if the given value is a number.  - Use `parseFloat()` to try to convert `n` to a number. - Use `Number.isNaN()` and logical not (`!`) operator to check if `num` is a number. - Use `Number.isFinite()` to check if `num` is finite. - Use `Number` and the loose equality operator (`==`) to check if the coercion holds." b
@@ -4472,15 +4472,6 @@ const yesterday = () => {
 };
 endsnippet
 
-snippet Group array elements "Creates an array of elements, grouped based on their position in the original arrays.  - Use `Math.max()`, `Function.prototype.apply()` to get the longest array in the arguments. - Create an array with that length as return value and use `Array.from()` with a mapping function to create an array of grouped elements. - If lengths of the argument arrays vary, `undefined` is used where no value could be found." b
-const zip = (...arrays) => {
-  const maxLength = Math.max(...arrays.map(x => x.length));
-  return Array.from({ length: maxLength }).map((_, i) => {
-    return Array.from({ length: arrays.length }, (_, k) => arrays[k][i]);
-  });
-};
-endsnippet
-
 snippet Group array into object "Associates properties to values, given array of valid property identifiers and an array of values.  - Use `Array.prototype.reduce()` to build an object from the two arrays. - If the length of `props` is longer than `values`, remaining keys will be `undefined`. - If the length of `values` is longer than `props`, remaining values will be ignored." b
 const zipObject = (props, values) =>
   props.reduce((obj, prop, index) => ((obj[prop] = values[index]), obj), {});
@@ -4493,5 +4484,14 @@ const zipWith = (...array) => {
   return Array.from({ length: Math.max(...array.map(a => a.length)) }, (_, i) =>
     fn ? fn(...array.map(a => a[i])) : array.map(a => a[i])
   );
+};
+endsnippet
+
+snippet Group array elements "Creates an array of elements, grouped based on their position in the original arrays.  - Use `Math.max()`, `Function.prototype.apply()` to get the longest array in the arguments. - Create an array with that length as return value and use `Array.from()` with a mapping function to create an array of grouped elements. - If lengths of the argument arrays vary, `undefined` is used where no value could be found." b
+const zip = (...arrays) => {
+  const maxLength = Math.max(...arrays.map(x => x.length));
+  return Array.from({ length: maxLength }).map((_, i) => {
+    return Array.from({ length: arrays.length }, (_, k) => arrays[k][i]);
+  });
 };
 endsnippet
